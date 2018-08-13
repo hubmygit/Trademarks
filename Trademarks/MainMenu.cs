@@ -16,11 +16,16 @@ namespace Trademarks
         {
             InitializeComponent();
         }
+
+        private void btnQuickInsert_Click(object sender, EventArgs e)
+        {
+            QuickInsert frmQuickIns = new QuickInsert();
+            frmQuickIns.ShowDialog();
+        }
     }
 
     public static class AppVer
     {
-
         public static bool IsLatestVersion() //Compare app version with db version (2 digits only)
         {
             bool ret = true;
