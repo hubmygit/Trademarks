@@ -15,7 +15,11 @@ namespace Trademarks
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            if (!AppVer.IsLatestVersion()) //check version
+                return;
+
+            Application.Run(new MainMenu());
         }
     }
 }
