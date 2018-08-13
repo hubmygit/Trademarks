@@ -188,7 +188,7 @@
             // 
             this.lblTMName.AutoSize = true;
             this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMName.Location = new System.Drawing.Point(337, 256);
+            this.lblTMName.Location = new System.Drawing.Point(287, 256);
             this.lblTMName.Name = "lblTMName";
             this.lblTMName.Size = new System.Drawing.Size(103, 16);
             this.lblTMName.TabIndex = 13;
@@ -197,9 +197,9 @@
             // txtTMName
             // 
             this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMName.Location = new System.Drawing.Point(446, 253);
+            this.txtTMName.Location = new System.Drawing.Point(396, 253);
             this.txtTMName.Name = "txtTMName";
-            this.txtTMName.Size = new System.Drawing.Size(300, 22);
+            this.txtTMName.Size = new System.Drawing.Size(350, 22);
             this.txtTMName.TabIndex = 12;
             // 
             // lblDecisionTitle
@@ -375,9 +375,9 @@
             // 
             // pbTMPic
             // 
-            this.pbTMPic.Location = new System.Drawing.Point(446, 281);
+            this.pbTMPic.Location = new System.Drawing.Point(396, 283);
             this.pbTMPic.Name = "pbTMPic";
-            this.pbTMPic.Size = new System.Drawing.Size(300, 112);
+            this.pbTMPic.Size = new System.Drawing.Size(350, 110);
             this.pbTMPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbTMPic.TabIndex = 27;
             this.pbTMPic.TabStop = false;
@@ -386,7 +386,7 @@
             // 
             this.lblTMPic.AutoSize = true;
             this.lblTMPic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMPic.Location = new System.Drawing.Point(377, 304);
+            this.lblTMPic.Location = new System.Drawing.Point(316, 308);
             this.lblTMPic.Name = "lblTMPic";
             this.lblTMPic.Size = new System.Drawing.Size(63, 16);
             this.lblTMPic.TabIndex = 28;
@@ -394,7 +394,7 @@
             // 
             // btnAddTMPic
             // 
-            this.btnAddTMPic.Location = new System.Drawing.Point(396, 323);
+            this.btnAddTMPic.Location = new System.Drawing.Point(335, 327);
             this.btnAddTMPic.Name = "btnAddTMPic";
             this.btnAddTMPic.Size = new System.Drawing.Size(30, 30);
             this.btnAddTMPic.TabIndex = 29;
