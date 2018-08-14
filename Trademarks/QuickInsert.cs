@@ -124,9 +124,65 @@ namespace Trademarks
             return ret;
         }
 
-        private void CreateAlarms(DateTime Deposit_Datetime)
+        private bool InsertTask(Task task)
         {
-            
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId],[ExpDate],[NotificationDate] ,[IsActive], [EventTypesId]) VALUES " +
+                           "(@TrademarksId, @ExpDate, @NotificationDate, @IsActive, @EventTypesId ) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", task.TrademarksId);
+                cmd.Parameters.AddWithValue("@ExpDate", task.ExpDate);
+                cmd.Parameters.AddWithValue("@NotificationDate", task.NotificationDate);
+                cmd.Parameters.AddWithValue("@IsActive", task.IsActive);
+                cmd.Parameters.AddWithValue("@EventTypesId", task.EventTypesId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        private void CreateAlarms(int TrademarksId, DateTime Deposit_Datetime)
+        {         
+            DateTime ExpDate = Deposit_Datetime.AddYears(10);
+
+            Task TaskToInsert = new Task();
+            TaskToInsert.TrademarksId = TrademarksId;
+            TaskToInsert.ExpDate = ExpDate;
+            TaskToInsert.IsActive = true;
+            TaskToInsert.EventTypesId = 1;
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-6);
+            InsertTask(TaskToInsert);
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-4);
+            InsertTask(TaskToInsert);
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-2);
+            InsertTask(TaskToInsert);
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-1);
+            InsertTask(TaskToInsert);
+            TaskToInsert.NotificationDate = ExpDate.AddDays(-15);
+            InsertTask(TaskToInsert);
+            TaskToInsert.NotificationDate = ExpDate.AddDays(-3);
+            InsertTask(TaskToInsert);
+            TaskToInsert.NotificationDate = ExpDate;
+            InsertTask(TaskToInsert);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -135,12 +191,13 @@ namespace Trademarks
 
             //Save
             //InsertTrademark();
+            int outputId = 124;
 
-            //Alarm
+            //Alarms
             DateTime depositDatetime = new DateTime(dtpDepositDt.Value.Year, dtpDepositDt.Value.Month, dtpDepositDt.Value.Day,
                                                     dtpDepositTime.Value.Hour, dtpDepositTime.Value.Minute, dtpDepositTime.Value.Second);
                                                     
-            CreateAlarms(depositDatetime);
+            CreateAlarms(outputId, depositDatetime);
         }
 
         private void btnAddTMPic_Click(object sender, EventArgs e)
@@ -313,6 +370,20 @@ namespace Trademarks
         {
             return Text;
         }
+    }
+
+    public class Task
+    {
+        public int TrademarksId { get; set; }
+        public DateTime ExpDate { get; set; }
+        public DateTime NotificationDate { get; set; }
+        public bool IsActive { get; set; }
+        public int EventTypesId { get; set; }
+
+        public Task()
+        {
+        }
+
     }
 
 }
