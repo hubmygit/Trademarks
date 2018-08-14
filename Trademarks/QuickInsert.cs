@@ -19,7 +19,7 @@ namespace Trademarks
             cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
             cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
 
-
+            
             txtTMId.Text = "246883";
             dtpDepositDt.Value = new DateTime(2017, 12, 21);
             dtpDepositTime.Value = new DateTime(1900, 1, 1, 12, 33, 0);
@@ -40,6 +40,7 @@ namespace Trademarks
             txtFilename.Text = @"C:\Repos\Trademarks\Files\246883.jpg";
             rbEthniko.Checked = true;
             txtUrl.Text = "https://www.tmdn.org/tmview/get-detail?st13=GR50201700N246883";
+            
         }
 
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
@@ -88,7 +89,7 @@ namespace Trademarks
             classTooltip.SetToolTip(chlbClasses, "Κλάση " + classId.ToString() + ": " + tip);
         }
 
-        private bool InsertTrademark()
+        private bool InsertTrademark(TempRecords tempRec)
         {
             bool ret = false;
 
@@ -126,6 +127,7 @@ namespace Trademarks
 
         private bool InsertTask(Task task)
         {
+            //return int - output of Id
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
@@ -187,16 +189,43 @@ namespace Trademarks
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //ToDo...
+            //check that all fields has been filled correctly
+            if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || chlbTMType.CheckedItems.Count <= 0 || 
+                txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || chlbClasses.CheckedItems.Count <= 0 || txtFees.Text.Trim() == "" ||
+                txtFilename.Text == "Αρχείο: -" || (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
+                ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == ""))
+            {
+                MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία");
+                return;
+            }
 
-            //Save
-            //InsertTrademark();
-            int outputId = 124;
-
-            //Alarms
             DateTime depositDatetime = new DateTime(dtpDepositDt.Value.Year, dtpDepositDt.Value.Month, dtpDepositDt.Value.Day,
                                                     dtpDepositTime.Value.Hour, dtpDepositTime.Value.Minute, dtpDepositTime.Value.Second);
-                                                    
+
+            TempRecords NewRecord = new TempRecords();
+            NewRecord.TMNo = txtTMId.Text;
+            NewRecord.Deposit = depositDatetime;
+            //NewRecord.NationalPowerId = 0; //rbEthniko
+            NewRecord.TMGrNo = txtTMGrId.Text;
+            NewRecord.CompanyId = ComboboxItem.getComboboxItem<Company>(cbCompany).Id;
+            NewRecord.ResponsibleLawyerId = ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id;
+            //NewRecord.TMTypeIds   //chlbTMType
+            NewRecord.TMName = txtTMName.Text;
+            //NewRecord.   //FileName..
+            //NewRecord.ClassIds   //chlbClasses
+            NewRecord.Description = txtDescription.Text;
+            NewRecord.Fees = txtFees.Text;
+            NewRecord.DecisionNo = txtDecisionNo.Text;
+            NewRecord.PublicationDate = dtpPublicationDate.Value;
+            NewRecord.FinalizationDate = dtpFinalization.Value;
+            NewRecord.Url = txtUrl.Text;
+
+
+            //Save
+            //InsertTrademark(NewRecord); //To Do..
+            int outputId = 124; 
+
+            //Alarms                                                   
             CreateAlarms(outputId, depositDatetime);
         }
 
@@ -370,6 +399,13 @@ namespace Trademarks
         {
             return Text;
         }
+
+        public static T getComboboxItem<T>(ComboBox cb)
+        {
+            T ret = ((T)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
     }
 
     public class Task
@@ -384,6 +420,28 @@ namespace Trademarks
         {
         }
 
+    }
+        
+
+    public class TempRecords
+    {
+        public string TMNo { get; set; }
+        public DateTime Deposit { get; set; }
+        public int NationalPowerId { get; set; } //class ???
+        public string TMGrNo { get; set; }
+        public int CompanyId { get; set; }
+        public int ResponsibleLawyerId { get; set; }
+        public List<int> TMTypeIds { get; set; } //?? other table??
+        public string TMName { get; set; }
+        //FileName //?????????? other table??
+        public List<int> ClassIds { get; set; } //?? other table??
+        public string Description { get; set; }
+        public string Fees { get; set; } //paravola
+        public string DecisionNo { get; set; }
+        public DateTime PublicationDate { get; set; }
+        public DateTime FinalizationDate { get; set; }
+        public string Url { get; set; }
+                    
     }
 
 }
