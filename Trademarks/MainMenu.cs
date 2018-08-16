@@ -21,6 +21,14 @@ namespace Trademarks
         {
             QuickInsert frmQuickIns = new QuickInsert();
             frmQuickIns.ShowDialog();
+
+            while(frmQuickIns.GoToNext)
+            {
+                frmQuickIns.GoToNext = false;
+
+                frmQuickIns = new QuickInsert();
+                frmQuickIns.ShowDialog();
+            }
         }
     }
 

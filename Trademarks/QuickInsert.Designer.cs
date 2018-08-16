@@ -37,7 +37,6 @@
             this.lblDepositTitle = new System.Windows.Forms.Label();
             this.lblCompany = new System.Windows.Forms.Label();
             this.lblLawyerFullname = new System.Windows.Forms.Label();
-            this.chlbTMType = new System.Windows.Forms.CheckedListBox();
             this.lblTMName = new System.Windows.Forms.Label();
             this.txtTMName = new System.Windows.Forms.TextBox();
             this.lblDecisionTitle = new System.Windows.Forms.Label();
@@ -47,8 +46,6 @@
             this.lblPublicationDate = new System.Windows.Forms.Label();
             this.dtpFinalization = new System.Windows.Forms.DateTimePicker();
             this.lblFinalization = new System.Windows.Forms.Label();
-            this.chlbClasses = new System.Windows.Forms.CheckedListBox();
-            this.lblClasses = new System.Windows.Forms.Label();
             this.lblFees = new System.Windows.Forms.Label();
             this.txtFees = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
@@ -70,8 +67,20 @@
             this.lblUrl = new System.Windows.Forms.Label();
             this.cbLawyerFullname = new System.Windows.Forms.ComboBox();
             this.cbCompany = new System.Windows.Forms.ComboBox();
+            this.dgvTypes = new System.Windows.Forms.DataGridView();
+            this.dgvClasses = new System.Windows.Forms.DataGridView();
+            this.Type_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Type_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Class_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Headers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSaveAndNext = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).BeginInit();
             this.gbNatPower.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).BeginInit();
             this.SuspendLayout();
             // 
             // txtTMId
@@ -161,25 +170,6 @@
             this.lblLawyerFullname.TabIndex = 9;
             this.lblLawyerFullname.Text = "Ονοματεπώνυμο Δικηγόρου";
             // 
-            // chlbTMType
-            // 
-            this.chlbTMType.CheckOnClick = true;
-            this.chlbTMType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.chlbTMType.FormattingEnabled = true;
-            this.chlbTMType.Items.AddRange(new object[] {
-            "Λεκτικό",
-            "Απεικόνιση",
-            "Αριθμός",
-            "Ηχητικό",
-            "Συσκευασία",
-            "Με ορισμένη έγχρωμη σύνθεση",
-            "Συλλογικό",
-            "Τρισδιάστατο"});
-            this.chlbTMType.Location = new System.Drawing.Point(41, 230);
-            this.chlbTMType.Name = "chlbTMType";
-            this.chlbTMType.Size = new System.Drawing.Size(210, 140);
-            this.chlbTMType.TabIndex = 11;
-            // 
             // lblTMName
             // 
             this.lblTMName.AutoSize = true;
@@ -264,73 +254,6 @@
             this.lblFinalization.TabIndex = 19;
             this.lblFinalization.Text = "Ημερομηνία Οριστικοποίησης";
             // 
-            // chlbClasses
-            // 
-            this.chlbClasses.CheckOnClick = true;
-            this.chlbClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.chlbClasses.FormattingEnabled = true;
-            this.chlbClasses.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31",
-            "32",
-            "33",
-            "34",
-            "35",
-            "36",
-            "37",
-            "38",
-            "39",
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45"});
-            this.chlbClasses.Location = new System.Drawing.Point(100, 385);
-            this.chlbClasses.Name = "chlbClasses";
-            this.chlbClasses.Size = new System.Drawing.Size(151, 89);
-            this.chlbClasses.TabIndex = 21;
-            this.chlbClasses.MouseHover += new System.EventHandler(this.chlbClasses_MouseHover);
-            // 
-            // lblClasses
-            // 
-            this.lblClasses.AutoSize = true;
-            this.lblClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblClasses.Location = new System.Drawing.Point(38, 385);
-            this.lblClasses.Name = "lblClasses";
-            this.lblClasses.Size = new System.Drawing.Size(56, 16);
-            this.lblClasses.TabIndex = 22;
-            this.lblClasses.Text = "Κλάσεις";
-            // 
             // lblFees
             // 
             this.lblFees.AutoSize = true;
@@ -401,8 +324,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSave.Location = new System.Drawing.Point(302, 740);
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSave.Location = new System.Drawing.Point(209, 740);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(180, 50);
             this.btnSave.TabIndex = 30;
@@ -546,11 +469,111 @@
             this.cbCompany.Size = new System.Drawing.Size(400, 24);
             this.cbCompany.TabIndex = 41;
             // 
+            // dgvTypes
+            // 
+            this.dgvTypes.AllowUserToAddRows = false;
+            this.dgvTypes.AllowUserToDeleteRows = false;
+            this.dgvTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Type_Id,
+            this.Type_Checked,
+            this.Type_Name});
+            this.dgvTypes.Location = new System.Drawing.Point(41, 230);
+            this.dgvTypes.MultiSelect = false;
+            this.dgvTypes.Name = "dgvTypes";
+            this.dgvTypes.RowHeadersVisible = false;
+            this.dgvTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTypes.Size = new System.Drawing.Size(210, 140);
+            this.dgvTypes.TabIndex = 42;
+            // 
+            // dgvClasses
+            // 
+            this.dgvClasses.AllowUserToAddRows = false;
+            this.dgvClasses.AllowUserToDeleteRows = false;
+            this.dgvClasses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClasses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Class_Id,
+            this.Class_Checked,
+            this.Class_No,
+            this.Class_Headers});
+            this.dgvClasses.Location = new System.Drawing.Point(41, 385);
+            this.dgvClasses.MultiSelect = false;
+            this.dgvClasses.Name = "dgvClasses";
+            this.dgvClasses.RowHeadersVisible = false;
+            this.dgvClasses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvClasses.Size = new System.Drawing.Size(210, 89);
+            this.dgvClasses.TabIndex = 43;
+            // 
+            // Type_Id
+            // 
+            this.Type_Id.HeaderText = "Id";
+            this.Type_Id.Name = "Type_Id";
+            this.Type_Id.Visible = false;
+            this.Type_Id.Width = 40;
+            // 
+            // Type_Checked
+            // 
+            this.Type_Checked.HeaderText = "";
+            this.Type_Checked.Name = "Type_Checked";
+            this.Type_Checked.Width = 20;
+            // 
+            // Type_Name
+            // 
+            this.Type_Name.HeaderText = "Τύπος";
+            this.Type_Name.Name = "Type_Name";
+            this.Type_Name.ReadOnly = true;
+            this.Type_Name.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Type_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Type_Name.Width = 170;
+            // 
+            // Class_Id
+            // 
+            this.Class_Id.HeaderText = "Id";
+            this.Class_Id.Name = "Class_Id";
+            this.Class_Id.Visible = false;
+            this.Class_Id.Width = 40;
+            // 
+            // Class_Checked
+            // 
+            this.Class_Checked.HeaderText = "";
+            this.Class_Checked.Name = "Class_Checked";
+            this.Class_Checked.Width = 20;
+            // 
+            // Class_No
+            // 
+            this.Class_No.HeaderText = "Κλάση";
+            this.Class_No.Name = "Class_No";
+            this.Class_No.ReadOnly = true;
+            this.Class_No.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Class_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Class_No.Width = 40;
+            // 
+            // Class_Headers
+            // 
+            this.Class_Headers.HeaderText = "Επικεφαλίδες";
+            this.Class_Headers.Name = "Class_Headers";
+            this.Class_Headers.ReadOnly = true;
+            this.Class_Headers.Width = 130;
+            // 
+            // btnSaveAndNext
+            // 
+            this.btnSaveAndNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSaveAndNext.Location = new System.Drawing.Point(395, 740);
+            this.btnSaveAndNext.Name = "btnSaveAndNext";
+            this.btnSaveAndNext.Size = new System.Drawing.Size(180, 50);
+            this.btnSaveAndNext.TabIndex = 44;
+            this.btnSaveAndNext.Text = "Αποθήκευση και Επόμενο";
+            this.btnSaveAndNext.UseVisualStyleBackColor = true;
+            this.btnSaveAndNext.Click += new System.EventHandler(this.btnSaveAndNext_Click);
+            // 
             // QuickInsert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 802);
+            this.Controls.Add(this.btnSaveAndNext);
+            this.Controls.Add(this.dgvClasses);
+            this.Controls.Add(this.dgvTypes);
             this.Controls.Add(this.cbCompany);
             this.Controls.Add(this.cbLawyerFullname);
             this.Controls.Add(this.txtUrl);
@@ -569,8 +592,6 @@
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.txtFees);
             this.Controls.Add(this.lblFees);
-            this.Controls.Add(this.lblClasses);
-            this.Controls.Add(this.chlbClasses);
             this.Controls.Add(this.dtpFinalization);
             this.Controls.Add(this.lblFinalization);
             this.Controls.Add(this.dtpPublicationDate);
@@ -580,7 +601,6 @@
             this.Controls.Add(this.lblDecisionTitle);
             this.Controls.Add(this.lblTMName);
             this.Controls.Add(this.txtTMName);
-            this.Controls.Add(this.chlbTMType);
             this.Controls.Add(this.lblLawyerFullname);
             this.Controls.Add(this.lblCompany);
             this.Controls.Add(this.lblDepositTitle);
@@ -596,6 +616,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).EndInit();
             this.gbNatPower.ResumeLayout(false);
             this.gbNatPower.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -612,7 +634,6 @@
         private System.Windows.Forms.Label lblDepositTitle;
         private System.Windows.Forms.Label lblCompany;
         private System.Windows.Forms.Label lblLawyerFullname;
-        private System.Windows.Forms.CheckedListBox chlbTMType;
         private System.Windows.Forms.Label lblTMName;
         private System.Windows.Forms.TextBox txtTMName;
         private System.Windows.Forms.Label lblDecisionTitle;
@@ -622,8 +643,6 @@
         private System.Windows.Forms.Label lblPublicationDate;
         private System.Windows.Forms.DateTimePicker dtpFinalization;
         private System.Windows.Forms.Label lblFinalization;
-        private System.Windows.Forms.CheckedListBox chlbClasses;
-        private System.Windows.Forms.Label lblClasses;
         private System.Windows.Forms.Label lblFees;
         private System.Windows.Forms.TextBox txtFees;
         private System.Windows.Forms.Label lblDescription;
@@ -645,5 +664,15 @@
         private System.Windows.Forms.Label lblUrl;
         private System.Windows.Forms.ComboBox cbLawyerFullname;
         private System.Windows.Forms.ComboBox cbCompany;
+        private System.Windows.Forms.DataGridView dgvTypes;
+        private System.Windows.Forms.DataGridView dgvClasses;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type_Id;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Type_Checked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Id;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Class_Checked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Headers;
+        private System.Windows.Forms.Button btnSaveAndNext;
     }
 }

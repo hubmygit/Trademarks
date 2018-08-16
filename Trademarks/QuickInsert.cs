@@ -19,21 +19,27 @@ namespace Trademarks
             cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
             cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
 
-            
+            FillDataGridView(dgvTypes, Type.getTypeList());
+            FillDataGridView(dgvClasses, Class.getClassList());
+
             txtTMId.Text = "246883";
             dtpDepositDt.Value = new DateTime(2017, 12, 21);
             dtpDepositTime.Value = new DateTime(1900, 1, 1, 12, 33, 0);
             cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact("Ιωάννα Τζανερρίκου");
             cbCompany.SelectedIndex = cbCompany.FindStringExact("PEAK CHARM HOLDINGS LIMITED");
-            chlbTMType.SetItemChecked(0, true);
-            chlbTMType.SetItemChecked(1, true);
-            chlbTMType.SetItemChecked(5, true);
+
+            dgvTypes["Type_Checked", 0].Value = "True";
+            dgvTypes["Type_Checked", 1].Value = "True";
+            dgvTypes["Type_Checked", 5].Value = "True";
+
             txtTMName.Text = "XIOSBANK";
             txtDecisionNo.Text = "ΕΞ 1627 /30-03-2018";
             dtpPublicationDate.Value = new DateTime(2018, 3, 30);
             dtpFinalization.Value = new DateTime(2018, 6, 30);
-            chlbClasses.SetItemChecked(34, true);
-            chlbClasses.SetItemChecked(35, true);
+
+            dgvClasses["Class_Checked", 34].Value = "True";
+            dgvClasses["Class_Checked", 35].Value = "True";
+
             txtFees.Text = "181122029958 0220 0052, 181132490958 0220 0073.";
             txtDescription.Text = "Δεν ασκήθηκε ανακοπή. \r\nΚαταχωρήθηκε 3/7/2018.";
             pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg");
@@ -46,11 +52,68 @@ namespace Trademarks
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
         public List<Company> companyList = Company.getCompanyList();
         ToolTip classTooltip = new ToolTip();
+        public bool GoToNext = false;
 
         private void QuickInsert_Load(object sender, EventArgs e)
         {
 
         }
+
+        public static void FillDataGridView(DataGridView dgv, List<Type> TypeList)
+        {
+            dgv.Rows.Clear();
+
+            foreach (Type thisRecord in TypeList)
+            {
+                List<dgvDictionary> dgvDictList = new List<dgvDictionary>();
+
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Id, dgvColumnHeader = "Type_Id" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Name, dgvColumnHeader = "Type_Name" });
+                
+                object[] obj = new object[dgv.Columns.Count];
+
+                for (int i = 0; i < dgv.Columns.Count; i++)
+                {
+                    if (dgvDictList.Exists(z => z.dgvColumnHeader == dgv.Columns[i].Name))
+                    {
+                        obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
+                    }
+                }
+
+                dgv.Rows.Add(obj);
+            }
+
+            dgv.ClearSelection();
+        }
+
+        public static void FillDataGridView(DataGridView dgv, List<Class> ClassList)
+        {
+            dgv.Rows.Clear();
+
+            foreach (Class thisRecord in ClassList)
+            {
+                List<dgvDictionary> dgvDictList = new List<dgvDictionary>();
+
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Id, dgvColumnHeader = "Class_Id" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.No, dgvColumnHeader = "Class_No" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Headers, dgvColumnHeader = "Class_Headers" });
+
+                object[] obj = new object[dgv.Columns.Count];
+
+                for (int i = 0; i < dgv.Columns.Count; i++)
+                {
+                    if (dgvDictList.Exists(z => z.dgvColumnHeader == dgv.Columns[i].Name))
+                    {
+                        obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
+                    }
+                }
+
+                dgv.Rows.Add(obj);
+            }
+
+            dgv.ClearSelection();
+        }
+
 
         public string getClassHeaders(int ClassNo)
         {
@@ -77,35 +140,63 @@ namespace Trademarks
             return ret;
         }
 
-        private void chlbClasses_MouseHover(object sender, EventArgs e)
-        {
-            Point point = chlbClasses.PointToClient(Cursor.Position);
-            int index = chlbClasses.IndexFromPoint(point);
-            if (index < 0) return;
+        //private void chlbClasses_MouseHover(object sender, EventArgs e)
+        //{
+        //    Point point = chlbClasses.PointToClient(Cursor.Position);
+        //    int index = chlbClasses.IndexFromPoint(point);
+        //    if (index < 0) return;
 
-            int classId = Convert.ToInt32(chlbClasses.Items[index].ToString());
-            
-            string tip = getClassHeaders(classId);
-            classTooltip.SetToolTip(chlbClasses, "Κλάση " + classId.ToString() + ": " + tip);
-        }
+        //    int classId = Convert.ToInt32(chlbClasses.Items[index].ToString());
 
-        private bool InsertTrademark(TempRecords tempRec)
+        //    string tip = getClassHeaders(classId);
+        //    classTooltip.SetToolTip(chlbClasses, "Κλάση " + classId.ToString() + ": " + tip);
+        //}
+
+        private bool InsertTM_Type(int TM_id, int TM_typeId)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[xxxxx] ([Name],[IsAuditor],[IsAuditee] ,[IsAdmin], [PasswordPeriod], [InsDt]) VALUES " +
-                           "(@Name, @IsAuditor, @IsAuditee, @IsAdmin, @PassPeriod, getdate() ) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Types] ([Trademarks_Id], [Type_Id]) VALUES (@Trademarks_Id, @Type_Id) ";
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
-                //cmd.Parameters.AddWithValue("@Name", role.Name);
-                //cmd.Parameters.AddWithValue("@IsAuditor", role.IsAuditor);
-                //cmd.Parameters.AddWithValue("@IsAuditee", role.IsAuditee);
-                //cmd.Parameters.AddWithValue("@IsAdmin", role.IsAdmin);
-                //cmd.Parameters.AddWithValue("@PassPeriod", role.PasswordPeriod);
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+                cmd.Parameters.AddWithValue("@Type_Id", TM_typeId);
+                
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        private bool InsertTM_Class(int TM_id, int TM_classId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Classes] ([Trademarks_Id], [Class_Id]) VALUES (@Trademarks_Id, @Class_Id) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+                cmd.Parameters.AddWithValue("@Class_Id", TM_classId);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -114,6 +205,64 @@ namespace Trademarks
                 {
                     ret = true;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        private int InsertTrademark(TempRecords tempRec)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TempRecords] ([TMNo], [Deposit], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " + 
+                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url]) " +
+                "OUTPUT INSERTED.Id " +
+                "VALUES (@TMNo, @Deposit, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " + 
+                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url ) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TMNo", tempRec.TMNo);
+                cmd.Parameters.AddWithValue("@Deposit", tempRec.Deposit);
+                cmd.Parameters.AddWithValue("@NationalPowerId", tempRec.NationalPowerId);
+                if (tempRec.TMGrNo == "")
+                {
+                    cmd.Parameters.AddWithValue("@TMGrNo", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TMGrNo", tempRec.TMGrNo);
+                }
+                cmd.Parameters.AddWithValue("@CompanyId", tempRec.CompanyId);
+                cmd.Parameters.AddWithValue("@ResponsibleLawyerId", tempRec.ResponsibleLawyerId);
+                cmd.Parameters.AddWithValue("@TMName", tempRec.TMName);
+                cmd.Parameters.AddWithValue("@FileName", tempRec.FileName);
+                cmd.Parameters.AddWithValue("@FileContents", tempRec.FileContents);
+                cmd.Parameters.AddWithValue("@Description", tempRec.Description);
+                cmd.Parameters.AddWithValue("@Fees", tempRec.Fees);
+                cmd.Parameters.AddWithValue("@DecisionNo", tempRec.DecisionNo);
+                cmd.Parameters.AddWithValue("@PublicationDate", tempRec.PublicationDate);
+                cmd.Parameters.AddWithValue("@FinalizationDate", tempRec.FinalizationDate);
+                cmd.Parameters.AddWithValue("@Url", tempRec.Url);
+
+                cmd.CommandType = CommandType.Text;
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+
             }
             catch (Exception ex)
             {
@@ -162,8 +311,10 @@ namespace Trademarks
             return ret;
         }
 
-        private void CreateAlarms(int TrademarksId, DateTime Deposit_Datetime)
-        {         
+        private bool CreateAlarms(int TrademarksId, DateTime Deposit_Datetime)
+        {
+            bool ret = true;
+
             DateTime ExpDate = Deposit_Datetime.AddYears(10);
 
             Task TaskToInsert = new Task();
@@ -172,26 +323,146 @@ namespace Trademarks
             TaskToInsert.IsActive = true;
             TaskToInsert.EventTypesId = 1;
             TaskToInsert.NotificationDate = ExpDate.AddMonths(-6);
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
             TaskToInsert.NotificationDate = ExpDate.AddMonths(-4);
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
             TaskToInsert.NotificationDate = ExpDate.AddMonths(-2);
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
             TaskToInsert.NotificationDate = ExpDate.AddMonths(-1);
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
             TaskToInsert.NotificationDate = ExpDate.AddDays(-15);
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
             TaskToInsert.NotificationDate = ExpDate.AddDays(-3);
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
             TaskToInsert.NotificationDate = ExpDate;
-            InsertTask(TaskToInsert);
+            if (InsertTask(TaskToInsert) == false)
+            {
+                ret = false;
+            }
+
+            return ret;
+        }
+
+        private bool IsAnyTypeChecked(DataGridView dgv)
+        {
+            bool ret = false;
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Type_Checked"].Value) == true)
+                {
+                    ret = true;
+                }
+            }
+
+            return ret;
+        }
+
+        private List<int> getCheckedTypes(DataGridView dgv)
+        {
+            List<int> ret = new List<int>();
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Type_Checked"].Value) == true)
+                {
+                    ret.Add(Convert.ToInt32(dgvr.Cells["Type_Id"].Value));
+                }
+            }
+
+            return ret;
+        }
+
+        private bool IsAnyClassChecked(DataGridView dgv)
+        {
+            bool ret = false;
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Class_Checked"].Value) == true)
+                {
+                    ret = true;
+                }
+            }
+
+            return ret;
+        }
+
+        private List<int> getCheckedClasses(DataGridView dgv)
+        {
+            List<int> ret = new List<int>();
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Class_Checked"].Value) == true)
+                {
+                    ret.Add(Convert.ToInt32(dgvr.Cells["Class_Id"].Value));
+                }
+            }
+
+            return ret;
+        }
+
+        public int getNatPowerId(GroupBox gb)
+        {            
+            string NatPowerName = "";
+            foreach (RadioButton rb in gb.Controls)
+            {
+                if (rb.Checked == true)
+                {
+                    NatPowerName = rb.Text;
+                }
+            }
+            
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id FROM [dbo].[NationalPower] WHERE Name = @Name";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Name", NatPowerName);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check that all fields has been filled correctly
-            if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || chlbTMType.CheckedItems.Count <= 0 || 
-                txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || chlbClasses.CheckedItems.Count <= 0 || txtFees.Text.Trim() == "" ||
+            if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false || 
+                txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false || txtFees.Text.Trim() == "" ||
                 txtFilename.Text == "Αρχείο: -" || (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
                 ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == ""))
             {
@@ -205,14 +476,15 @@ namespace Trademarks
             TempRecords NewRecord = new TempRecords();
             NewRecord.TMNo = txtTMId.Text;
             NewRecord.Deposit = depositDatetime;
-            //NewRecord.NationalPowerId = 0; //rbEthniko
+            NewRecord.NationalPowerId = getNatPowerId(gbNatPower);
             NewRecord.TMGrNo = txtTMGrId.Text;
             NewRecord.CompanyId = ComboboxItem.getComboboxItem<Company>(cbCompany).Id;
             NewRecord.ResponsibleLawyerId = ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id;
-            //NewRecord.TMTypeIds   //chlbTMType
+            NewRecord.TMTypeIds = getCheckedTypes(dgvTypes); 
             NewRecord.TMName = txtTMName.Text;
-            //NewRecord.   //FileName..
-            //NewRecord.ClassIds   //chlbClasses
+            NewRecord.FileName = System.IO.Path.GetFileName(txtFilename.Text);
+            NewRecord.FileContents = System.IO.File.ReadAllBytes(txtFilename.Text);
+            NewRecord.ClassIds = getCheckedClasses(dgvClasses);
             NewRecord.Description = txtDescription.Text;
             NewRecord.Fees = txtFees.Text;
             NewRecord.DecisionNo = txtDecisionNo.Text;
@@ -220,13 +492,55 @@ namespace Trademarks
             NewRecord.FinalizationDate = dtpFinalization.Value;
             NewRecord.Url = txtUrl.Text;
 
-
             //Save
-            //InsertTrademark(NewRecord); //To Do..
-            int outputId = 124; 
+            bool success = true;
+            int InsertedId = InsertTrademark(NewRecord); 
+            if (InsertedId > 0)
+            {
+                foreach (int TM_typeId in NewRecord.TMTypeIds)
+                {
+                    if (InsertTM_Type(InsertedId, TM_typeId) == false)
+                    {
+                        //TM_Type ins error
+                        success = false;
+                    }
+                    
+                }
 
-            //Alarms                                                   
-            CreateAlarms(outputId, depositDatetime);
+                foreach (int TM_classId in NewRecord.ClassIds)
+                {
+                    if (InsertTM_Class(InsertedId, TM_classId) == false)
+                    {
+                        //TM_Class ins error
+                        success = false;
+                    }
+                    
+                }
+            }
+            else
+            {
+                //TM ins error
+                success = false;
+            }
+
+            //Alarms
+            if (success)
+            {
+                if (CreateAlarms(InsertedId, depositDatetime) == false)
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                }
+                else
+                {
+                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+
+                    Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+            }
         }
 
         private void btnAddTMPic_Click(object sender, EventArgs e)
@@ -285,6 +599,12 @@ namespace Trademarks
             pbTMPic.Image = null;
             txtFilename.Text = "Αρχείο: -";
             lblPreview.Visible = false;
+        }
+
+        private void btnSaveAndNext_Click(object sender, EventArgs e)
+        {
+            GoToNext = true;
+            btnSave_Click(null, null);
         }
     }
 
@@ -422,6 +742,85 @@ namespace Trademarks
 
     }
         
+    public class Type
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public Type()
+        {
+        }
+
+        public static List<Type> getTypeList()
+        {
+            List<Type> ret = new List<Type>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [dbo].[Type] ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Type type = new Type();
+                    type.Id = Convert.ToInt32(reader["Id"].ToString());
+                    type.Name = reader["Name"].ToString();
+                    
+                    ret.Add(type);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+    }
+
+    public class Class
+    {
+        public int Id { get; set; }
+        public int No { get; set; }
+        public string Headers { get; set; }
+
+        public Class()
+        {
+        }
+
+        public static List<Class> getClassList()
+        {
+            List<Class> ret = new List<Class>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, No, Headers FROM [dbo].[Class] ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Class newclass = new Class();
+                    newclass.Id = Convert.ToInt32(reader["Id"].ToString());
+                    newclass.No = Convert.ToInt32(reader["No"].ToString());
+                    newclass.Headers = reader["Headers"].ToString();
+
+                    ret.Add(newclass);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+    }
 
     public class TempRecords
     {
@@ -433,7 +832,10 @@ namespace Trademarks
         public int ResponsibleLawyerId { get; set; }
         public List<int> TMTypeIds { get; set; } //?? other table??
         public string TMName { get; set; }
-        //FileName //?????????? other table??
+
+        public string FileName { get; set; }
+        public byte[] FileContents { get; set; } 
+
         public List<int> ClassIds { get; set; } //?? other table??
         public string Description { get; set; }
         public string Fees { get; set; } //paravola
@@ -442,6 +844,12 @@ namespace Trademarks
         public DateTime FinalizationDate { get; set; }
         public string Url { get; set; }
                     
+    }
+
+    public class dgvDictionary
+    {
+        public object dbfield { get; set; }
+        public string dgvColumnHeader { get; set; }
     }
 
 }
