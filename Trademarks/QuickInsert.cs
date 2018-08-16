@@ -14,39 +14,7 @@ namespace Trademarks
     {
         public QuickInsert()
         {
-            InitializeComponent();
-
-            cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
-            cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
-
-            FillDataGridView(dgvTypes, Type.getTypeList());
-            FillDataGridView(dgvClasses, Class.getClassList());
-
-            txtTMId.Text = "246883";
-            dtpDepositDt.Value = new DateTime(2017, 12, 21);
-            dtpDepositTime.Value = new DateTime(1900, 1, 1, 12, 33, 0);
-            cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact("Ιωάννα Τζανερρίκου");
-            cbCompany.SelectedIndex = cbCompany.FindStringExact("PEAK CHARM HOLDINGS LIMITED");
-
-            dgvTypes["Type_Checked", 0].Value = "True";
-            dgvTypes["Type_Checked", 1].Value = "True";
-            dgvTypes["Type_Checked", 5].Value = "True";
-
-            txtTMName.Text = "XIOSBANK";
-            txtDecisionNo.Text = "ΕΞ 1627 /30-03-2018";
-            dtpPublicationDate.Value = new DateTime(2018, 3, 30);
-            dtpFinalization.Value = new DateTime(2018, 6, 30);
-
-            dgvClasses["Class_Checked", 34].Value = "True";
-            dgvClasses["Class_Checked", 35].Value = "True";
-
-            txtFees.Text = "181122029958 0220 0052, 181132490958 0220 0073.";
-            txtDescription.Text = "Δεν ασκήθηκε ανακοπή. \r\nΚαταχωρήθηκε 3/7/2018.";
-            pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg");
-            txtFilename.Text = @"C:\Repos\Trademarks\Files\246883.jpg";
-            rbEthniko.Checked = true;
-            txtUrl.Text = "https://www.tmdn.org/tmview/get-detail?st13=GR50201700N246883";
-            
+            InitializeComponent();                                 
         }
 
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
@@ -56,7 +24,13 @@ namespace Trademarks
 
         private void QuickInsert_Load(object sender, EventArgs e)
         {
+            cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
+            cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
 
+            FillDataGridView(dgvTypes, Type.getTypeList());
+            FillDataGridView(dgvClasses, Class.getClassList());
+
+            txtTMId.Select();
         }
 
         public static void FillDataGridView(DataGridView dgv, List<Type> TypeList)
@@ -221,10 +195,10 @@ namespace Trademarks
             int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TempRecords] ([TMNo], [Deposit], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " + 
+            string InsSt = "INSERT INTO [dbo].[TempRecords] ([TMNo], [DepositDt], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " + 
                 "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url]) " +
                 "OUTPUT INSERTED.Id " +
-                "VALUES (@TMNo, @Deposit, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " + 
+                "VALUES (@TMNo, @DepositDt, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " + 
                 "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url ) ";
             try
             {
@@ -232,7 +206,7 @@ namespace Trademarks
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
                 cmd.Parameters.AddWithValue("@TMNo", tempRec.TMNo);
-                cmd.Parameters.AddWithValue("@Deposit", tempRec.Deposit);
+                cmd.Parameters.AddWithValue("@DepositDt", tempRec.DepositDt);
                 cmd.Parameters.AddWithValue("@NationalPowerId", tempRec.NationalPowerId);
                 if (tempRec.TMGrNo == "")
                 {
@@ -475,7 +449,7 @@ namespace Trademarks
 
             TempRecords NewRecord = new TempRecords();
             NewRecord.TMNo = txtTMId.Text;
-            NewRecord.Deposit = depositDatetime;
+            NewRecord.DepositDt = depositDatetime;
             NewRecord.NationalPowerId = getNatPowerId(gbNatPower);
             NewRecord.TMGrNo = txtTMGrId.Text;
             NewRecord.CompanyId = ComboboxItem.getComboboxItem<Company>(cbCompany).Id;
@@ -543,8 +517,43 @@ namespace Trademarks
             }
         }
 
+        private void ToDelete()
+        {
+            txtTMId.Text = "246883";
+            dtpDepositDt.Value = new DateTime(2017, 12, 21);
+            dtpDepositTime.Value = new DateTime(1900, 1, 1, 12, 33, 0);
+            cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact("Ιωάννα Τζανερρίκου");
+            cbCompany.SelectedIndex = cbCompany.FindStringExact("PEAK CHARM HOLDINGS LIMITED");
+
+            dgvTypes["Type_Checked", 0].Value = "True";
+            dgvTypes["Type_Checked", 1].Value = "True";
+            dgvTypes["Type_Checked", 5].Value = "True";
+
+            txtTMName.Text = "XIOSBANK";
+            txtDecisionNo.Text = "ΕΞ 1627 /30-03-2018";
+            dtpPublicationDate.Value = new DateTime(2018, 3, 30);
+            dtpFinalization.Value = new DateTime(2018, 6, 30);
+
+            dgvClasses["Class_Checked", 34].Value = "True";
+            dgvClasses["Class_Checked", 35].Value = "True";
+
+            txtFees.Text = "181122029958 0220 0052, 181132490958 0220 0073.";
+            txtDescription.Text = "Δεν ασκήθηκε ανακοπή. \r\nΚαταχωρήθηκε 3/7/2018.";
+            pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg");
+            txtFilename.Text = @"C:\Repos\Trademarks\Files\246883.jpg";
+            rbEthniko.Checked = true;
+            txtUrl.Text = "https://www.tmdn.org/tmview/get-detail?st13=GR50201700N246883";
+        }
+
         private void btnAddTMPic_Click(object sender, EventArgs e)
         {
+            //To Delete
+            if (txtTMId.Text == "")
+            {
+                ToDelete();
+                return;
+            }
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Add Files";
             ofd.Multiselect = false;
@@ -825,7 +834,7 @@ namespace Trademarks
     public class TempRecords
     {
         public string TMNo { get; set; }
-        public DateTime Deposit { get; set; }
+        public DateTime DepositDt { get; set; }
         public int NationalPowerId { get; set; } //class ???
         public string TMGrNo { get; set; }
         public int CompanyId { get; set; }

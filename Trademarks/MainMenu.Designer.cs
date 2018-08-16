@@ -33,7 +33,7 @@
             // 
             // btnQuickInsert
             // 
-            this.btnQuickInsert.Location = new System.Drawing.Point(100, 100);
+            this.btnQuickInsert.Location = new System.Drawing.Point(12, 12);
             this.btnQuickInsert.Name = "btnQuickInsert";
             this.btnQuickInsert.Size = new System.Drawing.Size(100, 30);
             this.btnQuickInsert.TabIndex = 0;
@@ -48,6 +48,7 @@
             this.ClientSize = new System.Drawing.Size(784, 442);
             this.Controls.Add(this.btnQuickInsert);
             this.Name = "MainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Menu";
             this.ResumeLayout(false);
 

@@ -89,7 +89,7 @@
             this.txtTMId.Location = new System.Drawing.Point(401, 64);
             this.txtTMId.Name = "txtTMId";
             this.txtTMId.Size = new System.Drawing.Size(100, 22);
-            this.txtTMId.TabIndex = 0;
+            this.txtTMId.TabIndex = 1;
             // 
             // lblTMId
             // 
@@ -98,7 +98,7 @@
             this.lblTMId.Location = new System.Drawing.Point(283, 67);
             this.lblTMId.Name = "lblTMId";
             this.lblTMId.Size = new System.Drawing.Size(112, 16);
-            this.lblTMId.TabIndex = 1;
+            this.lblTMId.TabIndex = 0;
             this.lblTMId.Text = "Αριθμός Σήματος";
             // 
             // lblDepositDt
@@ -108,7 +108,7 @@
             this.lblDepositDt.Location = new System.Drawing.Point(38, 103);
             this.lblDepositDt.Name = "lblDepositDt";
             this.lblDepositDt.Size = new System.Drawing.Size(147, 16);
-            this.lblDepositDt.TabIndex = 2;
+            this.lblDepositDt.TabIndex = 0;
             this.lblDepositDt.Text = "Ημερομηνία Κατάθεσης";
             // 
             // dtpDepositDt
@@ -118,7 +118,7 @@
             this.dtpDepositDt.Location = new System.Drawing.Point(191, 98);
             this.dtpDepositDt.Name = "dtpDepositDt";
             this.dtpDepositDt.Size = new System.Drawing.Size(120, 22);
-            this.dtpDepositDt.TabIndex = 3;
+            this.dtpDepositDt.TabIndex = 2;
             // 
             // lblDepositTime
             // 
@@ -127,7 +127,7 @@
             this.lblDepositTime.Location = new System.Drawing.Point(380, 103);
             this.lblDepositTime.Name = "lblDepositTime";
             this.lblDepositTime.Size = new System.Drawing.Size(102, 16);
-            this.lblDepositTime.TabIndex = 4;
+            this.lblDepositTime.TabIndex = 0;
             this.lblDepositTime.Text = "Ώρα Κατάθεσης";
             // 
             // dtpDepositTime
@@ -138,7 +138,7 @@
             this.dtpDepositTime.Name = "dtpDepositTime";
             this.dtpDepositTime.ShowUpDown = true;
             this.dtpDepositTime.Size = new System.Drawing.Size(100, 22);
-            this.dtpDepositTime.TabIndex = 5;
+            this.dtpDepositTime.TabIndex = 3;
             // 
             // lblDepositTitle
             // 
@@ -147,7 +147,7 @@
             this.lblDepositTitle.Location = new System.Drawing.Point(260, 13);
             this.lblDepositTitle.Name = "lblDepositTitle";
             this.lblDepositTitle.Size = new System.Drawing.Size(265, 24);
-            this.lblDepositTitle.TabIndex = 6;
+            this.lblDepositTitle.TabIndex = 0;
             this.lblDepositTitle.Text = "Δήλωση Κατάθεσης Σήματος";
             // 
             // lblCompany
@@ -157,7 +157,7 @@
             this.lblCompany.Location = new System.Drawing.Point(224, 169);
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(52, 16);
-            this.lblCompany.TabIndex = 7;
+            this.lblCompany.TabIndex = 0;
             this.lblCompany.Text = "Εταιρία";
             // 
             // lblLawyerFullname
@@ -167,7 +167,7 @@
             this.lblLawyerFullname.Location = new System.Drawing.Point(103, 201);
             this.lblLawyerFullname.Name = "lblLawyerFullname";
             this.lblLawyerFullname.Size = new System.Drawing.Size(173, 16);
-            this.lblLawyerFullname.TabIndex = 9;
+            this.lblLawyerFullname.TabIndex = 0;
             this.lblLawyerFullname.Text = "Ονοματεπώνυμο Δικηγόρου";
             // 
             // lblTMName
@@ -177,7 +177,7 @@
             this.lblTMName.Location = new System.Drawing.Point(287, 233);
             this.lblTMName.Name = "lblTMName";
             this.lblTMName.Size = new System.Drawing.Size(103, 16);
-            this.lblTMName.TabIndex = 13;
+            this.lblTMName.TabIndex = 0;
             this.lblTMName.Text = "Όνομα Σήματος";
             // 
             // txtTMName
@@ -186,7 +186,7 @@
             this.txtTMName.Location = new System.Drawing.Point(396, 230);
             this.txtTMName.Name = "txtTMName";
             this.txtTMName.Size = new System.Drawing.Size(350, 22);
-            this.txtTMName.TabIndex = 12;
+            this.txtTMName.TabIndex = 11;
             // 
             // lblDecisionTitle
             // 
@@ -195,7 +195,7 @@
             this.lblDecisionTitle.Location = new System.Drawing.Point(247, 579);
             this.lblDecisionTitle.Name = "lblDecisionTitle";
             this.lblDecisionTitle.Size = new System.Drawing.Size(291, 24);
-            this.lblDecisionTitle.TabIndex = 14;
+            this.lblDecisionTitle.TabIndex = 0;
             this.lblDecisionTitle.Text = "Απόφαση Επί Δήλωσης Σήματος";
             // 
             // lblDecisionNo
@@ -205,7 +205,7 @@
             this.lblDecisionNo.Location = new System.Drawing.Point(238, 632);
             this.lblDecisionNo.Name = "lblDecisionNo";
             this.lblDecisionNo.Size = new System.Drawing.Size(123, 16);
-            this.lblDecisionNo.TabIndex = 16;
+            this.lblDecisionNo.TabIndex = 0;
             this.lblDecisionNo.Text = "Αριθμός Απόφασης";
             // 
             // txtDecisionNo
@@ -214,7 +214,7 @@
             this.txtDecisionNo.Location = new System.Drawing.Point(367, 629);
             this.txtDecisionNo.Name = "txtDecisionNo";
             this.txtDecisionNo.Size = new System.Drawing.Size(180, 22);
-            this.txtDecisionNo.TabIndex = 15;
+            this.txtDecisionNo.TabIndex = 17;
             // 
             // dtpPublicationDate
             // 
@@ -232,7 +232,7 @@
             this.lblPublicationDate.Location = new System.Drawing.Point(68, 669);
             this.lblPublicationDate.Name = "lblPublicationDate";
             this.lblPublicationDate.Size = new System.Drawing.Size(160, 16);
-            this.lblPublicationDate.TabIndex = 17;
+            this.lblPublicationDate.TabIndex = 0;
             this.lblPublicationDate.Text = "Ημερομηνία Δημοσίευσης";
             // 
             // dtpFinalization
@@ -242,7 +242,7 @@
             this.dtpFinalization.Location = new System.Drawing.Point(596, 663);
             this.dtpFinalization.Name = "dtpFinalization";
             this.dtpFinalization.Size = new System.Drawing.Size(120, 22);
-            this.dtpFinalization.TabIndex = 20;
+            this.dtpFinalization.TabIndex = 19;
             // 
             // lblFinalization
             // 
@@ -251,7 +251,7 @@
             this.lblFinalization.Location = new System.Drawing.Point(406, 668);
             this.lblFinalization.Name = "lblFinalization";
             this.lblFinalization.Size = new System.Drawing.Size(184, 16);
-            this.lblFinalization.TabIndex = 19;
+            this.lblFinalization.TabIndex = 0;
             this.lblFinalization.Text = "Ημερομηνία Οριστικοποίησης";
             // 
             // lblFees
@@ -261,7 +261,7 @@
             this.lblFees.Location = new System.Drawing.Point(149, 490);
             this.lblFees.Name = "lblFees";
             this.lblFees.Size = new System.Drawing.Size(241, 16);
-            this.lblFees.TabIndex = 23;
+            this.lblFees.TabIndex = 0;
             this.lblFees.Text = "Αριθμός Παραβόλου Δημοσίου Ταμείου";
             // 
             // txtFees
@@ -271,7 +271,7 @@
             this.txtFees.Multiline = true;
             this.txtFees.Name = "txtFees";
             this.txtFees.Size = new System.Drawing.Size(350, 75);
-            this.txtFees.TabIndex = 24;
+            this.txtFees.TabIndex = 16;
             // 
             // lblDescription
             // 
@@ -280,7 +280,7 @@
             this.lblDescription.Location = new System.Drawing.Point(265, 385);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(125, 16);
-            this.lblDescription.TabIndex = 25;
+            this.lblDescription.TabIndex = 0;
             this.lblDescription.Text = "Περιγραφή / Σχόλια";
             // 
             // txtDescription
@@ -290,7 +290,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(350, 89);
-            this.txtDescription.TabIndex = 26;
+            this.txtDescription.TabIndex = 15;
             // 
             // pbTMPic
             // 
@@ -309,7 +309,7 @@
             this.lblTMPic.Location = new System.Drawing.Point(276, 264);
             this.lblTMPic.Name = "lblTMPic";
             this.lblTMPic.Size = new System.Drawing.Size(114, 16);
-            this.lblTMPic.TabIndex = 28;
+            this.lblTMPic.TabIndex = 0;
             this.lblTMPic.Text = "Εικονίδιο / Αρχείο";
             // 
             // btnAddTMPic
@@ -317,7 +317,7 @@
             this.btnAddTMPic.Location = new System.Drawing.Point(313, 283);
             this.btnAddTMPic.Name = "btnAddTMPic";
             this.btnAddTMPic.Size = new System.Drawing.Size(30, 30);
-            this.btnAddTMPic.TabIndex = 29;
+            this.btnAddTMPic.TabIndex = 12;
             this.btnAddTMPic.Text = "+";
             this.btnAddTMPic.UseVisualStyleBackColor = true;
             this.btnAddTMPic.Click += new System.EventHandler(this.btnAddTMPic_Click);
@@ -328,7 +328,7 @@
             this.btnSave.Location = new System.Drawing.Point(209, 740);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(180, 50);
-            this.btnSave.TabIndex = 30;
+            this.btnSave.TabIndex = 21;
             this.btnSave.Text = "Αποθήκευση";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -341,7 +341,7 @@
             this.gbNatPower.Location = new System.Drawing.Point(647, 65);
             this.gbNatPower.Name = "gbNatPower";
             this.gbNatPower.Size = new System.Drawing.Size(99, 87);
-            this.gbNatPower.TabIndex = 31;
+            this.gbNatPower.TabIndex = 0;
             this.gbNatPower.TabStop = false;
             // 
             // rbDiethnes
@@ -350,7 +350,7 @@
             this.rbDiethnes.Location = new System.Drawing.Point(6, 64);
             this.rbDiethnes.Name = "rbDiethnes";
             this.rbDiethnes.Size = new System.Drawing.Size(65, 17);
-            this.rbDiethnes.TabIndex = 2;
+            this.rbDiethnes.TabIndex = 7;
             this.rbDiethnes.TabStop = true;
             this.rbDiethnes.Text = "Διεθνές";
             this.rbDiethnes.UseVisualStyleBackColor = true;
@@ -362,7 +362,7 @@
             this.rbKoinotiko.Location = new System.Drawing.Point(6, 37);
             this.rbKoinotiko.Name = "rbKoinotiko";
             this.rbKoinotiko.Size = new System.Drawing.Size(72, 17);
-            this.rbKoinotiko.TabIndex = 1;
+            this.rbKoinotiko.TabIndex = 6;
             this.rbKoinotiko.TabStop = true;
             this.rbKoinotiko.Text = "Κοινοτικό";
             this.rbKoinotiko.UseVisualStyleBackColor = true;
@@ -374,7 +374,7 @@
             this.rbEthniko.Location = new System.Drawing.Point(6, 11);
             this.rbEthniko.Name = "rbEthniko";
             this.rbEthniko.Size = new System.Drawing.Size(57, 17);
-            this.rbEthniko.TabIndex = 0;
+            this.rbEthniko.TabIndex = 5;
             this.rbEthniko.TabStop = true;
             this.rbEthniko.Text = "Εθνικό";
             this.rbEthniko.UseVisualStyleBackColor = true;
@@ -387,7 +387,7 @@
             this.txtTMGrId.Location = new System.Drawing.Point(401, 130);
             this.txtTMGrId.Name = "txtTMGrId";
             this.txtTMGrId.Size = new System.Drawing.Size(100, 22);
-            this.txtTMGrId.TabIndex = 32;
+            this.txtTMGrId.TabIndex = 4;
             // 
             // lblTMGrId
             // 
@@ -397,7 +397,7 @@
             this.lblTMGrId.Location = new System.Drawing.Point(167, 133);
             this.lblTMGrId.Name = "lblTMGrId";
             this.lblTMGrId.Size = new System.Drawing.Size(228, 16);
-            this.lblTMGrId.TabIndex = 33;
+            this.lblTMGrId.TabIndex = 0;
             this.lblTMGrId.Text = "Σύνδεση με Αριθμό Εθνικού Σήματος";
             // 
             // btnRemoveTMFile
@@ -405,7 +405,7 @@
             this.btnRemoveTMFile.Location = new System.Drawing.Point(313, 318);
             this.btnRemoveTMFile.Name = "btnRemoveTMFile";
             this.btnRemoveTMFile.Size = new System.Drawing.Size(30, 30);
-            this.btnRemoveTMFile.TabIndex = 35;
+            this.btnRemoveTMFile.TabIndex = 13;
             this.btnRemoveTMFile.Text = "-";
             this.btnRemoveTMFile.UseVisualStyleBackColor = true;
             this.btnRemoveTMFile.Click += new System.EventHandler(this.btnRemoveTMFile_Click);
@@ -428,7 +428,7 @@
             this.txtFilename.Name = "txtFilename";
             this.txtFilename.ReadOnly = true;
             this.txtFilename.Size = new System.Drawing.Size(350, 20);
-            this.txtFilename.TabIndex = 37;
+            this.txtFilename.TabIndex = 0;
             this.txtFilename.Text = "Αρχείο: -";
             // 
             // txtUrl
@@ -437,7 +437,7 @@
             this.txtUrl.Location = new System.Drawing.Point(99, 698);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(617, 22);
-            this.txtUrl.TabIndex = 39;
+            this.txtUrl.TabIndex = 20;
             // 
             // lblUrl
             // 
@@ -446,7 +446,7 @@
             this.lblUrl.Location = new System.Drawing.Point(68, 701);
             this.lblUrl.Name = "lblUrl";
             this.lblUrl.Size = new System.Drawing.Size(25, 16);
-            this.lblUrl.TabIndex = 38;
+            this.lblUrl.TabIndex = 0;
             this.lblUrl.Text = "Url";
             // 
             // cbLawyerFullname
@@ -454,20 +454,22 @@
             this.cbLawyerFullname.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLawyerFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbLawyerFullname.FormattingEnabled = true;
+            this.cbLawyerFullname.ItemHeight = 16;
             this.cbLawyerFullname.Location = new System.Drawing.Point(282, 198);
             this.cbLawyerFullname.Name = "cbLawyerFullname";
             this.cbLawyerFullname.Size = new System.Drawing.Size(400, 24);
-            this.cbLawyerFullname.TabIndex = 40;
+            this.cbLawyerFullname.TabIndex = 9;
             // 
             // cbCompany
             // 
             this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbCompany.FormattingEnabled = true;
+            this.cbCompany.ItemHeight = 16;
             this.cbCompany.Location = new System.Drawing.Point(282, 166);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(400, 24);
-            this.cbCompany.TabIndex = 41;
+            this.cbCompany.TabIndex = 8;
             // 
             // dgvTypes
             // 
@@ -484,7 +486,7 @@
             this.dgvTypes.RowHeadersVisible = false;
             this.dgvTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTypes.Size = new System.Drawing.Size(210, 140);
-            this.dgvTypes.TabIndex = 42;
+            this.dgvTypes.TabIndex = 10;
             // 
             // dgvClasses
             // 
@@ -502,7 +504,7 @@
             this.dgvClasses.RowHeadersVisible = false;
             this.dgvClasses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClasses.Size = new System.Drawing.Size(210, 89);
-            this.dgvClasses.TabIndex = 43;
+            this.dgvClasses.TabIndex = 14;
             // 
             // Type_Id
             // 
@@ -561,13 +563,14 @@
             this.btnSaveAndNext.Location = new System.Drawing.Point(395, 740);
             this.btnSaveAndNext.Name = "btnSaveAndNext";
             this.btnSaveAndNext.Size = new System.Drawing.Size(180, 50);
-            this.btnSaveAndNext.TabIndex = 44;
+            this.btnSaveAndNext.TabIndex = 22;
             this.btnSaveAndNext.Text = "Αποθήκευση και Επόμενο";
             this.btnSaveAndNext.UseVisualStyleBackColor = true;
             this.btnSaveAndNext.Click += new System.EventHandler(this.btnSaveAndNext_Click);
             // 
             // QuickInsert
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 802);
@@ -611,6 +614,7 @@
             this.Controls.Add(this.lblTMId);
             this.Controls.Add(this.txtTMId);
             this.Name = "QuickInsert";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick Insert";
             this.Load += new System.EventHandler(this.QuickInsert_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).EndInit();
