@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnQuickInsert = new System.Windows.Forms.Button();
+            this.btnQuickView = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnQuickInsert
@@ -41,11 +42,22 @@
             this.btnQuickInsert.UseVisualStyleBackColor = true;
             this.btnQuickInsert.Click += new System.EventHandler(this.btnQuickInsert_Click);
             // 
+            // btnQuickView
+            // 
+            this.btnQuickView.Location = new System.Drawing.Point(12, 48);
+            this.btnQuickView.Name = "btnQuickView";
+            this.btnQuickView.Size = new System.Drawing.Size(100, 30);
+            this.btnQuickView.TabIndex = 1;
+            this.btnQuickView.Text = "Quick View";
+            this.btnQuickView.UseVisualStyleBackColor = true;
+            this.btnQuickView.Click += new System.EventHandler(this.btnQuickView_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.btnQuickView);
             this.Controls.Add(this.btnQuickInsert);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -57,6 +69,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnQuickInsert;
+        private System.Windows.Forms.Button btnQuickView;
     }
 }
 

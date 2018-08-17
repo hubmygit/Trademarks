@@ -196,10 +196,10 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "INSERT INTO [dbo].[TempRecords] ([TMNo], [DepositDt], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " + 
-                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url]) " +
+                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url], [RenewalDt]) " +
                 "OUTPUT INSERTED.Id " +
                 "VALUES (@TMNo, @DepositDt, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " + 
-                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url ) ";
+                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url, @RenewalDt ) ";
             try
             {
                 sqlConn.Open();
@@ -227,6 +227,14 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@PublicationDate", tempRec.PublicationDate);
                 cmd.Parameters.AddWithValue("@FinalizationDate", tempRec.FinalizationDate);
                 cmd.Parameters.AddWithValue("@Url", tempRec.Url);
+                if (tempRec.HasRenewal)
+                {
+                    cmd.Parameters.AddWithValue("@RenewalDt", tempRec.RenewalDt);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@RenewalDt", DBNull.Value);
+                }
 
                 cmd.CommandType = CommandType.Text;
 
@@ -285,17 +293,131 @@ namespace Trademarks
             return ret;
         }
 
-        private bool CreateAlarms(int TrademarksId, DateTime Deposit_Datetime)
+        private bool CreateAlarms(TempRecords TMRecord)//DateTime Deposit_Datetime) 
         {
             bool ret = true;
 
-            DateTime ExpDate = Deposit_Datetime.AddYears(10);
+            DateTime ExpDate = TMRecord.DepositDt.AddYears(10); //Deposit_Datetime.AddYears(10);
+            if (TMRecord.HasRenewal)
+            {
+                ExpDate = TMRecord.RenewalDt.AddYears(10);
+            }
 
             Task TaskToInsert = new Task();
-            TaskToInsert.TrademarksId = TrademarksId;
+            TaskToInsert.TrademarksId = TMRecord.Id;
             TaskToInsert.ExpDate = ExpDate;
             TaskToInsert.IsActive = true;
             TaskToInsert.EventTypesId = 1;
+            //string EventTypeName = EventType.getEventTypeName(TaskToInsert.EventTypesId);
+
+            //new form to show alarms before insert!
+            //move to contructor??
+            Alarms frmAlarms = new Alarms();
+            frmAlarms.txtTMId.Text = TMRecord.TMNo;
+            frmAlarms.txtTMName.Text = TMRecord.TMName;
+            frmAlarms.dtpExpDt.Value = ExpDate;
+            frmAlarms.dtpExpTime.Value = ExpDate;
+
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-6);
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "6 μήνες" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "6 μήνες" });
+            }
+
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-4);
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "4 μήνες" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "4 μήνες" });
+            }
+                                   
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-2);
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "2 μήνες" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "2 μήνες" });
+            }
+
+            TaskToInsert.NotificationDate = ExpDate.AddMonths(-1);
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "1 μήνας" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "1 μήνας" });
+            }
+
+            TaskToInsert.NotificationDate = ExpDate.AddDays(-15);
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "15 ημέρες" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "15 ημέρες" });
+            }
+
+            TaskToInsert.NotificationDate = ExpDate.AddDays(-3);
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "3 ημέρες" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "3 ημέρες" });
+            }
+
+            TaskToInsert.NotificationDate = ExpDate;
+            if (TaskToInsert.NotificationDate < DateTime.Now)
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, false, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "Λήξη" });
+                //color red
+                frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+            }
+            else
+            {
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), "Ανανέωση σε εκκρεμότητα", "Λήξη" });
+            }
+            
+            frmAlarms.ShowDialog();
+
+            foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
+                {
+                    if (InsertTask(TaskToInsert) == false)
+                    {
+                        ret = false;
+                    }
+                }
+            }
+            
+
+            //----------------------------
+            /*
             TaskToInsert.NotificationDate = ExpDate.AddMonths(-6);
             if (InsertTask(TaskToInsert) == false)
             {
@@ -331,6 +453,8 @@ namespace Trademarks
             {
                 ret = false;
             }
+            */
+            //----------------------------
 
             return ret;
         }
@@ -440,12 +564,21 @@ namespace Trademarks
                 txtFilename.Text == "Αρχείο: -" || (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
                 ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == ""))
             {
-                MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία");
+                MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία!");
                 return;
             }
 
             DateTime depositDatetime = new DateTime(dtpDepositDt.Value.Year, dtpDepositDt.Value.Month, dtpDepositDt.Value.Day,
                                                     dtpDepositTime.Value.Hour, dtpDepositTime.Value.Minute, dtpDepositTime.Value.Second);
+
+            DateTime renewalDatetime = new DateTime(dtpLastRenwalDt.Value.Year, dtpLastRenwalDt.Value.Month, dtpLastRenwalDt.Value.Day,
+                                                    dtpLastRenwalTime.Value.Hour, dtpLastRenwalTime.Value.Minute, dtpLastRenwalTime.Value.Second);
+
+            if (chbHasRenewal.Checked && depositDatetime > renewalDatetime)
+            {
+                MessageBox.Show("Προσοχή! Η ημερομηνία Ανανέωσης είναι μικρότερη από την ημερομηνία Κατάθεσης!");
+                return;
+            }
 
             TempRecords NewRecord = new TempRecords();
             NewRecord.TMNo = txtTMId.Text;
@@ -465,12 +598,16 @@ namespace Trademarks
             NewRecord.PublicationDate = dtpPublicationDate.Value;
             NewRecord.FinalizationDate = dtpFinalization.Value;
             NewRecord.Url = txtUrl.Text;
+            NewRecord.HasRenewal = chbHasRenewal.Checked;
+            NewRecord.RenewalDt = renewalDatetime;
 
             //Save
             bool success = true;
             int InsertedId = InsertTrademark(NewRecord); 
             if (InsertedId > 0)
             {
+                NewRecord.Id = InsertedId;
+
                 foreach (int TM_typeId in NewRecord.TMTypeIds)
                 {
                     if (InsertTM_Type(InsertedId, TM_typeId) == false)
@@ -500,7 +637,7 @@ namespace Trademarks
             //Alarms
             if (success)
             {
-                if (CreateAlarms(InsertedId, depositDatetime) == false)
+                if (CreateAlarms(NewRecord) == false)
                 {
                     MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                 }
@@ -522,6 +659,7 @@ namespace Trademarks
             txtTMId.Text = "246883";
             dtpDepositDt.Value = new DateTime(2017, 12, 21);
             dtpDepositTime.Value = new DateTime(1900, 1, 1, 12, 33, 0);
+
             cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact("Ιωάννα Τζανερρίκου");
             cbCompany.SelectedIndex = cbCompany.FindStringExact("PEAK CHARM HOLDINGS LIMITED");
 
@@ -614,6 +752,20 @@ namespace Trademarks
         {
             GoToNext = true;
             btnSave_Click(null, null);
+        }
+
+        private void chbHasRenewal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbHasRenewal.Checked)
+            {
+                dtpLastRenwalDt.Enabled = true;
+                dtpLastRenwalTime.Enabled = true;
+            }
+            else
+            {
+                dtpLastRenwalDt.Enabled = false;
+                dtpLastRenwalTime.Enabled = false;
+            }
         }
     }
 
@@ -833,6 +985,7 @@ namespace Trademarks
 
     public class TempRecords
     {
+        public int Id { get; set; }
         public string TMNo { get; set; }
         public DateTime DepositDt { get; set; }
         public int NationalPowerId { get; set; } //class ???
@@ -852,13 +1005,50 @@ namespace Trademarks
         public DateTime PublicationDate { get; set; }
         public DateTime FinalizationDate { get; set; }
         public string Url { get; set; }
-                    
+
+        public bool HasRenewal { get; set; }
+        public DateTime RenewalDt { get; set; }
     }
 
     public class dgvDictionary
     {
         public object dbfield { get; set; }
         public string dgvColumnHeader { get; set; }
+    }
+
+    public class EventType
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public EventType()
+        {
+        }
+
+        public static string getEventTypeName(int givenId)
+        {
+            string ret = "";
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Name FROM [dbo].[EventTypes] WHERE Id = " + givenId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["Name"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
     }
 
 }

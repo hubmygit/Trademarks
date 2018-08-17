@@ -30,6 +30,11 @@ namespace Trademarks
                 frmQuickIns.ShowDialog();
             }
         }
+
+        private void btnQuickView_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public static class AppVer

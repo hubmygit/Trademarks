@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alarms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Alarms.Designer.cs">
+      <DependentUpon>Alarms.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,9 @@
     <Compile Include="QuickInsert.Designer.cs">
       <DependentUpon>QuickInsert.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Alarms.resx">
+      <DependentUpon>Alarms.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
