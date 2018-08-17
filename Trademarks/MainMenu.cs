@@ -33,7 +33,8 @@ namespace Trademarks
 
         private void btnQuickView_Click(object sender, EventArgs e)
         {
-
+            QuickView frmQuickView = new QuickView();
+            frmQuickView.ShowDialog();
         }
     }
 

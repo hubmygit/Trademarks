@@ -63,6 +63,12 @@
     <Compile Include="QuickInsert.Designer.cs">
       <DependentUpon>QuickInsert.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuickView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickView.Designer.cs">
+      <DependentUpon>QuickView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Alarms.resx">
       <DependentUpon>Alarms.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,6 +86,9 @@
     </Compile>
     <EmbeddedResource Include="QuickInsert.resx">
       <DependentUpon>QuickInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickView.resx">
+      <DependentUpon>QuickView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

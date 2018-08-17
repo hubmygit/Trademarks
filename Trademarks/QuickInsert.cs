@@ -807,6 +807,31 @@ namespace Trademarks
             return ret;
         }
 
+        public static string getResponsibleName(int givenId)
+        {
+            string ret = "";
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT FullName FROM [dbo].[Responsible] WHERE Id = " + givenId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["FullName"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetResponsibleComboboxItemsList(List<Responsible> ResponsibleList)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();
@@ -858,6 +883,31 @@ namespace Trademarks
             return ret;
         }
 
+        public static string getCompanyName(int givenId)
+        {
+            string ret = "";
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Name FROM [dbo].[Company] WHERE Id = " + givenId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["Name"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetCompaniesComboboxItemsList(List<Company> CompanyList)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();
@@ -865,6 +915,40 @@ namespace Trademarks
             foreach (Company c in CompanyList)
             {
                 ret.Add(new ComboboxItem() { Value = c, Text = c.Name });
+            }
+
+            return ret;
+        }
+    }
+
+    public class NationalPower
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public NationalPower()
+        {
+        }
+
+        public static string getNationalPowerName(int givenId)
+        {
+            string ret = "";
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Name FROM [dbo].[NationalPower] WHERE Id = " + givenId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["Name"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
             }
 
             return ret;
