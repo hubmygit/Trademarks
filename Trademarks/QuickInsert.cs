@@ -196,10 +196,10 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "INSERT INTO [dbo].[TempRecords] ([TMNo], [DepositDt], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " + 
-                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url], [RenewalDt]) " +
+                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url], [RenewalDt], [InsDt]) " +
                 "OUTPUT INSERTED.Id " +
                 "VALUES (@TMNo, @DepositDt, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " + 
-                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url, @RenewalDt ) ";
+                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url, @RenewalDt, getdate() ) ";
             try
             {
                 sqlConn.Open();

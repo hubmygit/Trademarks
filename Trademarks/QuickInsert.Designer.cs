@@ -71,13 +71,13 @@
             this.Type_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvClasses = new System.Windows.Forms.DataGridView();
-            this.btnSaveAndNext = new System.Windows.Forms.Button();
-            this.dtpLastRenwalTime = new System.Windows.Forms.DateTimePicker();
-            this.dtpLastRenwalDt = new System.Windows.Forms.DateTimePicker();
             this.Class_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Class_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Class_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Class_Headers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSaveAndNext = new System.Windows.Forms.Button();
+            this.dtpLastRenwalTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpLastRenwalDt = new System.Windows.Forms.DateTimePicker();
             this.chbHasRenewal = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).BeginInit();
             this.gbNatPower.SuspendLayout();
@@ -206,7 +206,7 @@
             this.txtDecisionNo.Location = new System.Drawing.Point(367, 624);
             this.txtDecisionNo.Name = "txtDecisionNo";
             this.txtDecisionNo.Size = new System.Drawing.Size(180, 22);
-            this.txtDecisionNo.TabIndex = 19;
+            this.txtDecisionNo.TabIndex = 20;
             // 
             // dtpPublicationDate
             // 
@@ -215,7 +215,7 @@
             this.dtpPublicationDate.Location = new System.Drawing.Point(234, 659);
             this.dtpPublicationDate.Name = "dtpPublicationDate";
             this.dtpPublicationDate.Size = new System.Drawing.Size(120, 22);
-            this.dtpPublicationDate.TabIndex = 20;
+            this.dtpPublicationDate.TabIndex = 21;
             // 
             // lblPublicationDate
             // 
@@ -234,7 +234,7 @@
             this.dtpFinalization.Location = new System.Drawing.Point(596, 658);
             this.dtpFinalization.Name = "dtpFinalization";
             this.dtpFinalization.Size = new System.Drawing.Size(120, 22);
-            this.dtpFinalization.TabIndex = 21;
+            this.dtpFinalization.TabIndex = 22;
             // 
             // lblFinalization
             // 
@@ -263,7 +263,7 @@
             this.txtFees.Multiline = true;
             this.txtFees.Name = "txtFees";
             this.txtFees.Size = new System.Drawing.Size(350, 80);
-            this.txtFees.TabIndex = 17;
+            this.txtFees.TabIndex = 18;
             // 
             // lblDescription
             // 
@@ -282,7 +282,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(350, 80);
-            this.txtDescription.TabIndex = 18;
+            this.txtDescription.TabIndex = 19;
             // 
             // pbTMPic
             // 
@@ -309,7 +309,7 @@
             this.btnAddTMPic.Location = new System.Drawing.Point(319, 248);
             this.btnAddTMPic.Name = "btnAddTMPic";
             this.btnAddTMPic.Size = new System.Drawing.Size(30, 30);
-            this.btnAddTMPic.TabIndex = 14;
+            this.btnAddTMPic.TabIndex = 15;
             this.btnAddTMPic.Text = "+";
             this.btnAddTMPic.UseVisualStyleBackColor = true;
             this.btnAddTMPic.Click += new System.EventHandler(this.btnAddTMPic_Click);
@@ -320,7 +320,7 @@
             this.btnSave.Location = new System.Drawing.Point(209, 740);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(180, 50);
-            this.btnSave.TabIndex = 23;
+            this.btnSave.TabIndex = 24;
             this.btnSave.Text = "Αποθήκευση";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -342,7 +342,7 @@
             this.rbDiethnes.Location = new System.Drawing.Point(222, 12);
             this.rbDiethnes.Name = "rbDiethnes";
             this.rbDiethnes.Size = new System.Drawing.Size(65, 17);
-            this.rbDiethnes.TabIndex = 9;
+            this.rbDiethnes.TabIndex = 10;
             this.rbDiethnes.TabStop = true;
             this.rbDiethnes.Text = "Διεθνές";
             this.rbDiethnes.UseVisualStyleBackColor = true;
@@ -354,7 +354,7 @@
             this.rbKoinotiko.Location = new System.Drawing.Point(111, 12);
             this.rbKoinotiko.Name = "rbKoinotiko";
             this.rbKoinotiko.Size = new System.Drawing.Size(72, 17);
-            this.rbKoinotiko.TabIndex = 8;
+            this.rbKoinotiko.TabIndex = 9;
             this.rbKoinotiko.TabStop = true;
             this.rbKoinotiko.Text = "Κοινοτικό";
             this.rbKoinotiko.UseVisualStyleBackColor = true;
@@ -366,7 +366,7 @@
             this.rbEthniko.Location = new System.Drawing.Point(10, 12);
             this.rbEthniko.Name = "rbEthniko";
             this.rbEthniko.Size = new System.Drawing.Size(57, 17);
-            this.rbEthniko.TabIndex = 7;
+            this.rbEthniko.TabIndex = 8;
             this.rbEthniko.TabStop = true;
             this.rbEthniko.Text = "Εθνικό";
             this.rbEthniko.UseVisualStyleBackColor = true;
@@ -379,7 +379,7 @@
             this.txtTMGrId.Location = new System.Drawing.Point(646, 124);
             this.txtTMGrId.Name = "txtTMGrId";
             this.txtTMGrId.Size = new System.Drawing.Size(100, 22);
-            this.txtTMGrId.TabIndex = 10;
+            this.txtTMGrId.TabIndex = 11;
             // 
             // lblTMGrId
             // 
@@ -397,7 +397,7 @@
             this.btnRemoveTMFile.Location = new System.Drawing.Point(319, 283);
             this.btnRemoveTMFile.Name = "btnRemoveTMFile";
             this.btnRemoveTMFile.Size = new System.Drawing.Size(30, 30);
-            this.btnRemoveTMFile.TabIndex = 15;
+            this.btnRemoveTMFile.TabIndex = 16;
             this.btnRemoveTMFile.Text = "-";
             this.btnRemoveTMFile.UseVisualStyleBackColor = true;
             this.btnRemoveTMFile.Click += new System.EventHandler(this.btnRemoveTMFile_Click);
@@ -429,7 +429,7 @@
             this.txtUrl.Location = new System.Drawing.Point(99, 693);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(617, 22);
-            this.txtUrl.TabIndex = 22;
+            this.txtUrl.TabIndex = 23;
             // 
             // lblUrl
             // 
@@ -450,7 +450,7 @@
             this.cbLawyerFullname.Location = new System.Drawing.Point(346, 187);
             this.cbLawyerFullname.Name = "cbLawyerFullname";
             this.cbLawyerFullname.Size = new System.Drawing.Size(400, 24);
-            this.cbLawyerFullname.TabIndex = 12;
+            this.cbLawyerFullname.TabIndex = 13;
             // 
             // cbCompany
             // 
@@ -461,7 +461,7 @@
             this.cbCompany.Location = new System.Drawing.Point(346, 155);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(400, 24);
-            this.cbCompany.TabIndex = 11;
+            this.cbCompany.TabIndex = 12;
             // 
             // dgvTypes
             // 
@@ -478,7 +478,7 @@
             this.dgvTypes.RowHeadersVisible = false;
             this.dgvTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTypes.Size = new System.Drawing.Size(215, 110);
-            this.dgvTypes.TabIndex = 13;
+            this.dgvTypes.TabIndex = 14;
             // 
             // Type_Id
             // 
@@ -518,39 +518,7 @@
             this.dgvClasses.RowHeadersVisible = false;
             this.dgvClasses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClasses.Size = new System.Drawing.Size(705, 110);
-            this.dgvClasses.TabIndex = 16;
-            // 
-            // btnSaveAndNext
-            // 
-            this.btnSaveAndNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSaveAndNext.Location = new System.Drawing.Point(395, 740);
-            this.btnSaveAndNext.Name = "btnSaveAndNext";
-            this.btnSaveAndNext.Size = new System.Drawing.Size(180, 50);
-            this.btnSaveAndNext.TabIndex = 24;
-            this.btnSaveAndNext.Text = "Αποθήκευση και Επόμενο";
-            this.btnSaveAndNext.UseVisualStyleBackColor = true;
-            this.btnSaveAndNext.Click += new System.EventHandler(this.btnSaveAndNext_Click);
-            // 
-            // dtpLastRenwalTime
-            // 
-            this.dtpLastRenwalTime.Enabled = false;
-            this.dtpLastRenwalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtpLastRenwalTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpLastRenwalTime.Location = new System.Drawing.Point(646, 93);
-            this.dtpLastRenwalTime.Name = "dtpLastRenwalTime";
-            this.dtpLastRenwalTime.ShowUpDown = true;
-            this.dtpLastRenwalTime.Size = new System.Drawing.Size(100, 22);
-            this.dtpLastRenwalTime.TabIndex = 6;
-            // 
-            // dtpLastRenwalDt
-            // 
-            this.dtpLastRenwalDt.Enabled = false;
-            this.dtpLastRenwalDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtpLastRenwalDt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpLastRenwalDt.Location = new System.Drawing.Point(520, 93);
-            this.dtpLastRenwalDt.Name = "dtpLastRenwalDt";
-            this.dtpLastRenwalDt.Size = new System.Drawing.Size(120, 22);
-            this.dtpLastRenwalDt.TabIndex = 5;
+            this.dgvClasses.TabIndex = 17;
             // 
             // Class_Id
             // 
@@ -581,6 +549,38 @@
             this.Class_Headers.ReadOnly = true;
             this.Class_Headers.Width = 620;
             // 
+            // btnSaveAndNext
+            // 
+            this.btnSaveAndNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSaveAndNext.Location = new System.Drawing.Point(395, 740);
+            this.btnSaveAndNext.Name = "btnSaveAndNext";
+            this.btnSaveAndNext.Size = new System.Drawing.Size(180, 50);
+            this.btnSaveAndNext.TabIndex = 25;
+            this.btnSaveAndNext.Text = "Αποθήκευση και Επόμενο";
+            this.btnSaveAndNext.UseVisualStyleBackColor = true;
+            this.btnSaveAndNext.Click += new System.EventHandler(this.btnSaveAndNext_Click);
+            // 
+            // dtpLastRenwalTime
+            // 
+            this.dtpLastRenwalTime.Enabled = false;
+            this.dtpLastRenwalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpLastRenwalTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpLastRenwalTime.Location = new System.Drawing.Point(646, 93);
+            this.dtpLastRenwalTime.Name = "dtpLastRenwalTime";
+            this.dtpLastRenwalTime.ShowUpDown = true;
+            this.dtpLastRenwalTime.Size = new System.Drawing.Size(100, 22);
+            this.dtpLastRenwalTime.TabIndex = 7;
+            // 
+            // dtpLastRenwalDt
+            // 
+            this.dtpLastRenwalDt.Enabled = false;
+            this.dtpLastRenwalDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpLastRenwalDt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpLastRenwalDt.Location = new System.Drawing.Point(520, 93);
+            this.dtpLastRenwalDt.Name = "dtpLastRenwalDt";
+            this.dtpLastRenwalDt.Size = new System.Drawing.Size(120, 22);
+            this.dtpLastRenwalDt.TabIndex = 6;
+            // 
             // chbHasRenewal
             // 
             this.chbHasRenewal.AutoSize = true;
@@ -589,7 +589,7 @@
             this.chbHasRenewal.Location = new System.Drawing.Point(362, 95);
             this.chbHasRenewal.Name = "chbHasRenewal";
             this.chbHasRenewal.Size = new System.Drawing.Size(152, 20);
-            this.chbHasRenewal.TabIndex = 37;
+            this.chbHasRenewal.TabIndex = 5;
             this.chbHasRenewal.Text = "Τελευταία Ανανέωση";
             this.chbHasRenewal.UseVisualStyleBackColor = true;
             this.chbHasRenewal.CheckedChanged += new System.EventHandler(this.chbHasRenewal_CheckedChanged);

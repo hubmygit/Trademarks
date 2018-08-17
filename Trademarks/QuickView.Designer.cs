@@ -31,6 +31,7 @@
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
             this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
             this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RenewalDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,7 +39,6 @@
             this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,14 +53,14 @@
             this.dgvTempRecs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tmp_Id,
             this.tmp_No,
+            this.tmp_Pic,
             this.tmp_Name,
             this.tmp_DepositDt,
             this.tmp_RenewalDt,
             this.tmp_NatPower,
             this.tmp_GrNo,
             this.tmp_Com,
-            this.tmp_RespLawyer,
-            this.tmp_Pic});
+            this.tmp_RespLawyer});
             this.dgvTempRecs.Location = new System.Drawing.Point(0, 79);
             this.dgvTempRecs.MultiSelect = false;
             this.dgvTempRecs.Name = "dgvTempRecs";
@@ -81,6 +81,12 @@
             this.tmp_No.Name = "tmp_No";
             this.tmp_No.ReadOnly = true;
             this.tmp_No.Width = 90;
+            // 
+            // tmp_Pic
+            // 
+            this.tmp_Pic.HeaderText = "Αρχείο";
+            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.tmp_Pic.Name = "tmp_Pic";
             // 
             // tmp_Name
             // 
@@ -117,12 +123,6 @@
             this.tmp_RespLawyer.HeaderText = "Υπεύθ. Δικηγόρος";
             this.tmp_RespLawyer.Name = "tmp_RespLawyer";
             // 
-            // tmp_Pic
-            // 
-            this.tmp_Pic.HeaderText = "Αρχείο";
-            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.tmp_Pic.Name = "tmp_Pic";
-            // 
             // QuickView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -142,6 +142,7 @@
         public System.Windows.Forms.DataGridView dgvTempRecs;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_No;
+        private System.Windows.Forms.DataGridViewImageColumn tmp_Pic;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_DepositDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_RenewalDt;
@@ -149,6 +150,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_GrNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_RespLawyer;
-        private System.Windows.Forms.DataGridViewImageColumn tmp_Pic;
     }
 }

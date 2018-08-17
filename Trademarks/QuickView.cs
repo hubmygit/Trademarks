@@ -30,7 +30,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [TMNo], [TMName], [DepositDt], [RenewalDt], " +
-                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId] " +
+                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents] " +
                               "FROM [dbo].[TempRecords] " +
                               "ORDER BY Id "; //??
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -62,6 +62,10 @@ namespace Trademarks
                     tmpRec.TMGrNo = reader["TMGrNo"].ToString();
                     tmpRec.CompanyId = Convert.ToInt32(reader["CompanyId"].ToString());
                     tmpRec.ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
+                    if (reader["FileContents"] != DBNull.Value)
+                    {
+                        tmpRec.FileContents = (byte[])reader["FileContents"];
+                    }
 
                     ret.Add(tmpRec);
                 }
@@ -101,10 +105,28 @@ namespace Trademarks
                 dgvDictList.Add(new dgvDictionary() { dbfield = Company.getCompanyName(thisRecord.CompanyId), dgvColumnHeader = "tmp_Com" }); 
                 dgvDictList.Add(new dgvDictionary() { dbfield = Responsible.getResponsibleName(thisRecord.ResponsibleLawyerId), dgvColumnHeader = "tmp_RespLawyer" });
 
-                Bitmap bitmap = new Bitmap(@"C:\Repos\Trademarks\Files\246883.jpg");
-                //dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
-                dgvDictList.Add(new dgvDictionary() { dbfield = bitmap, dgvColumnHeader = "tmp_Pic" }); //???
+                //Bitmap bitmap = new Bitmap(@"C:\Repos\Trademarks\Files\246883.jpg");
 
+                //Bitmap bitmap;
+                //if (thisRecord.FileContents != null)
+                //{
+                //    using (var ms = new System.IO.MemoryStream(thisRecord.FileContents))
+                //    {
+                //        bitmap = new Bitmap(ms);
+                //    }
+                //}
+                //else
+                //{
+                //    bitmap = null; //new Bitmap(@"C:\Repos\Trademarks\Files\246883.jpg");
+                //}
+                //dgvDictList.Add(new dgvDictionary() { dbfield = bitmap, dgvColumnHeader = "tmp_Pic" }); //???
+
+                dgv.Columns["tmp_Pic"].DefaultCellStyle.NullValue = null;
+                if (thisRecord.FileContents != null)
+                {
+                    dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
+                }
+                
                 object[] obj = new object[dgv.Columns.Count];
 
                 for (int i = 0; i < dgv.Columns.Count; i++)
