@@ -156,6 +156,45 @@ namespace Trademarks
             dgv.ClearSelection();
         }
 
+        public void FillDataGridView(DataGridView dgv, TempRecords tmpRec, int dgvIndex)
+        {
+            List<dgvDictionary> dgvDictList = new List<dgvDictionary>();
+
+            dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.Id, dgvColumnHeader = "tmp_Id" });
+            dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.TMNo, dgvColumnHeader = "tmp_No" });
+            dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.TMName, dgvColumnHeader = "tmp_Name" });
+            dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.DepositDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "tmp_DepositDt" });
+            if (tmpRec.HasRenewal)
+            {
+                dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.RenewalDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "tmp_RenewalDt" });
+            }
+            else
+            {
+                dgvDictList.Add(new dgvDictionary() { dbfield = "", dgvColumnHeader = "tmp_RenewalDt" });
+            }
+            dgvDictList.Add(new dgvDictionary() { dbfield = NationalPower.getNationalPowerName(tmpRec.NationalPowerId), dgvColumnHeader = "tmp_NatPower" });
+            dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.TMGrNo, dgvColumnHeader = "tmp_GrNo" });
+            dgvDictList.Add(new dgvDictionary() { dbfield = Company.getCompanyName(tmpRec.CompanyId), dgvColumnHeader = "tmp_Com" });
+            dgvDictList.Add(new dgvDictionary() { dbfield = Responsible.getResponsibleName(tmpRec.ResponsibleLawyerId), dgvColumnHeader = "tmp_RespLawyer" });
+
+            dgv.Columns["tmp_Pic"].DefaultCellStyle.NullValue = null;
+            if (tmpRec.FileContents != null)
+            {
+                dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
+            }
+
+            object[] obj = new object[dgv.Columns.Count];
+
+            for (int i = 0; i < dgv.Columns.Count; i++)
+            {
+                obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
+
+                dgv.Rows[dgvIndex].Cells[i].Value = obj[i];
+            }
+            
+            dgv.Rows[dgvIndex].Selected = true;
+        }
+
         private void dgvTempRecs_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -190,25 +229,23 @@ namespace Trademarks
                 frmUpdateTmpRec.ShowDialog();
 
                 if (frmUpdateTmpRec.success)
-                {
-                    /*
+                {                    
                     //refresh
-                    //auditList = SelectAudit();
-                    auditList[auditList.FindIndex(w => w.Id == Id)] = frmUpdateAudit.newAuditRecord;
+                    tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdateTmpRec.NewRecord;
 
-                    //FillDataGridView(dgvAuditView, auditList);
-                    //dgvAuditView.SelectedRows[0].Cells[""]
-                    FillDataGridView(dgvAuditView, frmUpdateAudit.newAuditRecord, dgvIndex);
-                    */
+                    //FillDataGridView(dgvTempRecs, tempRecList);
+                    FillDataGridView(dgvTempRecs, frmUpdateTmpRec.NewRecord, dgvIndex);                    
                 }
-
-
             }
         }
 
         private void tsmiDelete_Click(object sender, EventArgs e)
         {
             // Delete
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+
+            }
         }
     }
 }

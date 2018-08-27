@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -74,9 +75,43 @@ namespace Trademarks
                     dgvTypes["Type_Checked", row.Index].Value = "True";
                 }
             }
-                        
-            //pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg"); //????????????????????????
-            txtFilename.Text = tmpRec.FileName;
+
+            if (tmpRec.FileContents != null)
+            {
+                //string lvPath = "";
+                string ext = "";
+                //string tempPath = Path.GetTempPath(); //C:\Users\hkylidis\AppData\Local\Temp\
+                //string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(tmpRec.FileName) + "~" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()));
+                string tempPath = Path.GetTempPath() + "~" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + "\\";
+                string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(tmpRec.FileName));
+                try
+                {
+                    //if (!Directory.Exists(tempPath))
+                    //{
+                    //    MessageBox.Show("Error. Please check your privileges on " + tempPath);
+                    //}
+
+                    Directory.CreateDirectory(tempPath);
+
+                    string fname = tmpRec.FileName;
+                    ext = fname.Substring(fname.LastIndexOf("."));
+                    //lvPath = tempFile + ext;
+                    File.WriteAllBytes(tempFile + ext, tmpRec.FileContents);
+                    
+                    pbTMPic.Image = Image.FromFile(tempFile + ext);
+                    txtFilename.Text = tempFile + ext; //tmpRec.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                    //return;
+                }
+
+                //pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg"); //????????????????????????
+                //txtFilename.Text = tmpRec.FileName;
+            }
+
+
 
             foreach (int classId in tmpRec.ClassIds)
             {
@@ -109,6 +144,7 @@ namespace Trademarks
         public bool success = false;
 
         public TempRecords oldTempRecord = new TempRecords();
+        public TempRecords NewRecord = new TempRecords();
         public int TempRecUpdId = 0;
 
         private void Init()
@@ -663,6 +699,7 @@ namespace Trademarks
             {
                 if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
                 {
+                    TaskToInsert.NotificationDate = Convert.ToDateTime(dgvr.Cells["Alarm_NotificationDate"].Value);
                     if (InsertTask(TaskToInsert) == false)
                     {
                         ret = false;
@@ -835,7 +872,8 @@ namespace Trademarks
                 return;
             }
 
-            TempRecords NewRecord = new TempRecords();
+            NewRecord = new TempRecords();
+
             NewRecord.TMNo = txtTMId.Text;
             NewRecord.DepositDt = depositDatetime;
             NewRecord.NationalPowerId = getNatPowerId(gbNatPower);
