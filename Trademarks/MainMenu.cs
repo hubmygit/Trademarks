@@ -15,6 +15,8 @@ namespace Trademarks
         public MainMenu()
         {
             InitializeComponent();
+
+            tsStatusLblUser.Text = "User: " + UserInfo.WindowsUser + " - " + UserInfo.FullName;
         }
 
         private void btnQuickInsert_Click(object sender, EventArgs e)

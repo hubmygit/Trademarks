@@ -12,9 +12,92 @@ namespace Trademarks
 {
     public partial class QuickInsert : Form
     {
-        public QuickInsert()
+        public QuickInsert() //insert
         {
-            InitializeComponent();                                 
+            InitializeComponent();
+
+            Init();
+
+            isInsert = true;
+        }
+
+        public QuickInsert(TempRecords tmpRec) //update
+        {
+            InitializeComponent();
+
+            Init();
+
+            isInsert = false;
+            btnSaveAndNext.Enabled = false;
+
+            oldTempRecord = tmpRec;
+            TempRecUpdId = tmpRec.Id;
+
+
+            txtTMId.Text = tmpRec.TMNo;
+            txtTMName.Text = tmpRec.TMName;
+            dtpDepositDt.Value = tmpRec.DepositDt;
+            dtpDepositTime.Value = tmpRec.DepositDt;
+            chbHasRenewal.Checked = tmpRec.HasRenewal;
+            if(chbHasRenewal.Checked)
+            {
+                dtpLastRenwalDt.Value = tmpRec.RenewalDt;
+                dtpLastRenwalTime.Value = tmpRec.RenewalDt;
+            }
+
+            if (tmpRec.NationalPowerId == 1) //1 Εθνικό
+            {
+                rbEthniko.Checked = true;
+            }
+            else if (tmpRec.NationalPowerId == 2) //2 Κοινοτικό
+            {
+                rbKoinotiko.Checked = true;
+            }
+            else if (tmpRec.NationalPowerId == 3) //3 Διεθνές
+            {
+                rbDiethnes.Checked = true;
+            }
+            txtTMGrId.Text = tmpRec.TMGrNo;
+
+            cbCompany.SelectedIndex = cbCompany.FindStringExact(Company.getCompanyName(tmpRec.CompanyId));
+            cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact(Responsible.getResponsibleName(tmpRec.ResponsibleLawyerId));
+
+            foreach (int typeId in tmpRec.TMTypeIds)
+            {
+                DataGridViewRow row = dgvTypes.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Where(r => Convert.ToInt32(r.Cells["Type_Id"].Value.ToString()) == typeId)
+                                      .First();
+
+                if (row.Index >= 0)
+                {
+                    dgvTypes["Type_Checked", row.Index].Value = "True";
+                }
+            }
+                        
+            //pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg"); //????????????????????????
+            txtFilename.Text = tmpRec.FileName;
+
+            foreach (int classId in tmpRec.ClassIds)
+            {
+                DataGridViewRow row = dgvClasses.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Where(r => Convert.ToInt32(r.Cells["Class_Id"].Value.ToString()) == classId)
+                                      .First();
+
+                if (row.Index >= 0)
+                {
+                    dgvClasses["Class_Checked", row.Index].Value = "True";
+                }
+            }
+
+            txtFees.Text = tmpRec.Fees;
+            txtDescription.Text = tmpRec.Description;
+            txtDecisionNo.Text = tmpRec.DecisionNo;
+            dtpPublicationDate.Value = tmpRec.PublicationDate;
+            dtpFinalization.Value = tmpRec.FinalizationDate;
+
+            txtUrl.Text = tmpRec.Url;            
         }
 
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
@@ -22,13 +105,24 @@ namespace Trademarks
         ToolTip classTooltip = new ToolTip();
         public bool GoToNext = false;
 
-        private void QuickInsert_Load(object sender, EventArgs e)
+        public bool isInsert = false;
+        public bool success = false;
+
+        public TempRecords oldTempRecord = new TempRecords();
+        public int TempRecUpdId = 0;
+
+        private void Init()
         {
             cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
             cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
 
             FillDataGridView(dgvTypes, Type.getTypeList());
             FillDataGridView(dgvClasses, Class.getClassList());
+        }
+
+        private void QuickInsert_Load(object sender, EventArgs e)
+        {
+            
 
             txtTMId.Select();
         }
@@ -196,10 +290,10 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "INSERT INTO [dbo].[TempRecords] ([TMNo], [DepositDt], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " + 
-                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url], [RenewalDt], [InsDt]) " +
+                "[TMName], [FileName], [FileContents], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate],[Url], [RenewalDt], [InsUser], [InsDt]) " +
                 "OUTPUT INSERTED.Id " +
                 "VALUES (@TMNo, @DepositDt, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " + 
-                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url, @RenewalDt, getdate() ) ";
+                "@TMName, @FileName, @FileContents, @Description, @Fees, @DecisionNo, @PublicationDate, @FinalizationDate, @Url, @RenewalDt, @InsUser, getdate() ) ";
             try
             {
                 sqlConn.Open();
@@ -235,6 +329,7 @@ namespace Trademarks
                 {
                     cmd.Parameters.AddWithValue("@RenewalDt", DBNull.Value);
                 }
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
 
@@ -601,56 +696,62 @@ namespace Trademarks
             NewRecord.HasRenewal = chbHasRenewal.Checked;
             NewRecord.RenewalDt = renewalDatetime;
 
-            //Save
-            bool success = true;
-            int InsertedId = InsertTrademark(NewRecord); 
-            if (InsertedId > 0)
-            {
-                NewRecord.Id = InsertedId;
+            NewRecord.Id = TempRecUpdId;
 
-                foreach (int TM_typeId in NewRecord.TMTypeIds)
+            if (isInsert)
+            {
+                //Save
+                bool successful = true;
+                int InsertedId = InsertTrademark(NewRecord);
+                if (InsertedId > 0)
                 {
-                    if (InsertTM_Type(InsertedId, TM_typeId) == false)
+                    NewRecord.Id = InsertedId;
+
+                    foreach (int TM_typeId in NewRecord.TMTypeIds)
                     {
-                        //TM_Type ins error
-                        success = false;
+                        if (InsertTM_Type(InsertedId, TM_typeId) == false)
+                        {
+                            //TM_Type ins error
+                            successful = false;
+                        }
                     }
-                    
-                }
 
-                foreach (int TM_classId in NewRecord.ClassIds)
-                {
-                    if (InsertTM_Class(InsertedId, TM_classId) == false)
+                    foreach (int TM_classId in NewRecord.ClassIds)
                     {
-                        //TM_Class ins error
-                        success = false;
+                        if (InsertTM_Class(InsertedId, TM_classId) == false)
+                        {
+                            //TM_Class ins error
+                            successful = false;
+                        }
                     }
-                    
-                }
-            }
-            else
-            {
-                //TM ins error
-                success = false;
-            }
-
-            //Alarms
-            if (success)
-            {
-                if (CreateAlarms(NewRecord) == false)
-                {
-                    MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                 }
                 else
                 {
-                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    //TM ins error
+                    successful = false;
+                }
 
-                    Close();
+                //Alarms
+                if (successful)
+                {
+                    if (CreateAlarms(NewRecord) == false)
+                    {
+                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+
+                        Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
                 }
             }
             else
             {
-                MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
             }
         }
 
@@ -1024,6 +1125,34 @@ namespace Trademarks
 
             return ret;
         }
+
+        public static List<int> getTM_TypesList(int TrademarkId)
+        {
+            List<int> ret = new List<int>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Type_Id FROM [dbo].[TM_Types] WHERE Trademarks_Id = @TM_Id ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TM_Id", TrademarkId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(Convert.ToInt32(reader["Type_Id"].ToString()));
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
     }
 
     public class Class
@@ -1055,6 +1184,34 @@ namespace Trademarks
                     newclass.Headers = reader["Headers"].ToString();
 
                     ret.Add(newclass);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<int> getTM_ClassList(int TrademarkId)
+        {
+            List<int> ret = new List<int>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Class_Id FROM [dbo].[TM_Classes] WHERE Trademarks_Id = @TM_Id ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TM_Id", TrademarkId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(Convert.ToInt32(reader["Class_Id"].ToString()));
                 }
                 reader.Close();
             }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
             this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,7 +40,12 @@
             this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
+            this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTempRecs
@@ -61,6 +67,7 @@
             this.tmp_GrNo,
             this.tmp_Com,
             this.tmp_RespLawyer});
+            this.dgvTempRecs.ContextMenuStrip = this.cmsOnGrid;
             this.dgvTempRecs.Location = new System.Drawing.Point(0, 79);
             this.dgvTempRecs.MultiSelect = false;
             this.dgvTempRecs.Name = "dgvTempRecs";
@@ -68,6 +75,7 @@
             this.dgvTempRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTempRecs.Size = new System.Drawing.Size(984, 383);
             this.dgvTempRecs.TabIndex = 1;
+            this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
             // 
             // tmp_Id
             // 
@@ -123,6 +131,36 @@
             this.tmp_RespLawyer.HeaderText = "Υπεύθ. Δικηγόρος";
             this.tmp_RespLawyer.Name = "tmp_RespLawyer";
             // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiUpdate,
+            this.tsmiDelete,
+            this.tsmiOpenUrl});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 92);
+            // 
+            // tsmiOpenUrl
+            // 
+            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOpenUrl.Text = "Open Url";
+            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
+            // 
+            // tsmiUpdate
+            // 
+            this.tsmiUpdate.Name = "tsmiUpdate";
+            this.tsmiUpdate.Size = new System.Drawing.Size(180, 22);
+            this.tsmiUpdate.Text = "Update";
+            this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(180, 22);
+            this.tsmiDelete.Text = "Delete";
+            this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
+            // 
             // QuickView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,6 +171,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick View";
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).EndInit();
+            this.cmsOnGrid.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -150,5 +189,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_GrNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_RespLawyer;
+        private System.Windows.Forms.ContextMenuStrip cmsOnGrid;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdate;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
     }
 }

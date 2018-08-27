@@ -19,6 +19,8 @@ namespace Trademarks
             if (!AppVer.IsLatestVersion()) //check version
                 return;
 
+            UserInfo.UserLogIn();
+            
             Application.Run(new MainMenu());
         }
     }

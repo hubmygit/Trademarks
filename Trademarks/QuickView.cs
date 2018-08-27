@@ -29,8 +29,9 @@ namespace Trademarks
             List<TempRecords> ret = new List<TempRecords>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [TMNo], [TMName], [DepositDt], [RenewalDt], " +
-                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents] " +
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [RenewalDt], " +
+                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
+                              "[FileName], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate], [Url] " +
                               "FROM [dbo].[TempRecords] " +
                               "ORDER BY Id "; //??
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -50,6 +51,7 @@ namespace Trademarks
 
                     TempRecords tmpRec = new TempRecords();
 
+                    tmpRec.Id = Convert.ToInt32(reader["Id"].ToString());
                     tmpRec.TMNo = reader["TMNo"].ToString();
                     tmpRec.TMName = reader["TMName"].ToString();
                     tmpRec.DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
@@ -66,6 +68,17 @@ namespace Trademarks
                     {
                         tmpRec.FileContents = (byte[])reader["FileContents"];
                     }
+
+                    tmpRec.FileName = reader["FileName"].ToString();
+                    tmpRec.Description = reader["Description"].ToString();
+                    tmpRec.Fees = reader["Fees"].ToString();
+                    tmpRec.DecisionNo = reader["DecisionNo"].ToString();
+                    tmpRec.PublicationDate = Convert.ToDateTime(reader["PublicationDate"].ToString());
+                    tmpRec.FinalizationDate = Convert.ToDateTime(reader["FinalizationDate"].ToString());
+                    tmpRec.Url = reader["Url"].ToString();
+
+                    tmpRec.TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
+                    tmpRec.ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
 
                     ret.Add(tmpRec);
                 }
@@ -141,6 +154,61 @@ namespace Trademarks
             }
 
             dgv.ClearSelection();
+        }
+
+        private void dgvTempRecs_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hti = dgvTempRecs.HitTest(e.X, e.Y);
+                if (hti.RowIndex < 0)
+                {
+                    return;
+                }
+                dgvTempRecs.Rows[hti.RowIndex].Selected = true;
+
+            }
+        }
+
+        private void tsmiOpenUrl_Click(object sender, EventArgs e)
+        {
+            //Open Url: a) Hidden Column OR b) Search by Id
+            //An Yparxei Url...
+            //System.Diagnostics.Process.Start("http://google.com");
+        }
+
+        private void tsmiUpdate_Click(object sender, EventArgs e)
+        {
+            // Update
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                QuickInsert frmUpdateTmpRec = new QuickInsert(thisTmpRec);
+                frmUpdateTmpRec.ShowDialog();
+
+                if (frmUpdateTmpRec.success)
+                {
+                    /*
+                    //refresh
+                    //auditList = SelectAudit();
+                    auditList[auditList.FindIndex(w => w.Id == Id)] = frmUpdateAudit.newAuditRecord;
+
+                    //FillDataGridView(dgvAuditView, auditList);
+                    //dgvAuditView.SelectedRows[0].Cells[""]
+                    FillDataGridView(dgvAuditView, frmUpdateAudit.newAuditRecord, dgvIndex);
+                    */
+                }
+
+
+            }
+        }
+
+        private void tsmiDelete_Click(object sender, EventArgs e)
+        {
+            // Delete
         }
     }
 }
