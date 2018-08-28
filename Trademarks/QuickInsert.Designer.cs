@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickInsert));
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.lblTMId = new System.Windows.Forms.Label();
             this.lblDepositDt = new System.Windows.Forms.Label();
@@ -641,6 +642,7 @@
             this.Controls.Add(this.lblDepositDt);
             this.Controls.Add(this.lblTMId);
             this.Controls.Add(this.txtTMId);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "QuickInsert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick Insert";

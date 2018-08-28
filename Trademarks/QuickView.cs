@@ -242,9 +242,18 @@ namespace Trademarks
 
         private void tsmiOpenUrl_Click(object sender, EventArgs e)
         {
-            //Open Url: a) Hidden Column OR b) Search by Id
-            //An Yparxei Url...
-            //System.Diagnostics.Process.Start("http://google.com");
+            int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+            TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+            if (thisTmpRec.Url.Trim() != "")
+            {
+                System.Diagnostics.Process.Start(thisTmpRec.Url);
+            }
+            else
+            {
+                MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+            }
+
         }
 
         private void tsmiUpdate_Click(object sender, EventArgs e)
@@ -280,7 +289,7 @@ namespace Trademarks
                 int tmpId = Convert.ToInt32(dgvTempRecs["tmp_Id", dgvIndex].Value.ToString());
                 bool success = true;
 
-                DialogResult dialogResult = MessageBox.Show("Θέλετε οπωσδήποτε να διαγράψετε την εγγραφή του Σήματος: [" + Sima + "];\r\n Θα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις.", "Διαγραφή Σήματος", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Θέλετε οπωσδήποτε να διαγράψετε την εγγραφή του Σήματος: [" + Sima + "];\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις.", "Διαγραφή Σήματος", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     //delete from TM_Types
