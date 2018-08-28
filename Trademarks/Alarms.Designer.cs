@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Alarms));
             this.dgvAlarms = new System.Windows.Forms.DataGridView();
+            this.Alarm_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alarm_Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Alarm_NotificationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alarm_Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alarm_Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dtpExpDt = new System.Windows.Forms.DateTimePicker();
             this.lblExpDt = new System.Windows.Forms.Label();
             this.dtpExpTime = new System.Windows.Forms.DateTimePicker();
@@ -36,11 +42,6 @@
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.lblTMName = new System.Windows.Forms.Label();
             this.txtTMName = new System.Windows.Forms.TextBox();
-            this.Alarm_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Alarm_Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Alarm_NotificationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Alarm_Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Alarm_Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnOk = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlarms)).BeginInit();
             this.SuspendLayout();
@@ -62,6 +63,40 @@
             this.dgvAlarms.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAlarms.Size = new System.Drawing.Size(497, 268);
             this.dgvAlarms.TabIndex = 0;
+            // 
+            // Alarm_Id
+            // 
+            this.Alarm_Id.HeaderText = "Id";
+            this.Alarm_Id.Name = "Alarm_Id";
+            this.Alarm_Id.Visible = false;
+            // 
+            // Alarm_Active
+            // 
+            this.Alarm_Active.HeaderText = "Active";
+            this.Alarm_Active.Name = "Alarm_Active";
+            this.Alarm_Active.ReadOnly = true;
+            this.Alarm_Active.Width = 50;
+            // 
+            // Alarm_NotificationDate
+            // 
+            this.Alarm_NotificationDate.HeaderText = "Notification Date";
+            this.Alarm_NotificationDate.Name = "Alarm_NotificationDate";
+            this.Alarm_NotificationDate.ReadOnly = true;
+            this.Alarm_NotificationDate.Width = 120;
+            // 
+            // Alarm_Event
+            // 
+            this.Alarm_Event.HeaderText = "Event Type";
+            this.Alarm_Event.Name = "Alarm_Event";
+            this.Alarm_Event.ReadOnly = true;
+            this.Alarm_Event.Width = 160;
+            // 
+            // Alarm_Period
+            // 
+            this.Alarm_Period.HeaderText = "Period";
+            this.Alarm_Period.Name = "Alarm_Period";
+            this.Alarm_Period.ReadOnly = true;
+            this.Alarm_Period.Width = 90;
             // 
             // dtpExpDt
             // 
@@ -132,40 +167,6 @@
             this.txtTMName.Size = new System.Drawing.Size(350, 22);
             this.txtTMName.TabIndex = 13;
             // 
-            // Alarm_Id
-            // 
-            this.Alarm_Id.HeaderText = "Id";
-            this.Alarm_Id.Name = "Alarm_Id";
-            this.Alarm_Id.Visible = false;
-            // 
-            // Alarm_Active
-            // 
-            this.Alarm_Active.HeaderText = "Active";
-            this.Alarm_Active.Name = "Alarm_Active";
-            this.Alarm_Active.ReadOnly = true;
-            this.Alarm_Active.Width = 50;
-            // 
-            // Alarm_NotificationDate
-            // 
-            this.Alarm_NotificationDate.HeaderText = "Notification Date";
-            this.Alarm_NotificationDate.Name = "Alarm_NotificationDate";
-            this.Alarm_NotificationDate.ReadOnly = true;
-            this.Alarm_NotificationDate.Width = 120;
-            // 
-            // Alarm_Event
-            // 
-            this.Alarm_Event.HeaderText = "Event Type";
-            this.Alarm_Event.Name = "Alarm_Event";
-            this.Alarm_Event.ReadOnly = true;
-            this.Alarm_Event.Width = 160;
-            // 
-            // Alarm_Period
-            // 
-            this.Alarm_Period.HeaderText = "Period";
-            this.Alarm_Period.Name = "Alarm_Period";
-            this.Alarm_Period.ReadOnly = true;
-            this.Alarm_Period.Width = 90;
-            // 
             // btnOk
             // 
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -191,6 +192,9 @@
             this.Controls.Add(this.dtpExpDt);
             this.Controls.Add(this.lblExpDt);
             this.Controls.Add(this.dgvAlarms);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(600, 480);
+            this.MinimumSize = new System.Drawing.Size(600, 480);
             this.Name = "Alarms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alarms";

@@ -84,6 +84,8 @@
             this.Controls.Add(this.btnQuickView);
             this.Controls.Add(this.btnQuickInsert);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(800, 480);
+            this.MinimumSize = new System.Drawing.Size(800, 480);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Menu";

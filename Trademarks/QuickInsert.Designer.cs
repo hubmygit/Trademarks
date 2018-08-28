@@ -643,6 +643,8 @@
             this.Controls.Add(this.lblTMId);
             this.Controls.Add(this.txtTMId);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(800, 840);
+            this.MinimumSize = new System.Drawing.Size(800, 840);
             this.Name = "QuickInsert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick Insert";

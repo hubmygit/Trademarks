@@ -169,6 +169,7 @@
             this.ClientSize = new System.Drawing.Size(984, 462);
             this.Controls.Add(this.dgvTempRecs);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1000, 500);
             this.Name = "QuickView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick View";
