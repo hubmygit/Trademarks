@@ -195,6 +195,37 @@ namespace Trademarks
             dgv.Rows[dgvIndex].Selected = true;
         }
 
+        private bool DeleteTrademark(int TM_id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string UpdSt = "DELETE FROM [dbo].[TempRecords] WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", TM_id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         private void dgvTempRecs_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -233,7 +264,6 @@ namespace Trademarks
                     //refresh
                     tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdateTmpRec.NewRecord;
 
-                    //FillDataGridView(dgvTempRecs, tempRecList);
                     FillDataGridView(dgvTempRecs, frmUpdateTmpRec.NewRecord, dgvIndex);                    
                 }
             }
@@ -244,7 +274,48 @@ namespace Trademarks
             // Delete
             if (dgvTempRecs.SelectedRows.Count > 0)
             {
+                //delete data from all tables....
+                int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
+                string Sima = dgvTempRecs["tmp_No", dgvIndex].Value.ToString();
+                int tmpId = Convert.ToInt32(dgvTempRecs["tmp_Id", dgvIndex].Value.ToString());
+                bool success = true;
 
+                DialogResult dialogResult = MessageBox.Show("Θέλετε οπωσδήποτε να διαγράψετε την εγγραφή του Σήματος: [" + Sima + "];\r\n Θα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις.", "Διαγραφή Σήματος", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //delete from TM_Types
+                    if (Type.DeleteTM_Types(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
+                    //delete from TM_Classes
+                    if (Class.DeleteTM_Classes(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
+                    //delete from Trademarks
+                    if (DeleteTrademark(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
+                    //delete from Tasks
+                    if (Task.DeleteTasks(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
+                    if (success)
+                    {
+                        //refresh
+                        tempRecList.RemoveAt(tempRecList.FindIndex(w => w.Id == tmpId));
+
+                        dgvTempRecs.Rows.RemoveAt(dgvIndex);
+                    }
+
+                }
             }
         }
     }

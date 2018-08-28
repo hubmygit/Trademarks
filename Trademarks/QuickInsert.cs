@@ -256,131 +256,9 @@ namespace Trademarks
         //    classTooltip.SetToolTip(chlbClasses, "Κλάση " + classId.ToString() + ": " + tip);
         //}
 
-        private bool InsertTM_Type(int TM_id, int TM_typeId)
-        {
-            bool ret = false;
+        
 
-            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Types] ([Trademarks_Id], [Type_Id]) VALUES (@Trademarks_Id, @Type_Id) ";
-            try
-            {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
-
-                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
-                cmd.Parameters.AddWithValue("@Type_Id", TM_typeId);
-                
-                cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-
-            }
-            sqlConn.Close();
-
-            return ret;
-        }
-
-        private bool DeleteTM_Types(int TM_id)
-        {
-            bool ret = false;
-
-            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "DELETE FROM [dbo].[TM_Types] WHERE Trademarks_Id = @Trademarks_Id ";
-            try
-            {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
-
-                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
-
-                cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-
-            }
-            sqlConn.Close();
-
-            return ret;
-        }
-
-        private bool InsertTM_Class(int TM_id, int TM_classId)
-        {
-            bool ret = false;
-
-            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Classes] ([Trademarks_Id], [Class_Id]) VALUES (@Trademarks_Id, @Class_Id) ";
-            try
-            {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
-
-                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
-                cmd.Parameters.AddWithValue("@Class_Id", TM_classId);
-
-                cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-
-            }
-            sqlConn.Close();
-
-            return ret;
-        }
-
-        private bool DeleteTM_Classes(int TM_id)
-        {
-            bool ret = false;
-
-            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "DELETE FROM [dbo].[TM_Classes] WHERE Trademarks_Id = @Trademarks_Id ";
-            try
-            {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
-
-                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
-
-                cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-
-            }
-            sqlConn.Close();
-
-            return ret;
-        }
+        
 
         private int InsertTrademark(TempRecords tempRec)
         {
@@ -553,36 +431,7 @@ namespace Trademarks
             return ret;
         }
 
-        private bool DeleteTasks(int TrademarksId)
-        {
-            bool ret = false;
-
-            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "DELETE FROM [dbo].[Tasks] WHERE TrademarksId = @TrademarksId ";
-            try
-            {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
-
-                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
-
-                cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-
-            }
-            sqlConn.Close();
-
-            return ret;
-        }
+        
 
         private bool CreateAlarms(TempRecords TMRecord)//DateTime Deposit_Datetime) 
         {
@@ -907,7 +756,7 @@ namespace Trademarks
 
                     foreach (int TM_typeId in NewRecord.TMTypeIds)
                     {
-                        if (InsertTM_Type(InsertedId, TM_typeId) == false)
+                        if (Type.InsertTM_Type(InsertedId, TM_typeId) == false)
                         {
                             //TM_Type ins error
                             successful = false;
@@ -916,7 +765,7 @@ namespace Trademarks
 
                     foreach (int TM_classId in NewRecord.ClassIds)
                     {
-                        if (InsertTM_Class(InsertedId, TM_classId) == false)
+                        if (Class.InsertTM_Class(InsertedId, TM_classId) == false)
                         {
                             //TM_Class ins error
                             successful = false;
@@ -955,11 +804,11 @@ namespace Trademarks
                 if (UpdateTrademark(NewRecord))
                 {
                     //delete old records first...
-                    DeleteTM_Types(NewRecord.Id);
+                    Type.DeleteTM_Types(NewRecord.Id);
 
                     foreach (int TM_typeId in NewRecord.TMTypeIds)
                     {
-                        if (InsertTM_Type(NewRecord.Id, TM_typeId) == false)
+                        if (Type.InsertTM_Type(NewRecord.Id, TM_typeId) == false)
                         {
                             //TM_Type ins error
                             successful = false;
@@ -967,11 +816,11 @@ namespace Trademarks
                     }
 
                     //delete old records first...
-                    DeleteTM_Classes(NewRecord.Id);
+                    Class.DeleteTM_Classes(NewRecord.Id);
 
                     foreach (int TM_classId in NewRecord.ClassIds)
                     {
-                        if (InsertTM_Class(NewRecord.Id, TM_classId) == false)
+                        if (Class.InsertTM_Class(NewRecord.Id, TM_classId) == false)
                         {
                             //TM_Class ins error
                             successful = false;
@@ -988,7 +837,7 @@ namespace Trademarks
                 if (successful)
                 {
                     //delete old Alarms first...
-                    DeleteTasks(NewRecord.Id);
+                    Task.DeleteTasks(NewRecord.Id);
 
                     if (CreateAlarms(NewRecord) == false)
                     {
@@ -1341,6 +1190,37 @@ namespace Trademarks
         {
         }
 
+        public static bool DeleteTasks(int TrademarksId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[Tasks] WHERE TrademarksId = @TrademarksId ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
         
     public class Type
@@ -1405,6 +1285,69 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+
+            return ret;
+        }
+
+        public static bool InsertTM_Type(int TM_id, int TM_typeId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Types] ([Trademarks_Id], [Type_Id]) VALUES (@Trademarks_Id, @Type_Id) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+                cmd.Parameters.AddWithValue("@Type_Id", TM_typeId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool DeleteTM_Types(int TM_id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[TM_Types] WHERE Trademarks_Id = @Trademarks_Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1474,6 +1417,69 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+
+            return ret;
+        }
+
+        public static bool InsertTM_Class(int TM_id, int TM_classId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Classes] ([Trademarks_Id], [Class_Id]) VALUES (@Trademarks_Id, @Class_Id) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+                cmd.Parameters.AddWithValue("@Class_Id", TM_classId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool DeleteTM_Classes(int TM_id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[TM_Classes] WHERE Trademarks_Id = @Trademarks_Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
 
             return ret;
         }
