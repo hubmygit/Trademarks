@@ -45,6 +45,7 @@
             this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -135,32 +136,40 @@
             // cmsOnGrid
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiView,
             this.tsmiUpdate,
             this.tsmiDelete,
             this.tsmiOpenUrl});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(122, 70);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 114);
             // 
             // tsmiUpdate
             // 
             this.tsmiUpdate.Name = "tsmiUpdate";
-            this.tsmiUpdate.Size = new System.Drawing.Size(121, 22);
+            this.tsmiUpdate.Size = new System.Drawing.Size(180, 22);
             this.tsmiUpdate.Text = "Update";
             this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
             // 
             // tsmiDelete
             // 
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(121, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(180, 22);
             this.tsmiDelete.Text = "Delete";
             this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
             // 
             // tsmiOpenUrl
             // 
             this.tsmiOpenUrl.Name = "tsmiOpenUrl";
-            this.tsmiOpenUrl.Size = new System.Drawing.Size(121, 22);
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(180, 22);
             this.tsmiOpenUrl.Text = "Open Url";
             this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
+            // 
+            // tsmiView
+            // 
+            this.tsmiView.Name = "tsmiView";
+            this.tsmiView.Size = new System.Drawing.Size(180, 22);
+            this.tsmiView.Text = "View";
+            this.tsmiView.Click += new System.EventHandler(this.tsmiView_Click);
             // 
             // QuickView
             // 
@@ -196,5 +205,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdate;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.ToolStripMenuItem tsmiView;
     }
 }

@@ -685,7 +685,6 @@
         private System.Windows.Forms.PictureBox pbTMPic;
         private System.Windows.Forms.Label lblTMPic;
         private System.Windows.Forms.Button btnAddTMPic;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox gbNatPower;
         private System.Windows.Forms.RadioButton rbDiethnes;
         private System.Windows.Forms.RadioButton rbKoinotiko;
@@ -704,7 +703,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Id;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Type_Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Name;
-        private System.Windows.Forms.Button btnSaveAndNext;
         private System.Windows.Forms.DateTimePicker dtpLastRenwalTime;
         private System.Windows.Forms.DateTimePicker dtpLastRenwalDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_Id;
@@ -712,5 +710,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_No;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_Headers;
         private System.Windows.Forms.CheckBox chbHasRenewal;
+        public System.Windows.Forms.Button btnSave;
+        public System.Windows.Forms.Button btnSaveAndNext;
     }
 }

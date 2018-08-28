@@ -333,5 +333,20 @@ namespace Trademarks
                 }
             }
         }
+
+        private void tsmiView_Click(object sender, EventArgs e)
+        {
+            //Select
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                QuickInsert frmUpdateTmpRec = new QuickInsert(thisTmpRec);
+                frmUpdateTmpRec.btnSave.Enabled = false;
+                frmUpdateTmpRec.ShowDialog();                
+            }
+        }
     }
 }
