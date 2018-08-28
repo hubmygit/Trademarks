@@ -75,7 +75,7 @@
             this.dtpExpDt.Enabled = false;
             this.dtpExpDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dtpExpDt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpExpDt.Location = new System.Drawing.Point(250, 77);
+            this.dtpExpDt.Location = new System.Drawing.Point(269, 77);
             this.dtpExpDt.Name = "dtpExpDt";
             this.dtpExpDt.Size = new System.Drawing.Size(120, 22);
             this.dtpExpDt.TabIndex = 4;
@@ -84,18 +84,18 @@
             // 
             this.lblExpDt.AutoSize = true;
             this.lblExpDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblExpDt.Location = new System.Drawing.Point(108, 82);
+            this.lblExpDt.Location = new System.Drawing.Point(90, 82);
             this.lblExpDt.Name = "lblExpDt";
-            this.lblExpDt.Size = new System.Drawing.Size(136, 16);
+            this.lblExpDt.Size = new System.Drawing.Size(173, 16);
             this.lblExpDt.TabIndex = 3;
-            this.lblExpDt.Text = "Ημ/νία και Ώρα Λήξης";
+            this.lblExpDt.Text = "Καταληκτική Ημ/νία και Ώρα";
             // 
             // dtpExpTime
             // 
             this.dtpExpTime.Enabled = false;
             this.dtpExpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dtpExpTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpExpTime.Location = new System.Drawing.Point(376, 77);
+            this.dtpExpTime.Location = new System.Drawing.Point(395, 77);
             this.dtpExpTime.Name = "dtpExpTime";
             this.dtpExpTime.ShowUpDown = true;
             this.dtpExpTime.Size = new System.Drawing.Size(100, 22);

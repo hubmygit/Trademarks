@@ -15,7 +15,7 @@ namespace Trademarks
         {
             InitializeComponent();
 
-            //SELECT A.Id, A.IsActive, A.NotificationDate, A.NotificationSent, E.Name as EventType, 'Period' as ToDo2, A.TrademarksId,
+            //SELECT A.Id, A.IsActive, A.ExpDate, A.NotificationDate, A.NotificationSent, E.Name as EventType, 'Period' as ToDo2, A.TrademarksId,
             //       T.TMNo, T.TMName, T.DepositDt, T.RenewalDt, N.Name as NationalPower, C.Name as Company, L.FullName as ResponsibleLawyer
             //FROM [dbo].[Tasks] A left outer join 
             //     [dbo].[TempRecords] T on A.TrademarksId = T.Id left outer join 
@@ -23,6 +23,8 @@ namespace Trademarks
             //	   [dbo].[NationalPower] N on T.NationalPowerId = N.Id left outer join 
             //	   [dbo].[Company] C on T.CompanyId = C.Id left outer join 
             //	   [dbo].[Responsible] L on T.ResponsibleLawyerId = L.Id
+
+
 
         }
     }
