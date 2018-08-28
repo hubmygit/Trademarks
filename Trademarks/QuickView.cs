@@ -316,6 +316,12 @@ namespace Trademarks
                         success = false;
                     }
 
+                    //delete from Recipients
+                    if (Recipient.DeleteRecipients(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
                     if (success)
                     {
                         //refresh

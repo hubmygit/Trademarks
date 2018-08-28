@@ -431,7 +431,41 @@ namespace Trademarks
             return ret;
         }
 
-        
+        private bool InsertRecipients(Recipient rec)
+        {
+            //return int - output of Id
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[Recipients] ([TrademarksId],[FullName],[Email] ,[IsActive]) VALUES " +
+                           "(@TrademarksId, @FullName, @Email, 'True') ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", rec.TrademarksId);
+                cmd.Parameters.AddWithValue("@FullName", rec.FullName);
+                cmd.Parameters.AddWithValue("@Email", rec.Email);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
 
         private bool CreateAlarms(TempRecords TMRecord)//DateTime Deposit_Datetime) 
         {
@@ -455,9 +489,20 @@ namespace Trademarks
             Alarms frmAlarms = new Alarms();
             frmAlarms.txtTMId.Text = TMRecord.TMNo;
             frmAlarms.txtTMName.Text = TMRecord.TMName;
+            
+            foreach (Responsible recipient in responsibleList)
+            {
+                bool IsChecked = false;
+                if (recipient.Id == TMRecord.ResponsibleLawyerId)
+                {
+                    IsChecked = true;
+                }
+                frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, IsChecked, recipient.FullName, recipient.Email });
+            }
+
             frmAlarms.dtpExpDt.Value = ExpDate;
             frmAlarms.dtpExpTime.Value = ExpDate;
-
+                        
             TaskToInsert.NotificationDate = ExpDate.AddMonths(-6);
             if (TaskToInsert.NotificationDate < DateTime.Now)
             {
@@ -555,48 +600,22 @@ namespace Trademarks
                     }
                 }
             }
+
+            Recipient rec = new Recipient();
+            rec.TrademarksId = TaskToInsert.TrademarksId;
+            foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))
+                {
+                    rec.FullName = dgvr.Cells["Rec_Name"].Value.ToString();
+                    rec.Email = dgvr.Cells["Rec_Email"].Value.ToString();
+                    if (InsertRecipients(rec) == false)
+                    {
+                        ret = false;
+                    }
+                }
+            }
             
-
-            //----------------------------
-            /*
-            TaskToInsert.NotificationDate = ExpDate.AddMonths(-6);
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            TaskToInsert.NotificationDate = ExpDate.AddMonths(-4);
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            TaskToInsert.NotificationDate = ExpDate.AddMonths(-2);
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            TaskToInsert.NotificationDate = ExpDate.AddMonths(-1);
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            TaskToInsert.NotificationDate = ExpDate.AddDays(-15);
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            TaskToInsert.NotificationDate = ExpDate.AddDays(-3);
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            TaskToInsert.NotificationDate = ExpDate;
-            if (InsertTask(TaskToInsert) == false)
-            {
-                ret = false;
-            }
-            */
-            //----------------------------
-
             return ret;
         }
 
@@ -838,6 +857,9 @@ namespace Trademarks
                 {
                     //delete old Alarms first...
                     Task.DeleteTasks(NewRecord.Id);
+
+                    //delete recipients
+                    Recipient.DeleteRecipients(NewRecord.Id);
 
                     if (CreateAlarms(NewRecord) == false)
                     {
@@ -1548,6 +1570,48 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+
+            return ret;
+        }
+    }
+
+    public class Recipient
+    {
+        public int Id { get; set; }
+        public int TrademarksId { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
+
+        public Recipient()
+        { }
+
+        public static bool DeleteRecipients(int TrademarksId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[Recipients] WHERE TrademarksId = @TrademarksId ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
 
             return ret;
         }
