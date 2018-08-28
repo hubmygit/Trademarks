@@ -251,7 +251,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 540);
             this.Name = "Alarms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Alarms";
+            this.Text = "Alerts";
             this.Load += new System.EventHandler(this.Alarms_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlarms)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipients)).EndInit();

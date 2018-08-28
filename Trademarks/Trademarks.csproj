@@ -53,6 +53,12 @@
     <Compile Include="Alarms.Designer.cs">
       <DependentUpon>Alarms.cs</DependentUpon>
     </Compile>
+    <Compile Include="AlertsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlertsView.Designer.cs">
+      <DependentUpon>AlertsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     </Compile>
     <EmbeddedResource Include="Alarms.resx">
       <DependentUpon>Alarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertsView.resx">
+      <DependentUpon>AlertsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

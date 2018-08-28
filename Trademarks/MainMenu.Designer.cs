@@ -33,6 +33,7 @@
             this.btnQuickView = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLblUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnAlerts = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,11 +76,21 @@
             this.tsStatusLblUser.Size = new System.Drawing.Size(103, 17);
             this.tsStatusLblUser.Text = "User: Unknown";
             // 
+            // btnAlerts
+            // 
+            this.btnAlerts.Location = new System.Drawing.Point(12, 84);
+            this.btnAlerts.Name = "btnAlerts";
+            this.btnAlerts.Size = new System.Drawing.Size(100, 30);
+            this.btnAlerts.TabIndex = 4;
+            this.btnAlerts.Text = "Alerts";
+            this.btnAlerts.UseVisualStyleBackColor = true;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.btnAlerts);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnQuickView);
             this.Controls.Add(this.btnQuickInsert);
@@ -102,6 +113,7 @@
         private System.Windows.Forms.Button btnQuickView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         public System.Windows.Forms.ToolStripStatusLabel tsStatusLblUser;
+        private System.Windows.Forms.Button btnAlerts;
     }
 }
 
