@@ -33,10 +33,11 @@
             this.alarm_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alarm_Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.alarm_ExpDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alarm_ExpCountdown = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alarm_NotificationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alarm_AlertCountdown = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alarm_NotifSentDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alarm_Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.alarm_Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,10 +61,11 @@
             this.alarm_Id,
             this.alarm_Active,
             this.alarm_ExpDate,
+            this.alarm_ExpCountdown,
             this.alarm_NotificationDate,
+            this.alarm_AlertCountdown,
             this.alarm_NotifSentDt,
             this.alarm_Event,
-            this.alarm_Period,
             this.tmp_Id,
             this.tmp_No,
             this.tmp_Name,
@@ -76,9 +78,8 @@
             this.dgvAlerts.MultiSelect = false;
             this.dgvAlerts.Name = "dgvAlerts";
             this.dgvAlerts.RowHeadersVisible = false;
-            this.dgvAlerts.RowTemplate.Height = 50;
             this.dgvAlerts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAlerts.Size = new System.Drawing.Size(1234, 383);
+            this.dgvAlerts.Size = new System.Drawing.Size(1234, 523);
             this.dgvAlerts.TabIndex = 2;
             // 
             // alarm_Id
@@ -92,14 +93,21 @@
             this.alarm_Active.HeaderText = "Ενεργό";
             this.alarm_Active.Name = "alarm_Active";
             this.alarm_Active.ReadOnly = true;
-            this.alarm_Active.Width = 60;
+            this.alarm_Active.Width = 50;
             // 
             // alarm_ExpDate
             // 
             this.alarm_ExpDate.HeaderText = "Καταληκτική Ημ/νία";
             this.alarm_ExpDate.Name = "alarm_ExpDate";
             this.alarm_ExpDate.ReadOnly = true;
-            this.alarm_ExpDate.Width = 90;
+            this.alarm_ExpDate.Width = 95;
+            // 
+            // alarm_ExpCountdown
+            // 
+            this.alarm_ExpCountdown.HeaderText = "Λήξη (ημέρες)";
+            this.alarm_ExpCountdown.Name = "alarm_ExpCountdown";
+            this.alarm_ExpCountdown.ReadOnly = true;
+            this.alarm_ExpCountdown.Width = 68;
             // 
             // alarm_NotificationDate
             // 
@@ -108,27 +116,27 @@
             this.alarm_NotificationDate.ReadOnly = true;
             this.alarm_NotificationDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.alarm_NotificationDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.alarm_NotificationDate.Width = 90;
+            this.alarm_NotificationDate.Width = 95;
+            // 
+            // alarm_AlertCountdown
+            // 
+            this.alarm_AlertCountdown.HeaderText = "Ειδοπ. (ημέρες)";
+            this.alarm_AlertCountdown.Name = "alarm_AlertCountdown";
+            this.alarm_AlertCountdown.ReadOnly = true;
+            this.alarm_AlertCountdown.Width = 68;
             // 
             // alarm_NotifSentDt
             // 
             this.alarm_NotifSentDt.HeaderText = "Αποστολή Ειδοπ.";
             this.alarm_NotifSentDt.Name = "alarm_NotifSentDt";
             this.alarm_NotifSentDt.ReadOnly = true;
-            this.alarm_NotifSentDt.Width = 90;
+            this.alarm_NotifSentDt.Width = 95;
             // 
             // alarm_Event
             // 
             this.alarm_Event.HeaderText = "Γεγονός";
             this.alarm_Event.Name = "alarm_Event";
             this.alarm_Event.ReadOnly = true;
-            // 
-            // alarm_Period
-            // 
-            this.alarm_Period.HeaderText = "Περίοδος";
-            this.alarm_Period.Name = "alarm_Period";
-            this.alarm_Period.ReadOnly = true;
-            this.alarm_Period.Width = 90;
             // 
             // tmp_Id
             // 
@@ -141,7 +149,7 @@
             this.tmp_No.HeaderText = "Σήμα";
             this.tmp_No.Name = "tmp_No";
             this.tmp_No.ReadOnly = true;
-            this.tmp_No.Width = 90;
+            this.tmp_No.Width = 70;
             // 
             // tmp_Name
             // 
@@ -154,20 +162,21 @@
             this.tmp_DepositDt.HeaderText = "Κατάθεση";
             this.tmp_DepositDt.Name = "tmp_DepositDt";
             this.tmp_DepositDt.ReadOnly = true;
-            this.tmp_DepositDt.Width = 90;
+            this.tmp_DepositDt.Width = 95;
             // 
             // tmp_RenewalDt
             // 
             this.tmp_RenewalDt.HeaderText = "Ανανέωση";
             this.tmp_RenewalDt.Name = "tmp_RenewalDt";
             this.tmp_RenewalDt.ReadOnly = true;
-            this.tmp_RenewalDt.Width = 90;
+            this.tmp_RenewalDt.Width = 95;
             // 
             // tmp_NatPower
             // 
             this.tmp_NatPower.HeaderText = "Εθν. Ισχύς";
             this.tmp_NatPower.Name = "tmp_NatPower";
             this.tmp_NatPower.ReadOnly = true;
+            this.tmp_NatPower.Width = 68;
             // 
             // tmp_Com
             // 
@@ -180,16 +189,16 @@
             this.tmp_RespLawyer.HeaderText = "Υπεύθ. Δικηγόρος";
             this.tmp_RespLawyer.Name = "tmp_RespLawyer";
             this.tmp_RespLawyer.ReadOnly = true;
+            this.tmp_RespLawyer.Width = 110;
             // 
             // AlertsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1234, 462);
+            this.ClientSize = new System.Drawing.Size(1234, 602);
             this.Controls.Add(this.dgvAlerts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1250, 500);
-            this.MinimumSize = new System.Drawing.Size(1250, 500);
+            this.MinimumSize = new System.Drawing.Size(1250, 620);
             this.Name = "AlertsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alerts View";
@@ -204,10 +213,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn alarm_Id;
         private System.Windows.Forms.DataGridViewCheckBoxColumn alarm_Active;
         private System.Windows.Forms.DataGridViewTextBoxColumn alarm_ExpDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn alarm_ExpCountdown;
         private System.Windows.Forms.DataGridViewTextBoxColumn alarm_NotificationDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn alarm_AlertCountdown;
         private System.Windows.Forms.DataGridViewTextBoxColumn alarm_NotifSentDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn alarm_Event;
-        private System.Windows.Forms.DataGridViewTextBoxColumn alarm_Period;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_No;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Name;

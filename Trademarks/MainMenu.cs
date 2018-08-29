@@ -38,6 +38,12 @@ namespace Trademarks
             QuickView frmQuickView = new QuickView();
             frmQuickView.ShowDialog();
         }
+
+        private void btnAlerts_Click(object sender, EventArgs e)
+        {
+            AlertsView frmAlertsView = new AlertsView();
+            frmAlertsView.ShowDialog();
+        }
     }
 
     public static class AppVer

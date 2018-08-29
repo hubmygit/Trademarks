@@ -84,6 +84,7 @@
             this.btnAlerts.TabIndex = 4;
             this.btnAlerts.Text = "Alerts";
             this.btnAlerts.UseVisualStyleBackColor = true;
+            this.btnAlerts.Click += new System.EventHandler(this.btnAlerts_Click);
             // 
             // MainMenu
             // 
