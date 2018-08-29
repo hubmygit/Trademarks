@@ -141,21 +141,21 @@ namespace Trademarks
 
     public class AlertsDGV
     {
-        public int Id;
-        public bool IsActive;
-        public DateTime ExpDate;
-        public DateTime NotificationDate;
-        public DateTime? NotificationSent;
-        public string EventType;
-        public int AlertCountdownDays;
-        public int ExpCountdownDays;
-        public int TrademarksId;
-        public string TMNo;
-        public string TMName;
-        public DateTime DepositDt;
-        public DateTime? RenewalDt;
-        public string NationalPower;
-        public string Company;
-        public string ResponsibleLawyer;
+        public int Id { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime ExpDate { get; set; }
+        public DateTime NotificationDate { get; set; }
+        public DateTime? NotificationSent { get; set; }
+        public string EventType { get; set; }
+        public int AlertCountdownDays { get; set; }
+        public int ExpCountdownDays { get; set; }
+        public int TrademarksId { get; set; }
+        public string TMNo { get; set; }
+        public string TMName { get; set; }
+        public DateTime DepositDt { get; set; }
+        public DateTime? RenewalDt { get; set; }
+        public string NationalPower { get; set; }
+        public string Company { get; set; }
+        public string ResponsibleLawyer { get; set; }
     }
 }

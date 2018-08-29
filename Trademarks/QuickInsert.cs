@@ -466,7 +466,105 @@ namespace Trademarks
             return ret;
         }
 
+        private bool CreateAlarms(TempRecords TMRecord)//DateTime Deposit_Datetime) 
+        {
+            bool ret = true;
 
+            Task TaskToInsert = new Task();
+            TaskToInsert.EventTypesId = 1; //Ανανεώσεις
+
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId); 
+
+            //DateTime ExpDate = TMRecord.DepositDt.AddYears(10); 
+            DateTime ExpDate = TMRecord.DepositDt.AddYears(task_EventType.ExpYears);
+
+            if (TMRecord.HasRenewal)
+            {
+                ExpDate = TMRecord.RenewalDt.AddYears(task_EventType.ExpYears);
+            }
+                        
+            TaskToInsert.TrademarksId = TMRecord.Id;
+            TaskToInsert.ExpDate = ExpDate;
+            TaskToInsert.IsActive = true;
+            
+            string EventTypeName = EventType.getEventTypeName(TaskToInsert.EventTypesId);
+
+            //new form to show alarms before insert!
+            //move to contructor??
+            Alarms frmAlarms = new Alarms();
+            frmAlarms.txtTMId.Text = TMRecord.TMNo;
+            frmAlarms.txtTMName.Text = TMRecord.TMName;
+
+            foreach (Responsible recipient in responsibleList)
+            {
+                bool IsChecked = false;
+                if (recipient.Id == TMRecord.ResponsibleLawyerId)
+                {
+                    IsChecked = true;
+                }
+                frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, IsChecked, recipient.FullName, recipient.Email });
+            }
+
+            frmAlarms.dtpExpDt.Value = ExpDate;
+            frmAlarms.dtpExpTime.Value = ExpDate;
+
+            foreach (myIntAndStr months in task_EventType.AlertMonths)
+            {
+                TaskToInsert.NotificationDate = ExpDate.AddMonths(-months.myInt);
+                bool IsActive = true;
+                if (TaskToInsert.NotificationDate < DateTime.Now)
+                {
+                    IsActive = false;
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+                }
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, IsActive, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, months.myStr });
+            }
+
+            foreach (myIntAndStr days in task_EventType.AlertDays)
+            {
+                TaskToInsert.NotificationDate = ExpDate.AddDays(-days.myInt);
+                bool IsActive = true;
+                if (TaskToInsert.NotificationDate < DateTime.Now)
+                {
+                    IsActive = false;
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+                }
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, IsActive, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, days.myStr });
+            }
+            
+            frmAlarms.ShowDialog();
+
+            foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
+                {
+                    TaskToInsert.NotificationDate = Convert.ToDateTime(dgvr.Cells["Alarm_NotificationDate"].Value);
+                    if (InsertTask(TaskToInsert) == false)
+                    {
+                        ret = false;
+                    }
+                }
+            }
+
+            Recipient rec = new Recipient();
+            rec.TrademarksId = TaskToInsert.TrademarksId;
+            foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))
+                {
+                    rec.FullName = dgvr.Cells["Rec_Name"].Value.ToString();
+                    rec.Email = dgvr.Cells["Rec_Email"].Value.ToString();
+                    if (InsertRecipients(rec) == false)
+                    {
+                        ret = false;
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        /*
         private bool CreateAlarms(TempRecords TMRecord)//DateTime Deposit_Datetime) 
         {
             bool ret = true;
@@ -618,6 +716,7 @@ namespace Trademarks
             
             return ret;
         }
+        */
 
         private bool IsAnyTypeChecked(DataGridView dgv)
         {
@@ -1615,6 +1714,72 @@ namespace Trademarks
 
             return ret;
         }
+    }
+
+    public class myIntAndStr
+    {
+        public int myInt { get; set; }
+        public string myStr { get; set; }
+    }
+
+    public class Tasks_EventType
+    {
+        //public int Id { get; set; }
+        public int EventTypeId { get; set; }
+        public int ExpYears { get; set; }
+        public List<myIntAndStr> AlertMonths { get; set; }
+        public List<myIntAndStr> AlertDays { get; set; }
+
+
+        public Tasks_EventType()
+        {
+            AlertMonths = new List<myIntAndStr>();
+            AlertDays = new List<myIntAndStr>();
+        }
+
+        public Tasks_EventType(int EventTypeId)
+        {
+            AlertMonths = new List<myIntAndStr>();
+            AlertDays = new List<myIntAndStr>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [EventTypeId], [ExpYears], [AlertMonths], [AlertDays], [AlertDescr] " + 
+                              "FROM [dbo].[Tasks_EventType] " + 
+                              "WHERE EventTypeId = @EventTypeId " + 
+                              "ORDER BY AlertMonths desc, AlertDays desc";
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@EventTypeId", EventTypeId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    EventTypeId = Convert.ToInt32(reader["EventTypeId"].ToString());
+                    ExpYears = Convert.ToInt32(reader["ExpYears"].ToString());
+                    
+
+                    if (reader["AlertMonths"] != DBNull.Value)
+                    {
+                        AlertMonths.Add(new myIntAndStr() { myInt = Convert.ToInt32(reader["AlertMonths"].ToString()), myStr = reader["AlertDescr"].ToString() }); 
+                    }
+
+                    if (reader["AlertDays"] != DBNull.Value)
+                    {
+                        AlertDays.Add(new myIntAndStr() { myInt = Convert.ToInt32(reader["AlertDays"].ToString()), myStr = reader["AlertDescr"].ToString() }); 
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+        }
+
     }
 
 }
