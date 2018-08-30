@@ -273,8 +273,9 @@ namespace TMAlerts
                 }
 
                 //get other data from trademark ... getOtherUsefulTrademarkData(thisTask.TrademarksId);
+                TempRecords tmpRec = new TempRecords(thisTask.TrademarksId);
 
-                string emailBody = "Trademark xxxxxxxxxx... \r\n" +
+                string emailBody = "Trademark " + tmpRec.TMNo + ": " + tmpRec.TMName + "\r\n" +
                                    thisTask.EventTypes.Name + ".\r\n" +
                                    "Ημερομηνία Ενέργειας: " + thisTask.ExpDate.ToString("dd.MM.yyyy HH:mm") + ".\r\n" +
                                    "\r\n" +
@@ -433,5 +434,100 @@ namespace TMAlerts
         }
     }
 
+    public class TempRecords
+    {
+        public int Id { get; set; }
+        public string TMNo { get; set; }
+        public DateTime DepositDt { get; set; }
+        public int NationalPowerId { get; set; } //class ???
+        public string TMGrNo { get; set; }
+        public int CompanyId { get; set; }
+        public int ResponsibleLawyerId { get; set; }
+        //public List<int> TMTypeIds { get; set; } //?? other table??
+        public string TMName { get; set; }
+
+        public string FileName { get; set; }
+        public byte[] FileContents { get; set; }
+
+        //public List<int> ClassIds { get; set; } //?? other table??
+        public string Description { get; set; }
+        public string Fees { get; set; } //paravola
+        public string DecisionNo { get; set; }
+        public DateTime PublicationDate { get; set; }
+        public DateTime FinalizationDate { get; set; }
+        public string Url { get; set; }
+
+        public bool HasRenewal { get; set; }
+        public DateTime RenewalDt { get; set; }
+
+        public TempRecords()
+        {
+        }
+
+        public TempRecords(int Id)
+        {
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [RenewalDt], " +
+                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
+                              "[FileName], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate], [Url] " +
+                              "FROM [dbo].[TempRecords] " +
+                              "WHERE Id = @Id ";
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+
+            cmd.Parameters.AddWithValue("@Id", Id);
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DateTime dtRenewal = new DateTime();
+                    bool HasRenewalDt = false;
+                    if (reader["RenewalDt"] != DBNull.Value)
+                    {
+                        HasRenewalDt = true;
+                        dtRenewal = Convert.ToDateTime(reader["RenewalDt"].ToString());
+                    }
+
+                    Id = Convert.ToInt32(reader["Id"].ToString());
+                    TMNo = reader["TMNo"].ToString();
+                    TMName = reader["TMName"].ToString();
+                    DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
+                    HasRenewal = HasRenewalDt;
+                    if (HasRenewalDt)
+                    {
+                        RenewalDt = dtRenewal;
+                    }
+                    NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
+                    TMGrNo = reader["TMGrNo"].ToString();
+                    CompanyId = Convert.ToInt32(reader["CompanyId"].ToString());
+                    ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
+                    if (reader["FileContents"] != DBNull.Value)
+                    {
+                        FileContents = (byte[])reader["FileContents"];
+                    }
+
+                    FileName = reader["FileName"].ToString();
+                    Description = reader["Description"].ToString();
+                    Fees = reader["Fees"].ToString();
+                    DecisionNo = reader["DecisionNo"].ToString();
+                    PublicationDate = Convert.ToDateTime(reader["PublicationDate"].ToString());
+                    FinalizationDate = Convert.ToDateTime(reader["FinalizationDate"].ToString());
+                    Url = reader["Url"].ToString();
+
+                    //TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
+                    //ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+        }
+    }
 
 }
