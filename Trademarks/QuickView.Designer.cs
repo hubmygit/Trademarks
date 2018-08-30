@@ -31,11 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickView));
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
-            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
             this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
@@ -46,6 +41,11 @@
             this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -75,47 +75,9 @@
             this.dgvTempRecs.Name = "dgvTempRecs";
             this.dgvTempRecs.RowTemplate.Height = 50;
             this.dgvTempRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTempRecs.Size = new System.Drawing.Size(984, 383);
+            this.dgvTempRecs.Size = new System.Drawing.Size(984, 523);
             this.dgvTempRecs.TabIndex = 1;
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
-            // 
-            // cmsOnGrid
-            // 
-            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiView,
-            this.tsmiUpdate,
-            this.tsmiDelete,
-            this.tsmiOpenUrl});
-            this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(122, 92);
-            // 
-            // tsmiUpdate
-            // 
-            this.tsmiUpdate.Name = "tsmiUpdate";
-            this.tsmiUpdate.Size = new System.Drawing.Size(121, 22);
-            this.tsmiUpdate.Text = "Update";
-            this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
-            // 
-            // tsmiDelete
-            // 
-            this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(121, 22);
-            this.tsmiDelete.Text = "Delete";
-            this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
-            // 
-            // tsmiOpenUrl
-            // 
-            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
-            this.tsmiOpenUrl.Size = new System.Drawing.Size(121, 22);
-            this.tsmiOpenUrl.Text = "Open Url";
-            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
-            // 
-            // tsmiView
-            // 
-            this.tsmiView.Name = "tsmiView";
-            this.tsmiView.Size = new System.Drawing.Size(121, 22);
-            this.tsmiView.Text = "View";
-            this.tsmiView.Click += new System.EventHandler(this.tsmiView_Click);
             // 
             // tmp_Id
             // 
@@ -179,14 +141,52 @@
             this.tmp_RespLawyer.Name = "tmp_RespLawyer";
             this.tmp_RespLawyer.ReadOnly = true;
             // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiView,
+            this.tsmiUpdate,
+            this.tsmiDelete,
+            this.tsmiOpenUrl});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(122, 92);
+            // 
+            // tsmiView
+            // 
+            this.tsmiView.Name = "tsmiView";
+            this.tsmiView.Size = new System.Drawing.Size(121, 22);
+            this.tsmiView.Text = "View";
+            this.tsmiView.Click += new System.EventHandler(this.tsmiView_Click);
+            // 
+            // tsmiUpdate
+            // 
+            this.tsmiUpdate.Name = "tsmiUpdate";
+            this.tsmiUpdate.Size = new System.Drawing.Size(121, 22);
+            this.tsmiUpdate.Text = "Update";
+            this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(121, 22);
+            this.tsmiDelete.Text = "Delete";
+            this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
+            // 
+            // tsmiOpenUrl
+            // 
+            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(121, 22);
+            this.tsmiOpenUrl.Text = "Open Url";
+            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
+            // 
             // QuickView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 462);
+            this.ClientSize = new System.Drawing.Size(984, 602);
             this.Controls.Add(this.dgvTempRecs);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1000, 500);
+            this.MinimumSize = new System.Drawing.Size(1000, 640);
             this.Name = "QuickView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick View";

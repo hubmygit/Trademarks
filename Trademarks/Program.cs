@@ -16,11 +16,22 @@ namespace Trademarks
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Intro frmIntro = new Intro();
+            frmIntro.Show();
+
+            frmIntro.setLoginLabel("Checking Application Version...");
+
             if (!AppVer.IsLatestVersion()) //check version
                 return;
 
-            UserInfo.UserLogIn();
+            frmIntro.setLoginLabel("Connecting to Domain Controller to get User Info...");
             
+            UserInfo.UserLogIn();
+
+            frmIntro.setLoginLabel("Starting...");
+
+            frmIntro.closeForm();
+
             Application.Run(new MainMenu());
         }
     }
