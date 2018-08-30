@@ -38,7 +38,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT A.Id, A.IsActive, A.ExpDate, A.NotificationDate, A.NotificationSent, E.Name as EventType, " +
-                                   "DATEDIFF(DAY, getdate(), A.ExpDate) as AlertCountdown, DATEDIFF(DAY, getdate(), A.NotificationDate) as ExpCountDown, " +
+                                   "DATEDIFF(DAY, getdate(), A.ExpDate) as ExpCountDown, DATEDIFF(DAY, getdate(), A.NotificationDate) as AlertCountdown, " +
                               "A.TrademarksId, T.TMNo, T.TMName, T.DepositDt, T.RenewalDt, N.Name as NationalPower, C.Name as Company, L.FullName as ResponsibleLawyer " +
                               "FROM [dbo].[Tasks] A left outer join " +
                               "[dbo].[TempRecords] T on A.TrademarksId = T.Id left outer join " +
@@ -136,6 +136,34 @@ namespace Trademarks
             }
 
             dgv.ClearSelection();
+        }
+
+        private void tsmiViewTM_Click(object sender, EventArgs e)
+        {
+            //Select
+            if (dgvAlerts.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvAlerts.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvAlerts.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                TempRecords thisTmpRec = new TempRecords(Id);
+
+                QuickInsert frmViewTmpRec = new QuickInsert(thisTmpRec);
+                frmViewTmpRec.btnSave.Enabled = false;
+                frmViewTmpRec.ShowDialog();
+            }
+        }
+
+        private void dgvAlerts_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hti = dgvAlerts.HitTest(e.X, e.Y);
+                if (hti.RowIndex < 0)
+                {
+                    return;
+                }
+                dgvAlerts.Rows[hti.RowIndex].Selected = true;
+            }
         }
     }
 

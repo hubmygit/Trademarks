@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlertsView));
             this.dgvAlerts = new System.Windows.Forms.DataGridView();
             this.alarm_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +47,10 @@
             this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).BeginInit();
+            this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvAlerts
@@ -74,6 +78,7 @@
             this.tmp_NatPower,
             this.tmp_Com,
             this.tmp_RespLawyer});
+            this.dgvAlerts.ContextMenuStrip = this.cmsOnGrid;
             this.dgvAlerts.Location = new System.Drawing.Point(0, 79);
             this.dgvAlerts.MultiSelect = false;
             this.dgvAlerts.Name = "dgvAlerts";
@@ -81,6 +86,7 @@
             this.dgvAlerts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAlerts.Size = new System.Drawing.Size(1234, 523);
             this.dgvAlerts.TabIndex = 2;
+            this.dgvAlerts.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvAlerts_MouseDown);
             // 
             // alarm_Id
             // 
@@ -191,6 +197,20 @@
             this.tmp_RespLawyer.ReadOnly = true;
             this.tmp_RespLawyer.Width = 110;
             // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiViewTM});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(176, 26);
+            // 
+            // tsmiViewTM
+            // 
+            this.tsmiViewTM.Name = "tsmiViewTM";
+            this.tsmiViewTM.Size = new System.Drawing.Size(175, 22);
+            this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
+            this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
+            // 
             // AlertsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +223,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alerts View";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).EndInit();
+            this.cmsOnGrid.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -226,5 +247,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_NatPower;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_RespLawyer;
+        private System.Windows.Forms.ContextMenuStrip cmsOnGrid;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
     }
 }

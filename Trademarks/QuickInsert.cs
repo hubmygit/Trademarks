@@ -510,13 +510,15 @@ namespace Trademarks
             foreach (myIntAndStr months in task_EventType.AlertMonths)
             {
                 TaskToInsert.NotificationDate = ExpDate.AddMonths(-months.myInt);
-                bool IsActive = true;
+
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, months.myStr });
+
                 if (TaskToInsert.NotificationDate < DateTime.Now)
                 {
-                    IsActive = false;
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
                     frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
                 }
-                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, IsActive, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, months.myStr });
+                
             }
 
             foreach (myIntAndStr days in task_EventType.AlertDays)
@@ -1465,7 +1467,7 @@ namespace Trademarks
         public string TMName { get; set; }
 
         public string FileName { get; set; }
-        public byte[] FileContents { get; set; } 
+        public byte[] FileContents { get; set; }
 
         public List<int> ClassIds { get; set; } //?? other table??
         public string Description { get; set; }
@@ -1477,6 +1479,75 @@ namespace Trademarks
 
         public bool HasRenewal { get; set; }
         public DateTime RenewalDt { get; set; }
+
+        public TempRecords()
+        {
+        }
+
+        public TempRecords (int Id)
+        {
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [RenewalDt], " +
+                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
+                              "[FileName], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate], [Url] " +
+                              "FROM [dbo].[TempRecords] " +
+                              "WHERE Id = @Id ";             
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+
+            cmd.Parameters.AddWithValue("@Id", Id);
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DateTime dtRenewal = new DateTime();
+                    bool HasRenewalDt = false;
+                    if (reader["RenewalDt"] != DBNull.Value)
+                    {
+                        HasRenewalDt = true;
+                        dtRenewal = Convert.ToDateTime(reader["RenewalDt"].ToString());
+                    }
+
+                    Id = Convert.ToInt32(reader["Id"].ToString());
+                    TMNo = reader["TMNo"].ToString();
+                    TMName = reader["TMName"].ToString();
+                    DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
+                    HasRenewal = HasRenewalDt;
+                    if (HasRenewalDt)
+                    {
+                        RenewalDt = dtRenewal;
+                    }
+                    NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
+                    TMGrNo = reader["TMGrNo"].ToString();
+                    CompanyId = Convert.ToInt32(reader["CompanyId"].ToString());
+                    ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
+                    if (reader["FileContents"] != DBNull.Value)
+                    {
+                        FileContents = (byte[])reader["FileContents"];
+                    }
+
+                    FileName = reader["FileName"].ToString();
+                    Description = reader["Description"].ToString();
+                    Fees = reader["Fees"].ToString();
+                    DecisionNo = reader["DecisionNo"].ToString();
+                    PublicationDate = Convert.ToDateTime(reader["PublicationDate"].ToString());
+                    FinalizationDate = Convert.ToDateTime(reader["FinalizationDate"].ToString());
+                    Url = reader["Url"].ToString();
+
+                    TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
+                    ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+        }
     }
 
     public class dgvDictionary

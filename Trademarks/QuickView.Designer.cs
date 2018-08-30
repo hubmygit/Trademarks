@@ -149,34 +149,34 @@
             this.tsmiDelete,
             this.tsmiOpenUrl});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(122, 92);
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 92);
             // 
             // tsmiView
             // 
             this.tsmiView.Name = "tsmiView";
-            this.tsmiView.Size = new System.Drawing.Size(121, 22);
-            this.tsmiView.Text = "View";
+            this.tsmiView.Size = new System.Drawing.Size(208, 22);
+            this.tsmiView.Text = "Εμφάνιση Σήματος";
             this.tsmiView.Click += new System.EventHandler(this.tsmiView_Click);
             // 
             // tsmiUpdate
             // 
             this.tsmiUpdate.Name = "tsmiUpdate";
-            this.tsmiUpdate.Size = new System.Drawing.Size(121, 22);
-            this.tsmiUpdate.Text = "Update";
+            this.tsmiUpdate.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdate.Text = "Ενημέρωση Σήματος";
             this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
             // 
             // tsmiDelete
             // 
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(121, 22);
-            this.tsmiDelete.Text = "Delete";
+            this.tsmiDelete.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelete.Text = "Διαγραφή Σήματος";
             this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
             // 
             // tsmiOpenUrl
             // 
             this.tsmiOpenUrl.Name = "tsmiOpenUrl";
-            this.tsmiOpenUrl.Size = new System.Drawing.Size(121, 22);
-            this.tsmiOpenUrl.Text = "Open Url";
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
+            this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
             this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
             // 
             // QuickView

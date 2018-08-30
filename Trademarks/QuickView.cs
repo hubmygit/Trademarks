@@ -236,24 +236,25 @@ namespace Trademarks
                     return;
                 }
                 dgvTempRecs.Rows[hti.RowIndex].Selected = true;
-
             }
         }
 
         private void tsmiOpenUrl_Click(object sender, EventArgs e)
         {
-            int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
-            TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
-
-            if (thisTmpRec.Url.Trim() != "")
+            if (dgvTempRecs.SelectedRows.Count > 0)
             {
-                System.Diagnostics.Process.Start(thisTmpRec.Url);
-            }
-            else
-            {
-                MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
-            }
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
 
+                if (thisTmpRec.Url.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(thisTmpRec.Url);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
+            }
         }
 
         private void tsmiUpdate_Click(object sender, EventArgs e)
