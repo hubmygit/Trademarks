@@ -59,22 +59,28 @@ namespace Trademarks
 
                 if (section.SectionInformation.IsProtected)
                 {
-                    // Remove encryption.
-                    //section.SectionInformation.UnprotectSection();
                     MessageBox.Show("Config File Is Already Protected!");
+                    //DialogResult dlg = MessageBox.Show("Config File Is Already Protected!\r\nDo you want to Dencrypt it?", "", MessageBoxButtons.YesNo);
+                    //if (dlg == DialogResult.Yes)
+                    //{
+                    //    //Remove encryption.
+                    //    section.SectionInformation.UnprotectSection();
+                    //}
                 }
                 else
                 {
-                    MessageBox.Show("Config File Is Not Protected! Encryption will Follow!");
-                    // Encrypt the section.
-                    section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
-
-                    // Save the current configuration.
-                    config.Save();
-
-                    MessageBox.Show("Protected: " + section.SectionInformation.IsProtected);
+                    DialogResult dlg = MessageBox.Show("Config File Is Not Protected!\r\nDo you want to Encrypt it?", "", MessageBoxButtons.YesNo);
+                    if (dlg == DialogResult.Yes)
+                    {
+                        // Encrypt the section.
+                        section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+                    }
                 }
-                
+
+                MessageBox.Show("Protected: " + section.SectionInformation.IsProtected);
+
+                // Save the current configuration.
+                config.Save();
             }
             catch (Exception ex)
             {
