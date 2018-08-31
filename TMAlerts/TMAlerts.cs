@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.IO;
 using Microsoft.Exchange.WebServices.Data;
 
+using System.Configuration;
+
 namespace TMAlerts
 {
     public partial class TMAlerts : Form
@@ -308,7 +310,41 @@ namespace TMAlerts
 
             return ret;
         }
-        
+
+        private void btnEncryptConfig_Click(object sender, EventArgs e)
+        {
+            // Takes the executable file name without the .config extension.
+            try
+            {
+                // Open the configuration file and retrieve the connectionStrings section.
+                Configuration config = ConfigurationManager.OpenExeConfiguration(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+
+                ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+
+                if (section.SectionInformation.IsProtected)
+                {
+                    // Remove encryption.
+                    //section.SectionInformation.UnprotectSection();
+                    MessageBox.Show("Config File Is Already Protected!");
+                }
+                else
+                {
+                    MessageBox.Show("Config File Is Not Protected! Encryption will Follow!");
+                    // Encrypt the section.
+                    section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+
+                    // Save the current configuration.
+                    config.Save();
+
+                    MessageBox.Show("Protected: " + section.SectionInformation.IsProtected);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 
 
@@ -379,11 +415,14 @@ namespace TMAlerts
         static SqlDBInfo()
         {
             //default values
+            /*
             string server = "DELIGEEL\\SQLEXPRESS";
             string database = "Trademarks";
             string username = "sa";
             string password = "motoroil";
             connectionString = "Persist Security Info=False; User ID=" + username + "; Password=" + password + "; Initial Catalog=" + database + "; Server=" + server;
+            */
+            connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
         }
 
         public static string connectionString { get; set; }

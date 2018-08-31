@@ -17,14 +17,14 @@ namespace Trademarks
         {
             InitializeComponent();
 
-            tempRecList = SelectAudit();
+            tempRecList = SelectTempRecs();
 
             FillDataGridView(dgvTempRecs, tempRecList);
         }
 
         public List<TempRecords> tempRecList = new List<TempRecords>();
 
-        public List<TempRecords> SelectAudit()
+        public List<TempRecords> SelectTempRecs()
         {
             List<TempRecords> ret = new List<TempRecords>();
 
