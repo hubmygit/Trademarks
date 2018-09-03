@@ -35,26 +35,37 @@
             this.tsStatusLblUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnAlerts = new System.Windows.Forms.Button();
             this.btnEncryptConfig = new System.Windows.Forms.Button();
+            this.menuStripBasic = new System.Windows.Forms.MenuStrip();
+            this.tsmiTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAlerts = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTM_ins = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTM_View = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
+            this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnQuickInsert
             // 
-            this.btnQuickInsert.Location = new System.Drawing.Point(12, 12);
+            this.btnQuickInsert.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnQuickInsert.Location = new System.Drawing.Point(12, 27);
             this.btnQuickInsert.Name = "btnQuickInsert";
-            this.btnQuickInsert.Size = new System.Drawing.Size(100, 30);
+            this.btnQuickInsert.Size = new System.Drawing.Size(120, 50);
             this.btnQuickInsert.TabIndex = 0;
-            this.btnQuickInsert.Text = "Quick Insert";
+            this.btnQuickInsert.Text = "Καταχώρηση";
             this.btnQuickInsert.UseVisualStyleBackColor = true;
             this.btnQuickInsert.Click += new System.EventHandler(this.btnQuickInsert_Click);
             // 
             // btnQuickView
             // 
-            this.btnQuickView.Location = new System.Drawing.Point(12, 48);
+            this.btnQuickView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnQuickView.Location = new System.Drawing.Point(12, 83);
             this.btnQuickView.Name = "btnQuickView";
-            this.btnQuickView.Size = new System.Drawing.Size(100, 30);
+            this.btnQuickView.Size = new System.Drawing.Size(120, 50);
             this.btnQuickView.TabIndex = 1;
-            this.btnQuickView.Text = "Quick View";
+            this.btnQuickView.Text = "Προβολή / Επεξεργασία";
             this.btnQuickView.UseVisualStyleBackColor = true;
             this.btnQuickView.Click += new System.EventHandler(this.btnQuickView_Click);
             // 
@@ -79,35 +90,106 @@
             // 
             // btnAlerts
             // 
-            this.btnAlerts.Location = new System.Drawing.Point(12, 84);
+            this.btnAlerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAlerts.Location = new System.Drawing.Point(138, 27);
             this.btnAlerts.Name = "btnAlerts";
-            this.btnAlerts.Size = new System.Drawing.Size(100, 30);
+            this.btnAlerts.Size = new System.Drawing.Size(120, 50);
             this.btnAlerts.TabIndex = 4;
-            this.btnAlerts.Text = "Alerts";
+            this.btnAlerts.Text = "Ειδοποιήσεις";
             this.btnAlerts.UseVisualStyleBackColor = true;
             this.btnAlerts.Click += new System.EventHandler(this.btnAlerts_Click);
             // 
             // btnEncryptConfig
             // 
-            this.btnEncryptConfig.Location = new System.Drawing.Point(12, 120);
+            this.btnEncryptConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnEncryptConfig.Location = new System.Drawing.Point(652, 27);
             this.btnEncryptConfig.Name = "btnEncryptConfig";
-            this.btnEncryptConfig.Size = new System.Drawing.Size(100, 30);
+            this.btnEncryptConfig.Size = new System.Drawing.Size(120, 50);
             this.btnEncryptConfig.TabIndex = 5;
             this.btnEncryptConfig.Text = "Encrypt Config";
             this.btnEncryptConfig.UseVisualStyleBackColor = true;
             this.btnEncryptConfig.Click += new System.EventHandler(this.btnEncryptConfig_Click);
             // 
+            // menuStripBasic
+            // 
+            this.menuStripBasic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTM,
+            this.tsmiAlerts,
+            this.tsmiAdmin});
+            this.menuStripBasic.Location = new System.Drawing.Point(0, 0);
+            this.menuStripBasic.Name = "menuStripBasic";
+            this.menuStripBasic.Size = new System.Drawing.Size(784, 24);
+            this.menuStripBasic.TabIndex = 6;
+            this.menuStripBasic.Text = "menuStrip1";
+            // 
+            // tsmiTM
+            // 
+            this.tsmiTM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTM_ins,
+            this.tsmiTM_View});
+            this.tsmiTM.Name = "tsmiTM";
+            this.tsmiTM.Size = new System.Drawing.Size(113, 20);
+            this.tsmiTM.Text = "Εμπορικά Σήματα";
+            // 
+            // tsmiAlerts
+            // 
+            this.tsmiAlerts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAlerts_View});
+            this.tsmiAlerts.Name = "tsmiAlerts";
+            this.tsmiAlerts.Size = new System.Drawing.Size(88, 20);
+            this.tsmiAlerts.Text = "Ειδοποιήσεις";
+            // 
+            // tsmiTM_ins
+            // 
+            this.tsmiTM_ins.Name = "tsmiTM_ins";
+            this.tsmiTM_ins.Size = new System.Drawing.Size(195, 22);
+            this.tsmiTM_ins.Text = "Καταχώρηση";
+            this.tsmiTM_ins.Click += new System.EventHandler(this.tsmiTM_ins_Click);
+            // 
+            // tsmiTM_View
+            // 
+            this.tsmiTM_View.Name = "tsmiTM_View";
+            this.tsmiTM_View.Size = new System.Drawing.Size(195, 22);
+            this.tsmiTM_View.Text = "Προβολή/Επεξεργασία";
+            this.tsmiTM_View.Click += new System.EventHandler(this.tsmiTM_View_Click);
+            // 
+            // tsmiAlerts_View
+            // 
+            this.tsmiAlerts_View.Name = "tsmiAlerts_View";
+            this.tsmiAlerts_View.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAlerts_View.Text = "Προβολή";
+            this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
+            // 
+            // tsmiAdmin
+            // 
+            this.tsmiAdmin.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAdmin_Encrypt});
+            this.tsmiAdmin.Name = "tsmiAdmin";
+            this.tsmiAdmin.Size = new System.Drawing.Size(98, 20);
+            this.tsmiAdmin.Text = "Administration";
+            // 
+            // tsmiAdmin_Encrypt
+            // 
+            this.tsmiAdmin_Encrypt.Name = "tsmiAdmin_Encrypt";
+            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
+            this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Trademarks.Properties.Resources.TM1;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(784, 442);
             this.Controls.Add(this.btnEncryptConfig);
             this.Controls.Add(this.btnAlerts);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStripBasic);
             this.Controls.Add(this.btnQuickView);
             this.Controls.Add(this.btnQuickInsert);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStripBasic;
             this.MaximumSize = new System.Drawing.Size(800, 480);
             this.MinimumSize = new System.Drawing.Size(800, 480);
             this.Name = "MainMenu";
@@ -115,6 +197,8 @@
             this.Text = "Main Menu";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStripBasic.ResumeLayout(false);
+            this.menuStripBasic.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,6 +212,14 @@
         public System.Windows.Forms.ToolStripStatusLabel tsStatusLblUser;
         private System.Windows.Forms.Button btnAlerts;
         private System.Windows.Forms.Button btnEncryptConfig;
+        private System.Windows.Forms.MenuStrip menuStripBasic;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTM;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTM_ins;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTM_View;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAlerts;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAlerts_View;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAdmin;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAdmin_Encrypt;
     }
 }
 

@@ -49,13 +49,19 @@ namespace Trademarks
 
         private void btnEncryptConfig_Click(object sender, EventArgs e)
         {
+            EncryptAppConfig("connectionStrings");
+        }
+
+        void EncryptAppConfig(string sectionName) //"connectionStrings"
+        {
             // Takes the executable file name without the .config extension.
             try
             {
                 // Open the configuration file and retrieve the connectionStrings section.
                 Configuration config = ConfigurationManager.OpenExeConfiguration(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
 
-                ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+                //ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+                ConnectionStringsSection section = config.GetSection(sectionName) as ConnectionStringsSection;
 
                 if (section.SectionInformation.IsProtected)
                 {
@@ -86,6 +92,37 @@ namespace Trademarks
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void tsmiTM_ins_Click(object sender, EventArgs e)
+        {
+            QuickInsert frmQuickIns = new QuickInsert();
+            frmQuickIns.ShowDialog();
+
+            while (frmQuickIns.GoToNext)
+            {
+                frmQuickIns.GoToNext = false;
+
+                frmQuickIns = new QuickInsert();
+                frmQuickIns.ShowDialog();
+            }
+        }
+
+        private void tsmiTM_View_Click(object sender, EventArgs e)
+        {
+            QuickView frmQuickView = new QuickView();
+            frmQuickView.ShowDialog();
+        }
+
+        private void tsmiAlerts_View_Click(object sender, EventArgs e)
+        {
+            AlertsView frmAlertsView = new AlertsView();
+            frmAlertsView.ShowDialog();
+        }
+
+        private void tsmiAdmin_Encrypt_Click(object sender, EventArgs e)
+        {
+            EncryptAppConfig("connectionStrings");
         }
     }
 
