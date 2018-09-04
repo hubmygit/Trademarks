@@ -165,6 +165,38 @@ namespace Trademarks
                 dgvAlerts.Rows[hti.RowIndex].Selected = true;
             }
         }
+
+        private void applyFilters()
+        {
+            List<AlertsDGV> filteredRecs = tempAlertList;
+
+            if (chbActive.CheckState != CheckState.Indeterminate)
+            {
+                filteredRecs = filteredRecs.Where(i => i.IsActive == chbActive.Checked).ToList();
+            }
+
+            if (txtTMId.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (txtTMName.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            FillDataGridView(dgvAlerts, filteredRecs);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void chbActive_CheckStateChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
     }
 
     public class AlertsDGV
