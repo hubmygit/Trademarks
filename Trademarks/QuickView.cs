@@ -356,5 +356,21 @@ namespace Trademarks
                 frmUpdateTmpRec.ShowDialog();                
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            List<TempRecords> filteredRecs = tempRecList;
+            if (txtTMId.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (txtTMName.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            FillDataGridView(dgvTempRecs, filteredRecs);
+        }
     }
 }
