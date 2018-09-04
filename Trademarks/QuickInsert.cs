@@ -1324,6 +1324,40 @@ namespace Trademarks
             return ret;
         }
 
+        public static List<Recipient> getTaskRecipients(int givenTrademarksId)
+        {
+            List<Recipient> ret = new List<Recipient>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [Id], [TrademarksId], [FullName], [Email] " +
+                              "FROM [dbo].[Recipients] " +
+                              "WHERE TrademarksId = " + givenTrademarksId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Recipient rec = new Recipient();
+                    rec.Id = Convert.ToInt32(reader["Id"].ToString());
+                    rec.TrademarksId = Convert.ToInt32(reader["TrademarksId"].ToString());
+                    rec.FullName = reader["FullName"].ToString();
+                    rec.Email = reader["Email"].ToString();
+
+                    ret.Add(rec);
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
     }
         
     public class Type
@@ -1902,6 +1936,7 @@ namespace Trademarks
 
             return ret;
         }
+        
     }
 
     public class myIntAndStr

@@ -55,6 +55,7 @@
             this.lblTMId = new System.Windows.Forms.Label();
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.chbActive = new System.Windows.Forms.CheckBox();
+            this.tsmiRecipients = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -206,14 +207,15 @@
             // cmsOnGrid
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiViewTM});
+            this.tsmiViewTM,
+            this.tsmiRecipients});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(176, 26);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 70);
             // 
             // tsmiViewTM
             // 
             this.tsmiViewTM.Name = "tsmiViewTM";
-            this.tsmiViewTM.Size = new System.Drawing.Size(175, 22);
+            this.tsmiViewTM.Size = new System.Drawing.Size(180, 22);
             this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
             this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
             // 
@@ -281,6 +283,13 @@
             this.chbActive.UseVisualStyleBackColor = true;
             this.chbActive.CheckStateChanged += new System.EventHandler(this.chbActive_CheckStateChanged);
             // 
+            // tsmiRecipients
+            // 
+            this.tsmiRecipients.Name = "tsmiRecipients";
+            this.tsmiRecipients.Size = new System.Drawing.Size(180, 22);
+            this.tsmiRecipients.Text = "Παραλήπτες";
+            this.tsmiRecipients.Click += new System.EventHandler(this.tsmiRecipients_Click);
+            // 
             // AlertsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,5 +341,6 @@
         private System.Windows.Forms.Label lblTMId;
         private System.Windows.Forms.TextBox txtTMId;
         private System.Windows.Forms.CheckBox chbActive;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRecipients;
     }
 }

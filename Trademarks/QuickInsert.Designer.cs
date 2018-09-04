@@ -72,6 +72,13 @@
             this.Type_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvClasses = new System.Windows.Forms.DataGridView();
+            this.Class_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Class_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Headers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Link = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsOnClasses = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveAndNext = new System.Windows.Forms.Button();
             this.dtpLastRenwalTime = new System.Windows.Forms.DateTimePicker();
             this.dtpLastRenwalDt = new System.Windows.Forms.DateTimePicker();
@@ -81,20 +88,13 @@
             this.Country_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Country_ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Country_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmsOnClasses = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
-            this.Class_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Class_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Class_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Class_Headers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Class_Link = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnOpenLink = new System.Windows.Forms.Button();
             this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.gbNatPower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).BeginInit();
             this.cmsOnClasses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -219,7 +219,7 @@
             this.txtDecisionNo.Location = new System.Drawing.Point(367, 642);
             this.txtDecisionNo.Name = "txtDecisionNo";
             this.txtDecisionNo.Size = new System.Drawing.Size(180, 22);
-            this.txtDecisionNo.TabIndex = 20;
+            this.txtDecisionNo.TabIndex = 21;
             // 
             // dtpPublicationDate
             // 
@@ -228,7 +228,7 @@
             this.dtpPublicationDate.Location = new System.Drawing.Point(234, 677);
             this.dtpPublicationDate.Name = "dtpPublicationDate";
             this.dtpPublicationDate.Size = new System.Drawing.Size(120, 22);
-            this.dtpPublicationDate.TabIndex = 21;
+            this.dtpPublicationDate.TabIndex = 22;
             // 
             // lblPublicationDate
             // 
@@ -247,7 +247,7 @@
             this.dtpFinalization.Location = new System.Drawing.Point(596, 676);
             this.dtpFinalization.Name = "dtpFinalization";
             this.dtpFinalization.Size = new System.Drawing.Size(120, 22);
-            this.dtpFinalization.TabIndex = 22;
+            this.dtpFinalization.TabIndex = 23;
             // 
             // lblFinalization
             // 
@@ -276,7 +276,7 @@
             this.txtFees.Multiline = true;
             this.txtFees.Name = "txtFees";
             this.txtFees.Size = new System.Drawing.Size(350, 80);
-            this.txtFees.TabIndex = 18;
+            this.txtFees.TabIndex = 19;
             // 
             // lblDescription
             // 
@@ -295,7 +295,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(350, 80);
-            this.txtDescription.TabIndex = 19;
+            this.txtDescription.TabIndex = 20;
             // 
             // lblTMPic
             // 
@@ -312,7 +312,7 @@
             this.btnAddTMPic.Location = new System.Drawing.Point(319, 273);
             this.btnAddTMPic.Name = "btnAddTMPic";
             this.btnAddTMPic.Size = new System.Drawing.Size(30, 30);
-            this.btnAddTMPic.TabIndex = 15;
+            this.btnAddTMPic.TabIndex = 16;
             this.btnAddTMPic.Text = "+";
             this.btnAddTMPic.UseVisualStyleBackColor = true;
             this.btnAddTMPic.Click += new System.EventHandler(this.btnAddTMPic_Click);
@@ -323,7 +323,7 @@
             this.btnSave.Location = new System.Drawing.Point(210, 750);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(180, 50);
-            this.btnSave.TabIndex = 24;
+            this.btnSave.TabIndex = 26;
             this.btnSave.Text = "Αποθήκευση";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -400,7 +400,7 @@
             this.btnRemoveTMFile.Location = new System.Drawing.Point(319, 308);
             this.btnRemoveTMFile.Name = "btnRemoveTMFile";
             this.btnRemoveTMFile.Size = new System.Drawing.Size(30, 30);
-            this.btnRemoveTMFile.TabIndex = 16;
+            this.btnRemoveTMFile.TabIndex = 17;
             this.btnRemoveTMFile.Text = "-";
             this.btnRemoveTMFile.UseVisualStyleBackColor = true;
             this.btnRemoveTMFile.Click += new System.EventHandler(this.btnRemoveTMFile_Click);
@@ -412,7 +412,7 @@
             this.lblPreview.Location = new System.Drawing.Point(448, 287);
             this.lblPreview.Name = "lblPreview";
             this.lblPreview.Size = new System.Drawing.Size(247, 16);
-            this.lblPreview.TabIndex = 36;
+            this.lblPreview.TabIndex = 0;
             this.lblPreview.Text = "Δεν είναι δυνατή η προβολή του αρχείου";
             this.lblPreview.Visible = false;
             // 
@@ -432,7 +432,7 @@
             this.txtUrl.Location = new System.Drawing.Point(99, 711);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(617, 22);
-            this.txtUrl.TabIndex = 23;
+            this.txtUrl.TabIndex = 24;
             // 
             // lblUrl
             // 
@@ -453,7 +453,7 @@
             this.cbLawyerFullname.Location = new System.Drawing.Point(396, 207);
             this.cbLawyerFullname.Name = "cbLawyerFullname";
             this.cbLawyerFullname.Size = new System.Drawing.Size(350, 24);
-            this.cbLawyerFullname.TabIndex = 13;
+            this.cbLawyerFullname.TabIndex = 14;
             // 
             // cbCompany
             // 
@@ -464,7 +464,7 @@
             this.cbCompany.Location = new System.Drawing.Point(396, 164);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(350, 24);
-            this.cbCompany.TabIndex = 12;
+            this.cbCompany.TabIndex = 13;
             // 
             // dgvTypes
             // 
@@ -481,7 +481,7 @@
             this.dgvTypes.RowHeadersVisible = false;
             this.dgvTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTypes.Size = new System.Drawing.Size(215, 110);
-            this.dgvTypes.TabIndex = 14;
+            this.dgvTypes.TabIndex = 15;
             // 
             // Type_Id
             // 
@@ -523,8 +523,57 @@
             this.dgvClasses.RowHeadersVisible = false;
             this.dgvClasses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClasses.Size = new System.Drawing.Size(705, 110);
-            this.dgvClasses.TabIndex = 17;
+            this.dgvClasses.TabIndex = 18;
             this.dgvClasses.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvClasses_MouseDown);
+            // 
+            // Class_Id
+            // 
+            this.Class_Id.HeaderText = "Id";
+            this.Class_Id.Name = "Class_Id";
+            this.Class_Id.Visible = false;
+            this.Class_Id.Width = 40;
+            // 
+            // Class_Checked
+            // 
+            this.Class_Checked.HeaderText = "";
+            this.Class_Checked.Name = "Class_Checked";
+            this.Class_Checked.Width = 20;
+            // 
+            // Class_No
+            // 
+            this.Class_No.HeaderText = "Κλάση";
+            this.Class_No.Name = "Class_No";
+            this.Class_No.ReadOnly = true;
+            this.Class_No.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Class_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Class_No.Width = 40;
+            // 
+            // Class_Headers
+            // 
+            this.Class_Headers.HeaderText = "Επικεφαλίδες";
+            this.Class_Headers.Name = "Class_Headers";
+            this.Class_Headers.ReadOnly = true;
+            this.Class_Headers.Width = 620;
+            // 
+            // Class_Link
+            // 
+            this.Class_Link.HeaderText = "Link";
+            this.Class_Link.Name = "Class_Link";
+            this.Class_Link.Visible = false;
+            // 
+            // cmsOnClasses
+            // 
+            this.cmsOnClasses.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpenUrl});
+            this.cmsOnClasses.Name = "cmsOnClasses";
+            this.cmsOnClasses.Size = new System.Drawing.Size(209, 26);
+            // 
+            // tsmiOpenUrl
+            // 
+            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
+            this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
+            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
             // 
             // btnSaveAndNext
             // 
@@ -532,7 +581,7 @@
             this.btnSaveAndNext.Location = new System.Drawing.Point(394, 750);
             this.btnSaveAndNext.Name = "btnSaveAndNext";
             this.btnSaveAndNext.Size = new System.Drawing.Size(180, 50);
-            this.btnSaveAndNext.TabIndex = 25;
+            this.btnSaveAndNext.TabIndex = 27;
             this.btnSaveAndNext.Text = "Αποθήκευση και Επόμενο";
             this.btnSaveAndNext.UseVisualStyleBackColor = true;
             this.btnSaveAndNext.Click += new System.EventHandler(this.btnSaveAndNext_Click);
@@ -587,7 +636,7 @@
             this.dgvCountries.RowHeadersVisible = false;
             this.dgvCountries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCountries.Size = new System.Drawing.Size(216, 88);
-            this.dgvCountries.TabIndex = 37;
+            this.dgvCountries.TabIndex = 12;
             // 
             // Country_Id
             // 
@@ -618,62 +667,13 @@
             this.Country_Name.ReadOnly = true;
             this.Country_Name.Width = 135;
             // 
-            // cmsOnClasses
-            // 
-            this.cmsOnClasses.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiOpenUrl});
-            this.cmsOnClasses.Name = "cmsOnClasses";
-            this.cmsOnClasses.Size = new System.Drawing.Size(209, 26);
-            // 
-            // tsmiOpenUrl
-            // 
-            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
-            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
-            this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
-            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
-            // 
-            // Class_Id
-            // 
-            this.Class_Id.HeaderText = "Id";
-            this.Class_Id.Name = "Class_Id";
-            this.Class_Id.Visible = false;
-            this.Class_Id.Width = 40;
-            // 
-            // Class_Checked
-            // 
-            this.Class_Checked.HeaderText = "";
-            this.Class_Checked.Name = "Class_Checked";
-            this.Class_Checked.Width = 20;
-            // 
-            // Class_No
-            // 
-            this.Class_No.HeaderText = "Κλάση";
-            this.Class_No.Name = "Class_No";
-            this.Class_No.ReadOnly = true;
-            this.Class_No.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Class_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Class_No.Width = 40;
-            // 
-            // Class_Headers
-            // 
-            this.Class_Headers.HeaderText = "Επικεφαλίδες";
-            this.Class_Headers.Name = "Class_Headers";
-            this.Class_Headers.ReadOnly = true;
-            this.Class_Headers.Width = 620;
-            // 
-            // Class_Link
-            // 
-            this.Class_Link.HeaderText = "Link";
-            this.Class_Link.Name = "Class_Link";
-            this.Class_Link.Visible = false;
-            // 
             // btnOpenLink
             // 
             this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
             this.btnOpenLink.Location = new System.Drawing.Point(722, 711);
             this.btnOpenLink.Name = "btnOpenLink";
             this.btnOpenLink.Size = new System.Drawing.Size(22, 22);
-            this.btnOpenLink.TabIndex = 39;
+            this.btnOpenLink.TabIndex = 25;
             this.btnOpenLink.UseVisualStyleBackColor = true;
             this.btnOpenLink.Click += new System.EventHandler(this.btnOpenLink_Click);
             // 
@@ -747,8 +747,8 @@
             this.gbNatPower.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).EndInit();
             this.cmsOnClasses.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

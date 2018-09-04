@@ -197,6 +197,28 @@ namespace Trademarks
         {
             applyFilters();
         }
+
+        private void tsmiRecipients_Click(object sender, EventArgs e)
+        {
+            if (dgvAlerts.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvAlerts.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                List<Recipient> recipientList = Task.getTaskRecipients(Id);
+
+                Recipients frmRecipients = new Recipients();
+                frmRecipients.txtTMId.Text = dgvAlerts.SelectedRows[0].Cells["tmp_No"].Value.ToString();
+                frmRecipients.txtTMName.Text = dgvAlerts.SelectedRows[0].Cells["tmp_Name"].Value.ToString();
+                frmRecipients.dtpExpDt.Value = Convert.ToDateTime(dgvAlerts.SelectedRows[0].Cells["alarm_ExpDate"].Value.ToString());
+                frmRecipients.dtpExpTime.Value = Convert.ToDateTime(dgvAlerts.SelectedRows[0].Cells["alarm_ExpDate"].Value.ToString());
+
+                foreach (Recipient recipient in recipientList)
+                {
+                    frmRecipients.dgvRecipients.Rows.Add(new object[] { recipient.Id, recipient.FullName, recipient.Email });
+                }
+
+                frmRecipients.ShowDialog();
+            }
+        }
     }
 
     public class AlertsDGV

@@ -98,6 +98,12 @@
     <Compile Include="QuickView.Designer.cs">
       <DependentUpon>QuickView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Recipients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Recipients.Designer.cs">
+      <DependentUpon>Recipients.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Alarms.resx">
       <DependentUpon>Alarms.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="QuickView.resx">
       <DependentUpon>QuickView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Recipients.resx">
+      <DependentUpon>Recipients.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
