@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickInsert));
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.lblTMId = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.txtFees = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.lblTMPic = new System.Windows.Forms.Label();
             this.btnAddTMPic = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -72,10 +72,6 @@
             this.Type_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvClasses = new System.Windows.Forms.DataGridView();
-            this.Class_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Class_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Class_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Class_Headers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSaveAndNext = new System.Windows.Forms.Button();
             this.dtpLastRenwalTime = new System.Windows.Forms.DateTimePicker();
             this.dtpLastRenwalDt = new System.Windows.Forms.DateTimePicker();
@@ -85,11 +81,21 @@
             this.Country_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Country_ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Country_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).BeginInit();
+            this.cmsOnClasses = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
+            this.Class_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Class_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Headers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Class_Link = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnOpenLink = new System.Windows.Forms.Button();
+            this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.gbNatPower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).BeginInit();
+            this.cmsOnClasses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).BeginInit();
             this.SuspendLayout();
             // 
             // txtTMId
@@ -290,16 +296,6 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(350, 80);
             this.txtDescription.TabIndex = 19;
-            // 
-            // pbTMPic
-            // 
-            this.pbTMPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbTMPic.Location = new System.Drawing.Point(396, 250);
-            this.pbTMPic.Name = "pbTMPic";
-            this.pbTMPic.Size = new System.Drawing.Size(350, 91);
-            this.pbTMPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbTMPic.TabIndex = 27;
-            this.pbTMPic.TabStop = false;
             // 
             // lblTMPic
             // 
@@ -518,7 +514,9 @@
             this.Class_Id,
             this.Class_Checked,
             this.Class_No,
-            this.Class_Headers});
+            this.Class_Headers,
+            this.Class_Link});
+            this.dgvClasses.ContextMenuStrip = this.cmsOnClasses;
             this.dgvClasses.Location = new System.Drawing.Point(41, 367);
             this.dgvClasses.MultiSelect = false;
             this.dgvClasses.Name = "dgvClasses";
@@ -526,35 +524,7 @@
             this.dgvClasses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClasses.Size = new System.Drawing.Size(705, 110);
             this.dgvClasses.TabIndex = 17;
-            // 
-            // Class_Id
-            // 
-            this.Class_Id.HeaderText = "Id";
-            this.Class_Id.Name = "Class_Id";
-            this.Class_Id.Visible = false;
-            this.Class_Id.Width = 40;
-            // 
-            // Class_Checked
-            // 
-            this.Class_Checked.HeaderText = "";
-            this.Class_Checked.Name = "Class_Checked";
-            this.Class_Checked.Width = 20;
-            // 
-            // Class_No
-            // 
-            this.Class_No.HeaderText = "Κλάση";
-            this.Class_No.Name = "Class_No";
-            this.Class_No.ReadOnly = true;
-            this.Class_No.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Class_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Class_No.Width = 40;
-            // 
-            // Class_Headers
-            // 
-            this.Class_Headers.HeaderText = "Επικεφαλίδες";
-            this.Class_Headers.Name = "Class_Headers";
-            this.Class_Headers.ReadOnly = true;
-            this.Class_Headers.Width = 620;
+            this.dgvClasses.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvClasses_MouseDown);
             // 
             // btnSaveAndNext
             // 
@@ -648,12 +618,82 @@
             this.Country_Name.ReadOnly = true;
             this.Country_Name.Width = 135;
             // 
+            // cmsOnClasses
+            // 
+            this.cmsOnClasses.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpenUrl});
+            this.cmsOnClasses.Name = "cmsOnClasses";
+            this.cmsOnClasses.Size = new System.Drawing.Size(209, 26);
+            // 
+            // tsmiOpenUrl
+            // 
+            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
+            this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
+            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
+            // 
+            // Class_Id
+            // 
+            this.Class_Id.HeaderText = "Id";
+            this.Class_Id.Name = "Class_Id";
+            this.Class_Id.Visible = false;
+            this.Class_Id.Width = 40;
+            // 
+            // Class_Checked
+            // 
+            this.Class_Checked.HeaderText = "";
+            this.Class_Checked.Name = "Class_Checked";
+            this.Class_Checked.Width = 20;
+            // 
+            // Class_No
+            // 
+            this.Class_No.HeaderText = "Κλάση";
+            this.Class_No.Name = "Class_No";
+            this.Class_No.ReadOnly = true;
+            this.Class_No.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Class_No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Class_No.Width = 40;
+            // 
+            // Class_Headers
+            // 
+            this.Class_Headers.HeaderText = "Επικεφαλίδες";
+            this.Class_Headers.Name = "Class_Headers";
+            this.Class_Headers.ReadOnly = true;
+            this.Class_Headers.Width = 620;
+            // 
+            // Class_Link
+            // 
+            this.Class_Link.HeaderText = "Link";
+            this.Class_Link.Name = "Class_Link";
+            this.Class_Link.Visible = false;
+            // 
+            // btnOpenLink
+            // 
+            this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
+            this.btnOpenLink.Location = new System.Drawing.Point(722, 711);
+            this.btnOpenLink.Name = "btnOpenLink";
+            this.btnOpenLink.Size = new System.Drawing.Size(22, 22);
+            this.btnOpenLink.TabIndex = 39;
+            this.btnOpenLink.UseVisualStyleBackColor = true;
+            this.btnOpenLink.Click += new System.EventHandler(this.btnOpenLink_Click);
+            // 
+            // pbTMPic
+            // 
+            this.pbTMPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbTMPic.Location = new System.Drawing.Point(396, 250);
+            this.pbTMPic.Name = "pbTMPic";
+            this.pbTMPic.Size = new System.Drawing.Size(350, 91);
+            this.pbTMPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbTMPic.TabIndex = 27;
+            this.pbTMPic.TabStop = false;
+            // 
             // QuickInsert
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 812);
+            this.Controls.Add(this.btnOpenLink);
             this.Controls.Add(this.dgvCountries);
             this.Controls.Add(this.chbHasRenewal);
             this.Controls.Add(this.dtpLastRenwalTime);
@@ -703,12 +743,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick Insert";
             this.Load += new System.EventHandler(this.QuickInsert_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).EndInit();
             this.gbNatPower.ResumeLayout(false);
             this.gbNatPower.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).EndInit();
+            this.cmsOnClasses.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbTMPic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -760,10 +801,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Name;
         private System.Windows.Forms.DateTimePicker dtpLastRenwalTime;
         private System.Windows.Forms.DateTimePicker dtpLastRenwalDt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Id;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Class_Checked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Class_No;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Headers;
         private System.Windows.Forms.CheckBox chbHasRenewal;
         public System.Windows.Forms.Button btnSave;
         public System.Windows.Forms.Button btnSaveAndNext;
@@ -772,5 +809,13 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Country_Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn Country_ShortName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Country_Name;
+        private System.Windows.Forms.ContextMenuStrip cmsOnClasses;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Id;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Class_Checked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Headers;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Class_Link;
+        private System.Windows.Forms.Button btnOpenLink;
     }
 }

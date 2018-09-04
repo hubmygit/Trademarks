@@ -213,6 +213,7 @@ namespace Trademarks
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Id, dgvColumnHeader = "Class_Id" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.No, dgvColumnHeader = "Class_No" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Headers, dgvColumnHeader = "Class_Headers" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Link, dgvColumnHeader = "Class_Link" });
 
                 object[] obj = new object[dgv.Columns.Count];
 
@@ -1031,6 +1032,49 @@ namespace Trademarks
                 dtpLastRenwalTime.Enabled = false;
             }
         }
+
+        private void dgvClasses_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hti = dgvClasses.HitTest(e.X, e.Y);
+                if (hti.RowIndex < 0)
+                {
+                    return;
+                }
+                dgvClasses.Rows[hti.RowIndex].Selected = true;
+            }
+        }
+
+        private void tsmiOpenUrl_Click(object sender, EventArgs e)
+        {
+            if (dgvClasses.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvClasses.SelectedRows[0].Cells["class_Id"].Value.ToString());
+                string classLink = dgvClasses.SelectedRows[0].Cells["class_Link"].Value.ToString();
+
+                if (classLink.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(classLink);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
+            }
+        }
+
+        private void btnOpenLink_Click(object sender, EventArgs e)
+        {
+            if (txtUrl.Text.Trim() != "")
+            {
+                System.Diagnostics.Process.Start(txtUrl.Text);
+            }
+            else
+            {
+                MessageBox.Show("Δεν υπάρχει καταχωρημένο Url!");
+            }
+        }
     }
 
     public class Responsible
@@ -1417,6 +1461,7 @@ namespace Trademarks
         public int Id { get; set; }
         public int No { get; set; }
         public string Headers { get; set; }
+        public string Link { get; set; }
 
         public Class()
         {
@@ -1427,7 +1472,7 @@ namespace Trademarks
             List<Class> ret = new List<Class>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, No, Headers FROM [dbo].[Class] ORDER BY Id";
+            string SelectSt = "SELECT Id, No, Headers, Link FROM [dbo].[Class] ORDER BY Id";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1439,6 +1484,7 @@ namespace Trademarks
                     newclass.Id = Convert.ToInt32(reader["Id"].ToString());
                     newclass.No = Convert.ToInt32(reader["No"].ToString());
                     newclass.Headers = reader["Headers"].ToString();
+                    newclass.Link = reader["Link"].ToString();
 
                     ret.Add(newclass);
                 }

@@ -31,6 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickView));
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
@@ -41,11 +46,6 @@
             this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -75,71 +75,9 @@
             this.dgvTempRecs.Name = "dgvTempRecs";
             this.dgvTempRecs.RowTemplate.Height = 50;
             this.dgvTempRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTempRecs.Size = new System.Drawing.Size(984, 523);
+            this.dgvTempRecs.Size = new System.Drawing.Size(1234, 523);
             this.dgvTempRecs.TabIndex = 1;
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
-            // 
-            // tmp_Id
-            // 
-            this.tmp_Id.HeaderText = "Id";
-            this.tmp_Id.Name = "tmp_Id";
-            this.tmp_Id.Visible = false;
-            // 
-            // tmp_No
-            // 
-            this.tmp_No.HeaderText = "Σήμα";
-            this.tmp_No.Name = "tmp_No";
-            this.tmp_No.ReadOnly = true;
-            this.tmp_No.Width = 90;
-            // 
-            // tmp_Pic
-            // 
-            this.tmp_Pic.HeaderText = "Αρχείο";
-            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.tmp_Pic.Name = "tmp_Pic";
-            this.tmp_Pic.ReadOnly = true;
-            // 
-            // tmp_Name
-            // 
-            this.tmp_Name.HeaderText = "Όνομα";
-            this.tmp_Name.Name = "tmp_Name";
-            this.tmp_Name.ReadOnly = true;
-            // 
-            // tmp_DepositDt
-            // 
-            this.tmp_DepositDt.HeaderText = "Κατάθεση";
-            this.tmp_DepositDt.Name = "tmp_DepositDt";
-            this.tmp_DepositDt.ReadOnly = true;
-            // 
-            // tmp_RenewalDt
-            // 
-            this.tmp_RenewalDt.HeaderText = "Ανανέωση";
-            this.tmp_RenewalDt.Name = "tmp_RenewalDt";
-            this.tmp_RenewalDt.ReadOnly = true;
-            // 
-            // tmp_NatPower
-            // 
-            this.tmp_NatPower.HeaderText = "Εθν. Ισχύς";
-            this.tmp_NatPower.Name = "tmp_NatPower";
-            this.tmp_NatPower.ReadOnly = true;
-            // 
-            // tmp_GrNo
-            // 
-            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
-            this.tmp_GrNo.Name = "tmp_GrNo";
-            this.tmp_GrNo.ReadOnly = true;
-            // 
-            // tmp_Com
-            // 
-            this.tmp_Com.HeaderText = "Εταιρία";
-            this.tmp_Com.Name = "tmp_Com";
-            this.tmp_Com.ReadOnly = true;
-            // 
-            // tmp_RespLawyer
-            // 
-            this.tmp_RespLawyer.HeaderText = "Υπεύθ. Δικηγόρος";
-            this.tmp_RespLawyer.Name = "tmp_RespLawyer";
-            this.tmp_RespLawyer.ReadOnly = true;
             // 
             // cmsOnGrid
             // 
@@ -179,14 +117,79 @@
             this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
             this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
             // 
+            // tmp_Id
+            // 
+            this.tmp_Id.HeaderText = "Id";
+            this.tmp_Id.Name = "tmp_Id";
+            this.tmp_Id.Visible = false;
+            // 
+            // tmp_No
+            // 
+            this.tmp_No.HeaderText = "Σήμα";
+            this.tmp_No.Name = "tmp_No";
+            this.tmp_No.ReadOnly = true;
+            // 
+            // tmp_Pic
+            // 
+            this.tmp_Pic.HeaderText = "Αρχείο";
+            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.tmp_Pic.Name = "tmp_Pic";
+            this.tmp_Pic.ReadOnly = true;
+            // 
+            // tmp_Name
+            // 
+            this.tmp_Name.HeaderText = "Όνομα";
+            this.tmp_Name.Name = "tmp_Name";
+            this.tmp_Name.ReadOnly = true;
+            this.tmp_Name.Width = 220;
+            // 
+            // tmp_DepositDt
+            // 
+            this.tmp_DepositDt.HeaderText = "Κατάθεση";
+            this.tmp_DepositDt.Name = "tmp_DepositDt";
+            this.tmp_DepositDt.ReadOnly = true;
+            // 
+            // tmp_RenewalDt
+            // 
+            this.tmp_RenewalDt.HeaderText = "Ανανέωση";
+            this.tmp_RenewalDt.Name = "tmp_RenewalDt";
+            this.tmp_RenewalDt.ReadOnly = true;
+            // 
+            // tmp_NatPower
+            // 
+            this.tmp_NatPower.HeaderText = "Εθν. Ισχύς";
+            this.tmp_NatPower.Name = "tmp_NatPower";
+            this.tmp_NatPower.ReadOnly = true;
+            // 
+            // tmp_GrNo
+            // 
+            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
+            this.tmp_GrNo.Name = "tmp_GrNo";
+            this.tmp_GrNo.ReadOnly = true;
+            this.tmp_GrNo.Width = 120;
+            // 
+            // tmp_Com
+            // 
+            this.tmp_Com.HeaderText = "Εταιρία";
+            this.tmp_Com.Name = "tmp_Com";
+            this.tmp_Com.ReadOnly = true;
+            this.tmp_Com.Width = 220;
+            // 
+            // tmp_RespLawyer
+            // 
+            this.tmp_RespLawyer.HeaderText = "Υπεύθ. Δικηγόρος";
+            this.tmp_RespLawyer.Name = "tmp_RespLawyer";
+            this.tmp_RespLawyer.ReadOnly = true;
+            this.tmp_RespLawyer.Width = 180;
+            // 
             // QuickView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 602);
+            this.ClientSize = new System.Drawing.Size(1234, 602);
             this.Controls.Add(this.dgvTempRecs);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1000, 640);
+            this.MinimumSize = new System.Drawing.Size(1250, 640);
             this.Name = "QuickView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick View";
