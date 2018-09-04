@@ -20,6 +20,12 @@ namespace TMAlerts
         public TMAlerts()
         {
             InitializeComponent();
+
+
+            //string aaa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["Key2"].Value;
+
+            //var bbb = ConfigurationManager.AppSettings["Key2"];
+
         }
 
         private void TMAlerts_Load(object sender, EventArgs e)
@@ -313,6 +319,18 @@ namespace TMAlerts
 
         private void btnEncryptConfig_Click(object sender, EventArgs e)
         {
+            EncryptAppConfig_ConnStrings();
+
+            EncryptAppConfig_AppSettings();
+
+
+            //check this:
+            //https://stackoverflow.com/questions/11149556/app-config-change-value
+        }
+
+        void EncryptAppConfig_ConnStrings() //"connectionStrings"
+        {
+            string sectionName = "connectionStrings";
             // Takes the executable file name without the .config extension.
             try
             {
@@ -320,31 +338,84 @@ namespace TMAlerts
                 Configuration config = ConfigurationManager.OpenExeConfiguration(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
 
                 ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+                //ConnectionStringsSection section = config.GetSection(sectionName) as ConnectionStringsSection;
+                
+                //AppSettingsSection section = config.GetSection("appSettings") as AppSettingsSection;
 
                 if (section.SectionInformation.IsProtected)
                 {
-                    // Remove encryption.
-                    //section.SectionInformation.UnprotectSection();
-                    MessageBox.Show("Config File Is Already Protected!");
+                    MessageBox.Show(sectionName + ": Config File Is Already Protected!");
+                    //DialogResult dlg = MessageBox.Show("Config File Is Already Protected!\r\nDo you want to Dencrypt it?", "", MessageBoxButtons.YesNo);
+                    //if (dlg == DialogResult.Yes)
+                    //{
+                    //    //Remove encryption.
+                    //    section.SectionInformation.UnprotectSection();
+                    //}
                 }
                 else
                 {
-                    MessageBox.Show("Config File Is Not Protected! Encryption will Follow!");
-                    // Encrypt the section.
-                    section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
-
-                    // Save the current configuration.
-                    config.Save();
-
-                    MessageBox.Show("Protected: " + section.SectionInformation.IsProtected);
+                    DialogResult dlg = MessageBox.Show(sectionName + ": Config File Is Not Protected!\r\nDo you want to Encrypt it?", "", MessageBoxButtons.YesNo);
+                    if (dlg == DialogResult.Yes)
+                    {
+                        // Encrypt the section.
+                        section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+                    }
                 }
 
+                MessageBox.Show(sectionName  + ": Protected -> " + section.SectionInformation.IsProtected);
+
+                // Save the current configuration.
+                config.Save();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
+        void EncryptAppConfig_AppSettings() //"appSettings"
+        {
+            string sectionName = "appSettings";
+            // Takes the executable file name without the .config extension.
+            try
+            {
+                // Open the configuration file and retrieve the connectionStrings section.
+                Configuration config = ConfigurationManager.OpenExeConfiguration(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+
+                AppSettingsSection section = config.GetSection("appSettings") as AppSettingsSection;
+                //ConnectionStringsSection section = config.GetSection(sectionName) as ConnectionStringsSection;
+                
+                if (section.SectionInformation.IsProtected)
+                {
+                    MessageBox.Show(sectionName + ": Config File Is Already Protected!");
+                    //DialogResult dlg = MessageBox.Show("Config File Is Already Protected!\r\nDo you want to Dencrypt it?", "", MessageBoxButtons.YesNo);
+                    //if (dlg == DialogResult.Yes)
+                    //{
+                    //    //Remove encryption.
+                    //    section.SectionInformation.UnprotectSection();
+                    //}
+                }
+                else
+                {
+                    DialogResult dlg = MessageBox.Show(sectionName + ": Config File Is Not Protected!\r\nDo you want to Encrypt it?", "", MessageBoxButtons.YesNo);
+                    if (dlg == DialogResult.Yes)
+                    {
+                        // Encrypt the section.
+                        section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+                    }
+                }
+
+                MessageBox.Show(sectionName + ": Protected -> " + section.SectionInformation.IsProtected);
+
+                // Save the current configuration.
+                config.Save();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 
 
@@ -415,13 +486,6 @@ namespace TMAlerts
         static SqlDBInfo()
         {
             //default values
-            /*
-            string server = "DELIGEEL\\SQLEXPRESS";
-            string database = "Trademarks";
-            string username = "sa";
-            string password = "motoroil";
-            connectionString = "Persist Security Info=False; User ID=" + username + "; Password=" + password + "; Initial Catalog=" + database + "; Server=" + server;
-            */
             connectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
         }
 
@@ -446,6 +510,10 @@ namespace TMAlerts
             Domain = "moh";
             EmailAddress = "trademarks@moh.gr";
             SmtpClientHost = "wmath.moh.gr";
+
+            //ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+
+
         }
     }
 
