@@ -126,6 +126,19 @@ namespace Trademarks
                 }
             }
 
+            foreach (int countryId in tmpRec.CountryIds)
+            {
+                DataGridViewRow row = dgvCountries.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Where(r => Convert.ToInt32(r.Cells["Country_Id"].Value.ToString()) == countryId)
+                                      .First();
+
+                if (row.Index >= 0)
+                {
+                    dgvCountries["Country_Checked", row.Index].Value = "True";
+                }
+            }
+
             txtFees.Text = tmpRec.Fees;
             txtDescription.Text = tmpRec.Description;
             txtDecisionNo.Text = tmpRec.DecisionNo;
@@ -154,12 +167,11 @@ namespace Trademarks
 
             FillDataGridView(dgvTypes, Type.getTypeList());
             FillDataGridView(dgvClasses, Class.getClassList());
+            FillDataGridView(dgvCountries, Country.getCountryList());
         }
 
         private void QuickInsert_Load(object sender, EventArgs e)
-        {
-            
-
+        {         
             txtTMId.Select();
         }
 
@@ -218,6 +230,33 @@ namespace Trademarks
             dgv.ClearSelection();
         }
 
+        public static void FillDataGridView(DataGridView dgv, List<Country> CountryList)
+        {
+            dgv.Rows.Clear();
+
+            foreach (Country thisRecord in CountryList)
+            {
+                List<dgvDictionary> dgvDictList = new List<dgvDictionary>();
+
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Id, dgvColumnHeader = "Country_Id" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Name, dgvColumnHeader = "Country_Name" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.NameShort, dgvColumnHeader = "Country_ShortName" });
+
+                object[] obj = new object[dgv.Columns.Count];
+
+                for (int i = 0; i < dgv.Columns.Count; i++)
+                {
+                    if (dgvDictList.Exists(z => z.dgvColumnHeader == dgv.Columns[i].Name))
+                    {
+                        obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
+                    }
+                }
+
+                dgv.Rows.Add(obj);
+            }
+
+            dgv.ClearSelection();
+        }
 
         public string getClassHeaders(int ClassNo)
         {
@@ -625,6 +664,35 @@ namespace Trademarks
 
             return ret;
         }
+        private bool IsAnyCountryChecked(DataGridView dgv)
+        {
+            bool ret = false;
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == true)
+                {
+                    ret = true;
+                }
+            }
+
+            return ret;
+        }
+
+        private List<int> getCheckedCountries(DataGridView dgv)
+        {
+            List<int> ret = new List<int>();
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == true)
+                {
+                    ret.Add(Convert.ToInt32(dgvr.Cells["Country_Id"].Value));
+                }
+            }
+
+            return ret;
+        }
 
         public int getNatPowerId(GroupBox gb)
         {            
@@ -669,7 +737,7 @@ namespace Trademarks
             if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false || 
                 txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false || txtFees.Text.Trim() == "" ||
                 txtFilename.Text == "Αρχείο: -" || (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
-                ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == ""))
+                ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == "") || (rbDiethnes.Checked && IsAnyCountryChecked(dgvCountries) == false))
             {
                 MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία!");
                 return;
@@ -700,6 +768,7 @@ namespace Trademarks
             NewRecord.FileName = System.IO.Path.GetFileName(txtFilename.Text);
             NewRecord.FileContents = System.IO.File.ReadAllBytes(txtFilename.Text);
             NewRecord.ClassIds = getCheckedClasses(dgvClasses);
+            NewRecord.CountryIds = getCheckedCountries(dgvCountries);
             NewRecord.Description = txtDescription.Text;
             NewRecord.Fees = txtFees.Text;
             NewRecord.DecisionNo = txtDecisionNo.Text;
@@ -734,6 +803,15 @@ namespace Trademarks
                         if (Class.InsertTM_Class(InsertedId, TM_classId) == false)
                         {
                             //TM_Class ins error
+                            successful = false;
+                        }
+                    }
+
+                    foreach (int TM_countryId in NewRecord.CountryIds)
+                    {
+                        if (Country.InsertTM_Country(InsertedId, TM_countryId) == false)
+                        {
+                            //TM_Country ins error
                             successful = false;
                         }
                     }
@@ -787,6 +865,18 @@ namespace Trademarks
                     foreach (int TM_classId in NewRecord.ClassIds)
                     {
                         if (Class.InsertTM_Class(NewRecord.Id, TM_classId) == false)
+                        {
+                            //TM_Class ins error
+                            successful = false;
+                        }
+                    }
+
+                    //delete old records first...
+                    Country.DeleteTM_Countries(NewRecord.Id);
+
+                    foreach (int TM_countryId in NewRecord.CountryIds)
+                    {
+                        if (Country.InsertTM_Country(NewRecord.Id, TM_countryId) == false)
                         {
                             //TM_Class ins error
                             successful = false;
@@ -1454,6 +1544,138 @@ namespace Trademarks
         }
     }
 
+    public class Country
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string NameShort { get; set; }
+
+        public Country()
+        {
+        }
+
+        public static List<Country> getCountryList()
+        {
+            List<Country> ret = new List<Country>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name, NameShort FROM [dbo].[Country] ORDER BY Name";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Country country = new Country();
+                    country.Id = Convert.ToInt32(reader["Id"].ToString());
+                    country.Name = reader["Name"].ToString();
+                    country.NameShort = reader["NameShort"].ToString();
+
+                    ret.Add(country);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<int> getTM_CountriesList(int TrademarkId)
+        {
+            List<int> ret = new List<int>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Country_Id FROM [dbo].[TM_Countries] WHERE Trademarks_Id = @TM_Id ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TM_Id", TrademarkId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(Convert.ToInt32(reader["Country_Id"].ToString()));
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static bool InsertTM_Country(int TM_id, int TM_countryId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Countries] ([Trademarks_Id], [Country_Id]) VALUES (@Trademarks_Id, @Country_Id) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+                cmd.Parameters.AddWithValue("@Country_Id", TM_countryId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool DeleteTM_Countries(int TM_id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[TM_Countries] WHERE Trademarks_Id = @Trademarks_Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", TM_id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+    }
+
     public class TempRecords
     {
         public int Id { get; set; }
@@ -1470,6 +1692,8 @@ namespace Trademarks
         public byte[] FileContents { get; set; }
 
         public List<int> ClassIds { get; set; } //?? other table??
+
+        public List<int> CountryIds { get; set; }
         public string Description { get; set; }
         public string Fees { get; set; } //paravola
         public string DecisionNo { get; set; }
@@ -1539,6 +1763,7 @@ namespace Trademarks
 
                     TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
                     ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
+                    CountryIds = Country.getTM_CountriesList(Convert.ToInt32(reader["Id"].ToString()));
                 }
                 reader.Close();
                 sqlConn.Close();

@@ -79,6 +79,7 @@ namespace Trademarks
 
                     tmpRec.TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
                     tmpRec.ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
+                    tmpRec.CountryIds = Country.getTM_CountriesList(Convert.ToInt32(reader["Id"].ToString()));
 
                     ret.Add(tmpRec);
                 }
@@ -301,6 +302,12 @@ namespace Trademarks
 
                     //delete from TM_Classes
                     if (Class.DeleteTM_Classes(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
+                    //delete from TM_Countries
+                    if (Country.DeleteTM_Countries(tmpId) == false)
                     {
                         success = false;
                     }
