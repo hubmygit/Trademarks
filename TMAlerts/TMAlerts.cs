@@ -20,12 +20,6 @@ namespace TMAlerts
         public TMAlerts()
         {
             InitializeComponent();
-
-
-            //string aaa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["Key2"].Value;
-
-            //var bbb = ConfigurationManager.AppSettings["Key2"];
-
         }
 
         private void TMAlerts_Load(object sender, EventArgs e)
@@ -322,10 +316,6 @@ namespace TMAlerts
             EncryptAppConfig_ConnStrings();
 
             EncryptAppConfig_AppSettings();
-
-
-            //check this:
-            //https://stackoverflow.com/questions/11149556/app-config-change-value
         }
 
         void EncryptAppConfig_ConnStrings() //"connectionStrings"
@@ -505,15 +495,11 @@ namespace TMAlerts
 
         public EmailParams()
         {
-            UserName = "trademarks";
-            Password = "trade!m@rks";
-            Domain = "moh";
-            EmailAddress = "trademarks@moh.gr";
-            SmtpClientHost = "wmath.moh.gr";
-
-            //ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-
-
+            UserName = ConfigurationManager.AppSettings["Mailbox_UserName"]; 
+            Password = ConfigurationManager.AppSettings["Mailbox_Password"]; 
+            Domain = ConfigurationManager.AppSettings["Mailbox_Domain"]; 
+            EmailAddress = ConfigurationManager.AppSettings["Mailbox_Address"]; 
+            SmtpClientHost = ConfigurationManager.AppSettings["Mailbox_SmtpClientHost"]; 
         }
     }
 
