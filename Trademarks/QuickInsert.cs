@@ -918,45 +918,9 @@ namespace Trademarks
 
             }
         }
-
-        private void ToDelete()
-        {
-            txtTMId.Text = "246883";
-            dtpDepositDt.Value = new DateTime(2017, 12, 21);
-            dtpDepositTime.Value = new DateTime(1900, 1, 1, 12, 33, 0);
-
-            cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact("Ιωάννα Τζανερρίκου");
-            cbCompany.SelectedIndex = cbCompany.FindStringExact("PEAK CHARM HOLDINGS LIMITED");
-
-            dgvTypes["Type_Checked", 0].Value = "True";
-            dgvTypes["Type_Checked", 1].Value = "True";
-            dgvTypes["Type_Checked", 5].Value = "True";
-
-            txtTMName.Text = "XIOSBANK";
-            txtDecisionNo.Text = "ΕΞ 1627 /30-03-2018";
-            dtpPublicationDate.Value = new DateTime(2018, 3, 30);
-            dtpFinalization.Value = new DateTime(2018, 6, 30);
-
-            dgvClasses["Class_Checked", 34].Value = "True";
-            dgvClasses["Class_Checked", 35].Value = "True";
-
-            txtFees.Text = "181122029958 0220 0052, 181132490958 0220 0073.";
-            txtDescription.Text = "Δεν ασκήθηκε ανακοπή. \r\nΚαταχωρήθηκε 3/7/2018.";
-            pbTMPic.Image = Image.FromFile(@"C:\Repos\Trademarks\Files\246883.jpg");
-            txtFilename.Text = @"C:\Repos\Trademarks\Files\246883.jpg";
-            rbEthniko.Checked = true;
-            txtUrl.Text = "https://www.tmdn.org/tmview/get-detail?st13=GR50201700N246883";
-        }
-
+        
         private void btnAddTMPic_Click(object sender, EventArgs e)
         {
-            //To Delete
-            if (txtTMId.Text == "")
-            {
-                ToDelete();
-                return;
-            }
-
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Add Files";
             ofd.Multiselect = false;
