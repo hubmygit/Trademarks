@@ -91,13 +91,13 @@ namespace TMAlerts
                     ret.Add(newTask);
                 }
                 reader.Close();
-                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 //MessageBox.Show("The following error occurred: " + ex.Message);
                 Output.WriteToFile("The following error occurred: " + ex.Message, true);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -126,13 +126,13 @@ namespace TMAlerts
                     ret.Add(rec);
                 }
                 reader.Close();
-                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 //MessageBox.Show("The following error occurred: " + ex.Message);
                 Output.WriteToFile("The following error occurred: " + ex.Message, true);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -474,13 +474,14 @@ namespace TMAlerts
                     Name = reader["Name"].ToString();
                 }
                 reader.Close();
-                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 //MessageBox.Show("The following error occurred: " + ex.Message);
                 Output.WriteToFile("The following error occurred: " + ex.Message, true);
             }
+            sqlConn.Close();
+
         }
 
     }
@@ -629,12 +630,13 @@ namespace TMAlerts
                     //ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
                 }
                 reader.Close();
-                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
+
         }
     }
 

@@ -83,12 +83,12 @@ namespace Trademarks
                     ret.Add(alertRec);
                 }
                 reader.Close();
-                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }

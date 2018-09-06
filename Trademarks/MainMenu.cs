@@ -231,6 +231,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }

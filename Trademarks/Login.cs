@@ -101,6 +101,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
         }
 
         private static void Insert_AppUser()
@@ -122,6 +123,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
         }
 
         private static int Get_DB_AppUser_Id(string UserName)
@@ -145,6 +147,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -166,6 +169,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
         }
 
     }

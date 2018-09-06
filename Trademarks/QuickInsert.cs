@@ -321,6 +321,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -832,6 +833,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1191,6 +1193,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1216,6 +1219,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1267,6 +1271,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1292,6 +1297,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1338,6 +1344,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1428,13 +1435,13 @@ namespace Trademarks
 
                     ret.Add(rec);
                 }
-                reader.Close();
-                sqlConn.Close();
+                reader.Close();                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1475,6 +1482,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1503,6 +1511,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1609,6 +1618,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1637,6 +1647,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1741,6 +1752,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1769,6 +1781,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -1927,12 +1940,12 @@ namespace Trademarks
                     CountryIds = Country.getTM_CountriesList(Convert.ToInt32(reader["Id"].ToString()));
                 }
                 reader.Close();
-                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
         }
     }
 
@@ -1972,6 +1985,7 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
 
             return ret;
         }
@@ -2082,6 +2096,8 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+            sqlConn.Close();
+
         }
 
     }
