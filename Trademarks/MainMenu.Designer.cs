@@ -34,12 +34,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLblUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnAlerts = new System.Windows.Forms.Button();
-            this.btnEncryptConfig = new System.Windows.Forms.Button();
             this.menuStripBasic = new System.Windows.Forms.MenuStrip();
             this.tsmiTM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAlerts = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTM_ins = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTM_View = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAlerts = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,17 +98,6 @@
             this.btnAlerts.UseVisualStyleBackColor = true;
             this.btnAlerts.Click += new System.EventHandler(this.btnAlerts_Click);
             // 
-            // btnEncryptConfig
-            // 
-            this.btnEncryptConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnEncryptConfig.Location = new System.Drawing.Point(652, 27);
-            this.btnEncryptConfig.Name = "btnEncryptConfig";
-            this.btnEncryptConfig.Size = new System.Drawing.Size(120, 50);
-            this.btnEncryptConfig.TabIndex = 5;
-            this.btnEncryptConfig.Text = "Encrypt Config";
-            this.btnEncryptConfig.UseVisualStyleBackColor = true;
-            this.btnEncryptConfig.Click += new System.EventHandler(this.btnEncryptConfig_Click);
-            // 
             // menuStripBasic
             // 
             this.menuStripBasic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -131,14 +119,6 @@
             this.tsmiTM.Size = new System.Drawing.Size(113, 20);
             this.tsmiTM.Text = "Εμπορικά Σήματα";
             // 
-            // tsmiAlerts
-            // 
-            this.tsmiAlerts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAlerts_View});
-            this.tsmiAlerts.Name = "tsmiAlerts";
-            this.tsmiAlerts.Size = new System.Drawing.Size(88, 20);
-            this.tsmiAlerts.Text = "Ειδοποιήσεις";
-            // 
             // tsmiTM_ins
             // 
             this.tsmiTM_ins.Name = "tsmiTM_ins";
@@ -153,10 +133,18 @@
             this.tsmiTM_View.Text = "Προβολή/Επεξεργασία";
             this.tsmiTM_View.Click += new System.EventHandler(this.tsmiTM_View_Click);
             // 
+            // tsmiAlerts
+            // 
+            this.tsmiAlerts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAlerts_View});
+            this.tsmiAlerts.Name = "tsmiAlerts";
+            this.tsmiAlerts.Size = new System.Drawing.Size(88, 20);
+            this.tsmiAlerts.Text = "Ειδοποιήσεις";
+            // 
             // tsmiAlerts_View
             // 
             this.tsmiAlerts_View.Name = "tsmiAlerts_View";
-            this.tsmiAlerts_View.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAlerts_View.Size = new System.Drawing.Size(124, 22);
             this.tsmiAlerts_View.Text = "Προβολή";
             this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
             // 
@@ -167,11 +155,12 @@
             this.tsmiAdmin.Name = "tsmiAdmin";
             this.tsmiAdmin.Size = new System.Drawing.Size(98, 20);
             this.tsmiAdmin.Text = "Administration";
+            this.tsmiAdmin.Visible = false;
             // 
             // tsmiAdmin_Encrypt
             // 
             this.tsmiAdmin_Encrypt.Name = "tsmiAdmin_Encrypt";
-            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(153, 22);
             this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
             this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
             // 
@@ -182,7 +171,6 @@
             this.BackgroundImage = global::Trademarks.Properties.Resources.TM1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(784, 442);
-            this.Controls.Add(this.btnEncryptConfig);
             this.Controls.Add(this.btnAlerts);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStripBasic);
@@ -211,7 +199,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         public System.Windows.Forms.ToolStripStatusLabel tsStatusLblUser;
         private System.Windows.Forms.Button btnAlerts;
-        private System.Windows.Forms.Button btnEncryptConfig;
         private System.Windows.Forms.MenuStrip menuStripBasic;
         private System.Windows.Forms.ToolStripMenuItem tsmiTM;
         private System.Windows.Forms.ToolStripMenuItem tsmiTM_ins;

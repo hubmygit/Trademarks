@@ -13,6 +13,8 @@ using Microsoft.Exchange.WebServices.Data;
 
 using System.Configuration;
 
+using EncryptAppConfig;
+
 namespace TMAlerts
 {
     public partial class TMAlerts : Form
@@ -36,6 +38,11 @@ namespace TMAlerts
         private void AutomaticProcedure()
         {
             Output.WriteToFile("STARTING...");
+
+            bool isConfigProtected_AppSet = ConfigFunctions.IsEncrypted_AppConfig_AppSettings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            Output.WriteToFile("Config AppSettings section Encrypted: " + isConfigProtected_AppSet.ToString());
+            bool isConfigProtected_ConnStr = ConfigFunctions.IsEncrypted_AppConfig_ConnStrings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);            
+            Output.WriteToFile("Config ConnectionString section Encrypted: " + isConfigProtected_ConnStr.ToString());
 
             List<Task> taskToSend = Check_Tasks();
 
@@ -313,11 +320,14 @@ namespace TMAlerts
 
         private void btnEncryptConfig_Click(object sender, EventArgs e)
         {
-            EncryptAppConfig_ConnStrings();
+            // EncryptAppConfig_ConnStrings();
+            // EncryptAppConfig_AppSettings();
 
-            EncryptAppConfig_AppSettings();
+            // ConfigFunctions.EncryptAppConfig_ConnStrings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            // ConfigFunctions.EncryptAppConfig_AppSettings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         }
 
+        /*
         void EncryptAppConfig_ConnStrings() //"connectionStrings"
         {
             string sectionName = "connectionStrings";
@@ -362,7 +372,9 @@ namespace TMAlerts
                 MessageBox.Show(ex.Message);
             }
         }
+        */
 
+        /*
         void EncryptAppConfig_AppSettings() //"appSettings"
         {
             string sectionName = "appSettings";
@@ -405,6 +417,7 @@ namespace TMAlerts
                 MessageBox.Show(ex.Message);
             }
         }
+        */
 
     }
 

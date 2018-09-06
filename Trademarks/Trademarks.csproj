@@ -34,6 +34,9 @@
     <ApplicationIcon>Parameter.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EncryptAppConfig">
+      <HintPath>..\Files\EncryptAppConfig.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />

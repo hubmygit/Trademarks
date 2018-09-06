@@ -28,6 +28,13 @@ namespace Trademarks
             
             UserInfo.UserLogIn();
 
+            frmIntro.setLoginLabel("Checking Configuration File...");
+            if (EncryptAppConfig.ConfigFunctions.IsEncrypted_AppConfig_ConnStrings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) == false)
+            {
+                MessageBox.Show("Configuration File Error!");
+                return;
+            }
+
             frmIntro.setLoginLabel("Starting...");
 
             frmIntro.closeForm();

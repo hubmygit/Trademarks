@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using System.Configuration;
 
+using EncryptAppConfig;
+
 namespace Trademarks
 {
     public partial class MainMenu : Form
@@ -45,12 +47,6 @@ namespace Trademarks
         {
             AlertsView frmAlertsView = new AlertsView();
             frmAlertsView.ShowDialog();
-        }
-
-        private void btnEncryptConfig_Click(object sender, EventArgs e)
-        {
-            //EncryptAppConfig("connectionStrings");
-            EncryptAppConfig_ConnStrings();
         }
 
         /*
@@ -97,6 +93,7 @@ namespace Trademarks
         }
         */
 
+        /*
         void EncryptAppConfig_ConnStrings() //"connectionStrings"
         {
             string sectionName = "connectionStrings";
@@ -141,6 +138,7 @@ namespace Trademarks
                 MessageBox.Show(ex.Message);
             }
         }
+        */
 
         private void tsmiTM_ins_Click(object sender, EventArgs e)
         {
@@ -171,7 +169,7 @@ namespace Trademarks
         private void tsmiAdmin_Encrypt_Click(object sender, EventArgs e)
         {
             //EncryptAppConfig("connectionStrings");
-            EncryptAppConfig_ConnStrings();
+            //EncryptAppConfig_ConnStrings();
         }
     }
 

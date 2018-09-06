@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EncryptAppConfig">
+      <HintPath>..\Files\EncryptAppConfig.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Exchange.WebServices">
       <HintPath>..\Files\Microsoft.Exchange.WebServices.dll</HintPath>
     </Reference>
