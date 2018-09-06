@@ -82,6 +82,7 @@
             this.dgvTempRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTempRecs.Size = new System.Drawing.Size(1234, 523);
             this.dgvTempRecs.TabIndex = 1;
+            this.dgvTempRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTempRecs_SortCompare);
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
             // 
             // tmp_Id

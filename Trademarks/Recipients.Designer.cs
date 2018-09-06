@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Recipients));
             this.dgvRecipients = new System.Windows.Forms.DataGridView();
+            this.Rec_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rec_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rec_Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTMName = new System.Windows.Forms.Label();
             this.txtTMName = new System.Windows.Forms.TextBox();
             this.lblTMId = new System.Windows.Forms.Label();
@@ -37,9 +40,6 @@
             this.dtpExpTime = new System.Windows.Forms.DateTimePicker();
             this.dtpExpDt = new System.Windows.Forms.DateTimePicker();
             this.lblExpDt = new System.Windows.Forms.Label();
-            this.Rec_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rec_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rec_Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipients)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +59,29 @@
             this.dgvRecipients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRecipients.Size = new System.Drawing.Size(500, 183);
             this.dgvRecipients.TabIndex = 26;
+            // 
+            // Rec_Id
+            // 
+            this.Rec_Id.HeaderText = "Id";
+            this.Rec_Id.Name = "Rec_Id";
+            this.Rec_Id.Visible = false;
+            this.Rec_Id.Width = 40;
+            // 
+            // Rec_Name
+            // 
+            this.Rec_Name.HeaderText = "Ονοματεπώνυμο";
+            this.Rec_Name.Name = "Rec_Name";
+            this.Rec_Name.ReadOnly = true;
+            this.Rec_Name.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Rec_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Rec_Name.Width = 230;
+            // 
+            // Rec_Email
+            // 
+            this.Rec_Email.HeaderText = "Email";
+            this.Rec_Email.Name = "Rec_Email";
+            this.Rec_Email.ReadOnly = true;
+            this.Rec_Email.Width = 230;
             // 
             // lblTMName
             // 
@@ -100,6 +123,7 @@
             // 
             // dtpExpTime
             // 
+            this.dtpExpTime.Enabled = false;
             this.dtpExpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dtpExpTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpExpTime.Location = new System.Drawing.Point(365, 83);
@@ -110,6 +134,7 @@
             // 
             // dtpExpDt
             // 
+            this.dtpExpDt.Enabled = false;
             this.dtpExpDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dtpExpDt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpExpDt.Location = new System.Drawing.Point(239, 83);
@@ -126,29 +151,6 @@
             this.lblExpDt.Size = new System.Drawing.Size(173, 16);
             this.lblExpDt.TabIndex = 19;
             this.lblExpDt.Text = "Καταληκτική Ημ/νία και Ώρα";
-            // 
-            // Rec_Id
-            // 
-            this.Rec_Id.HeaderText = "Id";
-            this.Rec_Id.Name = "Rec_Id";
-            this.Rec_Id.Visible = false;
-            this.Rec_Id.Width = 40;
-            // 
-            // Rec_Name
-            // 
-            this.Rec_Name.HeaderText = "Ονοματεπώνυμο";
-            this.Rec_Name.Name = "Rec_Name";
-            this.Rec_Name.ReadOnly = true;
-            this.Rec_Name.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Rec_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Rec_Name.Width = 230;
-            // 
-            // Rec_Email
-            // 
-            this.Rec_Email.HeaderText = "Email";
-            this.Rec_Email.Name = "Rec_Email";
-            this.Rec_Email.ReadOnly = true;
-            this.Rec_Email.Width = 230;
             // 
             // Recipients
             // 

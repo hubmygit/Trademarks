@@ -145,7 +145,7 @@ namespace Trademarks
             dtpPublicationDate.Value = tmpRec.PublicationDate;
             dtpFinalization.Value = tmpRec.FinalizationDate;
 
-            txtUrl.Text = tmpRec.Url;            
+            txtUrl.Text = tmpRec.Url;
         }
 
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
@@ -168,6 +168,47 @@ namespace Trademarks
             FillDataGridView(dgvTypes, Type.getTypeList());
             FillDataGridView(dgvClasses, Class.getClassList());
             FillDataGridView(dgvCountries, Country.getCountryList());
+        }
+
+        public void MakeAllControlsReadOnly(Form frm)
+        {
+            foreach (Control control in Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).ReadOnly = true;
+                }
+
+                if (control is DateTimePicker)
+                {
+                    ((DateTimePicker)control).Enabled = false;
+                }
+
+                if (control is CheckBox)
+                {
+                    ((CheckBox)control).Enabled = false;
+                }
+
+                if (control is GroupBox)
+                {
+                    ((GroupBox)control).Enabled = false;
+                }
+
+                if (control is DataGridView)
+                {
+                    ((DataGridView)control).Enabled = false;
+                }
+
+                if (control is ComboBox)
+                {
+                    ((ComboBox)control).Enabled = false;
+                }
+
+                if (control is Button)
+                {
+                    ((Button)control).Enabled = false;
+                }
+            }
         }
 
         private void QuickInsert_Load(object sender, EventArgs e)
@@ -329,8 +370,25 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@CompanyId", tempRec.CompanyId);
                 cmd.Parameters.AddWithValue("@ResponsibleLawyerId", tempRec.ResponsibleLawyerId);
                 cmd.Parameters.AddWithValue("@TMName", tempRec.TMName);
-                cmd.Parameters.AddWithValue("@FileName", tempRec.FileName);
-                cmd.Parameters.AddWithValue("@FileContents", tempRec.FileContents);
+
+                if (txtFilename.Text == "Αρχείο: -")
+                {
+                    SqlParameter param = new SqlParameter();
+                    param.ParameterName = "@FileContents";
+                    param.Value = DBNull.Value;
+                    param.SqlDbType = SqlDbType.VarBinary;
+                    //param.Size
+                    cmd.Parameters.Add(param);
+                    //cmd.Parameters.AddWithValue("@FileContents", DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@FileName", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@FileName", tempRec.FileName);
+                    cmd.Parameters.AddWithValue("@FileContents", tempRec.FileContents);
+                }
+
                 cmd.Parameters.AddWithValue("@Description", tempRec.Description);
                 cmd.Parameters.AddWithValue("@Fees", tempRec.Fees);
                 cmd.Parameters.AddWithValue("@DecisionNo", tempRec.DecisionNo);
@@ -398,8 +456,27 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@CompanyId", tempRec.CompanyId);
                 cmd.Parameters.AddWithValue("@ResponsibleLawyerId", tempRec.ResponsibleLawyerId);
                 cmd.Parameters.AddWithValue("@TMName", tempRec.TMName);
-                cmd.Parameters.AddWithValue("@FileName", tempRec.FileName);
-                cmd.Parameters.AddWithValue("@FileContents", tempRec.FileContents);
+
+                //cmd.Parameters.AddWithValue("@FileName", tempRec.FileName);
+                //cmd.Parameters.AddWithValue("@FileContents", tempRec.FileContents);
+                if (tempRec.FileName is null)
+                {
+                    SqlParameter param = new SqlParameter();
+                    param.ParameterName = "@FileContents";
+                    param.Value = DBNull.Value;
+                    param.SqlDbType = SqlDbType.VarBinary;
+                    //param.Size
+                    cmd.Parameters.Add(param);
+                    //cmd.Parameters.AddWithValue("@FileContents", DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@FileName", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@FileName", tempRec.FileName);
+                    cmd.Parameters.AddWithValue("@FileContents", tempRec.FileContents);
+                }
+
                 cmd.Parameters.AddWithValue("@Description", tempRec.Description);
                 cmd.Parameters.AddWithValue("@Fees", tempRec.Fees);
                 cmd.Parameters.AddWithValue("@DecisionNo", tempRec.DecisionNo);
@@ -440,8 +517,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId],[ExpDate],[NotificationDate] ,[IsActive], [EventTypesId]) VALUES " +
-                           "(@TrademarksId, @ExpDate, @NotificationDate, @IsActive, @EventTypesId ) ";
+            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId],[ExpDate],[NotificationDate] ,[IsActive], [EventTypesId], [AlertDescr]) VALUES " +
+                           "(@TrademarksId, @ExpDate, @NotificationDate, @IsActive, @EventTypesId, @AlertDescr ) ";
             try
             {
                 sqlConn.Open();
@@ -452,6 +529,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@NotificationDate", task.NotificationDate);
                 cmd.Parameters.AddWithValue("@IsActive", task.IsActive);
                 cmd.Parameters.AddWithValue("@EventTypesId", task.EventTypesId);
+                cmd.Parameters.AddWithValue("@AlertDescr", task.AlertDescr);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -558,9 +636,22 @@ namespace Trademarks
                     frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
                     frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
                 }
-                
             }
 
+            foreach (myIntAndStr days in task_EventType.AlertDays)
+            {
+                TaskToInsert.NotificationDate = ExpDate.AddDays(-days.myInt);
+
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, days.myStr });
+
+                if (TaskToInsert.NotificationDate < DateTime.Now)
+                {
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+
+            /*
             foreach (myIntAndStr days in task_EventType.AlertDays)
             {
                 TaskToInsert.NotificationDate = ExpDate.AddDays(-days.myInt);
@@ -572,7 +663,8 @@ namespace Trademarks
                 }
                 frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, IsActive, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, days.myStr });
             }
-            
+            */
+
             frmAlarms.ShowDialog();
 
             foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)
@@ -580,6 +672,7 @@ namespace Trademarks
                 if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
                 {
                     TaskToInsert.NotificationDate = Convert.ToDateTime(dgvr.Cells["Alarm_NotificationDate"].Value);
+                    TaskToInsert.AlertDescr = dgvr.Cells["Alarm_Period"].Value.ToString();
                     if (InsertTask(TaskToInsert) == false)
                     {
                         ret = false;
@@ -695,6 +788,17 @@ namespace Trademarks
             return ret;
         }
 
+        private void clearCheckedCountries(DataGridView dgv)
+        {
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == true)
+                {
+                    dgvr.Cells["Country_Checked"].Value = false;
+                }
+            }
+        }
+
         public int getNatPowerId(GroupBox gb)
         {            
             string NatPowerName = "";
@@ -737,7 +841,8 @@ namespace Trademarks
             //check that all fields has been filled correctly
             if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false || 
                 txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false || txtFees.Text.Trim() == "" ||
-                txtFilename.Text == "Αρχείο: -" || (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
+                //txtFilename.Text == "Αρχείο: -" || 
+                (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
                 ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == "") || (rbDiethnes.Checked && IsAnyCountryChecked(dgvCountries) == false))
             {
                 MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία!");
@@ -766,8 +871,11 @@ namespace Trademarks
             NewRecord.ResponsibleLawyerId = ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id;
             NewRecord.TMTypeIds = getCheckedTypes(dgvTypes); 
             NewRecord.TMName = txtTMName.Text;
-            NewRecord.FileName = System.IO.Path.GetFileName(txtFilename.Text);
-            NewRecord.FileContents = System.IO.File.ReadAllBytes(txtFilename.Text);
+            if (txtFilename.Text != "Αρχείο: -")
+            {
+                NewRecord.FileName = System.IO.Path.GetFileName(txtFilename.Text);
+                NewRecord.FileContents = System.IO.File.ReadAllBytes(txtFilename.Text);
+            }
             NewRecord.ClassIds = getCheckedClasses(dgvClasses);
             NewRecord.CountryIds = getCheckedCountries(dgvCountries);
             NewRecord.Description = txtDescription.Text;
@@ -950,6 +1058,9 @@ namespace Trademarks
                 lblTMGrId.Enabled = false;
                 txtTMGrId.Clear();
                 txtTMGrId.Enabled = false;
+
+                clearCheckedCountries(dgvCountries);
+                dgvCountries.Enabled = false;
             }
         }
         private void rbKoinotiko_CheckedChanged(object sender, EventArgs e)
@@ -958,6 +1069,9 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
+
+                clearCheckedCountries(dgvCountries);
+                dgvCountries.Enabled = false;
             }
         }
 
@@ -967,6 +1081,8 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
+
+                dgvCountries.Enabled = true;
             }
         }
 
@@ -1252,6 +1368,7 @@ namespace Trademarks
         public DateTime NotificationDate { get; set; }
         public bool IsActive { get; set; }
         public int EventTypesId { get; set; }
+        public string AlertDescr { get; set; }
 
         public Task()
         {

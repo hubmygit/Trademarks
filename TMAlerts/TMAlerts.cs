@@ -69,7 +69,7 @@ namespace TMAlerts
             List<Task> ret = new List<Task>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, TrademarksId, EventTypesId, ExpDate " +
+            string SelectSt = "SELECT Id, TrademarksId, EventTypesId, ExpDate, AlertDescr " +
                               "FROM [dbo].[Tasks] " +
                               "WHERE IsActive = 'True' AND NotificationSent IS NULL AND getdate() > NotificationDate ";
 
@@ -86,6 +86,7 @@ namespace TMAlerts
                     newTask.ExpDate = Convert.ToDateTime(reader["ExpDate"].ToString());
                     newTask.EventTypesId = Convert.ToInt32(reader["EventTypesId"].ToString());
                     newTask.EventTypes = new EventType(newTask.EventTypesId);
+                    newTask.AlertDescr = reader["AlertDescr"].ToString();
 
                     ret.Add(newTask);
                 }
@@ -286,7 +287,7 @@ namespace TMAlerts
 
                 string emailBody = "Trademark " + tmpRec.TMNo + ": " + tmpRec.TMName + "\r\n" +
                                    thisTask.EventTypes.Name + ".\r\n" +
-                                   "Ημερομηνία Ενέργειας: " + thisTask.ExpDate.ToString("dd.MM.yyyy HH:mm") + ".";//".\r\n" +
+                                   "Καταληκτική Ημερομηνία: " + thisTask.ExpDate.ToString("dd.MM.yyyy HH:mm") + " [" + thisTask.AlertDescr + "]";//".\r\n" +
                                    //"\r\n" +
                                    //"mailto:hkylidis@moh.gr?subject=Trademark_" + thisTask.TrademarksId.ToString() + "&body=Trademark%20Email%20Alert";
 
@@ -429,6 +430,7 @@ namespace TMAlerts
         public DateTime ExpDate { get; set; }
         public int EventTypesId { get; set; }
         public EventType EventTypes { get; set; }
+        public string AlertDescr { get; set; }
 
         public Task()
         { }

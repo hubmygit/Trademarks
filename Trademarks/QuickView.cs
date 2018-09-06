@@ -188,8 +188,10 @@ namespace Trademarks
 
             for (int i = 0; i < dgv.Columns.Count; i++)
             {
-                obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
-
+                if (dgvDictList.Exists(z => z.dgvColumnHeader == dgv.Columns[i].Name))
+                {
+                    obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
+                }
                 dgv.Rows[dgvIndex].Cells[i].Value = obj[i];
             }
             
@@ -352,6 +354,9 @@ namespace Trademarks
                 TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
 
                 QuickInsert frmUpdateTmpRec = new QuickInsert(thisTmpRec);
+
+                frmUpdateTmpRec.MakeAllControlsReadOnly(frmUpdateTmpRec);
+
                 frmUpdateTmpRec.btnSave.Enabled = false;
                 frmUpdateTmpRec.ShowDialog();                
             }
@@ -371,6 +376,32 @@ namespace Trademarks
             }
 
             FillDataGridView(dgvTempRecs, filteredRecs);
+        }
+
+        private void dgvTempRecs_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == "tmp_DepositDt" || e.Column.Name == "tmp_RenewalDt")
+            {
+                string dtA = "";
+                string dtB = "";
+
+                if (e.CellValue1 != null && e.CellValue1.ToString().Trim() != "")
+                {
+                    dtA = Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                if (e.CellValue2 != null && e.CellValue2.ToString().Trim() != "")
+                {
+                    dtB = Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                //e.SortResult = System.String.Compare(Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss"),
+                //                                     Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss"));
+
+                e.SortResult = System.String.Compare(dtA, dtB);
+
+                e.Handled = true;
+            }
         }
     }
 }

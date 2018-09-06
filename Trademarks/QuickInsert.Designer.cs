@@ -429,7 +429,7 @@
             // txtUrl
             // 
             this.txtUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtUrl.Location = new System.Drawing.Point(99, 711);
+            this.txtUrl.Location = new System.Drawing.Point(85, 711);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(617, 22);
             this.txtUrl.TabIndex = 24;
@@ -438,7 +438,7 @@
             // 
             this.lblUrl.AutoSize = true;
             this.lblUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblUrl.Location = new System.Drawing.Point(68, 714);
+            this.lblUrl.Location = new System.Drawing.Point(54, 714);
             this.lblUrl.Name = "lblUrl";
             this.lblUrl.Size = new System.Drawing.Size(25, 16);
             this.lblUrl.TabIndex = 0;
@@ -630,6 +630,7 @@
             this.Country_Checked,
             this.Country_ShortName,
             this.Country_Name});
+            this.dgvCountries.Enabled = false;
             this.dgvCountries.Location = new System.Drawing.Point(41, 155);
             this.dgvCountries.MultiSelect = false;
             this.dgvCountries.Name = "dgvCountries";
@@ -670,7 +671,7 @@
             // btnOpenLink
             // 
             this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
-            this.btnOpenLink.Location = new System.Drawing.Point(722, 711);
+            this.btnOpenLink.Location = new System.Drawing.Point(708, 711);
             this.btnOpenLink.Name = "btnOpenLink";
             this.btnOpenLink.Size = new System.Drawing.Size(22, 22);
             this.btnOpenLink.TabIndex = 25;

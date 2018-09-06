@@ -39,7 +39,8 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT A.Id, A.IsActive, A.ExpDate, A.NotificationDate, A.NotificationSent, E.Name as EventType, " +
                                    "DATEDIFF(DAY, getdate(), A.ExpDate) as ExpCountDown, DATEDIFF(DAY, getdate(), A.NotificationDate) as AlertCountdown, " +
-                              "A.TrademarksId, T.TMNo, T.TMName, T.DepositDt, T.RenewalDt, N.Name as NationalPower, C.Name as Company, L.FullName as ResponsibleLawyer " +
+                              "A.TrademarksId, T.TMNo, T.TMName, T.DepositDt, T.RenewalDt, N.Name as NationalPower, C.Name as Company, L.FullName as ResponsibleLawyer, " +
+                              "A.AlertDescr " +
                               "FROM [dbo].[Tasks] A left outer join " +
                               "[dbo].[TempRecords] T on A.TrademarksId = T.Id left outer join " +
                               "[dbo].[EventTypes] E on A.EventTypesId = E.Id left outer join " +
@@ -77,7 +78,8 @@ namespace Trademarks
                     alertRec.NationalPower = reader["NationalPower"].ToString();
                     alertRec.Company = reader["Company"].ToString();
                     alertRec.ResponsibleLawyer = reader["ResponsibleLawyer"].ToString();
-                    
+                    alertRec.AlertDescr = reader["AlertDescr"].ToString();
+
                     ret.Add(alertRec);
                 }
                 reader.Close();
@@ -121,7 +123,8 @@ namespace Trademarks
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.NationalPower, dgvColumnHeader = "tmp_NatPower" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Company, dgvColumnHeader = "tmp_Com" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.ResponsibleLawyer, dgvColumnHeader = "tmp_RespLawyer" });
-                
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.AlertDescr, dgvColumnHeader = "alarm_Period" });
+
                 object[] obj = new object[dgv.Columns.Count];
 
                 for (int i = 0; i < dgv.Columns.Count; i++)
@@ -148,6 +151,9 @@ namespace Trademarks
                 TempRecords thisTmpRec = new TempRecords(Id);
 
                 QuickInsert frmViewTmpRec = new QuickInsert(thisTmpRec);
+
+                frmViewTmpRec.MakeAllControlsReadOnly(frmViewTmpRec);
+
                 frmViewTmpRec.btnSave.Enabled = false;
                 frmViewTmpRec.ShowDialog();
             }
@@ -219,6 +225,33 @@ namespace Trademarks
                 frmRecipients.ShowDialog();
             }
         }
+
+        private void dgvAlerts_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == "alarm_ExpDate" || e.Column.Name == "alarm_NotificationDate" || e.Column.Name == "tmp_DepositDt" || e.Column.Name == "tmp_RenewalDt")
+            {
+                string dtA = "";
+                string dtB = "";
+
+                if (e.CellValue1 != null && e.CellValue1.ToString().Trim() != "")
+                {
+                    dtA = Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                if (e.CellValue2 != null && e.CellValue2.ToString().Trim() != "")
+                {
+                    dtB = Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                //e.SortResult = System.String.Compare(Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss"),
+                //                                     Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss"));
+
+                e.SortResult = System.String.Compare(dtA, dtB);
+
+                e.Handled = true;
+            }
+
+        }
     }
 
     public class AlertsDGV
@@ -239,5 +272,6 @@ namespace Trademarks
         public string NationalPower { get; set; }
         public string Company { get; set; }
         public string ResponsibleLawyer { get; set; }
+        public string AlertDescr { get; set; }
     }
 }
