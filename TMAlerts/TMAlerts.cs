@@ -516,11 +516,12 @@ namespace TMAlerts
 
         public EmailParams()
         {
-            UserName = ConfigurationManager.AppSettings["Mailbox_UserName"]; 
-            Password = ConfigurationManager.AppSettings["Mailbox_Password"]; 
-            Domain = ConfigurationManager.AppSettings["Mailbox_Domain"]; 
-            EmailAddress = ConfigurationManager.AppSettings["Mailbox_Address"]; 
-            SmtpClientHost = ConfigurationManager.AppSettings["Mailbox_SmtpClientHost"]; 
+            //decryption
+            UserName = myCryptographyFunctions.DecryptStringFromHex_Aes(ConfigurationManager.AppSettings["Mailbox_UserName"]);
+            Password = myCryptographyFunctions.DecryptStringFromHex_Aes(ConfigurationManager.AppSettings["Mailbox_Password"]);
+            Domain = myCryptographyFunctions.DecryptStringFromHex_Aes(ConfigurationManager.AppSettings["Mailbox_Domain"]);
+            EmailAddress = myCryptographyFunctions.DecryptStringFromHex_Aes(ConfigurationManager.AppSettings["Mailbox_Address"]);
+            SmtpClientHost = myCryptographyFunctions.DecryptStringFromHex_Aes(ConfigurationManager.AppSettings["Mailbox_SmtpClientHost"]);
         }
     }
 

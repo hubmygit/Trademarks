@@ -181,6 +181,11 @@ namespace Trademarks
             string CurrentVersion = getCurrentAppVersion();
             string LatestVersion = getLatestAppVersionFromDB();
 
+            if (CurrentVersion == "" || LatestVersion == "")
+            {
+                return false;
+            }
+
             string[] CurVer2Dig = CurrentVersion.Split('.');
             string[] LatVer2Dig = LatestVersion.Split('.');
 
