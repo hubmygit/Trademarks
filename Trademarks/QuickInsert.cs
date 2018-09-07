@@ -196,7 +196,19 @@ namespace Trademarks
 
                 if (control is DataGridView)
                 {
-                    ((DataGridView)control).Enabled = false;
+                    //((DataGridView)control).Enabled = false;
+                    if (control.Name == "dgvCountries")
+                    {
+                        ((DataGridView)control).Columns["Country_Checked"].ReadOnly = true;
+                    }
+                    if (control.Name == "dgvTypes")
+                    {
+                        ((DataGridView)control).Columns["Type_Checked"].ReadOnly = true;
+                    }
+                    if (control.Name == "dgvClasses")
+                    {
+                        ((DataGridView)control).Columns["Class_Checked"].ReadOnly = true;
+                    }
                 }
 
                 if (control is ComboBox)
@@ -207,6 +219,12 @@ namespace Trademarks
                 if (control is Button)
                 {
                     ((Button)control).Enabled = false;
+
+                    if (control.Name == "btnOpenLink")
+                    {
+                        ((Button)control).Enabled = true;
+                    }
+
                 }
             }
         }
@@ -1062,7 +1080,8 @@ namespace Trademarks
                 txtTMGrId.Enabled = false;
 
                 clearCheckedCountries(dgvCountries);
-                dgvCountries.Enabled = false;
+                //dgvCountries.Enabled = false;
+                dgvCountries.Columns["Country_Checked"].ReadOnly = true;
             }
         }
         private void rbKoinotiko_CheckedChanged(object sender, EventArgs e)
@@ -1073,7 +1092,8 @@ namespace Trademarks
                 txtTMGrId.Enabled = true;
 
                 clearCheckedCountries(dgvCountries);
-                dgvCountries.Enabled = false;
+                //dgvCountries.Enabled = false;
+                dgvCountries.Columns["Country_Checked"].ReadOnly = true;
             }
         }
 
@@ -1084,7 +1104,8 @@ namespace Trademarks
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
 
-                dgvCountries.Enabled = true;
+                //dgvCountries.Enabled = true;
+                dgvCountries.Columns["Country_Checked"].ReadOnly = false;
             }
         }
 

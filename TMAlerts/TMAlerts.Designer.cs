@@ -29,35 +29,23 @@
         private void InitializeComponent()
         {
             this.btnRunProcedure = new System.Windows.Forms.Button();
-            this.btnEncryptConfig = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnRunProcedure
             // 
-            this.btnRunProcedure.Location = new System.Drawing.Point(127, 70);
+            this.btnRunProcedure.Location = new System.Drawing.Point(107, 70);
             this.btnRunProcedure.Name = "btnRunProcedure";
-            this.btnRunProcedure.Size = new System.Drawing.Size(80, 40);
+            this.btnRunProcedure.Size = new System.Drawing.Size(120, 40);
             this.btnRunProcedure.TabIndex = 0;
             this.btnRunProcedure.Text = "Run Procedure";
             this.btnRunProcedure.UseVisualStyleBackColor = true;
             this.btnRunProcedure.Click += new System.EventHandler(this.btnRunProcedure_Click);
-            // 
-            // btnEncryptConfig
-            // 
-            this.btnEncryptConfig.Location = new System.Drawing.Point(12, 200);
-            this.btnEncryptConfig.Name = "btnEncryptConfig";
-            this.btnEncryptConfig.Size = new System.Drawing.Size(100, 30);
-            this.btnEncryptConfig.TabIndex = 6;
-            this.btnEncryptConfig.Text = "Encrypt Config";
-            this.btnEncryptConfig.UseVisualStyleBackColor = true;
-            this.btnEncryptConfig.Click += new System.EventHandler(this.btnEncryptConfig_Click);
             // 
             // TMAlerts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 242);
-            this.Controls.Add(this.btnEncryptConfig);
             this.Controls.Add(this.btnRunProcedure);
             this.Name = "TMAlerts";
             this.Text = "TM Alerts";
@@ -69,7 +57,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnRunProcedure;
-        private System.Windows.Forms.Button btnEncryptConfig;
     }
 }
 

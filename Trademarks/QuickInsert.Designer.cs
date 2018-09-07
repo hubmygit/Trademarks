@@ -84,12 +84,12 @@
             this.dtpLastRenwalDt = new System.Windows.Forms.DateTimePicker();
             this.chbHasRenewal = new System.Windows.Forms.CheckBox();
             this.dgvCountries = new System.Windows.Forms.DataGridView();
+            this.btnOpenLink = new System.Windows.Forms.Button();
+            this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.Country_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Country_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Country_ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Country_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnOpenLink = new System.Windows.Forms.Button();
-            this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.gbNatPower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).BeginInit();
@@ -630,7 +630,6 @@
             this.Country_Checked,
             this.Country_ShortName,
             this.Country_Name});
-            this.dgvCountries.Enabled = false;
             this.dgvCountries.Location = new System.Drawing.Point(41, 155);
             this.dgvCountries.MultiSelect = false;
             this.dgvCountries.Name = "dgvCountries";
@@ -638,35 +637,6 @@
             this.dgvCountries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCountries.Size = new System.Drawing.Size(216, 88);
             this.dgvCountries.TabIndex = 12;
-            // 
-            // Country_Id
-            // 
-            this.Country_Id.HeaderText = "Id";
-            this.Country_Id.Name = "Country_Id";
-            this.Country_Id.Visible = false;
-            this.Country_Id.Width = 40;
-            // 
-            // Country_Checked
-            // 
-            this.Country_Checked.HeaderText = "";
-            this.Country_Checked.Name = "Country_Checked";
-            this.Country_Checked.Width = 20;
-            // 
-            // Country_ShortName
-            // 
-            this.Country_ShortName.HeaderText = "Συντ";
-            this.Country_ShortName.Name = "Country_ShortName";
-            this.Country_ShortName.ReadOnly = true;
-            this.Country_ShortName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Country_ShortName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Country_ShortName.Width = 35;
-            // 
-            // Country_Name
-            // 
-            this.Country_Name.HeaderText = "Χώρα";
-            this.Country_Name.Name = "Country_Name";
-            this.Country_Name.ReadOnly = true;
-            this.Country_Name.Width = 135;
             // 
             // btnOpenLink
             // 
@@ -687,6 +657,36 @@
             this.pbTMPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbTMPic.TabIndex = 27;
             this.pbTMPic.TabStop = false;
+            // 
+            // Country_Id
+            // 
+            this.Country_Id.HeaderText = "Id";
+            this.Country_Id.Name = "Country_Id";
+            this.Country_Id.Visible = false;
+            this.Country_Id.Width = 40;
+            // 
+            // Country_Checked
+            // 
+            this.Country_Checked.HeaderText = "";
+            this.Country_Checked.Name = "Country_Checked";
+            this.Country_Checked.ReadOnly = true;
+            this.Country_Checked.Width = 20;
+            // 
+            // Country_ShortName
+            // 
+            this.Country_ShortName.HeaderText = "Συντ";
+            this.Country_ShortName.Name = "Country_ShortName";
+            this.Country_ShortName.ReadOnly = true;
+            this.Country_ShortName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Country_ShortName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Country_ShortName.Width = 35;
+            // 
+            // Country_Name
+            // 
+            this.Country_Name.HeaderText = "Χώρα";
+            this.Country_Name.Name = "Country_Name";
+            this.Country_Name.ReadOnly = true;
+            this.Country_Name.Width = 135;
             // 
             // QuickInsert
             // 
@@ -806,10 +806,6 @@
         public System.Windows.Forms.Button btnSave;
         public System.Windows.Forms.Button btnSaveAndNext;
         private System.Windows.Forms.DataGridView dgvCountries;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Country_Id;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Country_Checked;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Country_ShortName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Country_Name;
         private System.Windows.Forms.ContextMenuStrip cmsOnClasses;
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_Id;
@@ -818,5 +814,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_Headers;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_Link;
         private System.Windows.Forms.Button btnOpenLink;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Country_Id;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Country_Checked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Country_ShortName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Country_Name;
     }
 }

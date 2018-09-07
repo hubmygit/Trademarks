@@ -318,14 +318,14 @@ namespace TMAlerts
             return ret;
         }
 
-        private void btnEncryptConfig_Click(object sender, EventArgs e)
-        {
+        //private void btnEncryptConfig_Click(object sender, EventArgs e)
+        //{
             // EncryptAppConfig_ConnStrings();
             // EncryptAppConfig_AppSettings();
 
             // ConfigFunctions.EncryptAppConfig_ConnStrings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             // ConfigFunctions.EncryptAppConfig_AppSettings(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-        }
+        //}
 
         /*
         void EncryptAppConfig_ConnStrings() //"connectionStrings"
