@@ -1089,6 +1089,7 @@ namespace Trademarks
                 lblTMGrId.Enabled = false;
                 txtTMGrId.Clear();
                 txtTMGrId.Enabled = false;
+                txtTmGrNoSelector.Enabled = false;
 
                 clearCheckedCountries(dgvCountries);
                 //dgvCountries.Enabled = false;
@@ -1101,6 +1102,7 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
+                txtTmGrNoSelector.Enabled = true;
 
                 clearCheckedCountries(dgvCountries);
                 //dgvCountries.Enabled = false;
@@ -1114,6 +1116,7 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
+                txtTmGrNoSelector.Enabled = true;
 
                 //dgvCountries.Enabled = true;
                 dgvCountries.Columns["Country_Checked"].ReadOnly = false;
@@ -1187,6 +1190,17 @@ namespace Trademarks
             else
             {
                 MessageBox.Show("Δεν υπάρχει καταχωρημένο Url!");
+            }
+        }
+
+        private void txtTmGrNoSelector_Click(object sender, EventArgs e)
+        {
+            NatTmNoSelector frmNatTmNoSel = new NatTmNoSelector();
+            frmNatTmNoSel.ShowDialog();
+
+            if (frmNatTmNoSel.succeed)
+            {
+                txtTMGrId.Text = frmNatTmNoSel.TMGrNo;
             }
         }
     }

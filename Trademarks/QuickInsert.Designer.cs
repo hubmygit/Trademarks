@@ -84,12 +84,13 @@
             this.dtpLastRenwalDt = new System.Windows.Forms.DateTimePicker();
             this.chbHasRenewal = new System.Windows.Forms.CheckBox();
             this.dgvCountries = new System.Windows.Forms.DataGridView();
-            this.btnOpenLink = new System.Windows.Forms.Button();
-            this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.Country_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Country_Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Country_ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Country_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtTmGrNoSelector = new System.Windows.Forms.Button();
+            this.btnOpenLink = new System.Windows.Forms.Button();
+            this.pbTMPic = new System.Windows.Forms.PictureBox();
             this.gbNatPower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).BeginInit();
@@ -379,7 +380,7 @@
             // 
             this.txtTMGrId.Enabled = false;
             this.txtTMGrId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMGrId.Location = new System.Drawing.Point(646, 124);
+            this.txtTMGrId.Location = new System.Drawing.Point(619, 127);
             this.txtTMGrId.Name = "txtTMGrId";
             this.txtTMGrId.Size = new System.Drawing.Size(100, 22);
             this.txtTMGrId.TabIndex = 11;
@@ -389,7 +390,7 @@
             this.lblTMGrId.AutoSize = true;
             this.lblTMGrId.Enabled = false;
             this.lblTMGrId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMGrId.Location = new System.Drawing.Point(412, 127);
+            this.lblTMGrId.Location = new System.Drawing.Point(385, 130);
             this.lblTMGrId.Name = "lblTMGrId";
             this.lblTMGrId.Size = new System.Drawing.Size(228, 16);
             this.lblTMGrId.TabIndex = 0;
@@ -638,26 +639,6 @@
             this.dgvCountries.Size = new System.Drawing.Size(216, 88);
             this.dgvCountries.TabIndex = 12;
             // 
-            // btnOpenLink
-            // 
-            this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
-            this.btnOpenLink.Location = new System.Drawing.Point(708, 711);
-            this.btnOpenLink.Name = "btnOpenLink";
-            this.btnOpenLink.Size = new System.Drawing.Size(22, 22);
-            this.btnOpenLink.TabIndex = 25;
-            this.btnOpenLink.UseVisualStyleBackColor = true;
-            this.btnOpenLink.Click += new System.EventHandler(this.btnOpenLink_Click);
-            // 
-            // pbTMPic
-            // 
-            this.pbTMPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbTMPic.Location = new System.Drawing.Point(396, 250);
-            this.pbTMPic.Name = "pbTMPic";
-            this.pbTMPic.Size = new System.Drawing.Size(350, 91);
-            this.pbTMPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbTMPic.TabIndex = 27;
-            this.pbTMPic.TabStop = false;
-            // 
             // Country_Id
             // 
             this.Country_Id.HeaderText = "Id";
@@ -688,12 +669,44 @@
             this.Country_Name.ReadOnly = true;
             this.Country_Name.Width = 135;
             // 
+            // txtTmGrNoSelector
+            // 
+            this.txtTmGrNoSelector.Enabled = false;
+            this.txtTmGrNoSelector.Location = new System.Drawing.Point(724, 126);
+            this.txtTmGrNoSelector.Name = "txtTmGrNoSelector";
+            this.txtTmGrNoSelector.Size = new System.Drawing.Size(22, 22);
+            this.txtTmGrNoSelector.TabIndex = 0;
+            this.txtTmGrNoSelector.Text = "*";
+            this.txtTmGrNoSelector.UseVisualStyleBackColor = true;
+            this.txtTmGrNoSelector.Click += new System.EventHandler(this.txtTmGrNoSelector_Click);
+            // 
+            // btnOpenLink
+            // 
+            this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
+            this.btnOpenLink.Location = new System.Drawing.Point(708, 711);
+            this.btnOpenLink.Name = "btnOpenLink";
+            this.btnOpenLink.Size = new System.Drawing.Size(22, 22);
+            this.btnOpenLink.TabIndex = 25;
+            this.btnOpenLink.UseVisualStyleBackColor = true;
+            this.btnOpenLink.Click += new System.EventHandler(this.btnOpenLink_Click);
+            // 
+            // pbTMPic
+            // 
+            this.pbTMPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbTMPic.Location = new System.Drawing.Point(396, 250);
+            this.pbTMPic.Name = "pbTMPic";
+            this.pbTMPic.Size = new System.Drawing.Size(350, 91);
+            this.pbTMPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbTMPic.TabIndex = 27;
+            this.pbTMPic.TabStop = false;
+            // 
             // QuickInsert
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 812);
+            this.Controls.Add(this.txtTmGrNoSelector);
             this.Controls.Add(this.btnOpenLink);
             this.Controls.Add(this.dgvCountries);
             this.Controls.Add(this.chbHasRenewal);
@@ -818,5 +831,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Country_Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn Country_ShortName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Country_Name;
+        private System.Windows.Forms.Button txtTmGrNoSelector;
     }
 }
