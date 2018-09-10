@@ -181,7 +181,7 @@ namespace Trademarks
 
         public void MakeAllControlsReadOnly(Form frm)
         {
-            foreach (Control control in Controls)
+            foreach (Control control in frm.Controls)
             {
                 if (control is TextBox)
                 {
@@ -234,6 +234,49 @@ namespace Trademarks
                         ((Button)control).Enabled = true;
                     }
 
+                }
+            }
+        }
+
+        public void GetFromGridOnlyChecked()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is DataGridView)
+                {
+                    if (control.Name == "dgvCountries")
+                    {
+                        foreach (DataGridViewRow dgvr in dgvCountries.Rows)
+                        {
+                            if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == false)
+                            {
+                                //dgvCountries.Rows.Remove(dgvr);
+                                dgvr.Visible = false;
+                            }
+                        }
+                    }
+                    if (control.Name == "dgvTypes")
+                    {
+                        foreach (DataGridViewRow dgvr in dgvTypes.Rows)
+                        {
+                            if (Convert.ToBoolean(dgvr.Cells["Type_Checked"].Value) == false)
+                            {
+                                //dgvTypes.Rows.Remove(dgvr);
+                                dgvr.Visible = false;
+                            }
+                        }
+                    }
+                    if (control.Name == "dgvClasses")
+                    {
+                        foreach (DataGridViewRow dgvr in dgvClasses.Rows)
+                        {
+                            if (Convert.ToBoolean(dgvr.Cells["Class_Checked"].Value) == false)
+                            {
+                                //gvClasses.Rows.Remove(dgvr);
+                                dgvr.Visible = false;
+                            }
+                        }
+                    }
                 }
             }
         }

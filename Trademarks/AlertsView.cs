@@ -155,6 +155,7 @@ namespace Trademarks
                 QuickInsert frmViewTmpRec = new QuickInsert(thisTmpRec);
 
                 frmViewTmpRec.MakeAllControlsReadOnly(frmViewTmpRec);
+                frmViewTmpRec.GetFromGridOnlyChecked();
 
                 frmViewTmpRec.btnSave.Enabled = false;
                 frmViewTmpRec.ShowDialog();
