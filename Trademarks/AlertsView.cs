@@ -27,7 +27,9 @@ namespace Trademarks
 
             tempAlertList = SelectAlerts();
 
-            FillDataGridView(dgvAlerts, tempAlertList);
+            //FillDataGridView(dgvAlerts, tempAlertList);
+
+            applyFilters();
         }
 
         public List<AlertsDGV> tempAlertList = new List<AlertsDGV>();
@@ -251,6 +253,11 @@ namespace Trademarks
                 e.Handled = true;
             }
 
+        }
+
+        private void AlertsView_Load(object sender, EventArgs e)
+        {
+            //applyFilters();
         }
     }
 

@@ -76,6 +76,7 @@ namespace Trademarks
                 }
             }
 
+            string fn = System.IO.Path.GetExtension(tmpRec.FileName);
             if (tmpRec.FileContents != null)
             {
                 //string lvPath = "";
@@ -97,8 +98,16 @@ namespace Trademarks
                     ext = fname.Substring(fname.LastIndexOf("."));
                     //lvPath = tempFile + ext;
                     File.WriteAllBytes(tempFile + ext, tmpRec.FileContents);
+
+                    if (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png")
+                    {
+                        pbTMPic.Image = Image.FromFile(tempFile + ext);
+                    }
+                    else
+                    {
+                        lblPreview.Visible = true;
+                    }
                     
-                    pbTMPic.Image = Image.FromFile(tempFile + ext);
                     txtFilename.Text = tempFile + ext; //tmpRec.FileName;
                 }
                 catch (Exception ex)
@@ -1000,7 +1009,7 @@ namespace Trademarks
                         }
                     }
 
-                    //delete old records first...
+                    //delete old records first... (non mandatory field!)
                     Country.DeleteTM_Countries(NewRecord.Id);
 
                     foreach (int TM_countryId in NewRecord.CountryIds)
@@ -1022,7 +1031,9 @@ namespace Trademarks
                 if (successful)
                 {
                     //delete old Alarms first...
-                    Task.DeleteTasks(NewRecord.Id);
+                    //Task.DeleteTasks(NewRecord.Id);
+                    //Task.DisableNotSentTasks(NewRecord.Id);
+                    Task.DeleteNotSentTasks(NewRecord.Id);
 
                     //delete recipients
                     Recipient.DeleteRecipients(NewRecord.Id);
@@ -1427,6 +1438,68 @@ namespace Trademarks
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
 
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool DeleteNotSentTasks(int TrademarksId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[Tasks] WHERE TrademarksId = @TrademarksId AND NotificationSent IS NULL ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool DisableNotSentTasks(int TrademarksId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[Tasks] SET IsActive = 'False' WHERE TrademarksId = @TrademarksId AND NotificationSent IS NULL ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                ret = true;
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
 

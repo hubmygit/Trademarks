@@ -136,7 +136,8 @@ namespace Trademarks
                 //dgvDictList.Add(new dgvDictionary() { dbfield = bitmap, dgvColumnHeader = "tmp_Pic" }); //???
 
                 dgv.Columns["tmp_Pic"].DefaultCellStyle.NullValue = null;
-                if (thisRecord.FileContents != null)
+                string fn = System.IO.Path.GetExtension(thisRecord.FileName);
+                if ((thisRecord.FileContents != null) && (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png"))
                 {
                     dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
                 }
@@ -179,7 +180,8 @@ namespace Trademarks
             dgvDictList.Add(new dgvDictionary() { dbfield = Responsible.getResponsibleName(tmpRec.ResponsibleLawyerId), dgvColumnHeader = "tmp_RespLawyer" });
 
             dgv.Columns["tmp_Pic"].DefaultCellStyle.NullValue = null;
-            if (tmpRec.FileContents != null)
+            string fn = System.IO.Path.GetExtension(tmpRec.FileName);
+            if ((tmpRec.FileContents != null) && (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png"))
             {
                 dgvDictList.Add(new dgvDictionary() { dbfield = tmpRec.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
             }
@@ -204,6 +206,38 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string UpdSt = "DELETE FROM [dbo].[TempRecords] WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", TM_id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        private bool MakeTrademarkInactive(int TM_id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            //string UpdSt = "UPDATE [dbo].[TempRecords] SET DelUser = @DelUser, DelDt = getdate()  WHERE Id = @Id ";
+            string UpdSt = "UPDATE [dbo].[TempRecords] SET Deleted = 'True'  WHERE Id = @Id ";
             try
             {
                 sqlConn.Open();
@@ -291,6 +325,7 @@ namespace Trademarks
                 int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
                 string Sima = dgvTempRecs["tmp_No", dgvIndex].Value.ToString();
                 int tmpId = Convert.ToInt32(dgvTempRecs["tmp_Id", dgvIndex].Value.ToString());
+                TempRecords thisTmpRec = tempRecList.Where(i => i.Id == tmpId).First(); //new
                 bool success = true;
 
                 DialogResult dialogResult = MessageBox.Show("Θέλετε οπωσδήποτε να διαγράψετε την εγγραφή του Σήματος: [" + Sima + "];\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις.", "Διαγραφή Σήματος", MessageBoxButtons.YesNo);
@@ -308,8 +343,9 @@ namespace Trademarks
                         success = false;
                     }
 
-                    //delete from TM_Countries
-                    if (Country.DeleteTM_Countries(tmpId) == false)
+                    //delete from TM_Countries (non mandatory field!)
+                    //if (Country.DeleteTM_Countries(tmpId) == false) 
+                    if (Country.DeleteTM_Countries(tmpId) == false && thisTmpRec.CountryIds.Count > 0)
                     {
                         success = false;
                     }
@@ -338,6 +374,8 @@ namespace Trademarks
                         tempRecList.RemoveAt(tempRecList.FindIndex(w => w.Id == tmpId));
 
                         dgvTempRecs.Rows.RemoveAt(dgvIndex);
+
+                        //dgvTempRecs.Refresh();
                     }
 
                 }

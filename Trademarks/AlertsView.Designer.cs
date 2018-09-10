@@ -31,15 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlertsView));
             this.dgvAlerts = new System.Windows.Forms.DataGridView();
-            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiRecipients = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.lblTMName = new System.Windows.Forms.Label();
-            this.txtTMName = new System.Windows.Forms.TextBox();
-            this.lblTMId = new System.Windows.Forms.Label();
-            this.txtTMId = new System.Windows.Forms.TextBox();
-            this.chbActive = new System.Windows.Forms.CheckBox();
             this.alarm_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alarm_Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.alarm_ExpDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +48,15 @@
             this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRecipients = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.lblTMName = new System.Windows.Forms.Label();
+            this.txtTMName = new System.Windows.Forms.TextBox();
+            this.lblTMId = new System.Windows.Forms.Label();
+            this.txtTMId = new System.Windows.Forms.TextBox();
+            this.chbActive = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -97,92 +97,6 @@
             this.dgvAlerts.TabIndex = 2;
             this.dgvAlerts.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvAlerts_SortCompare);
             this.dgvAlerts.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvAlerts_MouseDown);
-            // 
-            // cmsOnGrid
-            // 
-            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiViewTM,
-            this.tsmiRecipients});
-            this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(176, 48);
-            // 
-            // tsmiViewTM
-            // 
-            this.tsmiViewTM.Name = "tsmiViewTM";
-            this.tsmiViewTM.Size = new System.Drawing.Size(175, 22);
-            this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
-            this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
-            // 
-            // tsmiRecipients
-            // 
-            this.tsmiRecipients.Name = "tsmiRecipients";
-            this.tsmiRecipients.Size = new System.Drawing.Size(175, 22);
-            this.tsmiRecipients.Text = "Παραλήπτες";
-            this.tsmiRecipients.Click += new System.EventHandler(this.tsmiRecipients_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Image = global::Trademarks.Properties.Resources.find_40x;
-            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(766, 25);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(90, 30);
-            this.btnSearch.TabIndex = 21;
-            this.btnSearch.Text = "Εύρεση";
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // lblTMName
-            // 
-            this.lblTMName.AutoSize = true;
-            this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMName.Location = new System.Drawing.Point(387, 48);
-            this.lblTMName.Name = "lblTMName";
-            this.lblTMName.Size = new System.Drawing.Size(103, 16);
-            this.lblTMName.TabIndex = 17;
-            this.lblTMName.Text = "Όνομα Σήματος";
-            // 
-            // txtTMName
-            // 
-            this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMName.Location = new System.Drawing.Point(496, 45);
-            this.txtTMName.Name = "txtTMName";
-            this.txtTMName.Size = new System.Drawing.Size(250, 22);
-            this.txtTMName.TabIndex = 20;
-            // 
-            // lblTMId
-            // 
-            this.lblTMId.AutoSize = true;
-            this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMId.Location = new System.Drawing.Point(378, 15);
-            this.lblTMId.Name = "lblTMId";
-            this.lblTMId.Size = new System.Drawing.Size(112, 16);
-            this.lblTMId.TabIndex = 18;
-            this.lblTMId.Text = "Αριθμός Σήματος";
-            // 
-            // txtTMId
-            // 
-            this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMId.Location = new System.Drawing.Point(496, 12);
-            this.txtTMId.Name = "txtTMId";
-            this.txtTMId.Size = new System.Drawing.Size(250, 22);
-            this.txtTMId.TabIndex = 19;
-            // 
-            // chbActive
-            // 
-            this.chbActive.AutoSize = true;
-            this.chbActive.Checked = true;
-            this.chbActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.chbActive.Location = new System.Drawing.Point(1079, 31);
-            this.chbActive.Name = "chbActive";
-            this.chbActive.Size = new System.Drawing.Size(143, 20);
-            this.chbActive.TabIndex = 22;
-            this.chbActive.Text = "Ενεργές Εγγραφές";
-            this.chbActive.ThreeState = true;
-            this.chbActive.UseVisualStyleBackColor = true;
-            this.chbActive.CheckStateChanged += new System.EventHandler(this.chbActive_CheckStateChanged);
             // 
             // alarm_Id
             // 
@@ -300,6 +214,92 @@
             this.tmp_RespLawyer.ReadOnly = true;
             this.tmp_RespLawyer.Width = 110;
             // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiViewTM,
+            this.tsmiRecipients});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(176, 48);
+            // 
+            // tsmiViewTM
+            // 
+            this.tsmiViewTM.Name = "tsmiViewTM";
+            this.tsmiViewTM.Size = new System.Drawing.Size(175, 22);
+            this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
+            this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
+            // 
+            // tsmiRecipients
+            // 
+            this.tsmiRecipients.Name = "tsmiRecipients";
+            this.tsmiRecipients.Size = new System.Drawing.Size(175, 22);
+            this.tsmiRecipients.Text = "Παραλήπτες";
+            this.tsmiRecipients.Click += new System.EventHandler(this.tsmiRecipients_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Image = global::Trademarks.Properties.Resources.find_40x;
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(766, 25);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(90, 30);
+            this.btnSearch.TabIndex = 21;
+            this.btnSearch.Text = "Εύρεση";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // lblTMName
+            // 
+            this.lblTMName.AutoSize = true;
+            this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTMName.Location = new System.Drawing.Point(387, 48);
+            this.lblTMName.Name = "lblTMName";
+            this.lblTMName.Size = new System.Drawing.Size(103, 16);
+            this.lblTMName.TabIndex = 17;
+            this.lblTMName.Text = "Όνομα Σήματος";
+            // 
+            // txtTMName
+            // 
+            this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTMName.Location = new System.Drawing.Point(496, 45);
+            this.txtTMName.Name = "txtTMName";
+            this.txtTMName.Size = new System.Drawing.Size(250, 22);
+            this.txtTMName.TabIndex = 20;
+            // 
+            // lblTMId
+            // 
+            this.lblTMId.AutoSize = true;
+            this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTMId.Location = new System.Drawing.Point(378, 15);
+            this.lblTMId.Name = "lblTMId";
+            this.lblTMId.Size = new System.Drawing.Size(112, 16);
+            this.lblTMId.TabIndex = 18;
+            this.lblTMId.Text = "Αριθμός Σήματος";
+            // 
+            // txtTMId
+            // 
+            this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTMId.Location = new System.Drawing.Point(496, 12);
+            this.txtTMId.Name = "txtTMId";
+            this.txtTMId.Size = new System.Drawing.Size(250, 22);
+            this.txtTMId.TabIndex = 19;
+            // 
+            // chbActive
+            // 
+            this.chbActive.AutoSize = true;
+            this.chbActive.Checked = true;
+            this.chbActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.chbActive.Location = new System.Drawing.Point(1079, 31);
+            this.chbActive.Name = "chbActive";
+            this.chbActive.Size = new System.Drawing.Size(143, 20);
+            this.chbActive.TabIndex = 22;
+            this.chbActive.Text = "Ενεργές Εγγραφές";
+            this.chbActive.ThreeState = true;
+            this.chbActive.UseVisualStyleBackColor = true;
+            this.chbActive.CheckStateChanged += new System.EventHandler(this.chbActive_CheckStateChanged);
+            // 
             // AlertsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,6 +317,7 @@
             this.Name = "AlertsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alerts View";
+            this.Load += new System.EventHandler(this.AlertsView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).EndInit();
             this.cmsOnGrid.ResumeLayout(false);
             this.ResumeLayout(false);
