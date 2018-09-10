@@ -229,7 +229,7 @@ namespace Trademarks
                 {
                     ((Button)control).Enabled = false;
 
-                    if (control.Name == "btnOpenLink")
+                    if (control.Name == "btnOpenLink" || control.Name == "btnOpenFile")
                     {
                         ((Button)control).Enabled = true;
                     }
@@ -1089,7 +1089,7 @@ namespace Trademarks
                 lblTMGrId.Enabled = false;
                 txtTMGrId.Clear();
                 txtTMGrId.Enabled = false;
-                txtTmGrNoSelector.Enabled = false;
+                btnTmGrNoSelector.Enabled = false;
 
                 clearCheckedCountries(dgvCountries);
                 //dgvCountries.Enabled = false;
@@ -1102,7 +1102,7 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
-                txtTmGrNoSelector.Enabled = true;
+                btnTmGrNoSelector.Enabled = true;
 
                 clearCheckedCountries(dgvCountries);
                 //dgvCountries.Enabled = false;
@@ -1116,7 +1116,7 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = true;
                 txtTMGrId.Enabled = true;
-                txtTmGrNoSelector.Enabled = true;
+                btnTmGrNoSelector.Enabled = true;
 
                 //dgvCountries.Enabled = true;
                 dgvCountries.Columns["Country_Checked"].ReadOnly = false;
@@ -1193,7 +1193,7 @@ namespace Trademarks
             }
         }
 
-        private void txtTmGrNoSelector_Click(object sender, EventArgs e)
+        private void btnTmGrNoSelector_Click(object sender, EventArgs e)
         {
             NatTmNoSelector frmNatTmNoSel = new NatTmNoSelector();
             frmNatTmNoSel.ShowDialog();
@@ -1201,6 +1201,18 @@ namespace Trademarks
             if (frmNatTmNoSel.succeed)
             {
                 txtTMGrId.Text = frmNatTmNoSel.TMGrNo;
+            }
+        }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            if (txtFilename.Text.Trim() != "" && txtFilename.Text.Trim() != "Αρχείο: -")
+            {
+                System.Diagnostics.Process.Start(txtFilename.Text);
+            }
+            else
+            {
+                MessageBox.Show("Δεν υπάρχει καταχωρημένο Αρχείο!");
             }
         }
     }

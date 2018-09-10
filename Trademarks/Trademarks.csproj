@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parameter.ico" />
+    <None Include="Resources\OpenFile_16x.png" />
     <None Include="Resources\find_40x.png" />
     <None Include="Resources\OpenLink_16x.png" />
     <None Include="Resources\TM2.png" />
