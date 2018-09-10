@@ -1449,6 +1449,47 @@ namespace Trademarks
 
             return ret;
         }
+
+        public static List<NationalPower> getNationalPowerListList()
+        {
+            List<NationalPower> ret = new List<NationalPower>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [dbo].[NationalPower] ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    NationalPower natP = new NationalPower();
+                    natP.Id = Convert.ToInt32(reader["Id"].ToString());
+                    natP.Name = reader["Name"].ToString();
+                    ret.Add(natP);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static List<ComboboxItem> GetNationalPowerComboboxItemsList(List<NationalPower> NationalPowerList)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (NationalPower c in NationalPowerList)
+            {
+                ret.Add(new ComboboxItem() { Value = c, Text = c.Name });
+            }
+
+            return ret;
+        }
     }
 
     public class ComboboxItem

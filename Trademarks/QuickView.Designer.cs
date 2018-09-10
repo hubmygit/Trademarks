@@ -51,6 +51,12 @@
             this.lblTMId = new System.Windows.Forms.Label();
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.cbCompany = new System.Windows.Forms.ComboBox();
+            this.lblCompany = new System.Windows.Forms.Label();
+            this.cbLawyerFullname = new System.Windows.Forms.ComboBox();
+            this.lblLawyerFullname = new System.Windows.Forms.Label();
+            this.cbNatPower = new System.Windows.Forms.ComboBox();
+            this.lblNatPower = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +88,7 @@
             this.dgvTempRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTempRecs.Size = new System.Drawing.Size(1234, 523);
             this.dgvTempRecs.TabIndex = 1;
+            this.dgvTempRecs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTempRecs_CellDoubleClick);
             this.dgvTempRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTempRecs_SortCompare);
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
             // 
@@ -192,7 +199,7 @@
             // 
             this.lblTMName.AutoSize = true;
             this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMName.Location = new System.Drawing.Point(387, 48);
+            this.lblTMName.Location = new System.Drawing.Point(19, 48);
             this.lblTMName.Name = "lblTMName";
             this.lblTMName.Size = new System.Drawing.Size(103, 16);
             this.lblTMName.TabIndex = 3;
@@ -201,16 +208,16 @@
             // txtTMName
             // 
             this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMName.Location = new System.Drawing.Point(496, 45);
+            this.txtTMName.Location = new System.Drawing.Point(128, 45);
             this.txtTMName.Name = "txtTMName";
-            this.txtTMName.Size = new System.Drawing.Size(250, 22);
+            this.txtTMName.Size = new System.Drawing.Size(200, 22);
             this.txtTMName.TabIndex = 6;
             // 
             // lblTMId
             // 
             this.lblTMId.AutoSize = true;
             this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMId.Location = new System.Drawing.Point(378, 15);
+            this.lblTMId.Location = new System.Drawing.Point(10, 15);
             this.lblTMId.Name = "lblTMId";
             this.lblTMId.Size = new System.Drawing.Size(112, 16);
             this.lblTMId.TabIndex = 4;
@@ -219,29 +226,104 @@
             // txtTMId
             // 
             this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMId.Location = new System.Drawing.Point(496, 12);
+            this.txtTMId.Location = new System.Drawing.Point(128, 12);
             this.txtTMId.Name = "txtTMId";
-            this.txtTMId.Size = new System.Drawing.Size(250, 22);
+            this.txtTMId.Size = new System.Drawing.Size(200, 22);
             this.txtTMId.TabIndex = 5;
             // 
             // btnSearch
             // 
             this.btnSearch.Image = global::Trademarks.Properties.Resources.find_40x;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(766, 25);
+            this.btnSearch.Location = new System.Drawing.Point(1132, 16);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(90, 30);
+            this.btnSearch.Size = new System.Drawing.Size(90, 45);
             this.btnSearch.TabIndex = 16;
             this.btnSearch.Text = "Εύρεση";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // cbCompany
+            // 
+            this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbCompany.FormattingEnabled = true;
+            this.cbCompany.ItemHeight = 16;
+            this.cbCompany.Items.AddRange(new object[] {
+            "Όλα"});
+            this.cbCompany.Location = new System.Drawing.Point(473, 45);
+            this.cbCompany.Name = "cbCompany";
+            this.cbCompany.Size = new System.Drawing.Size(500, 24);
+            this.cbCompany.TabIndex = 18;
+            // 
+            // lblCompany
+            // 
+            this.lblCompany.AutoSize = true;
+            this.lblCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblCompany.Location = new System.Drawing.Point(414, 48);
+            this.lblCompany.Name = "lblCompany";
+            this.lblCompany.Size = new System.Drawing.Size(52, 16);
+            this.lblCompany.TabIndex = 17;
+            this.lblCompany.Text = "Εταιρία";
+            // 
+            // cbLawyerFullname
+            // 
+            this.cbLawyerFullname.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLawyerFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbLawyerFullname.FormattingEnabled = true;
+            this.cbLawyerFullname.ItemHeight = 16;
+            this.cbLawyerFullname.Items.AddRange(new object[] {
+            "Όλα"});
+            this.cbLawyerFullname.Location = new System.Drawing.Point(473, 12);
+            this.cbLawyerFullname.Name = "cbLawyerFullname";
+            this.cbLawyerFullname.Size = new System.Drawing.Size(250, 24);
+            this.cbLawyerFullname.TabIndex = 20;
+            // 
+            // lblLawyerFullname
+            // 
+            this.lblLawyerFullname.AutoSize = true;
+            this.lblLawyerFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblLawyerFullname.Location = new System.Drawing.Point(340, 15);
+            this.lblLawyerFullname.Name = "lblLawyerFullname";
+            this.lblLawyerFullname.Size = new System.Drawing.Size(126, 16);
+            this.lblLawyerFullname.TabIndex = 19;
+            this.lblLawyerFullname.Text = "Ονομ/μο Δικηγόρου";
+            // 
+            // cbNatPower
+            // 
+            this.cbNatPower.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNatPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbNatPower.FormattingEnabled = true;
+            this.cbNatPower.ItemHeight = 16;
+            this.cbNatPower.Items.AddRange(new object[] {
+            "Όλα"});
+            this.cbNatPower.Location = new System.Drawing.Point(823, 12);
+            this.cbNatPower.Name = "cbNatPower";
+            this.cbNatPower.Size = new System.Drawing.Size(150, 24);
+            this.cbNatPower.TabIndex = 22;
+            // 
+            // lblNatPower
+            // 
+            this.lblNatPower.AutoSize = true;
+            this.lblNatPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblNatPower.Location = new System.Drawing.Point(735, 15);
+            this.lblNatPower.Name = "lblNatPower";
+            this.lblNatPower.Size = new System.Drawing.Size(82, 16);
+            this.lblNatPower.TabIndex = 21;
+            this.lblNatPower.Text = "Εθνική Ισχύς";
+            // 
             // QuickView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1234, 602);
+            this.Controls.Add(this.cbNatPower);
+            this.Controls.Add(this.lblNatPower);
+            this.Controls.Add(this.cbLawyerFullname);
+            this.Controls.Add(this.lblLawyerFullname);
+            this.Controls.Add(this.cbCompany);
+            this.Controls.Add(this.lblCompany);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.lblTMName);
             this.Controls.Add(this.txtTMName);
@@ -283,5 +365,11 @@
         private System.Windows.Forms.Label lblTMId;
         private System.Windows.Forms.TextBox txtTMId;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.ComboBox cbCompany;
+        private System.Windows.Forms.Label lblCompany;
+        private System.Windows.Forms.ComboBox cbLawyerFullname;
+        private System.Windows.Forms.Label lblLawyerFullname;
+        private System.Windows.Forms.ComboBox cbNatPower;
+        private System.Windows.Forms.Label lblNatPower;
     }
 }

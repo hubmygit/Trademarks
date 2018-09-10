@@ -20,9 +20,21 @@ namespace Trademarks
             tempRecList = SelectTempRecs();
 
             FillDataGridView(dgvTempRecs, tempRecList);
+
+            cbCompany.SelectedIndex = 0;
+            cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
+
+            cbLawyerFullname.SelectedIndex = 0;
+            cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
+
+            cbNatPower.SelectedIndex = 0;
+            cbNatPower.Items.AddRange(NationalPower.GetNationalPowerComboboxItemsList(nationalPowerList).ToArray<ComboboxItem>());
         }
 
         public List<TempRecords> tempRecList = new List<TempRecords>();
+        public List<Company> companyList = Company.getCompanyList();
+        public List<Responsible> responsibleList = Responsible.getResponsibleList();
+        public List<NationalPower> nationalPowerList = NationalPower.getNationalPowerListList();
 
         public List<TempRecords> SelectTempRecs()
         {
@@ -414,6 +426,21 @@ namespace Trademarks
                 filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
             }
 
+            if (cbCompany.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.CompanyId == ComboboxItem.getComboboxItem<Company>(cbCompany).Id).ToList();
+            }
+
+            if (cbLawyerFullname.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.ResponsibleLawyerId == ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id).ToList();
+            }
+
+            if (cbNatPower.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.NationalPowerId == ComboboxItem.getComboboxItem<NationalPower>(cbNatPower).Id).ToList();
+            }
+
             FillDataGridView(dgvTempRecs, filteredRecs);
         }
 
@@ -440,6 +467,24 @@ namespace Trademarks
                 e.SortResult = System.String.Compare(dtA, dtB);
 
                 e.Handled = true;
+            }
+        }
+
+        private void dgvTempRecs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                TempRecords thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                if (thisTmpRec.Url.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(thisTmpRec.Url);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
             }
         }
     }
