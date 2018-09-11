@@ -68,7 +68,17 @@ namespace Trademarks
                     }
                     alertRec.EventType = reader["EventType"].ToString();
                     alertRec.AlertCountdownDays = Convert.ToInt32(reader["AlertCountdown"].ToString());
+                    if (alertRec.AlertCountdownDays < 0)
+                    {
+                        alertRec.AlertCountdownDays = 0;
+                    }
+
                     alertRec.ExpCountdownDays = Convert.ToInt32(reader["ExpCountDown"].ToString());
+                    if (alertRec.ExpCountdownDays < 0)
+                    {
+                        alertRec.ExpCountdownDays = 0;
+                    }
+
                     alertRec.TrademarksId = Convert.ToInt32(reader["TrademarksId"].ToString());
                     alertRec.TMNo = reader["TMNo"].ToString();
                     alertRec.TMName = reader["TMName"].ToString();
