@@ -1122,6 +1122,7 @@ namespace Trademarks
                 if (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png")
                 {
                     pbTMPic.Image = Image.FromFile(ofd.FileName);
+                    lblPreview.Visible = false;
                 }
                 else
                 {
@@ -1139,7 +1140,7 @@ namespace Trademarks
             {
                 lblTMGrId.Enabled = false;
                 txtTMGrId.Clear();
-                txtTMGrId.Enabled = false;
+                //txtTMGrId.Enabled = false;
                 btnTmGrNoSelector.Enabled = false;
 
                 clearCheckedCountries(dgvCountries);
@@ -1152,7 +1153,7 @@ namespace Trademarks
             if (rbKoinotiko.Checked == true)
             {
                 lblTMGrId.Enabled = true;
-                txtTMGrId.Enabled = true;
+                //txtTMGrId.Enabled = true;
                 btnTmGrNoSelector.Enabled = true;
 
                 clearCheckedCountries(dgvCountries);
@@ -1166,7 +1167,7 @@ namespace Trademarks
             if (rbDiethnes.Checked == true)
             {
                 lblTMGrId.Enabled = true;
-                txtTMGrId.Enabled = true;
+                //txtTMGrId.Enabled = true;
                 btnTmGrNoSelector.Enabled = true;
 
                 //dgvCountries.Enabled = true;
