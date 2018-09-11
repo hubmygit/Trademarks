@@ -158,6 +158,7 @@ namespace Trademarks
         }
 
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
+        public List<Responsible> secretariesList = Responsible.getSecretariesList();
         public List<Company> companyList = Company.getCompanyList();
         ToolTip classTooltip = new ToolTip();
         public bool GoToNext = false;
@@ -691,6 +692,13 @@ namespace Trademarks
                     IsChecked = true;
                 }
                 frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, IsChecked, recipient.FullName, recipient.Email });
+            }
+
+            foreach (Responsible recipient in secretariesList)
+            {
+                frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, true, recipient.FullName, recipient.Email });
+                frmAlarms.dgvRecipients.Rows[frmAlarms.dgvRecipients.Rows.Count - 1].ReadOnly = true;
+                frmAlarms.dgvRecipients.Rows[frmAlarms.dgvRecipients.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGray;
             }
 
             frmAlarms.dtpExpDt.Value = ExpDate;
@@ -1299,6 +1307,36 @@ namespace Trademarks
             return ret;
         }
 
+        public static List<Responsible> getSecretariesList()
+        {
+            List<Responsible> ret = new List<Responsible>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, FullName, Email FROM [dbo].[Secretaries] ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Responsible resp = new Responsible();
+                    resp.Id = Convert.ToInt32(reader["Id"].ToString());
+                    resp.FullName = reader["FullName"].ToString();
+                    resp.Email = reader["Email"].ToString();
+                    ret.Add(resp);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static string getResponsibleName(int givenId)
         {
             string ret = "";
@@ -1539,10 +1577,11 @@ namespace Trademarks
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
 
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
+                ret = true;
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
             }
             catch (Exception ex)
             {
@@ -2221,10 +2260,12 @@ namespace Trademarks
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
 
-                if (rowsAffected > 0)
-                {
-                    ret = true;
-                }
+                ret = true;
+
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
             }
             catch (Exception ex)
             {
