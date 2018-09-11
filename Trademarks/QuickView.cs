@@ -275,6 +275,38 @@ namespace Trademarks
             return ret;
         }
 
+        public int SelectRefTempRecs(string TMNo)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT count(*) as Cnt " +
+                              "FROM [dbo].[TempRecords] " +
+                              "WHERE TMGrNo = @TMNo "; 
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TMNo", TMNo);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Cnt"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         private void dgvTempRecs_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -339,6 +371,13 @@ namespace Trademarks
                 int tmpId = Convert.ToInt32(dgvTempRecs["tmp_Id", dgvIndex].Value.ToString());
                 TempRecords thisTmpRec = tempRecList.Where(i => i.Id == tmpId).First(); //new
                 bool success = true;
+
+                //check references
+                if (SelectRefTempRecs(Sima) > 0)
+                {
+                    MessageBox.Show("Δεν είναι δυνατή η διαγραφή της επιλεγμένης εγγραφής!\r\nΥπάρχουν άλλες εγγραφές (Διεθνή / Κοινοτικά Σήματα) που αναφέρονται σε αυτήν.");
+                    return;
+                }
 
                 DialogResult dialogResult = MessageBox.Show("Θέλετε οπωσδήποτε να διαγράψετε την εγγραφή του Σήματος: [" + Sima + "];\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις.", "Διαγραφή Σήματος", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
