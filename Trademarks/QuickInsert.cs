@@ -20,6 +20,8 @@ namespace Trademarks
             Init();
 
             isInsert = true;
+
+            cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact(Responsible.getResponsibleName(3));
         }
 
         public QuickInsert(TempRecords tmpRec) //update
@@ -920,7 +922,7 @@ namespace Trademarks
         {
             //check that all fields has been filled correctly
             if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false || 
-                txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false || txtFees.Text.Trim() == "" ||
+                txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false || //txtFees.Text.Trim() == "" ||
                 //txtFilename.Text == "Αρχείο: -" || 
                 (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) || 
                 ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == "") || (rbDiethnes.Checked && IsAnyCountryChecked(dgvCountries) == false))
@@ -1391,7 +1393,7 @@ namespace Trademarks
             List<Company> ret = new List<Company>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, Name, Headquarters FROM [dbo].[Company] ORDER BY Id";
+            string SelectSt = "SELECT Id, Name, Headquarters FROM [dbo].[Company] ORDER BY Name";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {

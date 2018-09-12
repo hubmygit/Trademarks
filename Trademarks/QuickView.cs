@@ -45,7 +45,7 @@ namespace Trademarks
                               "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
                               "[FileName], [Description], [Fees], [DecisionNo], [PublicationDate], [FinalizationDate], [Url] " +
                               "FROM [dbo].[TempRecords] " +
-                              "ORDER BY Id "; //??
+                              "ORDER BY TMNo "; //??
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {

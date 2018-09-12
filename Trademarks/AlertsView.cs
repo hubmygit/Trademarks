@@ -49,7 +49,7 @@ namespace Trademarks
                               "[dbo].[NationalPower] N on T.NationalPowerId = N.Id left outer join " +
                               "[dbo].[Company] C on T.CompanyId = C.Id left outer join " +
                               "[dbo].[Responsible] L on T.ResponsibleLawyerId = L.Id " +
-                              "ORDER BY A.TrademarksId "; 
+                              "ORDER BY T.TMNo, A.NotificationDate "; //A.TrademarksId
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
