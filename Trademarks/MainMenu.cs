@@ -171,6 +171,12 @@ namespace Trademarks
             //EncryptAppConfig("connectionStrings");
             //EncryptAppConfig_ConnStrings();
         }
+
+        private void tsmiAlerts_ViewGrouped_Click(object sender, EventArgs e)
+        {
+            AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            frmAlertsViewGrouped.ShowDialog();
+        }
     }
 
     public static class AppVer

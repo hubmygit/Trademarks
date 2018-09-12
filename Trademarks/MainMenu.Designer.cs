@@ -42,6 +42,7 @@
             this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAlerts_ViewGrouped = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
@@ -136,7 +137,8 @@
             // tsmiAlerts
             // 
             this.tsmiAlerts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAlerts_View});
+            this.tsmiAlerts_View,
+            this.tsmiAlerts_ViewGrouped});
             this.tsmiAlerts.Name = "tsmiAlerts";
             this.tsmiAlerts.Size = new System.Drawing.Size(88, 20);
             this.tsmiAlerts.Text = "Ειδοποιήσεις";
@@ -144,7 +146,7 @@
             // tsmiAlerts_View
             // 
             this.tsmiAlerts_View.Name = "tsmiAlerts_View";
-            this.tsmiAlerts_View.Size = new System.Drawing.Size(124, 22);
+            this.tsmiAlerts_View.Size = new System.Drawing.Size(180, 22);
             this.tsmiAlerts_View.Text = "Προβολή";
             this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
             // 
@@ -163,6 +165,13 @@
             this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(153, 22);
             this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
             this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
+            // 
+            // tsmiAlerts_ViewGrouped
+            // 
+            this.tsmiAlerts_ViewGrouped.Name = "tsmiAlerts_ViewGrouped";
+            this.tsmiAlerts_ViewGrouped.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAlerts_ViewGrouped.Text = "Ομαδ. Προβολή";
+            this.tsmiAlerts_ViewGrouped.Click += new System.EventHandler(this.tsmiAlerts_ViewGrouped_Click);
             // 
             // MainMenu
             // 
@@ -207,6 +216,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAlerts_View;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdmin;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdmin_Encrypt;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAlerts_ViewGrouped;
     }
 }
 

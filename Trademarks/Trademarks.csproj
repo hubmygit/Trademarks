@@ -60,6 +60,12 @@
     <Compile Include="AlertsView.Designer.cs">
       <DependentUpon>AlertsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="AlertsViewGrouped.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlertsViewGrouped.Designer.cs">
+      <DependentUpon>AlertsViewGrouped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Companies.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AlertsView.resx">
       <DependentUpon>AlertsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertsViewGrouped.resx">
+      <DependentUpon>AlertsViewGrouped.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Companies.resx">
       <DependentUpon>Companies.cs</DependentUpon>
