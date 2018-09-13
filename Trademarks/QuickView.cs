@@ -400,13 +400,7 @@ namespace Trademarks
                     {
                         success = false;
                     }
-
-                    //delete from Trademarks
-                    if (DeleteTrademark(tmpId) == false)
-                    {
-                        success = false;
-                    }
-
+                    
                     //delete from Tasks
                     if (Task.DeleteTasks(tmpId) == false)
                     {
@@ -415,6 +409,12 @@ namespace Trademarks
 
                     //delete from Recipients
                     if (Recipient.DeleteRecipients(tmpId) == false)
+                    {
+                        success = false;
+                    }
+
+                    //delete from Trademarks
+                    if (DeleteTrademark(tmpId) == false)
                     {
                         success = false;
                     }
