@@ -185,7 +185,7 @@ namespace Trademarks
             }
         }
 
-        private void applyFilters()
+        public void applyFilters()
         {
             List<AlertsDGV> filteredRecs = tempAlertList;
 

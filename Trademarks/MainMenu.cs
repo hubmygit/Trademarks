@@ -177,6 +177,12 @@ namespace Trademarks
             AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
             frmAlertsViewGrouped.ShowDialog();
         }
+
+        private void btnAlertsGrouped_Click(object sender, EventArgs e)
+        {
+            AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            frmAlertsViewGrouped.ShowDialog();
+        }
     }
 
     public static class AppVer

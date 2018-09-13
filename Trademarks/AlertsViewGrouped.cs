@@ -18,7 +18,9 @@ namespace Trademarks
 
             tempAlertList = SelectAlerts();
 
-            FillDataGridView(dgvAlerts, tempAlertList);
+            //FillDataGridView(dgvAlerts, tempAlertList);
+
+            applyFilters();
         }
 
         public List<AlertsDGV> tempAlertList = new List<AlertsDGV>();
@@ -179,6 +181,23 @@ namespace Trademarks
             }
         }
 
+        private void applyFilters()
+        {
+            List<AlertsDGV> filteredRecs = tempAlertList;
+                        
+            if (txtTMId.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (txtTMName.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            FillDataGridView(dgvAlerts, filteredRecs);
+        }
+
         private void tsmiRecipients_Click(object sender, EventArgs e)
         {
             if (dgvAlerts.SelectedRows.Count > 0)
@@ -227,8 +246,27 @@ namespace Trademarks
             }
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
 
+        private void tsmiAnalyticalView_Click(object sender, EventArgs e)
+        {
+            if (dgvAlerts.SelectedRows.Count > 0)
+            {
+                string TMNo = dgvAlerts.SelectedRows[0].Cells["tmp_No"].Value.ToString();
+                string TMName = dgvAlerts.SelectedRows[0].Cells["tmp_Name"].Value.ToString();
 
+                AlertsView frmAlertsView = new AlertsView();
 
+                frmAlertsView.txtTMId.Text = TMNo;
+                frmAlertsView.txtTMName.Text = TMName;
+
+                frmAlertsView.applyFilters();
+
+                frmAlertsView.ShowDialog();
+            }
+        }
     }
 }
