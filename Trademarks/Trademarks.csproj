@@ -72,6 +72,12 @@
     <Compile Include="Companies.Designer.cs">
       <DependentUpon>Companies.cs</DependentUpon>
     </Compile>
+    <Compile Include="InsertGrTM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertGrTM.Designer.cs">
+      <DependentUpon>InsertGrTM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Intro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Companies.resx">
       <DependentUpon>Companies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertGrTM.resx">
+      <DependentUpon>InsertGrTM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Intro.resx">
       <DependentUpon>Intro.cs</DependentUpon>

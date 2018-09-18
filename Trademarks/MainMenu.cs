@@ -183,6 +183,12 @@ namespace Trademarks
             AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
             frmAlertsViewGrouped.ShowDialog();
         }
+
+        private void insertGrTMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InsertGrTM frmInsGrTm = new InsertGrTM();
+            frmInsGrTm.ShowDialog();
+        }
     }
 
     public static class AppVer

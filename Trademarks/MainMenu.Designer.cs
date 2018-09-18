@@ -39,11 +39,13 @@
             this.tsmiTM_ins = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTM_View = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts_ViewGrouped = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAlertsGrouped = new System.Windows.Forms.Button();
+            this.newItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertGrTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
@@ -105,7 +107,8 @@
             this.menuStripBasic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiTM,
             this.tsmiAlerts,
-            this.tsmiAdmin});
+            this.tsmiAdmin,
+            this.newItemsToolStripMenuItem});
             this.menuStripBasic.Location = new System.Drawing.Point(0, 0);
             this.menuStripBasic.Name = "menuStripBasic";
             this.menuStripBasic.Size = new System.Drawing.Size(784, 24);
@@ -144,19 +147,19 @@
             this.tsmiAlerts.Size = new System.Drawing.Size(88, 20);
             this.tsmiAlerts.Text = "Ειδοποιήσεις";
             // 
-            // tsmiAlerts_View
-            // 
-            this.tsmiAlerts_View.Name = "tsmiAlerts_View";
-            this.tsmiAlerts_View.Size = new System.Drawing.Size(217, 22);
-            this.tsmiAlerts_View.Text = "Προβολή (Αναλυτικά)";
-            this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
-            // 
             // tsmiAlerts_ViewGrouped
             // 
             this.tsmiAlerts_ViewGrouped.Name = "tsmiAlerts_ViewGrouped";
             this.tsmiAlerts_ViewGrouped.Size = new System.Drawing.Size(217, 22);
             this.tsmiAlerts_ViewGrouped.Text = "Προβολή (Συγκεντρωτικά)";
             this.tsmiAlerts_ViewGrouped.Click += new System.EventHandler(this.tsmiAlerts_ViewGrouped_Click);
+            // 
+            // tsmiAlerts_View
+            // 
+            this.tsmiAlerts_View.Name = "tsmiAlerts_View";
+            this.tsmiAlerts_View.Size = new System.Drawing.Size(217, 22);
+            this.tsmiAlerts_View.Text = "Προβολή (Αναλυτικά)";
+            this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
             // 
             // tsmiAdmin
             // 
@@ -170,7 +173,7 @@
             // tsmiAdmin_Encrypt
             // 
             this.tsmiAdmin_Encrypt.Name = "tsmiAdmin_Encrypt";
-            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(153, 22);
+            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(180, 22);
             this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
             this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
             // 
@@ -184,6 +187,21 @@
             this.btnAlertsGrouped.Text = "Ειδοποιήσεις / Συγκεντρωτικά";
             this.btnAlertsGrouped.UseVisualStyleBackColor = true;
             this.btnAlertsGrouped.Click += new System.EventHandler(this.btnAlertsGrouped_Click);
+            // 
+            // newItemsToolStripMenuItem
+            // 
+            this.newItemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.insertGrTMToolStripMenuItem});
+            this.newItemsToolStripMenuItem.Name = "newItemsToolStripMenuItem";
+            this.newItemsToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.newItemsToolStripMenuItem.Text = "NewItems";
+            // 
+            // insertGrTMToolStripMenuItem
+            // 
+            this.insertGrTMToolStripMenuItem.Name = "insertGrTMToolStripMenuItem";
+            this.insertGrTMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertGrTMToolStripMenuItem.Text = "InsertGrTM";
+            this.insertGrTMToolStripMenuItem.Click += new System.EventHandler(this.insertGrTMToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -231,6 +249,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAdmin_Encrypt;
         private System.Windows.Forms.ToolStripMenuItem tsmiAlerts_ViewGrouped;
         private System.Windows.Forms.Button btnAlertsGrouped;
+        private System.Windows.Forms.ToolStripMenuItem newItemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem insertGrTMToolStripMenuItem;
     }
 }
 

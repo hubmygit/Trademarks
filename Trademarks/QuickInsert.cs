@@ -1491,6 +1491,35 @@ namespace Trademarks
             return ret;
         }
 
+        public static int getNationalPowerId(string givenNatPower)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id FROM [dbo].[NationalPower] WHERE Name = @Name";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Name", givenNatPower);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static List<NationalPower> getNationalPowerListList()
         {
             List<NationalPower> ret = new List<NationalPower>();
