@@ -391,6 +391,95 @@ namespace Trademarks
             return ret;
         }
 
+        private bool CreateDecisionAlarms(Trademark TMRecord)
+        {
+            bool ret = true;
+
+            Task TaskToInsert = new Task();
+            TaskToInsert.EventTypesId = 2; //Απόφαση σε εκκρεμότητα
+
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId);
+
+            DateTime ExpDate = TMRecord.DepositDt.AddMonths(task_EventType.ExpMonths); //1 month
+
+            TaskToInsert.TrademarksId = TMRecord.Id;
+            TaskToInsert.ExpDate = ExpDate;
+            TaskToInsert.IsActive = true;
+
+            string EventTypeName = EventType.getEventTypeName(TaskToInsert.EventTypesId);
+
+            //new form to show alarms before insert!
+            //move to contructor??
+            Alarms frmAlarms = new Alarms();
+            frmAlarms.txtTMId.Text = TMRecord.TMNo;
+            frmAlarms.txtTMName.Text = TMRecord.TMName;
+
+            foreach (Responsible recipient in responsibleList)
+            {
+                bool IsChecked = false;
+                if (recipient.Id == TMRecord.ResponsibleLawyerId)
+                {
+                    IsChecked = true;
+                }
+                frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, IsChecked, recipient.FullName, recipient.Email });
+            }
+
+            foreach (Responsible recipient in secretariesList)
+            {
+                frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, true, recipient.FullName, recipient.Email });
+                frmAlarms.dgvRecipients.Rows[frmAlarms.dgvRecipients.Rows.Count - 1].ReadOnly = true;
+                frmAlarms.dgvRecipients.Rows[frmAlarms.dgvRecipients.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGray;
+            }
+
+            frmAlarms.dtpExpDt.Value = ExpDate;
+            frmAlarms.dtpExpTime.Value = ExpDate;
+
+            foreach (myIntAndStr months in task_EventType.AlertMonths)
+            {
+                TaskToInsert.NotificationDate = ExpDate.AddMonths(-months.myInt);
+
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, months.myStr });
+
+                if (TaskToInsert.NotificationDate < DateTime.Now)
+                {
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+
+            frmAlarms.ShowDialog();
+
+            foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
+                {
+                    TaskToInsert.NotificationDate = Convert.ToDateTime(dgvr.Cells["Alarm_NotificationDate"].Value);
+                    TaskToInsert.AlertDescr = dgvr.Cells["Alarm_Period"].Value.ToString();
+                    if (QuickInsert.InsertTask(TaskToInsert) == false)
+                    {
+                        ret = false;
+                    }
+                }
+            }
+
+            Recipient rec = new Recipient();
+            rec.TrademarksId = TaskToInsert.TrademarksId;
+            foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))
+                {
+                    rec.FullName = dgvr.Cells["Rec_Name"].Value.ToString();
+                    rec.Email = dgvr.Cells["Rec_Email"].Value.ToString();
+                    if (QuickInsert.InsertRecipients(rec) == false)
+                    {
+                        ret = false;
+                    }
+                }
+            }
+
+            return ret;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check that all fields has been filled correctly
@@ -473,11 +562,12 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
-                //    if (CreateAlarms(NewRecord) == false)
-                //    {
-                //        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
-                //    }
-                //    else
+                    //if (CreateAlarms(NewRecord) == false)
+                    if(CreateDecisionAlarms(NewRecord) == false)
+                    {
+                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                    }
+                    else
                     {
                         MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                 

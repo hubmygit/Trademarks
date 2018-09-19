@@ -585,7 +585,7 @@ namespace Trademarks
             return ret;
         }
 
-        private bool InsertTask(Task task)
+        public static bool InsertTask(Task task)
         {
             //return int - output of Id
             bool ret = false;
@@ -623,7 +623,7 @@ namespace Trademarks
             return ret;
         }
 
-        private bool InsertRecipients(Recipient rec)
+        public static bool InsertRecipients(Recipient rec)
         {
             //return int - output of Id
             bool ret = false;
@@ -2322,6 +2322,7 @@ namespace Trademarks
         //public int Id { get; set; }
         public int EventTypeId { get; set; }
         public int ExpYears { get; set; }
+        public int ExpMonths { get; set; }
         public List<myIntAndStr> AlertMonths { get; set; }
         public List<myIntAndStr> AlertDays { get; set; }
 
@@ -2338,7 +2339,7 @@ namespace Trademarks
             AlertDays = new List<myIntAndStr>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [EventTypeId], [ExpYears], [AlertMonths], [AlertDays], [AlertDescr] " + 
+            string SelectSt = "SELECT [EventTypeId], [ExpYears], [ExpMonths], [AlertMonths], [AlertDays], [AlertDescr] " + 
                               "FROM [dbo].[Tasks_EventType] " + 
                               "WHERE EventTypeId = @EventTypeId " + 
                               "ORDER BY AlertMonths desc, AlertDays desc";
@@ -2355,7 +2356,7 @@ namespace Trademarks
                 {
                     EventTypeId = Convert.ToInt32(reader["EventTypeId"].ToString());
                     ExpYears = Convert.ToInt32(reader["ExpYears"].ToString());
-                    
+                    ExpMonths = Convert.ToInt32(reader["ExpMonths"].ToString());
 
                     if (reader["AlertMonths"] != DBNull.Value)
                     {
