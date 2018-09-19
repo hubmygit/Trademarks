@@ -447,6 +447,19 @@ namespace Trademarks
                 }
             }
 
+            foreach (myIntAndStr days in task_EventType.AlertDays)
+            {
+                TaskToInsert.NotificationDate = ExpDate.AddDays(-days.myInt);
+
+                frmAlarms.dgvAlarms.Rows.Add(new object[] { TMRecord.Id, true, TaskToInsert.NotificationDate.ToString("dd.MM.yyyy HH:mm"), EventTypeName, days.myStr });
+
+                if (TaskToInsert.NotificationDate < DateTime.Now)
+                {
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+
             frmAlarms.ShowDialog();
 
             foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)

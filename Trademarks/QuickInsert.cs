@@ -2355,9 +2355,17 @@ namespace Trademarks
                 while (reader.Read())
                 {
                     EventTypeId = Convert.ToInt32(reader["EventTypeId"].ToString());
-                    ExpYears = Convert.ToInt32(reader["ExpYears"].ToString());
-                    ExpMonths = Convert.ToInt32(reader["ExpMonths"].ToString());
+                                        
+                    if (reader["ExpYears"] != DBNull.Value)
+                    {
+                        ExpYears = Convert.ToInt32(reader["ExpYears"].ToString());
+                    }
 
+                    if (reader["ExpMonths"] != DBNull.Value)
+                    {
+                        ExpMonths = Convert.ToInt32(reader["ExpMonths"].ToString());
+                    }
+                    
                     if (reader["AlertMonths"] != DBNull.Value)
                     {
                         AlertMonths.Add(new myIntAndStr() { myInt = Convert.ToInt32(reader["AlertMonths"].ToString()), myStr = reader["AlertDescr"].ToString() }); 
