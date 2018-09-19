@@ -72,11 +72,11 @@
     <Compile Include="Companies.Designer.cs">
       <DependentUpon>Companies.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertGrTM.cs">
+    <Compile Include="InsertTM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InsertGrTM.Designer.cs">
-      <DependentUpon>InsertGrTM.cs</DependentUpon>
+    <Compile Include="InsertTM.Designer.cs">
+      <DependentUpon>InsertTM.cs</DependentUpon>
     </Compile>
     <Compile Include="Intro.cs">
       <SubType>Form</SubType>
@@ -101,6 +101,12 @@
     </Compile>
     <Compile Include="NatTmNoSelector.Designer.cs">
       <DependentUpon>NatTmNoSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NatTmSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NatTmSelector.Designer.cs">
+      <DependentUpon>NatTmSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,8 +140,8 @@
     <EmbeddedResource Include="Companies.resx">
       <DependentUpon>Companies.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertGrTM.resx">
-      <DependentUpon>InsertGrTM.cs</DependentUpon>
+    <EmbeddedResource Include="InsertTM.resx">
+      <DependentUpon>InsertTM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Intro.resx">
       <DependentUpon>Intro.cs</DependentUpon>
@@ -148,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NatTmNoSelector.resx">
       <DependentUpon>NatTmNoSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NatTmSelector.resx">
+      <DependentUpon>NatTmSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -184,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parameter.ico" />
+    <None Include="Resources\Save_32x.png" />
     <None Include="Resources\OpenFile_16x.png" />
     <None Include="Resources\find_40x.png" />
     <None Include="Resources\OpenLink_16x.png" />

@@ -4,15 +4,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace Trademarks
 {
-    public partial class InsertGrTM : Form
+    public partial class InsertTM : Form
     {
-        public InsertGrTM() //insert 
+        public InsertTM() //insert 
         {
             InitializeComponent();
 
@@ -24,7 +25,7 @@ namespace Trademarks
             //InsUser = Responsible Lawyer
         }
 
-        public InsertGrTM(int xxxxxx) //update
+        public InsertTM(int xxxxxx) //update
         {
             InitializeComponent();
 
@@ -55,6 +56,7 @@ namespace Trademarks
 
             FillDataGridView(dgvTypes, Type.getTypeList());
             FillDataGridView(dgvClasses, Class.getClassList());
+            FillDataGridView(dgvCountries, Country.getCountryList());
         }
 
         public static void FillDataGridView(DataGridView dgv, List<Type> TypeList)
@@ -83,7 +85,7 @@ namespace Trademarks
 
             dgv.ClearSelection();
         }
-
+               
         public static void FillDataGridView(DataGridView dgv, List<Class> ClassList)
         {
             dgv.Rows.Clear();
@@ -112,7 +114,35 @@ namespace Trademarks
 
             dgv.ClearSelection();
         }
-        
+
+        public static void FillDataGridView(DataGridView dgv, List<Country> CountryList)
+        {
+            dgv.Rows.Clear();
+
+            foreach (Country thisRecord in CountryList)
+            {
+                List<dgvDictionary> dgvDictList = new List<dgvDictionary>();
+
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Id, dgvColumnHeader = "Country_Id" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Name, dgvColumnHeader = "Country_Name" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.NameShort, dgvColumnHeader = "Country_ShortName" });
+
+                object[] obj = new object[dgv.Columns.Count];
+
+                for (int i = 0; i < dgv.Columns.Count; i++)
+                {
+                    if (dgvDictList.Exists(z => z.dgvColumnHeader == dgv.Columns[i].Name))
+                    {
+                        obj[i] = dgvDictList.Where(z => z.dgvColumnHeader == dgv.Columns[i].Name).First().dbfield;
+                    }
+                }
+
+                dgv.Rows.Add(obj);
+            }
+
+            dgv.ClearSelection();
+        }
+
         private void btnAddTMPic_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -218,6 +248,22 @@ namespace Trademarks
             return ret;
         }
 
+        private bool IsAnyCountryChecked(DataGridView dgv)
+        {
+            bool ret = false;
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == true)
+                {
+                    ret = true;
+                }
+            }
+
+            return ret;
+        }
+                
+
         private List<int> getCheckedTypes(DataGridView dgv)
         {
             List<int> ret = new List<int>();
@@ -248,12 +294,110 @@ namespace Trademarks
             return ret;
         }
 
+        private List<int> getCheckedCountries(DataGridView dgv)
+        {
+            List<int> ret = new List<int>();
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == true)
+                {
+                    ret.Add(Convert.ToInt32(dgvr.Cells["Country_Id"].Value));
+                }
+            }
+
+            return ret;
+        }
+
+        private void clearCheckedCountries(DataGridView dgv)
+        {
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == true)
+                {
+                    dgvr.Cells["Country_Checked"].Value = false;
+                }
+            }
+        }
+
+        private int InsertTrademark(Trademark TMRec)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[Trademarks] ([TMNo], [DepositDt], [NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], " +
+                "[TMName], [FileName], [FileContents], [Description], [Fees], [InsUser], [InsDt]) " +
+                "OUTPUT INSERTED.Id " +
+                "VALUES (@TMNo, @DepositDt, @NationalPowerId, @TMGrNo, @CompanyId, @ResponsibleLawyerId, " +
+                "@TMName, @FileName, @FileContents, @Description, @Fees, @InsUser, getdate() ) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TMNo", TMRec.TMNo);
+                cmd.Parameters.AddWithValue("@DepositDt", TMRec.DepositDt);
+                cmd.Parameters.AddWithValue("@NationalPowerId", TMRec.NationalPowerId);
+                if (TMRec.TMGrNo == "")
+                {
+                    cmd.Parameters.AddWithValue("@TMGrNo", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TMGrNo", TMRec.TMGrNo);
+                }
+                cmd.Parameters.AddWithValue("@CompanyId", TMRec.CompanyId);
+                cmd.Parameters.AddWithValue("@ResponsibleLawyerId", TMRec.ResponsibleLawyerId);
+                cmd.Parameters.AddWithValue("@TMName", TMRec.TMName);
+
+                if (txtFilename.Text == "Αρχείο: -")
+                {
+                    SqlParameter param = new SqlParameter();
+                    param.ParameterName = "@FileContents";
+                    param.Value = DBNull.Value;
+                    param.SqlDbType = SqlDbType.VarBinary;
+                    //param.Size
+                    cmd.Parameters.Add(param);
+                    //cmd.Parameters.AddWithValue("@FileContents", DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@FileName", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@FileName", TMRec.FileName);
+                    cmd.Parameters.AddWithValue("@FileContents", TMRec.FileContents);
+                }
+
+                cmd.Parameters.AddWithValue("@Description", TMRec.Description);
+                cmd.Parameters.AddWithValue("@Fees", TMRec.Fees);
+                                
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
+
+                cmd.CommandType = CommandType.Text;
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check that all fields has been filled correctly
             if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false ||
-                txtTMName.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false)
+                txtTMName.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false ||
+                (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) ||
+                ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == "") || (rbDiethnes.Checked && IsAnyCountryChecked(dgvCountries) == false))
             {
                 MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία!");
                 return;
@@ -278,84 +422,194 @@ namespace Trademarks
                 NewRecord.FileContents = System.IO.File.ReadAllBytes(txtFilename.Text);
             }
             NewRecord.ClassIds = getCheckedClasses(dgvClasses);
-            //NewRecord.CountryIds = getCheckedCountries(dgvCountries);
+            NewRecord.CountryIds = getCheckedCountries(dgvCountries);
             NewRecord.Description = txtDescription.Text;
             NewRecord.Fees = txtFees.Text;
-            //NewRecord.DecisionNo = txtDecisionNo.Text;
-            //NewRecord.PublicationDate = dtpPublicationDate.Value;
-            //NewRecord.FinalizationDate = dtpFinalization.Value;
-            //NewRecord.Url = txtUrl.Text;
-            //NewRecord.HasRenewal = chbHasRenewal.Checked;
-            //NewRecord.RenewalDt = renewalDatetime;
-
+            
             NewRecord.Id = TempRecUpdId;
 
             if (isInsert)
             {
                 //Save
                 bool successful = true;
-                //int InsertedId = InsertTrademark(NewRecord);
-                //if (InsertedId > 0)
-                //{
-                //    NewRecord.Id = InsertedId;
+                int InsertedId = InsertTrademark(NewRecord);
+                if (InsertedId > 0)
+                {
+                    NewRecord.Id = InsertedId;
 
-                //    foreach (int TM_typeId in NewRecord.TMTypeIds)
-                //    {
-                //        if (Type.InsertTM_Type(InsertedId, TM_typeId) == false)
-                //        {
-                //            //TM_Type ins error
-                //            successful = false;
-                //        }
-                //    }
+                    foreach (int TM_typeId in NewRecord.TMTypeIds)
+                    {
+                        if (Type.InsertTM_Type(InsertedId, TM_typeId) == false)
+                        {
+                            //TM_Type ins error
+                            successful = false;
+                        }
+                    }
 
-                //    foreach (int TM_classId in NewRecord.ClassIds)
-                //    {
-                //        if (Class.InsertTM_Class(InsertedId, TM_classId) == false)
-                //        {
-                //            //TM_Class ins error
-                //            successful = false;
-                //        }
-                //    }
+                    foreach (int TM_classId in NewRecord.ClassIds)
+                    {
+                        if (Class.InsertTM_Class(InsertedId, TM_classId) == false)
+                        {
+                            //TM_Class ins error
+                            successful = false;
+                        }
+                    }
 
-                //    foreach (int TM_countryId in NewRecord.CountryIds)
-                //    {
-                //        if (Country.InsertTM_Country(InsertedId, TM_countryId) == false)
-                //        {
-                //            //TM_Country ins error
-                //            successful = false;
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    //TM ins error
-                //    successful = false;
-                //}
+                    foreach (int TM_countryId in NewRecord.CountryIds)
+                    {
+                        if (Country.InsertTM_Country(InsertedId, TM_countryId) == false)
+                        {
+                            //TM_Country ins error
+                            successful = false;
+                        }
+                    }
+                }
+                else
+                {
+                    //TM ins error
+                    successful = false;
+                }
 
-                ////Alarms
-                //if (successful)
-                //{
+                //Alarms
+                if (successful)
+                {
                 //    if (CreateAlarms(NewRecord) == false)
                 //    {
                 //        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                 //    }
                 //    else
-                //    {
-                //        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
-
-                //        Close();
-                //    }
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
-                //}
+                    {
+                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                
+                        Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+                }
             }
 
 
         }
 
+        private void rbEthniko_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbEthniko.Checked == true)
+            {
+                lblTMGrId.Enabled = false;
+                txtTMGrId.Clear();
+                btnTmGrNoSelector.Enabled = false;
 
+                clearCheckedCountries(dgvCountries);
+                dgvCountries.Columns["Country_Checked"].ReadOnly = true;
+            }
+        }
+
+        private void rbKoinotiko_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbKoinotiko.Checked == true)
+            {
+                lblTMGrId.Enabled = true;
+                btnTmGrNoSelector.Enabled = true;
+
+                clearCheckedCountries(dgvCountries);
+                dgvCountries.Columns["Country_Checked"].ReadOnly = true;
+            }
+        }
+
+        private void rbDiethnes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbDiethnes.Checked == true)
+            {
+                lblTMGrId.Enabled = true;
+                btnTmGrNoSelector.Enabled = true;
+                
+                dgvCountries.Columns["Country_Checked"].ReadOnly = false;
+            }
+        }
+
+        private void btnTmGrNoSelector_Click(object sender, EventArgs e)
+        {
+            NatTmSelector frmNatTmSel = new NatTmSelector();
+            frmNatTmSel.ShowDialog();
+
+            if (frmNatTmSel.succeed)
+            {
+                txtTMGrId.Text = frmNatTmSel.TMGrNo;
+
+                if (MessageBox.Show("Θέλετε να μεταφερθούν από το εθνικό σήμα τα παρακάτω πεδία; \r\n" + 
+                    "-> Εταιρία\r\n" +
+                    "-> Ονομ/μο Δικηγόρου\r\n" +
+                    "-> Τύπος\r\n" +
+                    "-> Αρχείο\r\n" +
+                    "-> Κλάση\r\n" +
+                    "-> Σχόλια\r\n", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    cbCompany.SelectedIndex = cbCompany.FindStringExact(Company.getCompanyName(frmNatTmSel.selTempRec.CompanyId));
+                    cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact(Responsible.getResponsibleName(frmNatTmSel.selTempRec.ResponsibleLawyerId));
+                    foreach (int typeId in frmNatTmSel.selTempRec.TMTypeIds)
+                    {
+                        DataGridViewRow row = dgvTypes.Rows
+                                              .Cast<DataGridViewRow>()
+                                              .Where(r => Convert.ToInt32(r.Cells["Type_Id"].Value.ToString()) == typeId)
+                                              .First();
+
+                        if (row.Index >= 0)
+                        {
+                            dgvTypes["Type_Checked", row.Index].Value = "True";
+                        }
+                    }
+
+                    string fn = System.IO.Path.GetExtension(frmNatTmSel.selTempRec.FileName);
+                    if (frmNatTmSel.selTempRec.FileContents != null)
+                    {
+                        string ext = "";
+                        string tempPath = Path.GetTempPath() + "~" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + "\\";
+                        string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(frmNatTmSel.selTempRec.FileName));
+                        try
+                        {
+                            Directory.CreateDirectory(tempPath);
+
+                            string fname = frmNatTmSel.selTempRec.FileName;
+                            ext = fname.Substring(fname.LastIndexOf("."));
+                            File.WriteAllBytes(tempFile + ext, frmNatTmSel.selTempRec.FileContents);
+
+                            if (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png")
+                            {
+                                pbTMPic.Image = Image.FromFile(tempFile + ext);
+                            }
+                            else
+                            {
+                                lblPreview.Visible = true;
+                            }
+
+                            txtFilename.Text = tempFile + ext; //tmpRec.FileName;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("The following error occurred: " + ex.Message);
+                        }
+                    }
+
+                    foreach (int classId in frmNatTmSel.selTempRec.ClassIds)
+                    {
+                        DataGridViewRow row = dgvClasses.Rows
+                                              .Cast<DataGridViewRow>()
+                                              .Where(r => Convert.ToInt32(r.Cells["Class_Id"].Value.ToString()) == classId)
+                                              .First();
+
+                        if (row.Index >= 0)
+                        {
+                            dgvClasses["Class_Checked", row.Index].Value = "True";
+                        }
+                    }
+
+                    txtDescription.Text = frmNatTmSel.selTempRec.Description;
+
+                }
+            }
+        }
     }
 
     public class Trademark

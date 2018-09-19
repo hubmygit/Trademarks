@@ -186,7 +186,7 @@ namespace Trademarks
 
         private void insertGrTMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InsertGrTM frmInsGrTm = new InsertGrTM();
+            InsertTM frmInsGrTm = new InsertTM();
             frmInsGrTm.ShowDialog();
         }
     }
