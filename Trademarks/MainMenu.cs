@@ -192,7 +192,7 @@ namespace Trademarks
 
         private void decisionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Trademark tm = new Trademark() { Id = 1, TMNo = "98765", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 12, 17, 7) };
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
             Decision frmDecision = new Decision(tm);
             frmDecision.ShowDialog();
