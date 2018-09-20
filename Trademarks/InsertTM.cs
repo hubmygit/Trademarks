@@ -530,6 +530,13 @@ namespace Trademarks
             
             NewRecord.Id = TempRecUpdId;
 
+
+            TM_Status tmStatus = new TM_Status();
+            tmStatus.TmId = TempRecUpdId;
+            tmStatus.StatusId = 1; //katathesi
+            tmStatus.DepositDt = depositDatetime;
+            tmStatus.Remarks = NewRecord.Description;
+
             if (isInsert)
             {
                 //Save
@@ -538,6 +545,7 @@ namespace Trademarks
                 if (InsertedId > 0)
                 {
                     NewRecord.Id = InsertedId;
+                    tmStatus.TmId = InsertedId;
 
                     foreach (int TM_typeId in NewRecord.TMTypeIds)
                     {
@@ -565,6 +573,12 @@ namespace Trademarks
                             successful = false;
                         }
                     }
+
+                    if (TM_Status.InsertTM_Status_Deposit(tmStatus) == false)
+                    {
+                        //TM_Status ins error
+                        successful = false;
+                    }
                 }
                 else
                 {
@@ -575,17 +589,17 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
-                    //if (CreateAlarms(NewRecord) == false)
-                    if(CreateDecisionAlarms(NewRecord) == false)
+                    if (NewRecord.NationalPowerId == 1) //1 month to decision, only national tm
                     {
-                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                        if (CreateDecisionAlarms(NewRecord) == false)
+                        {
+                            MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                            return;
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
-                
-                        Close();
-                    }
+                    
+                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    Close();
                 }
                 else
                 {
@@ -810,6 +824,91 @@ namespace Trademarks
             sqlConn.Close();
         }
         */
+
+    }
+
+    public class TM_Status
+    {
+        public int Id { get; set; }
+        public int TmId { get; set; }
+        public int StatusId { get; set; }
+        public DateTime DepositDt { get; set; }
+        public string Remarks { get; set; }
+        public string DecisionNo { get; set; }
+        public DateTime DecisionPublDt { get; set; }
+
+        public TM_Status()
+        {
+        }
+
+        public static bool InsertTM_Status_Deposit(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks]) VALUES (@TrademarksId, @StatusId, @DepositDt, @Remarks) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DepositDt", tmstatus.DepositDt);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool InsertTM_Status_Decision(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks]) VALUES (@TrademarksId, @StatusId, @DecisionNo, @DecisionPublDt, @Remarks) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@DecisionPublDt", tmstatus.DecisionPublDt);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
 
     }
 

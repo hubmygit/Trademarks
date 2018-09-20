@@ -72,6 +72,12 @@
     <Compile Include="Companies.Designer.cs">
       <DependentUpon>Companies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Decision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Decision.Designer.cs">
+      <DependentUpon>Decision.cs</DependentUpon>
+    </Compile>
     <Compile Include="InsertTM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Companies.resx">
       <DependentUpon>Companies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Decision.resx">
+      <DependentUpon>Decision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertTM.resx">
       <DependentUpon>InsertTM.cs</DependentUpon>

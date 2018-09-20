@@ -184,10 +184,18 @@ namespace Trademarks
             frmAlertsViewGrouped.ShowDialog();
         }
 
-        private void insertGrTMToolStripMenuItem_Click(object sender, EventArgs e)
+        private void insertTMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InsertTM frmInsGrTm = new InsertTM();
-            frmInsGrTm.ShowDialog();
+            InsertTM frmInsTm = new InsertTM();
+            frmInsTm.ShowDialog();
+        }
+
+        private void decisionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 1, TMNo = "98765", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 12, 17, 7) };
+
+            Decision frmDecision = new Decision(tm);
+            frmDecision.ShowDialog();
         }
     }
 

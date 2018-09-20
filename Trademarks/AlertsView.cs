@@ -82,7 +82,12 @@ namespace Trademarks
                     alertRec.TrademarksId = Convert.ToInt32(reader["TrademarksId"].ToString());
                     alertRec.TMNo = reader["TMNo"].ToString();
                     alertRec.TMName = reader["TMName"].ToString();
-                    alertRec.DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
+
+                    if (reader["DepositDt"] != DBNull.Value)
+                    {
+                        alertRec.DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
+                    }
+                                        
                     if (reader["RenewalDt"] != DBNull.Value)
                     {
                         alertRec.RenewalDt = Convert.ToDateTime(reader["RenewalDt"].ToString());
