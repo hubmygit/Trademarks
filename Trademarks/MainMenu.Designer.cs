@@ -41,12 +41,13 @@
             this.tsmiAlerts = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts_ViewGrouped = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.newItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAlertsGrouped = new System.Windows.Forms.Button();
             this.decisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAlertsGrouped = new System.Windows.Forms.Button();
+            this.appealToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
@@ -162,6 +163,30 @@
             this.tsmiAlerts_View.Text = "Προβολή (Αναλυτικά)";
             this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
             // 
+            // newItemsToolStripMenuItem
+            // 
+            this.newItemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.insertTMToolStripMenuItem,
+            this.decisionToolStripMenuItem,
+            this.appealToolStripMenuItem});
+            this.newItemsToolStripMenuItem.Name = "newItemsToolStripMenuItem";
+            this.newItemsToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.newItemsToolStripMenuItem.Text = "NewItems";
+            // 
+            // insertTMToolStripMenuItem
+            // 
+            this.insertTMToolStripMenuItem.Name = "insertTMToolStripMenuItem";
+            this.insertTMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertTMToolStripMenuItem.Text = "Κατάθεση";
+            this.insertTMToolStripMenuItem.Click += new System.EventHandler(this.insertTMToolStripMenuItem_Click);
+            // 
+            // decisionToolStripMenuItem
+            // 
+            this.decisionToolStripMenuItem.Name = "decisionToolStripMenuItem";
+            this.decisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.decisionToolStripMenuItem.Text = "Απόφαση";
+            this.decisionToolStripMenuItem.Click += new System.EventHandler(this.decisionToolStripMenuItem_Click);
+            // 
             // tsmiAdmin
             // 
             this.tsmiAdmin.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -178,22 +203,6 @@
             this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
             this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
             // 
-            // newItemsToolStripMenuItem
-            // 
-            this.newItemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.insertTMToolStripMenuItem,
-            this.decisionToolStripMenuItem});
-            this.newItemsToolStripMenuItem.Name = "newItemsToolStripMenuItem";
-            this.newItemsToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.newItemsToolStripMenuItem.Text = "NewItems";
-            // 
-            // insertTMToolStripMenuItem
-            // 
-            this.insertTMToolStripMenuItem.Name = "insertTMToolStripMenuItem";
-            this.insertTMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.insertTMToolStripMenuItem.Text = "Κατάθεση";
-            this.insertTMToolStripMenuItem.Click += new System.EventHandler(this.insertTMToolStripMenuItem_Click);
-            // 
             // btnAlertsGrouped
             // 
             this.btnAlertsGrouped.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -205,12 +214,12 @@
             this.btnAlertsGrouped.UseVisualStyleBackColor = true;
             this.btnAlertsGrouped.Click += new System.EventHandler(this.btnAlertsGrouped_Click);
             // 
-            // decisionToolStripMenuItem
+            // appealToolStripMenuItem
             // 
-            this.decisionToolStripMenuItem.Name = "decisionToolStripMenuItem";
-            this.decisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.decisionToolStripMenuItem.Text = "Απόφαση";
-            this.decisionToolStripMenuItem.Click += new System.EventHandler(this.decisionToolStripMenuItem_Click);
+            this.appealToolStripMenuItem.Name = "appealToolStripMenuItem";
+            this.appealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.appealToolStripMenuItem.Text = "Προσφυγή";
+            this.appealToolStripMenuItem.Click += new System.EventHandler(this.appealToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -261,6 +270,7 @@
         private System.Windows.Forms.ToolStripMenuItem newItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem insertTMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decisionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem appealToolStripMenuItem;
     }
 }
 

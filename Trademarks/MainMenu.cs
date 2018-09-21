@@ -197,6 +197,24 @@ namespace Trademarks
             Decision frmDecision = new Decision(tm);
             frmDecision.ShowDialog();
         }
+
+        private void appealToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+
+            TM_Status tms = new TM_Status();
+            tms = TM_Status.getLastStatus(tm.Id);
+
+            //check oti exei aporriptiki apofasi
+            if (tms.StatusId != 3 && tms.StatusId != 4)
+            {
+                MessageBox.Show("Προσοχή! Δεν υπάρχει Aπορριπτική Aπόφαση σε εκκρεμότητα.");
+                return;
+            }
+
+            Appeal frmAppeal = new Appeal(tm, tms);
+            frmAppeal.ShowDialog();
+        }
     }
 
     public static class AppVer

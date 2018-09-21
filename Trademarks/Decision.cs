@@ -238,7 +238,8 @@ namespace Trademarks
 
                 if (TaskToInsert.NotificationDate < DateTime.Now)
                 {
-                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    //frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    //send email next time scheduler will run
                     frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
                 }
             }
@@ -251,7 +252,8 @@ namespace Trademarks
 
                 if (TaskToInsert.NotificationDate < DateTime.Now)
                 {
-                    frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    //frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].Cells["Alarm_Active"].Value = false;
+                    //send email next time scheduler will run
                     frmAlarms.dgvAlarms.Rows[frmAlarms.dgvAlarms.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
                 }
             }
@@ -290,12 +292,12 @@ namespace Trademarks
 
         }
 
-        private void decision_PartiallyRejected(TM_Status StRec, Trademark TmRec)
+        private void decision_Rejected(TM_Status StRec, Trademark TmRec, int Status_Id)
         {
             StRec = new TM_Status();
 
             StRec.TmId = TmRec.Id;
-            StRec.StatusId = 3; //apofasi: merikws aporriptiki
+            StRec.StatusId = Status_Id; //apofasi: (3) merikws aporriptiki, (4) olikws aporriptiki, 
             StRec.DecisionNo = txtDecisionNo.Text;
             StRec.DecisionPublDt = dtpPublicationDate.Value.Date;
             StRec.Remarks = txtDescription.Text;
@@ -351,16 +353,20 @@ namespace Trademarks
                 return;
             }
 
+            //delete previous alerts
+            Task.DisableNotSentTasks(givenTM.Id);
+
             if (rbApproved.Checked)
             {
                 decision_Approval(NewRecord, givenTM);
             }
             else if (rbPartiallyRejected.Checked)
             {
-                decision_PartiallyRejected(NewRecord, givenTM);
+                decision_Rejected(NewRecord, givenTM, 3);
             }
             else if (rbTotallyRejected.Checked)
             {
+                decision_Rejected(NewRecord, givenTM, 4);
             }
 
         }

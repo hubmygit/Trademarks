@@ -841,12 +841,48 @@ namespace Trademarks
         {
         }
 
+        public static TM_Status getLastStatus(int Trademarks_Id)
+        {
+            TM_Status ret = new TM_Status();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
+                              "FROM [dbo].[TM_Status] TS " + 
+                              "WHERE TS.TrademarksId = @TmId order by TS.Id desc";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.StatusId = Convert.ToInt32(reader["StatusId"].ToString());
+                    ret.DecisionNo = reader["DecisionNo"].ToString();
+                    if (reader["DecisionPublDt"] != DBNull.Value)
+                    {
+                        ret.DecisionPublDt = Convert.ToDateTime(reader["DecisionPublDt"].ToString());
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool InsertTM_Status_Deposit(TM_Status tmstatus)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks]) VALUES (@TrademarksId, @StatusId, @DepositDt, @Remarks) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DepositDt, @Remarks, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -880,7 +916,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks]) VALUES (@TrademarksId, @StatusId, @DecisionNo, @DecisionPublDt, @Remarks) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks], [InsDt]) VALUES " + 
+                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionPublDt, @Remarks, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -890,6 +927,41 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionPublDt", tmstatus.DecisionPublDt);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool InsertTM_Status_Appeal(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, getdate()) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
 
                 cmd.CommandType = CommandType.Text;
