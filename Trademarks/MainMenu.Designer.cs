@@ -45,10 +45,11 @@
             this.insertTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.appealToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.terminationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAlertsGrouped = new System.Windows.Forms.Button();
-            this.terminationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.finalizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
@@ -170,7 +171,8 @@
             this.insertTMToolStripMenuItem,
             this.decisionToolStripMenuItem,
             this.appealToolStripMenuItem,
-            this.terminationToolStripMenuItem});
+            this.terminationToolStripMenuItem,
+            this.finalizationToolStripMenuItem});
             this.newItemsToolStripMenuItem.Name = "newItemsToolStripMenuItem";
             this.newItemsToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.newItemsToolStripMenuItem.Text = "NewItems";
@@ -195,6 +197,13 @@
             this.appealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.appealToolStripMenuItem.Text = "Προσφυγή";
             this.appealToolStripMenuItem.Click += new System.EventHandler(this.appealToolStripMenuItem_Click);
+            // 
+            // terminationToolStripMenuItem
+            // 
+            this.terminationToolStripMenuItem.Name = "terminationToolStripMenuItem";
+            this.terminationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.terminationToolStripMenuItem.Text = "Ανακοπή";
+            this.terminationToolStripMenuItem.Click += new System.EventHandler(this.terminationToolStripMenuItem_Click);
             // 
             // tsmiAdmin
             // 
@@ -223,12 +232,12 @@
             this.btnAlertsGrouped.UseVisualStyleBackColor = true;
             this.btnAlertsGrouped.Click += new System.EventHandler(this.btnAlertsGrouped_Click);
             // 
-            // terminationToolStripMenuItem
+            // finalizationToolStripMenuItem
             // 
-            this.terminationToolStripMenuItem.Name = "terminationToolStripMenuItem";
-            this.terminationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.terminationToolStripMenuItem.Text = "Ανακοπή";
-            this.terminationToolStripMenuItem.Click += new System.EventHandler(this.terminationToolStripMenuItem_Click);
+            this.finalizationToolStripMenuItem.Name = "finalizationToolStripMenuItem";
+            this.finalizationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finalizationToolStripMenuItem.Text = "Οριστικοποίηση";
+            this.finalizationToolStripMenuItem.Click += new System.EventHandler(this.finalizationToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -281,6 +290,7 @@
         private System.Windows.Forms.ToolStripMenuItem decisionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem appealToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem terminationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem finalizationToolStripMenuItem;
     }
 }
 

@@ -208,7 +208,7 @@ namespace Trademarks
             //check oti exei aporriptiki apofasi
             if (tms.StatusId != 3 && tms.StatusId != 4)
             {
-                MessageBox.Show("Προσοχή! Δεν υπάρχει Aπορριπτική Aπόφαση σε εκκρεμότητα.");
+                MessageBox.Show("Προσοχή! Δεν υπάρχει Aπορριπτική Aπόφαση σε εκκρεμότητα.\r\nΠαρακαλώ καταχωρήστε πρώτα την απόφαση.");
                 return;
             }
 
@@ -218,6 +218,37 @@ namespace Trademarks
 
         private void terminationToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+
+            TM_Status tms = new TM_Status();
+            tms = TM_Status.getLastStatus(tm.Id);
+
+            //check oti exei apofasi
+            if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4) 
+            {
+                MessageBox.Show("Προσοχή! Δεν υπάρχει Aπόφαση για Ανακοπή.\r\nΠαρακαλώ καταχωρήστε πρώτα την απόφαση.");
+                return;
+            }
+
+            Termination frmTermination = new Termination(tm, tms);
+            frmTermination.ShowDialog();
+        }
+
+        private void finalizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+
+            TM_Status tms = new TM_Status();
+            tms = TM_Status.getLastStatus(tm.Id);
+
+            //check oti exei apofasi
+            if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
+            {
+                MessageBox.Show("Προσοχή! Δεν υπάρχει Aπόφαση για Οριστικοποίηση.\r\nΠαρακαλώ καταχωρήστε πρώτα την απόφαση.");
+                return;
+            }
+
+
 
         }
     }

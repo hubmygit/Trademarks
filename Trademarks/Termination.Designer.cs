@@ -60,7 +60,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(705, 70);
-            this.txtDescription.TabIndex = 26;
+            this.txtDescription.TabIndex = 11;
             // 
             // lblDescription
             // 
@@ -80,10 +80,11 @@
             this.btnSave.Location = new System.Drawing.Point(312, 500);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(160, 50);
-            this.btnSave.TabIndex = 27;
+            this.btnSave.TabIndex = 12;
             this.btnSave.Text = "Αποθήκευση";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // gbDecisionType
             // 
@@ -256,7 +257,7 @@
             this.btnTermCompany.Location = new System.Drawing.Point(37, 318);
             this.btnTermCompany.Name = "btnTermCompany";
             this.btnTermCompany.Size = new System.Drawing.Size(138, 16);
-            this.btnTermCompany.TabIndex = 28;
+            this.btnTermCompany.TabIndex = 0;
             this.btnTermCompany.Text = "Ανακόπτουσα Εταιρία";
             // 
             // txtTermCompany
@@ -265,7 +266,7 @@
             this.txtTermCompany.Location = new System.Drawing.Point(181, 315);
             this.txtTermCompany.Name = "txtTermCompany";
             this.txtTermCompany.Size = new System.Drawing.Size(564, 22);
-            this.txtTermCompany.TabIndex = 29;
+            this.txtTermCompany.TabIndex = 10;
             // 
             // Termination
             // 
@@ -295,6 +296,7 @@
             this.Name = "Termination";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ανακοπή";
+            this.Load += new System.EventHandler(this.Termination_Load);
             this.gbDecisionType.ResumeLayout(false);
             this.gbDecisionType.PerformLayout();
             this.ResumeLayout(false);

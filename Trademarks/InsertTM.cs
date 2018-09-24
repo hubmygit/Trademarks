@@ -836,6 +836,7 @@ namespace Trademarks
         public string Remarks { get; set; }
         public string DecisionNo { get; set; }
         public DateTime DecisionPublDt { get; set; }
+        public string TermCompany { get; set; }
 
         public TM_Status()
         {
@@ -963,6 +964,42 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool InsertTM_Status_Termination(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [TermCompany], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @TermCompany, getdate()) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();

@@ -48,8 +48,6 @@ namespace Trademarks
         private Trademark givenTM = new Trademark();
         private TM_Status prevTMStatus = new TM_Status();
         public bool isInsert = false;
-
-
         
 
         private void btnSave_Click(object sender, EventArgs e)
