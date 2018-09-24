@@ -248,8 +248,8 @@ namespace Trademarks
                 return;
             }
 
-
-
+            Finalization frmFinalization = new Finalization(tm, tms);
+            frmFinalization.ShowDialog();
         }
     }
 
