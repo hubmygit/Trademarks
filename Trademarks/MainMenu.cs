@@ -215,6 +215,11 @@ namespace Trademarks
             Appeal frmAppeal = new Appeal(tm, tms);
             frmAppeal.ShowDialog();
         }
+
+        private void terminationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public static class AppVer

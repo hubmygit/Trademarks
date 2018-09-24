@@ -54,10 +54,10 @@ namespace Trademarks
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Προσοχή! Οι ειδοποιήσεις για αυτό το σήμα θα διακοπούν. \r\nΘέλετε να συνεχίσεται στην καταχώρηση Προσφυγής;", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Προσοχή! Οι ειδοποιήσεις Προσφυγής για αυτό το σήμα θα διακοπούν. \r\nΘέλετε να συνεχίσετε στην καταχώρηση;", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                //delete previous alerts
-                Task.DisableNotSentTasks(givenTM.Id);
+                //delete previous alerts (only appeal alerts)
+                Task.DisableNotSentTasks(givenTM.Id, 4); 
 
                 NewRecord = new TM_Status();
 

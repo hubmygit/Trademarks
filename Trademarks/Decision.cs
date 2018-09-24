@@ -315,10 +315,16 @@ namespace Trademarks
 
                 //Alarms
                 if (successful)
-                {
-                    if (CreateProsfygiAlarms(TmRec, StRec) == false)
+                {                    
+                    if (StRec.StatusId == 3 && CreateFinalizationAlarms(TmRec, StRec) == false) //merikws aporriptiki: oristikopoiisi
                     {
-                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
+                        return;
+                    }
+
+                    if (CreateProsfygiAlarms(TmRec, StRec) == false) //prosfygi
+                    {
+                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων προσφυγής!");
                         return;
                     }
 
@@ -353,7 +359,7 @@ namespace Trademarks
                 return;
             }
 
-            //delete previous alerts
+            //delete previous alerts (not only old decisions)
             Task.DisableNotSentTasks(givenTM.Id);
 
             if (rbApproved.Checked)

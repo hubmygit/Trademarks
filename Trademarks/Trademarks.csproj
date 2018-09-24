@@ -140,6 +140,12 @@
     <Compile Include="Recipients.Designer.cs">
       <DependentUpon>Recipients.cs</DependentUpon>
     </Compile>
+    <Compile Include="Termination.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Termination.Designer.cs">
+      <DependentUpon>Termination.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Alarms.resx">
       <DependentUpon>Alarms.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Recipients.resx">
       <DependentUpon>Recipients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Termination.resx">
+      <DependentUpon>Termination.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">

@@ -1687,6 +1687,38 @@ namespace Trademarks
             return ret;
         }
 
+        public static bool DisableNotSentTasks(int TrademarksId, int EventTypesId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[Tasks] SET IsActive = 'False' WHERE TrademarksId = @TrademarksId AND NotificationSent IS NULL AND EventTypesId = @EventTypesId ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+                cmd.Parameters.AddWithValue("@EventTypesId", EventTypesId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                ret = true;
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static List<Recipient> getTaskRecipients(int givenTrademarksId)
         {
             List<Recipient> ret = new List<Recipient>();
