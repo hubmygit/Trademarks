@@ -63,6 +63,8 @@ namespace Trademarks
                 return;
             }
 
+            //delete previous alerts 
+            Task.DisableNotSentTasks(givenTM.Id);
 
             NewRecord = new TM_Status();
 

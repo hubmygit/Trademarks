@@ -839,9 +839,43 @@ namespace Trademarks
         public string TermCompany { get; set; }
         public DateTime FinalizedDt { get; set; }
         public string FinalizedUrl { get; set; }
+        public DateTime RenewalDt { get; set; }
+        public string RenewalFees { get; set; }
+        public string RenewalProtocol { get; set; }
+
 
         public TM_Status()
         {
+        }
+
+        public static DateTime? getLastRenewal(int Trademarks_Id)
+        {
+            DateTime? ret = null;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT top (1) TS.RenewalDt " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId = 9 order by TS.RenewalDt desc";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {                    
+                   ret = Convert.ToDateTime(reader["RenewalDt"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
         }
 
         public static TM_Status getLastStatus(int Trademarks_Id)
@@ -1058,7 +1092,42 @@ namespace Trademarks
             return ret;
         }
 
+        public static bool InsertTM_Status_Renewal(TM_Status tmstatus)
+        {
+            bool ret = false;
 
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @Remarks, @RenewalDt, @RenewalFees, @RenewalProtocol, getdate()) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@RenewalDt", tmstatus.RenewalDt);
+                cmd.Parameters.AddWithValue("@RenewalFees", tmstatus.RenewalFees);
+                cmd.Parameters.AddWithValue("@RenewalProtocol", tmstatus.RenewalProtocol);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
 
     }
 

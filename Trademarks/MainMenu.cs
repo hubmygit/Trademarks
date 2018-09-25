@@ -266,7 +266,8 @@ namespace Trademarks
                 return;
             }
 
-
+            Renewal frmRenewal = new Renewal(tm);
+            frmRenewal.ShowDialog();
         }
     }
 

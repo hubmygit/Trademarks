@@ -146,6 +146,12 @@
     <Compile Include="Recipients.Designer.cs">
       <DependentUpon>Recipients.cs</DependentUpon>
     </Compile>
+    <Compile Include="Renewal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Renewal.Designer.cs">
+      <DependentUpon>Renewal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Termination.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Recipients.resx">
       <DependentUpon>Recipients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Renewal.resx">
+      <DependentUpon>Renewal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Termination.resx">
       <DependentUpon>Termination.cs</DependentUpon>

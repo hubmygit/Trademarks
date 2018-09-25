@@ -67,8 +67,10 @@ namespace Trademarks
                 MessageBox.Show("Δεν υπάρχει καταχωρημένο Url!");
             }
         }
+        
+        
 
-        private bool CreateRenewalAlarms(Trademark TMRec, bool HasRenewal)
+        public bool CreateRenewalAlarms(Trademark TMRec, DateTime? RenewalDt)
         {
             bool ret = true;
 
@@ -79,9 +81,9 @@ namespace Trademarks
 
             DateTime ExpDate = TMRec.DepositDt.AddYears(task_EventType.ExpYears); //10 years
 
-            if (HasRenewal)
+            if (RenewalDt != null)
             {
-                //ExpDate = TMRecord.RenewalDt.AddYears(task_EventType.ExpYears);
+                ExpDate = ((DateTime)RenewalDt).AddYears(task_EventType.ExpYears); //10 years
             }
 
             TaskToInsert.TrademarksId = TMRec.Id;
@@ -193,7 +195,7 @@ namespace Trademarks
                 {
                     if (StRec.StatusId == 7) //oristikopoiisi
                     {
-                        if (CreateRenewalAlarms(TmRec, false) == false)
+                        if (CreateRenewalAlarms(TmRec, null) == false)
                         {
                             MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                             return;
