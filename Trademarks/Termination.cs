@@ -56,6 +56,14 @@ namespace Trademarks
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //check that all fields has been filled correctly
+            if (txtTermCompany.Text.Trim() == "")
+            {
+                MessageBox.Show("Παρακαλώ συμπληρώστε το πεδίο 'Ανακόπτουσα Εταιρία'!");
+                return;
+            }
+
+
             NewRecord = new TM_Status();
 
             //[TrademarksId], [StatusId], [DecisionNo], [Remarks]

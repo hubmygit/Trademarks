@@ -236,7 +236,7 @@ namespace Trademarks
 
         private void finalizationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
             TM_Status tms = new TM_Status();
             tms = TM_Status.getLastStatus(tm.Id);
@@ -250,6 +250,23 @@ namespace Trademarks
 
             Finalization frmFinalization = new Finalization(tm, tms);
             frmFinalization.ShowDialog();
+        }
+
+        private void renewalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+
+            TM_Status tms = new TM_Status();
+            tms = TM_Status.getLastStatus(tm.Id);
+
+            //check oti exei oristikopoiisi
+            if (tms.StatusId != 7)
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορεί να γίνει Ανανέωση.\r\nΠαρακαλώ καταχωρήστε πρώτα την οριστικοποίηση.");
+                return;
+            }
+
+
         }
     }
 

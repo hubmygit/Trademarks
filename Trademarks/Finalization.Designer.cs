@@ -53,8 +53,11 @@
             this.btnOpenLink = new System.Windows.Forms.Button();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.lblUrl = new System.Windows.Forms.Label();
-            this.chbHasFinalization = new System.Windows.Forms.CheckBox();
+            this.gbFinalizationStatus = new System.Windows.Forms.GroupBox();
+            this.rbRejected = new System.Windows.Forms.RadioButton();
+            this.rbFinalization = new System.Windows.Forms.RadioButton();
             this.gbDecisionType.SuspendLayout();
+            this.gbFinalizationStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtDescription
@@ -256,27 +259,26 @@
             // 
             // dtpFinalizationDate
             // 
-            this.dtpFinalizationDate.Enabled = false;
             this.dtpFinalizationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtpFinalizationDate.Location = new System.Drawing.Point(432, 316);
+            this.dtpFinalizationDate.Location = new System.Drawing.Point(496, 315);
             this.dtpFinalizationDate.Name = "dtpFinalizationDate";
-            this.dtpFinalizationDate.Size = new System.Drawing.Size(270, 22);
+            this.dtpFinalizationDate.Size = new System.Drawing.Size(250, 22);
             this.dtpFinalizationDate.TabIndex = 11;
             // 
             // lblFinalizationDate
             // 
             this.lblFinalizationDate.AutoSize = true;
             this.lblFinalizationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblFinalizationDate.Location = new System.Drawing.Point(242, 321);
+            this.lblFinalizationDate.Location = new System.Drawing.Point(343, 318);
             this.lblFinalizationDate.Name = "lblFinalizationDate";
-            this.lblFinalizationDate.Size = new System.Drawing.Size(184, 16);
+            this.lblFinalizationDate.Size = new System.Drawing.Size(151, 16);
             this.lblFinalizationDate.TabIndex = 0;
-            this.lblFinalizationDate.Text = "Ημερομηνία Οριστικοποίησης";
+            this.lblFinalizationDate.Text = "Ημ/νία Οριστικοποίησης";
             // 
             // btnOpenLink
             // 
             this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
-            this.btnOpenLink.Location = new System.Drawing.Point(708, 358);
+            this.btnOpenLink.Location = new System.Drawing.Point(724, 358);
             this.btnOpenLink.Name = "btnOpenLink";
             this.btnOpenLink.Size = new System.Drawing.Size(22, 22);
             this.btnOpenLink.TabIndex = 13;
@@ -286,32 +288,53 @@
             // txtUrl
             // 
             this.txtUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtUrl.Location = new System.Drawing.Point(85, 358);
+            this.txtUrl.Location = new System.Drawing.Point(69, 358);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(617, 22);
+            this.txtUrl.Size = new System.Drawing.Size(649, 22);
             this.txtUrl.TabIndex = 12;
             // 
             // lblUrl
             // 
             this.lblUrl.AutoSize = true;
             this.lblUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblUrl.Location = new System.Drawing.Point(54, 361);
+            this.lblUrl.Location = new System.Drawing.Point(38, 361);
             this.lblUrl.Name = "lblUrl";
             this.lblUrl.Size = new System.Drawing.Size(25, 16);
             this.lblUrl.TabIndex = 0;
             this.lblUrl.Text = "Url";
             // 
-            // chbHasFinalization
+            // gbFinalizationStatus
             // 
-            this.chbHasFinalization.AutoSize = true;
-            this.chbHasFinalization.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbHasFinalization.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.chbHasFinalization.Location = new System.Drawing.Point(85, 320);
-            this.chbHasFinalization.Name = "chbHasFinalization";
-            this.chbHasFinalization.Size = new System.Drawing.Size(122, 20);
-            this.chbHasFinalization.TabIndex = 10;
-            this.chbHasFinalization.Text = "Οριστικοποίηση";
-            this.chbHasFinalization.UseVisualStyleBackColor = true;
+            this.gbFinalizationStatus.Controls.Add(this.rbRejected);
+            this.gbFinalizationStatus.Controls.Add(this.rbFinalization);
+            this.gbFinalizationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.gbFinalizationStatus.Location = new System.Drawing.Point(40, 297);
+            this.gbFinalizationStatus.Name = "gbFinalizationStatus";
+            this.gbFinalizationStatus.Size = new System.Drawing.Size(262, 49);
+            this.gbFinalizationStatus.TabIndex = 16;
+            this.gbFinalizationStatus.TabStop = false;
+            // 
+            // rbRejected
+            // 
+            this.rbRejected.AutoSize = true;
+            this.rbRejected.Location = new System.Drawing.Point(135, 18);
+            this.rbRejected.Name = "rbRejected";
+            this.rbRejected.Size = new System.Drawing.Size(124, 20);
+            this.rbRejected.TabIndex = 6;
+            this.rbRejected.TabStop = true;
+            this.rbRejected.Text = "Ολική Απόρριψη";
+            this.rbRejected.UseVisualStyleBackColor = true;
+            // 
+            // rbFinalization
+            // 
+            this.rbFinalization.AutoSize = true;
+            this.rbFinalization.Location = new System.Drawing.Point(8, 18);
+            this.rbFinalization.Name = "rbFinalization";
+            this.rbFinalization.Size = new System.Drawing.Size(121, 20);
+            this.rbFinalization.TabIndex = 5;
+            this.rbFinalization.TabStop = true;
+            this.rbFinalization.Text = "Οριστικοποίηση";
+            this.rbFinalization.UseVisualStyleBackColor = true;
             // 
             // Finalization
             // 
@@ -319,7 +342,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.chbHasFinalization);
+            this.Controls.Add(this.gbFinalizationStatus);
             this.Controls.Add(this.btnOpenLink);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.lblUrl);
@@ -348,6 +371,8 @@
             this.Load += new System.EventHandler(this.Finalization_Load);
             this.gbDecisionType.ResumeLayout(false);
             this.gbDecisionType.PerformLayout();
+            this.gbFinalizationStatus.ResumeLayout(false);
+            this.gbFinalizationStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,6 +403,8 @@
         private System.Windows.Forms.Button btnOpenLink;
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Label lblUrl;
-        private System.Windows.Forms.CheckBox chbHasFinalization;
+        private System.Windows.Forms.GroupBox gbFinalizationStatus;
+        private System.Windows.Forms.RadioButton rbRejected;
+        private System.Windows.Forms.RadioButton rbFinalization;
     }
 }
