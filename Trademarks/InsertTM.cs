@@ -913,6 +913,71 @@ namespace Trademarks
             return ret;
         }
 
+        public static TM_Status getLastDecision(int Trademarks_Id)
+        {
+            TM_Status ret = new TM_Status();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (2,3,4) ORDER BY TS.Id DESC";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.StatusId = Convert.ToInt32(reader["StatusId"].ToString());
+                    ret.DecisionNo = reader["DecisionNo"].ToString();
+                    if (reader["DecisionPublDt"] != DBNull.Value)
+                    {
+                        ret.DecisionPublDt = Convert.ToDateTime(reader["DecisionPublDt"].ToString());
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool IsFinalized(int Trademarks_Id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (7) ORDER BY TS.Id DESC";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = true;
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool InsertTM_Status_Deposit(TM_Status tmstatus)
         {
             bool ret = false;

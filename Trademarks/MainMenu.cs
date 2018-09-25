@@ -203,7 +203,7 @@ namespace Trademarks
             Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
 
             TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastStatus(tm.Id);
+            tms = TM_Status.getLastDecision(tm.Id);
 
             //check oti exei aporriptiki apofasi
             if (tms.StatusId != 3 && tms.StatusId != 4)
@@ -221,7 +221,7 @@ namespace Trademarks
             Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
 
             TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastStatus(tm.Id);
+            tms = TM_Status.getLastDecision(tm.Id);
 
             //check oti exei apofasi
             if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4) 
@@ -239,7 +239,7 @@ namespace Trademarks
             Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
             TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastStatus(tm.Id);
+            tms = TM_Status.getLastDecision(tm.Id);
 
             //check oti exei apofasi
             if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
@@ -256,11 +256,12 @@ namespace Trademarks
         {
             Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
-            TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastStatus(tm.Id);
+            //TM_Status tms = new TM_Status();
+            //tms = TM_Status.getLastStatus(tm.Id);
 
             //check oti exei oristikopoiisi
-            if (tms.StatusId != 7)
+            //if (tms.StatusId != 7)
+            if(TM_Status.IsFinalized(tm.Id) == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορεί να γίνει Ανανέωση.\r\nΠαρακαλώ καταχωρήστε πρώτα την οριστικοποίηση.");
                 return;
