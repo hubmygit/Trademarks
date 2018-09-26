@@ -827,11 +827,23 @@ namespace Trademarks
 
     }
 
+    public class Status
+    {
+        public Status()
+        {
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+
     public class TM_Status
     {
         public int Id { get; set; }
         public int TmId { get; set; }
         public int StatusId { get; set; }
+        public Status status { get; set; }
         public DateTime DepositDt { get; set; }
         public string Remarks { get; set; }
         public string DecisionNo { get; set; }
@@ -842,10 +854,11 @@ namespace Trademarks
         public DateTime RenewalDt { get; set; }
         public string RenewalFees { get; set; }
         public string RenewalProtocol { get; set; }
-
+        public DateTime InsDt { get; set; }
 
         public TM_Status()
         {
+            status = new Status();
         }
 
         public static DateTime? getLastRenewal(int Trademarks_Id)

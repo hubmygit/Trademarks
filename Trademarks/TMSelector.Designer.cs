@@ -43,6 +43,9 @@
             this.tsmiTermination = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFinalization = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRenewal = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiStatusViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAlertsViewer = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -117,9 +120,12 @@
             this.tsmiAppeal,
             this.tsmiTermination,
             this.tsmiFinalization,
-            this.tsmiRenewal});
+            this.tsmiRenewal,
+            this.toolStripSeparator1,
+            this.tsmiStatusViewer,
+            this.tsmiAlertsViewer});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(181, 136);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 186);
             // 
             // tsmiDecision
             // 
@@ -156,6 +162,25 @@
             this.tsmiRenewal.Text = "Ανανέωση";
             this.tsmiRenewal.Click += new System.EventHandler(this.tsmiRenewal_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiStatusViewer
+            // 
+            this.tsmiStatusViewer.Name = "tsmiStatusViewer";
+            this.tsmiStatusViewer.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusViewer.Text = "Καταστάσεις";
+            this.tsmiStatusViewer.Click += new System.EventHandler(this.tsmiStatusViewer_Click);
+            // 
+            // tsmiAlertsViewer
+            // 
+            this.tsmiAlertsViewer.Name = "tsmiAlertsViewer";
+            this.tsmiAlertsViewer.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAlertsViewer.Text = "Ειδοποιήσεις";
+            this.tsmiAlertsViewer.Click += new System.EventHandler(this.tsmiAlertsViewer_Click);
+            // 
             // TMSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,5 +212,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiTermination;
         private System.Windows.Forms.ToolStripMenuItem tsmiFinalization;
         private System.Windows.Forms.ToolStripMenuItem tsmiRenewal;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStatusViewer;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAlertsViewer;
     }
 }

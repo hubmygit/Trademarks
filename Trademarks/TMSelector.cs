@@ -30,7 +30,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId] " +
                               "FROM [dbo].[Trademarks] " +
-                              "ORDER BY Id "; 
+                              "ORDER BY Id ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -47,7 +47,7 @@ namespace Trademarks
                     tmpRec.DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
                     tmpRec.NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
                     tmpRec.ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
-                    
+
                     ret.Add(tmpRec);
                 }
                 reader.Close();
@@ -75,7 +75,7 @@ namespace Trademarks
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.DepositDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "tmp_DepositDt" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = NationalPower.getNationalPowerName(thisRecord.NationalPowerId), dgvColumnHeader = "tmp_NatPower" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = Responsible.getResponsibleName(thisRecord.ResponsibleLawyerId), dgvColumnHeader = "tmp_Responsible" });
-                
+
                 object[] obj = new object[dgv.Columns.Count];
 
                 for (int i = 0; i < dgv.Columns.Count; i++)
@@ -167,6 +167,30 @@ namespace Trademarks
                 new MainMenu().GoForRenewal(thisTmpRec);
                 tempRecList = SelectTempRecs();
                 FillDataGridView(dgvTempRecs, tempRecList);
+            }
+        }
+
+        private void tsmiStatusViewer_Click(object sender, EventArgs e)
+        {
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                //Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                StatusViewer frmStatViewer = new StatusViewer(Id);
+                frmStatViewer.ShowDialog();
+            }
+        }
+
+        private void tsmiAlertsViewer_Click(object sender, EventArgs e)
+        {
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                //Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                
+
             }
         }
     }
