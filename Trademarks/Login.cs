@@ -152,6 +152,38 @@ namespace Trademarks
             return ret;
         }
 
+        public static int Get_DB_AppUser_ResponsibleId(int givenId)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT ResponsibleId FROM [dbo].[AppUsers] WHERE Id = @Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Id", givenId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader["ResponsibleId"].ToString().Trim() != "")
+                    {
+                        ret = Convert.ToInt32(reader["ResponsibleId"].ToString());
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         private static void Insert_AppLogIn()
         {
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);

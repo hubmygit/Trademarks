@@ -30,13 +30,24 @@ namespace Trademarks
             dtpDepositDt.Value = TM.DepositDt;
             dtpDepositTime.Value = TM.DepositDt;
 
-            if (TMStat.StatusId == 3)
+            if (TMStat.StatusId == 2)
+            {
+                rbApproved.Checked = true;
+
+                rbFinalization.Checked = true;
+                gbFinalizationStatus.Enabled = false;
+            }
+            else if (TMStat.StatusId == 3)
             {
                 rbPartiallyRejected.Checked = true;
+
+                rbFinalization.Checked = true;
+                gbFinalizationStatus.Enabled = false;
             }
             else if (TMStat.StatusId == 4)
             {
-                rbPartiallyRejected.Checked = true;
+                //rbPartiallyRejected.Checked = true;
+                rbTotallyRejected.Checked = true;
             }
             txtDecisionNo.Text = TMStat.DecisionNo;
             dtpPublicationDate.Value = TMStat.DecisionPublDt;

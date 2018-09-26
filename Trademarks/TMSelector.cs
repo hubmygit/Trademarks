@@ -189,7 +189,8 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
                 //Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
 
-                
+                TMAlertsViewer frmAlertViewer = new TMAlertsViewer(Id);
+                frmAlertViewer.ShowDialog();
 
             }
         }

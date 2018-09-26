@@ -43,6 +43,7 @@
             this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
             this.newItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.appealToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +52,6 @@
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAlertsGrouped = new System.Windows.Forms.Button();
-            this.selectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
@@ -188,39 +188,46 @@
             this.insertTMToolStripMenuItem.Text = "Κατάθεση";
             this.insertTMToolStripMenuItem.Click += new System.EventHandler(this.insertTMToolStripMenuItem_Click);
             // 
+            // selectToolStripMenuItem
+            // 
+            this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
+            this.selectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectToolStripMenuItem.Text = "Εμφάνιση";
+            this.selectToolStripMenuItem.Click += new System.EventHandler(this.selectToolStripMenuItem_Click);
+            // 
             // decisionToolStripMenuItem
             // 
             this.decisionToolStripMenuItem.Name = "decisionToolStripMenuItem";
             this.decisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.decisionToolStripMenuItem.Text = "Απόφαση";
+            this.decisionToolStripMenuItem.Text = "//Απόφαση";
             this.decisionToolStripMenuItem.Click += new System.EventHandler(this.decisionToolStripMenuItem_Click);
             // 
             // appealToolStripMenuItem
             // 
             this.appealToolStripMenuItem.Name = "appealToolStripMenuItem";
             this.appealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.appealToolStripMenuItem.Text = "Προσφυγή";
+            this.appealToolStripMenuItem.Text = "//Προσφυγή";
             this.appealToolStripMenuItem.Click += new System.EventHandler(this.appealToolStripMenuItem_Click);
             // 
             // terminationToolStripMenuItem
             // 
             this.terminationToolStripMenuItem.Name = "terminationToolStripMenuItem";
             this.terminationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.terminationToolStripMenuItem.Text = "Ανακοπή";
+            this.terminationToolStripMenuItem.Text = "//Ανακοπή";
             this.terminationToolStripMenuItem.Click += new System.EventHandler(this.terminationToolStripMenuItem_Click);
             // 
             // finalizationToolStripMenuItem
             // 
             this.finalizationToolStripMenuItem.Name = "finalizationToolStripMenuItem";
             this.finalizationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.finalizationToolStripMenuItem.Text = "Οριστικοποίηση";
+            this.finalizationToolStripMenuItem.Text = "//Οριστικοποίηση";
             this.finalizationToolStripMenuItem.Click += new System.EventHandler(this.finalizationToolStripMenuItem_Click);
             // 
             // renewalToolStripMenuItem
             // 
             this.renewalToolStripMenuItem.Name = "renewalToolStripMenuItem";
             this.renewalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.renewalToolStripMenuItem.Text = "Ανανέωση";
+            this.renewalToolStripMenuItem.Text = "//Ανανέωση";
             this.renewalToolStripMenuItem.Click += new System.EventHandler(this.renewalToolStripMenuItem_Click);
             // 
             // tsmiAdmin
@@ -249,13 +256,6 @@
             this.btnAlertsGrouped.Text = "Ειδοποιήσεις / Συγκεντρωτικά";
             this.btnAlertsGrouped.UseVisualStyleBackColor = true;
             this.btnAlertsGrouped.Click += new System.EventHandler(this.btnAlertsGrouped_Click);
-            // 
-            // selectToolStripMenuItem
-            // 
-            this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
-            this.selectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.selectToolStripMenuItem.Text = "Εμφάνιση";
-            this.selectToolStripMenuItem.Click += new System.EventHandler(this.selectToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
