@@ -47,10 +47,11 @@
             this.appealToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.finalizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renewalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAlertsGrouped = new System.Windows.Forms.Button();
-            this.renewalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStripBasic.SuspendLayout();
             this.SuspendLayout();
@@ -170,6 +171,7 @@
             // 
             this.newItemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertTMToolStripMenuItem,
+            this.selectToolStripMenuItem,
             this.decisionToolStripMenuItem,
             this.appealToolStripMenuItem,
             this.terminationToolStripMenuItem,
@@ -214,6 +216,13 @@
             this.finalizationToolStripMenuItem.Text = "Οριστικοποίηση";
             this.finalizationToolStripMenuItem.Click += new System.EventHandler(this.finalizationToolStripMenuItem_Click);
             // 
+            // renewalToolStripMenuItem
+            // 
+            this.renewalToolStripMenuItem.Name = "renewalToolStripMenuItem";
+            this.renewalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renewalToolStripMenuItem.Text = "Ανανέωση";
+            this.renewalToolStripMenuItem.Click += new System.EventHandler(this.renewalToolStripMenuItem_Click);
+            // 
             // tsmiAdmin
             // 
             this.tsmiAdmin.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -241,12 +250,12 @@
             this.btnAlertsGrouped.UseVisualStyleBackColor = true;
             this.btnAlertsGrouped.Click += new System.EventHandler(this.btnAlertsGrouped_Click);
             // 
-            // renewalToolStripMenuItem
+            // selectToolStripMenuItem
             // 
-            this.renewalToolStripMenuItem.Name = "renewalToolStripMenuItem";
-            this.renewalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.renewalToolStripMenuItem.Text = "Ανανέωση";
-            this.renewalToolStripMenuItem.Click += new System.EventHandler(this.renewalToolStripMenuItem_Click);
+            this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
+            this.selectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectToolStripMenuItem.Text = "Εμφάνιση";
+            this.selectToolStripMenuItem.Click += new System.EventHandler(this.selectToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -301,6 +310,7 @@
         private System.Windows.Forms.ToolStripMenuItem terminationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem finalizationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem renewalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectToolStripMenuItem;
     }
 }
 

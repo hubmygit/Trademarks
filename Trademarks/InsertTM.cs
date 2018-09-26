@@ -978,6 +978,36 @@ namespace Trademarks
             return ret;
         }
 
+        public static int FinalizedOrRejected(int Trademarks_Id)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (7, 8) ORDER BY TS.Id DESC";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["StatusId"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool InsertTM_Status_Deposit(TM_Status tmstatus)
         {
             bool ret = false;

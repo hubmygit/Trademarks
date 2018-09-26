@@ -316,10 +316,13 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {                    
-                    if (StRec.StatusId == 3 && CreateFinalizationAlarms(TmRec, StRec) == false) //merikws aporriptiki: oristikopoiisi
+                    if (StRec.StatusId == 3) //merikws aporriptiki
                     {
-                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
-                        return;
+                        if (CreateFinalizationAlarms(TmRec, StRec) == false) //merikws aporriptiki: oristikopoiisi
+                        {
+                            MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
+                            return;
+                        }
                     }
 
                     if (CreateProsfygiAlarms(TmRec, StRec) == false) //prosfygi

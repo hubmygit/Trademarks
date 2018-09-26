@@ -28,7 +28,7 @@ namespace Trademarks
             QuickInsert frmQuickIns = new QuickInsert();
             frmQuickIns.ShowDialog();
 
-            while(frmQuickIns.GoToNext)
+            while (frmQuickIns.GoToNext)
             {
                 frmQuickIns.GoToNext = false;
 
@@ -194,19 +194,71 @@ namespace Trademarks
         {
             Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
-            Decision frmDecision = new Decision(tm);
-            frmDecision.ShowDialog();
+            GoForDecision(tm);
         }
 
         private void appealToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+            
+            GoForAppeal(tm);
+        }
+        
+        private void terminationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
 
-            TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastDecision(tm.Id);
+            GoForTermination(tm);
+        }                
 
-            //check oti exei aporriptiki apofasi
-            if (tms.StatusId != 3 && tms.StatusId != 4)
+        private void finalizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+
+            GoForFinalization(tm);
+        }
+        
+        private void renewalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+
+            GoForRenewal(tm);
+        }
+
+        public void GoForDecision(Trademark tm)
+        {
+            if (UserInfo.DB_AppUser_Id != tm.ResponsibleLawyerId)
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                return;
+            }
+
+            if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                return;
+            }
+
+            Decision frmDecision = new Decision(tm);
+            frmDecision.ShowDialog();
+        }
+
+        public void GoForAppeal(Trademark tm)
+        {
+            if (UserInfo.DB_AppUser_Id != tm.ResponsibleLawyerId)
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                return;
+            }
+
+            if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                return;
+            }
+
+            TM_Status tms = TM_Status.getLastDecision(tm.Id);
+            if (tms.StatusId != 3 && tms.StatusId != 4) //check oti exei aporriptiki apofasi
             {
                 MessageBox.Show("Προσοχή! Δεν υπάρχει Aπορριπτική Aπόφαση σε εκκρεμότητα.\r\nΠαρακαλώ καταχωρήστε πρώτα την απόφαση.");
                 return;
@@ -216,15 +268,22 @@ namespace Trademarks
             frmAppeal.ShowDialog();
         }
 
-        private void terminationToolStripMenuItem_Click(object sender, EventArgs e)
+        public void GoForTermination(Trademark tm)
         {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+            if (UserInfo.DB_AppUser_Id != tm.ResponsibleLawyerId)
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                return;
+            }
 
-            TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastDecision(tm.Id);
+            if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανακοπή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                return;
+            }
 
-            //check oti exei apofasi
-            if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4) 
+            TM_Status tms = TM_Status.getLastDecision(tm.Id);
+            if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4) //check oti exei apofasi
             {
                 MessageBox.Show("Προσοχή! Δεν υπάρχει Aπόφαση για Ανακοπή.\r\nΠαρακαλώ καταχωρήστε πρώτα την απόφαση.");
                 return;
@@ -234,15 +293,22 @@ namespace Trademarks
             frmTermination.ShowDialog();
         }
 
-        private void finalizationToolStripMenuItem_Click(object sender, EventArgs e)
+        public void GoForFinalization(Trademark tm)
         {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+            if (UserInfo.DB_AppUser_Id != tm.ResponsibleLawyerId)
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                return;
+            }
 
-            TM_Status tms = new TM_Status();
-            tms = TM_Status.getLastDecision(tm.Id);
+            if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Οριστικοποίηση. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                return;
+            }
 
-            //check oti exei apofasi
-            if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
+            TM_Status tms = TM_Status.getLastDecision(tm.Id);
+            if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4) //check oti exei apofasi
             {
                 MessageBox.Show("Προσοχή! Δεν υπάρχει Aπόφαση για Οριστικοποίηση.\r\nΠαρακαλώ καταχωρήστε πρώτα την απόφαση.");
                 return;
@@ -252,16 +318,17 @@ namespace Trademarks
             frmFinalization.ShowDialog();
         }
 
-        private void renewalToolStripMenuItem_Click(object sender, EventArgs e)
+        public void GoForRenewal(Trademark tm)
         {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
-
-            //TM_Status tms = new TM_Status();
-            //tms = TM_Status.getLastStatus(tm.Id);
+            if (UserInfo.DB_AppUser_Id != tm.ResponsibleLawyerId)
+            {
+                MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανανέωση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                return;
+            }
 
             //check oti exei oristikopoiisi
             //if (tms.StatusId != 7)
-            if(TM_Status.IsFinalized(tm.Id) == false)
+            if (TM_Status.IsFinalized(tm.Id) == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορεί να γίνει Ανανέωση.\r\nΠαρακαλώ καταχωρήστε πρώτα την οριστικοποίηση.");
                 return;
@@ -269,6 +336,12 @@ namespace Trademarks
 
             Renewal frmRenewal = new Renewal(tm);
             frmRenewal.ShowDialog();
+        }
+
+        private void selectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TMSelector tmsel = new TMSelector();
+            tmsel.ShowDialog();
         }
     }
 
