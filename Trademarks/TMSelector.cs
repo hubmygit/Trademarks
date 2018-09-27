@@ -28,7 +28,7 @@ namespace Trademarks
             List<Trademark> ret = new List<Trademark>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId] " +
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId] " +
                               "FROM [dbo].[Trademarks] " +
                               "ORDER BY Id ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -47,6 +47,10 @@ namespace Trademarks
                     tmpRec.DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
                     tmpRec.NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
                     tmpRec.ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
+                    tmpRec.CompanyId = Convert.ToInt32(reader["CompanyId"].ToString());
+                    tmpRec.TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
+                    tmpRec.ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
+                    tmpRec.CountryIds = Country.getTM_CountriesList(Convert.ToInt32(reader["Id"].ToString()));
 
                     ret.Add(tmpRec);
                 }
@@ -192,6 +196,30 @@ namespace Trademarks
                 TMAlertsViewer frmAlertViewer = new TMAlertsViewer(Id);
                 frmAlertViewer.ShowDialog();
 
+            }
+        }
+
+        private void tsmiUpdTM_Click(object sender, EventArgs e)
+        {
+            // Update
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                InsertTM frmUpdTm = new InsertTM(thisTmpRec);
+                frmUpdTm.ShowDialog();
+
+                if (frmUpdTm.success)
+                {
+                    //refresh
+                    tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
+
+                    //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                    tempRecList = SelectTempRecs();
+                    FillDataGridView(dgvTempRecs, tempRecList);
+                }
             }
         }
     }

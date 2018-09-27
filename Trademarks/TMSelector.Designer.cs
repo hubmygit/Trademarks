@@ -46,6 +46,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiStatusViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlertsViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -123,9 +125,11 @@
             this.tsmiRenewal,
             this.toolStripSeparator1,
             this.tsmiStatusViewer,
-            this.tsmiAlertsViewer});
+            this.tsmiAlertsViewer,
+            this.toolStripSeparator2,
+            this.tsmiUpdTM});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(181, 186);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 214);
             // 
             // tsmiDecision
             // 
@@ -181,6 +185,18 @@
             this.tsmiAlertsViewer.Text = "Ειδοποιήσεις";
             this.tsmiAlertsViewer.Click += new System.EventHandler(this.tsmiAlertsViewer_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiUpdTM
+            // 
+            this.tsmiUpdTM.Name = "tsmiUpdTM";
+            this.tsmiUpdTM.Size = new System.Drawing.Size(180, 22);
+            this.tsmiUpdTM.Text = "UpdateTM";
+            this.tsmiUpdTM.Click += new System.EventHandler(this.tsmiUpdTM_Click);
+            // 
             // TMSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,5 +231,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmiStatusViewer;
         private System.Windows.Forms.ToolStripMenuItem tsmiAlertsViewer;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdTM;
     }
 }

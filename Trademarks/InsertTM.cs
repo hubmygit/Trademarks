@@ -25,13 +25,120 @@ namespace Trademarks
             //InsUser = Responsible Lawyer
         }
 
-        public InsertTM(int xxxxxx) //update
+        public InsertTM(Trademark givenRec) //update
         {
             InitializeComponent();
 
             Init();
 
             isInsert = false;
+
+            OldRecord = givenRec;
+            TempRecUpdId = givenRec.Id;
+
+            txtTMId.Text = givenRec.TMNo;
+            txtTMName.Text = givenRec.TMName;
+            dtpDepositDt.Value = givenRec.DepositDt;
+            dtpDepositTime.Value = givenRec.DepositDt;
+            if (givenRec.NationalPowerId == 1) //1 Εθνικό
+            {
+                rbEthniko.Checked = true;
+            }
+            else if (givenRec.NationalPowerId == 2) //2 Κοινοτικό
+            {
+                rbKoinotiko.Checked = true;
+            }
+            else if (givenRec.NationalPowerId == 3) //3 Διεθνές
+            {
+                rbDiethnes.Checked = true;
+            }
+            txtTMGrId.Text = givenRec.TMGrNo;
+            cbCompany.SelectedIndex = cbCompany.FindStringExact(Company.getCompanyName(givenRec.CompanyId));
+            cbLawyerFullname.SelectedIndex = cbLawyerFullname.FindStringExact(Responsible.getResponsibleName(givenRec.ResponsibleLawyerId));
+
+            foreach (int typeId in givenRec.TMTypeIds)
+            {
+                DataGridViewRow row = dgvTypes.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Where(r => Convert.ToInt32(r.Cells["Type_Id"].Value.ToString()) == typeId)
+                                      .First();
+
+                if (row.Index >= 0)
+                {
+                    dgvTypes["Type_Checked", row.Index].Value = "True";
+                }
+            }
+
+            string fn = System.IO.Path.GetExtension(givenRec.FileName);
+            if (givenRec.FileContents != null)
+            {
+                //string lvPath = "";
+                string ext = "";
+                //string tempPath = Path.GetTempPath(); //C:\Users\hkylidis\AppData\Local\Temp\
+                //string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(tmpRec.FileName) + "~" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()));
+                string tempPath = Path.GetTempPath() + "~" + Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + "\\";
+                string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(givenRec.FileName));
+                try
+                {
+                    //if (!Directory.Exists(tempPath))
+                    //{
+                    //    MessageBox.Show("Error. Please check your privileges on " + tempPath);
+                    //}
+
+                    Directory.CreateDirectory(tempPath);
+
+                    string fname = givenRec.FileName;
+                    ext = fname.Substring(fname.LastIndexOf("."));
+                    //lvPath = tempFile + ext;
+                    File.WriteAllBytes(tempFile + ext, givenRec.FileContents);
+
+                    if (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png")
+                    {
+                        pbTMPic.Image = Image.FromFile(tempFile + ext);
+                    }
+                    else
+                    {
+                        lblPreview.Visible = true;
+                    }
+
+                    txtFilename.Text = tempFile + ext; //tmpRec.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                    //return;
+                }
+            }
+
+            foreach (int classId in givenRec.ClassIds)
+            {
+                DataGridViewRow row = dgvClasses.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Where(r => Convert.ToInt32(r.Cells["Class_Id"].Value.ToString()) == classId)
+                                      .First();
+
+                if (row.Index >= 0)
+                {
+                    dgvClasses["Class_Checked", row.Index].Value = "True";
+                }
+            }
+
+            foreach (int countryId in givenRec.CountryIds)
+            {
+                DataGridViewRow row = dgvCountries.Rows
+                                      .Cast<DataGridViewRow>()
+                                      .Where(r => Convert.ToInt32(r.Cells["Country_Id"].Value.ToString()) == countryId)
+                                      .First();
+
+                if (row.Index >= 0)
+                {
+                    dgvCountries["Country_Checked", row.Index].Value = "True";
+                }
+            }
+
+            txtFees.Text = givenRec.Fees;
+            txtDescription.Text = givenRec.Description;
+
         }
         
         public bool isInsert = false;
@@ -40,7 +147,7 @@ namespace Trademarks
         public List<Company> companyList = Company.getCompanyList();
         ToolTip classTooltip = new ToolTip();
         public bool success = false;
-        //public Trademark OldRecord = new Trademark();
+        public Trademark OldRecord = new Trademark();
         public Trademark NewRecord = new Trademark();
         public int TempRecUpdId = 0;
 
