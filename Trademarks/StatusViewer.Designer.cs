@@ -47,6 +47,7 @@
             this.st_RenewalProtocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_InsDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tsmiUpdAppeal = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -87,15 +88,16 @@
             // cmsOnGrid
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiUpdDecision});
+            this.tsmiUpdDecision,
+            this.tsmiUpdAppeal});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(158, 26);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 70);
             // 
             // tsmiUpdDecision
             // 
             this.tsmiUpdDecision.Name = "tsmiUpdDecision";
-            this.tsmiUpdDecision.Size = new System.Drawing.Size(157, 22);
-            this.tsmiUpdDecision.Text = "UpdateDecision";
+            this.tsmiUpdDecision.Size = new System.Drawing.Size(180, 22);
+            this.tsmiUpdDecision.Text = "Update Απόφασης";
             this.tsmiUpdDecision.Click += new System.EventHandler(this.tsmiUpdDecision_Click);
             // 
             // st_Id
@@ -183,6 +185,13 @@
             this.st_InsDt.Name = "st_InsDt";
             this.st_InsDt.ReadOnly = true;
             // 
+            // tsmiUpdAppeal
+            // 
+            this.tsmiUpdAppeal.Name = "tsmiUpdAppeal";
+            this.tsmiUpdAppeal.Size = new System.Drawing.Size(180, 22);
+            this.tsmiUpdAppeal.Text = "Update Προσφυγής";
+            this.tsmiUpdAppeal.Click += new System.EventHandler(this.tsmiUpdAppeal_Click);
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,5 +227,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn st_RenewalProtocol;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_InsDt;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdAppeal;
     }
 }

@@ -1515,6 +1515,43 @@ namespace Trademarks
             return ret;
         }
 
+        public static bool UpdateTM_Status_Appeal(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[TM_Status] " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [InsDt] = getdate() " +
+                           "WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@Id", tmstatus.Id);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool InsertTM_Status_Termination(TM_Status tmstatus)
         {
             bool ret = false;

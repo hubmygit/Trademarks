@@ -201,8 +201,51 @@ namespace Trademarks
             }
         }
 
+        private void tsmiUpdAppeal_Click(object sender, EventArgs e)
+        {
+            // Update
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
+                if (tms.StatusId != 5)
+                {
+                    MessageBox.Show("Δεν είναι Προσφυγή...!");
+                    return;
+                }
 
+                Trademark tm = new Trademark(tms.TmId);
 
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                TM_Status prevTms = TM_Status.getLastDecision(tm.Id);
+
+                Appeal frmUpdAppeal = new Appeal(tm, prevTms, tms);
+                frmUpdAppeal.ShowDialog();
+
+                if (frmUpdAppeal.success)
+                {
+                    //refresh
+                    tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdAppeal.NewRecord;
+
+                    //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                    tmStatusList = SelectTmStatusRecs(tms.TmId);
+                    FillDataGridView(dgvStatusViewer, tmStatusList);
+                }
+
+            }
+        }
     }
 }
