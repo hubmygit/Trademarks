@@ -28,7 +28,8 @@ namespace Trademarks
             List<Trademark> ret = new List<Trademark>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId] " +
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId], [TMGrNo], " +
+                              "[FileContents], [FileName], [Description], [Fees] " +
                               "FROM [dbo].[Trademarks] " +
                               "ORDER BY Id ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -46,11 +47,20 @@ namespace Trademarks
                     tmpRec.TMName = reader["TMName"].ToString();
                     tmpRec.DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
                     tmpRec.NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
+                    tmpRec.TMGrNo = reader["TMGrNo"].ToString();
                     tmpRec.ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
                     tmpRec.CompanyId = Convert.ToInt32(reader["CompanyId"].ToString());
                     tmpRec.TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
                     tmpRec.ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
                     tmpRec.CountryIds = Country.getTM_CountriesList(Convert.ToInt32(reader["Id"].ToString()));
+                    if (reader["FileContents"] != DBNull.Value)
+                    {
+                        tmpRec.FileContents = (byte[])reader["FileContents"];
+                    }
+
+                    tmpRec.FileName = reader["FileName"].ToString();
+                    tmpRec.Description = reader["Description"].ToString();
+                    tmpRec.Fees = reader["Fees"].ToString();
 
                     ret.Add(tmpRec);
                 }
@@ -64,6 +74,8 @@ namespace Trademarks
 
             return ret;
         }
+
+        
 
         public static void FillDataGridView(DataGridView dgv, List<Trademark> TempRecList)
         {
@@ -206,9 +218,21 @@ namespace Trademarks
             {
                 int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
                 int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
-                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+                Trademark tm = tempRecList.Where(i => i.Id == Id).First();
 
-                InsertTM frmUpdTm = new InsertTM(thisTmpRec);
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                InsertTM frmUpdTm = new InsertTM(tm);
                 frmUpdTm.ShowDialog();
 
                 if (frmUpdTm.success)

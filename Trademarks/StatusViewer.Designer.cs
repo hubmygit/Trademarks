@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusViewer));
             this.dgvStatusViewer = new System.Windows.Forms.DataGridView();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiUpdDecision = new System.Windows.Forms.ToolStripMenuItem();
             this.st_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.st_TmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_DecisionNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +48,7 @@
             this.st_Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_InsDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
+            this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvStatusViewer
@@ -56,6 +61,7 @@
             this.dgvStatusViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStatusViewer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.st_Id,
+            this.st_TmId,
             this.st_Name,
             this.st_DepositDt,
             this.st_DecisionNo,
@@ -68,6 +74,7 @@
             this.st_RenewalProtocol,
             this.st_Remarks,
             this.st_InsDt});
+            this.dgvStatusViewer.ContextMenuStrip = this.cmsOnGrid;
             this.dgvStatusViewer.Location = new System.Drawing.Point(0, 79);
             this.dgvStatusViewer.MultiSelect = false;
             this.dgvStatusViewer.Name = "dgvStatusViewer";
@@ -75,12 +82,33 @@
             this.dgvStatusViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStatusViewer.Size = new System.Drawing.Size(1298, 483);
             this.dgvStatusViewer.TabIndex = 4;
+            this.dgvStatusViewer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvStatusViewer_MouseDown);
+            // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiUpdDecision});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(158, 26);
+            // 
+            // tsmiUpdDecision
+            // 
+            this.tsmiUpdDecision.Name = "tsmiUpdDecision";
+            this.tsmiUpdDecision.Size = new System.Drawing.Size(157, 22);
+            this.tsmiUpdDecision.Text = "UpdateDecision";
+            this.tsmiUpdDecision.Click += new System.EventHandler(this.tsmiUpdDecision_Click);
             // 
             // st_Id
             // 
             this.st_Id.HeaderText = "Id";
             this.st_Id.Name = "st_Id";
             this.st_Id.Visible = false;
+            // 
+            // st_TmId
+            // 
+            this.st_TmId.HeaderText = "TmId";
+            this.st_TmId.Name = "st_TmId";
+            this.st_TmId.Visible = false;
             // 
             // st_Name
             // 
@@ -166,6 +194,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Καταστάσεις Σήματος";
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).EndInit();
+            this.cmsOnGrid.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -173,7 +202,10 @@
         #endregion
 
         public System.Windows.Forms.DataGridView dgvStatusViewer;
+        private System.Windows.Forms.ContextMenuStrip cmsOnGrid;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdDecision;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn st_TmId;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_DepositDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_DecisionNo;

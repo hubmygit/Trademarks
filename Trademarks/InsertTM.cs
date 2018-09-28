@@ -498,6 +498,77 @@ namespace Trademarks
             return ret;
         }
 
+        private bool UpdateTrademark(Trademark TMRec)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string UpdSt = "UPDATE [dbo].[Trademarks] SET [TMNo] = @TMNo, [DepositDt] = @DepositDt, [NationalPowerId] = @NationalPowerId, [TMGrNo] = @TMGrNo, " +
+                "[CompanyId] = @CompanyId, [ResponsibleLawyerId] = @ResponsibleLawyerId, [TMName] = @TMName, [FileName] = @FileName, [FileContents] = @FileContents, " +
+                "[Description] = @Description, [Fees] = @Fees, [DecisionNo] = @DecisionNo, [PublicationDate] = @PublicationDate, [FinalizationDate] = @FinalizationDate, " +
+                "[Url] = @Url, [RenewalDt] = @RenewalDt, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                "WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", TMRec.Id);
+
+                cmd.Parameters.AddWithValue("@TMNo", TMRec.TMNo);
+                cmd.Parameters.AddWithValue("@DepositDt", TMRec.DepositDt);
+                cmd.Parameters.AddWithValue("@NationalPowerId", TMRec.NationalPowerId);
+                if (TMRec.TMGrNo == "")
+                {
+                    cmd.Parameters.AddWithValue("@TMGrNo", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TMGrNo", TMRec.TMGrNo);
+                }
+                cmd.Parameters.AddWithValue("@CompanyId", TMRec.CompanyId);
+                cmd.Parameters.AddWithValue("@ResponsibleLawyerId", TMRec.ResponsibleLawyerId);
+                cmd.Parameters.AddWithValue("@TMName", TMRec.TMName);
+
+                if (TMRec.FileName is null)
+                {
+                    SqlParameter param = new SqlParameter();
+                    param.ParameterName = "@FileContents";
+                    param.Value = DBNull.Value;
+                    param.SqlDbType = SqlDbType.VarBinary;
+                    cmd.Parameters.Add(param);
+
+                    cmd.Parameters.AddWithValue("@FileName", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@FileName", TMRec.FileName);
+                    cmd.Parameters.AddWithValue("@FileContents", TMRec.FileContents);
+                }
+
+                cmd.Parameters.AddWithValue("@Description", TMRec.Description);
+                cmd.Parameters.AddWithValue("@Fees", TMRec.Fees);
+                
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         private bool CreateDecisionAlarms(Trademark TMRecord)
         {
             bool ret = true;
@@ -634,7 +705,7 @@ namespace Trademarks
             NewRecord.CountryIds = getCheckedCountries(dgvCountries);
             NewRecord.Description = txtDescription.Text;
             NewRecord.Fees = txtFees.Text;
-            
+
             NewRecord.Id = TempRecUpdId;
 
 
@@ -704,7 +775,7 @@ namespace Trademarks
                             return;
                         }
                     }
-                    
+
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                     Close();
                 }
@@ -712,6 +783,92 @@ namespace Trademarks
                 {
                     MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
                 }
+            }
+            else
+            {
+                //Save
+                bool successful = true;
+                if (UpdateTrademark(NewRecord))
+                {
+                    //delete old records first...
+                    Type.DeleteTM_Types(NewRecord.Id);
+
+                    foreach (int TM_typeId in NewRecord.TMTypeIds)
+                    {
+                        if (Type.InsertTM_Type(NewRecord.Id, TM_typeId) == false)
+                        {
+                            //TM_Type ins error
+                            successful = false;
+                        }
+                    }
+
+                    //delete old records first...
+                    Class.DeleteTM_Classes(NewRecord.Id);
+
+                    foreach (int TM_classId in NewRecord.ClassIds)
+                    {
+                        if (Class.InsertTM_Class(NewRecord.Id, TM_classId) == false)
+                        {
+                            //TM_Class ins error
+                            successful = false;
+                        }
+                    }
+
+                    //delete old records first... (non mandatory field!)
+                    Country.DeleteTM_Countries(NewRecord.Id);
+
+                    foreach (int TM_countryId in NewRecord.CountryIds)
+                    {
+                        if (Country.InsertTM_Country(NewRecord.Id, TM_countryId) == false)
+                        {
+                            //TM_Class ins error
+                            successful = false;
+                        }
+                    }
+
+                    if (TM_Status.UpdateTM_Status_Deposit(tmStatus) == false)
+                    {
+                        //TM_Status ins error
+                        successful = false;
+                    }
+                }
+                else
+                {
+                    //TM ins error
+                    successful = false;
+                }
+
+                //Alarms
+                if (successful) 
+                {
+                    if (OldRecord.DepositDt != NewRecord.DepositDt || OldRecord.NationalPowerId != NewRecord.NationalPowerId)
+                    {
+                        //disable old Alarms first...
+                        Task.DisableNotSentTasks(NewRecord.Id);
+
+                        //delete recipients
+                        Recipient.DeleteRecipients(NewRecord.Id);
+
+                        if (NewRecord.NationalPowerId == 1) //1 month to decision, only national tm
+                        {
+                            if (CreateDecisionAlarms(NewRecord) == false)
+                            {
+                                MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                                return;
+                            }
+                        }
+
+                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                        success = true;
+                        Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+                }
+
+
             }
 
 
@@ -931,6 +1088,53 @@ namespace Trademarks
             sqlConn.Close();
         }
         */
+
+        public Trademark(int givenId)
+        {
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId], [TMGrNo], " +
+                              "[FileContents], [FileName], [Description], [Fees] " +
+                              "FROM [dbo].[Trademarks] " +
+                              "WHERE Id = @Id " +
+                              "ORDER BY Id ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Id", givenId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Id = Convert.ToInt32(reader["Id"].ToString());
+                    TMNo = reader["TMNo"].ToString();
+                    TMName = reader["TMName"].ToString();
+                    DepositDt = Convert.ToDateTime(reader["DepositDt"].ToString());
+                    NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
+                    TMGrNo = reader["TMGrNo"].ToString();
+                    ResponsibleLawyerId = Convert.ToInt32(reader["ResponsibleLawyerId"].ToString());
+                    CompanyId = Convert.ToInt32(reader["CompanyId"].ToString());
+                    TMTypeIds = Type.getTM_TypesList(Convert.ToInt32(reader["Id"].ToString()));
+                    ClassIds = Class.getTM_ClassList(Convert.ToInt32(reader["Id"].ToString()));
+                    CountryIds = Country.getTM_CountriesList(Convert.ToInt32(reader["Id"].ToString()));
+                    if (reader["FileContents"] != DBNull.Value)
+                    {
+                        FileContents = (byte[])reader["FileContents"];
+                    }
+
+                    FileName = reader["FileName"].ToString();
+                    Description = reader["Description"].ToString();
+                    Fees = reader["Fees"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+        }
 
     }
 
@@ -1163,6 +1367,44 @@ namespace Trademarks
             return ret;
         }
 
+        public static bool UpdateTM_Status_Deposit(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[TM_Status] " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DepositDt] = @DepositDt, [Remarks] = @Remarks, [InsDt] = getdate()" +
+                           "WHERE TrademarksId = @TrademarksId AND StatusId = 1 ";
+            try
+            {
+                sqlConn.Open();               
+
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DepositDt", tmstatus.DepositDt);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool InsertTM_Status_Decision(TM_Status tmstatus)
         {
             bool ret = false;
@@ -1174,6 +1416,45 @@ namespace Trademarks
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@DecisionPublDt", tmstatus.DecisionPublDt);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool UpdateTM_Status_Decision(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[TM_Status] " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, " +
+                           "[DecisionPublDt] = @DecisionPublDt, [Remarks] = @Remarks, [InsDt] = getdate() " +
+                           "WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@Id", tmstatus.Id);
 
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);

@@ -18,7 +18,7 @@ namespace Trademarks
             isInsert = true;
         }
 
-        public Decision(Trademark TM)
+        public Decision(Trademark TM) //insert 
         {
             InitializeComponent();
 
@@ -32,11 +32,50 @@ namespace Trademarks
             isInsert = true;
         }
 
+        public Decision(Trademark TM, TM_Status TMS) //update
+        {
+            InitializeComponent();
+
+            givenTM = TM;
+            givenTMS = TMS;
+
+            txtTMId.Text = TM.TMNo;
+            txtTMName.Text = TM.TMName;
+            dtpDepositDt.Value = TM.DepositDt;
+            dtpDepositTime.Value = TM.DepositDt;
+
+            isInsert = false;
+
+            OldRecord = TMS;
+            TempRecUpdId = TMS.Id;
+
+            if (TMS.StatusId == 2) //2 Εγκριτική
+            {
+                rbApproved.Checked = true;
+            }
+            else if (TMS.StatusId == 3) //3 Μερικώς Απορ.
+            {
+                rbPartiallyRejected.Checked = true;
+            }
+            else if (TMS.StatusId == 4) //4 Ολικώς Απορ.
+            {
+                rbTotallyRejected.Checked = true;
+            }
+
+            txtDecisionNo.Text = TMS.DecisionNo;
+            dtpPublicationDate.Value = TMS.DecisionPublDt;
+            txtDescription.Text = TMS.Remarks;
+        }
+
         public TM_Status NewRecord = new TM_Status();
+        public TM_Status OldRecord = new TM_Status();
         private Trademark givenTM = new Trademark();
+        private TM_Status givenTMS = new TM_Status();
         public bool isInsert = false;
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
         public List<Responsible> secretariesList = Responsible.getSecretariesList();
+        public int TempRecUpdId = 0;
+        public bool success = false;
 
         private void Decision_Load(object sender, EventArgs e)
         {
@@ -146,15 +185,17 @@ namespace Trademarks
 
         }
 
-        private void decision_Approval(TM_Status StRec, Trademark TmRec)
+        private void decision_Approval_or_Rejected(TM_Status StRec, Trademark TmRec, int Status_Id)
         {
             StRec = new TM_Status();
 
             StRec.TmId = TmRec.Id;
-            StRec.StatusId = 2; //apofasi: egkritiki
+            StRec.StatusId = Status_Id; //apofasi: (2) egkritiki, (3) merikws aporriptiki, (4) olikws aporriptiki
             StRec.DecisionNo = txtDecisionNo.Text;
             StRec.DecisionPublDt = dtpPublicationDate.Value.Date;
             StRec.Remarks = txtDescription.Text;
+
+            StRec.Id = TempRecUpdId;
 
             if (isInsert)
             {
@@ -170,14 +211,79 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
-                    if (CreateFinalizationAlarms(TmRec, StRec) == false)
+                    if (StRec.StatusId == 2 || StRec.StatusId == 3) //egkritiki || merikws aporriptiki : oristikopoiisi
                     {
-                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
-                        return;
+                        if (CreateFinalizationAlarms(TmRec, StRec) == false)
+                        {
+                            MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
+                            return;
+                        }
+                    }
+
+                    if (StRec.StatusId == 3 || StRec.StatusId == 4) //merikws aporriptiki || olikws aporriptiki : oristikopoiisi
+                    {
+                        if (CreateProsfygiAlarms(TmRec, StRec) == false) //prosfygi
+                        {
+                            MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων προσφυγής!");
+                            return;
+                        }
                     }
 
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
                     Close();
+                }
+                else
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+                }
+
+            }
+            else
+            {
+                //Save
+                bool successful = true;
+
+                if (TM_Status.UpdateTM_Status_Decision(StRec) == false)
+                {
+                    //TM ins error
+                    successful = false;
+                }
+
+                //Alarms
+                if (successful)
+                {
+                    if (OldRecord.DecisionPublDt != NewRecord.DecisionPublDt || OldRecord.StatusId != NewRecord.StatusId)
+                    {
+                        //disable old Alarms first...
+                        Task.DisableNotSentTasks(StRec.TmId);
+
+                        //delete recipients
+                        Recipient.DeleteRecipients(NewRecord.Id);
+
+                        if (StRec.StatusId == 2 || StRec.StatusId == 3) //egkritiki || merikws aporriptiki : oristikopoiisi
+                        {
+                            if (CreateFinalizationAlarms(TmRec, StRec) == false)
+                            {
+                                MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
+                                return;
+                            }
+                        }
+
+                        if (StRec.StatusId == 3 || StRec.StatusId == 4) //merikws aporriptiki || olikws aporriptiki : oristikopoiisi
+                        {
+                            if (CreateProsfygiAlarms(TmRec, StRec) == false) //prosfygi
+                            {
+                                MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων προσφυγής!");
+                                return;
+                            }
+                        }
+
+                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                        success = true;
+                        Close();
+
+                    }
                 }
                 else
                 {
@@ -292,55 +398,56 @@ namespace Trademarks
 
         }
 
-        private void decision_Rejected(TM_Status StRec, Trademark TmRec, int Status_Id)
-        {
-            StRec = new TM_Status();
+        //private void decision_Rejected(TM_Status StRec, Trademark TmRec, int Status_Id)
+        //{
+        //    StRec = new TM_Status();
 
-            StRec.TmId = TmRec.Id;
-            StRec.StatusId = Status_Id; //apofasi: (3) merikws aporriptiki, (4) olikws aporriptiki, 
-            StRec.DecisionNo = txtDecisionNo.Text;
-            StRec.DecisionPublDt = dtpPublicationDate.Value.Date;
-            StRec.Remarks = txtDescription.Text;
+        //    StRec.TmId = TmRec.Id;
+        //    StRec.StatusId = Status_Id; //apofasi: (3) merikws aporriptiki, (4) olikws aporriptiki, 
+        //    StRec.DecisionNo = txtDecisionNo.Text;
+        //    StRec.DecisionPublDt = dtpPublicationDate.Value.Date;
+        //    StRec.Remarks = txtDescription.Text;
 
-            if (isInsert)
-            {
-                //Save
-                bool successful = true;
+        //    if (isInsert)
+        //    {
+        //        //Save
+        //        bool successful = true;
 
-                if (TM_Status.InsertTM_Status_Decision(StRec) == false)
-                {
-                    //TM_Status ins error
-                    successful = false;
-                }
+        //        if (TM_Status.InsertTM_Status_Decision(StRec) == false)
+        //        {
+        //            //TM_Status ins error
+        //            successful = false;
+        //        }
 
-                //Alarms
-                if (successful)
-                {                    
-                    if (StRec.StatusId == 3) //merikws aporriptiki
-                    {
-                        if (CreateFinalizationAlarms(TmRec, StRec) == false) //merikws aporriptiki: oristikopoiisi
-                        {
-                            MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
-                            return;
-                        }
-                    }
+        //        //Alarms
+        //        if (successful)
+        //        {                    
+        //            if (StRec.StatusId == 3) //merikws aporriptiki
+        //            {
+        //                if (CreateFinalizationAlarms(TmRec, StRec) == false) //merikws aporriptiki: oristikopoiisi
+        //                {
+        //                    MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων οριστικοποίησης!");
+        //                    return;
+        //                }
+        //            }
 
-                    if (CreateProsfygiAlarms(TmRec, StRec) == false) //prosfygi
-                    {
-                        MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων προσφυγής!");
-                        return;
-                    }
+        //            if (CreateProsfygiAlarms(TmRec, StRec) == false) //prosfygi
+        //            {
+        //                MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων προσφυγής!");
+        //                return;
+        //            }
 
-                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
-                }
+        //            MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+        //            success = true;
+        //            Close();
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -367,15 +474,15 @@ namespace Trademarks
 
             if (rbApproved.Checked)
             {
-                decision_Approval(NewRecord, givenTM);
+                decision_Approval_or_Rejected(NewRecord, givenTM, 2);
             }
             else if (rbPartiallyRejected.Checked)
             {
-                decision_Rejected(NewRecord, givenTM, 3);
+                decision_Approval_or_Rejected(NewRecord, givenTM, 3);
             }
             else if (rbTotallyRejected.Checked)
             {
-                decision_Rejected(NewRecord, givenTM, 4);
+                decision_Approval_or_Rejected(NewRecord, givenTM, 4);
             }
 
         }

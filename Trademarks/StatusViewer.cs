@@ -100,6 +100,7 @@ namespace Trademarks
                 List<dgvDictionary> dgvDictList = new List<dgvDictionary>();
 
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.Id, dgvColumnHeader = "st_Id" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.TmId, dgvColumnHeader = "st_TmId" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.status.Name, dgvColumnHeader = "st_Name" });
                 if (thisRecord.DepositDt != null && thisRecord.DepositDt > new DateTime(1800, 1, 1))
                 {
@@ -141,6 +142,66 @@ namespace Trademarks
 
             dgv.ClearSelection();
         }
+        
+        private void dgvStatusViewer_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hti = dgvStatusViewer.HitTest(e.X, e.Y);
+                if (hti.RowIndex < 0)
+                {
+                    return;
+                }
+                dgvStatusViewer.Rows[hti.RowIndex].Selected = true;
+            }
+        }
+
+        private void tsmiUpdDecision_Click(object sender, EventArgs e)
+        {
+            // Update
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+
+                if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
+                {
+                    MessageBox.Show("Δεν είναι Απόφαση...!");
+                    return;
+                }
+
+                Trademark tm = new Trademark(tms.TmId); 
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                Decision frmUpdDecision = new Decision(tm, tms);
+                frmUpdDecision.ShowDialog();
+
+                if (frmUpdDecision.success)
+                {
+                    //refresh
+                    tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdDecision.NewRecord;
+
+                    //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                    tmStatusList = SelectTmStatusRecs(tms.TmId);
+                    FillDataGridView(dgvStatusViewer, tmStatusList);
+                }
+
+            }
+        }
+
+
 
 
     }
