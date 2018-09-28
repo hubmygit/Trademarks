@@ -18,36 +18,73 @@ namespace Trademarks
             isInsert = true;
         }
 
-        public Termination(Trademark TM, TM_Status TMStat)
+        public Termination(Trademark TM, TM_Status LastDecision) //insert
         {
             InitializeComponent();
 
             givenTM = TM;
-            prevTMStatus = TMStat;
+            prevTMStatus = LastDecision;
 
             txtTMId.Text = TM.TMNo;
             txtTMName.Text = TM.TMName;
             dtpDepositDt.Value = TM.DepositDt;
             dtpDepositTime.Value = TM.DepositDt;
 
-            if (TMStat.StatusId == 3)
+            if (LastDecision.StatusId == 3)
             {
                 rbPartiallyRejected.Checked = true;
             }
-            else if (TMStat.StatusId == 4)
+            else if (LastDecision.StatusId == 4)
             {
                 rbPartiallyRejected.Checked = true;
             }
-            txtDecisionNo.Text = TMStat.DecisionNo;
-            dtpPublicationDate.Value = TMStat.DecisionPublDt;
+            txtDecisionNo.Text = LastDecision.DecisionNo;
+            dtpPublicationDate.Value = LastDecision.DecisionPublDt;
 
             isInsert = true;
         }
 
+        public Termination(Trademark TM, TM_Status LastDecision, TM_Status TMS) //update
+        {
+            InitializeComponent();
+
+            givenTM = TM;
+            prevTMStatus = LastDecision;
+            givenTMS = TMS;
+
+            txtTMId.Text = TM.TMNo;
+            txtTMName.Text = TM.TMName;
+            dtpDepositDt.Value = TM.DepositDt;
+            dtpDepositTime.Value = TM.DepositDt;
+
+            if (LastDecision.StatusId == 3)
+            {
+                rbPartiallyRejected.Checked = true;
+            }
+            else if (LastDecision.StatusId == 4)
+            {
+                rbPartiallyRejected.Checked = true;
+            }
+            txtDecisionNo.Text = LastDecision.DecisionNo;
+            dtpPublicationDate.Value = LastDecision.DecisionPublDt;
+
+            isInsert = false;
+
+            OldRecord = TMS;
+            TempRecUpdId = TMS.Id;
+
+            txtTermCompany.Text = TMS.TermCompany;
+            txtDescription.Text = TMS.Remarks;
+        }
+
         public TM_Status NewRecord = new TM_Status();
+        public TM_Status OldRecord = new TM_Status();
         private Trademark givenTM = new Trademark();
+        private TM_Status givenTMS = new TM_Status();
         private TM_Status prevTMStatus = new TM_Status();
         public bool isInsert = false;
+        public int TempRecUpdId = 0;
+        public bool success = false;
 
         private void Termination_Load(object sender, EventArgs e)
         {
@@ -76,9 +113,25 @@ namespace Trademarks
             NewRecord.Remarks = txtDescription.Text;
             NewRecord.TermCompany = txtTermCompany.Text;
 
+            NewRecord.Id = TempRecUpdId;
+
             if (isInsert)
             {
+                //Save
                 if (TM_Status.InsertTM_Status_Termination(NewRecord) == true)
+                {
+                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+                }
+            }
+            else
+            {
+                //Save
+                if (TM_Status.UpdateTM_Status_Termination(NewRecord) == true)
                 {
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                     Close();

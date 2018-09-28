@@ -48,6 +48,7 @@
             this.st_Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_InsDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tsmiUpdAppeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdTermination = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -89,9 +90,10 @@
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiUpdDecision,
-            this.tsmiUpdAppeal});
+            this.tsmiUpdAppeal,
+            this.tsmiUpdTermination});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(181, 70);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 92);
             // 
             // tsmiUpdDecision
             // 
@@ -192,6 +194,13 @@
             this.tsmiUpdAppeal.Text = "Update Προσφυγής";
             this.tsmiUpdAppeal.Click += new System.EventHandler(this.tsmiUpdAppeal_Click);
             // 
+            // tsmiUpdTermination
+            // 
+            this.tsmiUpdTermination.Name = "tsmiUpdTermination";
+            this.tsmiUpdTermination.Size = new System.Drawing.Size(180, 22);
+            this.tsmiUpdTermination.Text = "Update Ανακοπής";
+            this.tsmiUpdTermination.Click += new System.EventHandler(this.tsmiUpdTermination_Click);
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,5 +237,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_InsDt;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdAppeal;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdTermination;
     }
 }
