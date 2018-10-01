@@ -18,49 +18,107 @@ namespace Trademarks
             isInsert = true;
         }
 
-        public Finalization(Trademark TM, TM_Status TMStat)
+        public Finalization(Trademark TM, TM_Status LastDecision) //insert
         {
             InitializeComponent();
 
             givenTM = TM;
-            prevTMStatus = TMStat;
+            prevTMStatus = LastDecision;
 
             txtTMId.Text = TM.TMNo;
             txtTMName.Text = TM.TMName;
             dtpDepositDt.Value = TM.DepositDt;
             dtpDepositTime.Value = TM.DepositDt;
 
-            if (TMStat.StatusId == 2)
+            if (LastDecision.StatusId == 2)
             {
                 rbApproved.Checked = true;
 
                 rbFinalization.Checked = true;
                 gbFinalizationStatus.Enabled = false;
             }
-            else if (TMStat.StatusId == 3)
+            else if (LastDecision.StatusId == 3)
             {
                 rbPartiallyRejected.Checked = true;
 
                 rbFinalization.Checked = true;
                 gbFinalizationStatus.Enabled = false;
             }
-            else if (TMStat.StatusId == 4)
+            else if (LastDecision.StatusId == 4)
             {
                 //rbPartiallyRejected.Checked = true;
                 rbTotallyRejected.Checked = true;
             }
-            txtDecisionNo.Text = TMStat.DecisionNo;
-            dtpPublicationDate.Value = TMStat.DecisionPublDt;
+            txtDecisionNo.Text = LastDecision.DecisionNo;
+            dtpPublicationDate.Value = LastDecision.DecisionPublDt;
 
             isInsert = true;
         }
 
+        public Finalization(Trademark TM, TM_Status LastDecision, TM_Status TMS) //update
+        {
+            InitializeComponent();
+
+            givenTM = TM;
+            prevTMStatus = LastDecision;
+            givenTMS = TMS;
+
+            txtTMId.Text = TM.TMNo;
+            txtTMName.Text = TM.TMName;
+            dtpDepositDt.Value = TM.DepositDt;
+            dtpDepositTime.Value = TM.DepositDt;
+
+            if (LastDecision.StatusId == 2)
+            {
+                rbApproved.Checked = true;
+
+                rbFinalization.Checked = true;
+                gbFinalizationStatus.Enabled = false;
+            }
+            else if (LastDecision.StatusId == 3)
+            {
+                rbPartiallyRejected.Checked = true;
+
+                rbFinalization.Checked = true;
+                gbFinalizationStatus.Enabled = false;
+            }
+            else if (LastDecision.StatusId == 4)
+            {
+                //rbPartiallyRejected.Checked = true;
+                rbTotallyRejected.Checked = true;
+            }
+            txtDecisionNo.Text = LastDecision.DecisionNo;
+            dtpPublicationDate.Value = LastDecision.DecisionPublDt;
+
+            isInsert = false;
+
+            OldRecord = TMS;
+            TempRecUpdId = TMS.Id;
+
+            if (TMS.StatusId == 7) //oristikopoiisi
+            {
+                rbFinalization.Checked = true;
+            }
+            else if (TMS.StatusId == 8) //oliki aporripsi
+            {
+                rbRejected.Checked = true;
+            }
+            dtpFinalizationDate.Value = TMS.FinalizedDt;
+            txtUrl.Text = TMS.FinalizedUrl;
+            txtDescription.Text = TMS.Remarks;
+        }
+
         public TM_Status NewRecord = new TM_Status();
+        public TM_Status OldRecord = new TM_Status();
         private Trademark givenTM = new Trademark();
+        private TM_Status givenTMS = new TM_Status();
         private TM_Status prevTMStatus = new TM_Status();
         public bool isInsert = false;
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
         public List<Responsible> secretariesList = Responsible.getSecretariesList();
+        public int TempRecUpdId = 0;
+        public bool success = false;
+
 
         private void Finalization_Load(object sender, EventArgs e)
         {
@@ -189,7 +247,7 @@ namespace Trademarks
         }
 
         private void Finalized(TM_Status StRec, Trademark TmRec)
-        {            
+        {
             if (isInsert)
             {
                 //Save
@@ -214,6 +272,7 @@ namespace Trademarks
                     }
 
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
                     Close();
                 }
                 else
@@ -222,12 +281,56 @@ namespace Trademarks
                 }
 
             }
+            else
+            {
+                //Save
+                bool successful = true;
+
+                if (TM_Status.UpdateTM_Status_Finalization(StRec) == false)
+                {
+                    //TM_Status ins error
+                    successful = false;
+                }
+
+                //Alarms
+                if (successful)
+                {
+                    if (OldRecord.StatusId != NewRecord.StatusId)
+                    {
+                        //disable old Alarms first...
+                        Task.DisableNotSentTasks(StRec.TmId);
+
+                        //delete recipients
+                        Recipient.DeleteRecipients(NewRecord.Id);
+
+                        if (StRec.StatusId == 7) //oristikopoiisi
+                        {
+                            if (CreateRenewalAlarms(TmRec, null) == false)
+                            {
+                                MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                                return;
+                            }
+                        }
+
+                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                        success = true;
+                        Close();
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
+                }
+
+            }
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check that all fields has been filled correctly
-            if ((!rbFinalization.Checked && !rbRejected.Checked))
+            if (!rbFinalization.Checked && !rbRejected.Checked)
             {
                 MessageBox.Show("Παρακαλώ επιλέξτε αν πρόκειται για Οριστικοποίηση ή Απόρριψη!");
                 return;
@@ -246,6 +349,8 @@ namespace Trademarks
                 NewRecord.FinalizedDt = dtpFinalizationDate.Value;
                 NewRecord.FinalizedUrl = txtUrl.Text;
                 NewRecord.Remarks = txtDescription.Text;
+
+                NewRecord.Id = TempRecUpdId;
 
                 if (rbFinalization.Checked)
                 {

@@ -121,6 +121,7 @@ namespace Trademarks
                 if (TM_Status.InsertTM_Status_Termination(NewRecord) == true)
                 {
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
                     Close();
                 }
                 else
@@ -134,6 +135,7 @@ namespace Trademarks
                 if (TM_Status.UpdateTM_Status_Termination(NewRecord) == true)
                 {
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
                     Close();
                 }
                 else
