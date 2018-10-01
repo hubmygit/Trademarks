@@ -665,7 +665,7 @@ namespace Trademarks
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 1; //Ανανεώσεις
 
-            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId); 
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRecord.NationalPowerId); 
  
             DateTime ExpDate = TMRecord.DepositDt.AddYears(task_EventType.ExpYears); //10 years
 
@@ -2357,7 +2357,7 @@ namespace Trademarks
         public int ExpMonths { get; set; }
         public List<myIntAndStr> AlertMonths { get; set; }
         public List<myIntAndStr> AlertDays { get; set; }
-
+        public int NationalPowerId { get; set; }
 
         public Tasks_EventType()
         {
@@ -2365,15 +2365,15 @@ namespace Trademarks
             AlertDays = new List<myIntAndStr>();
         }
 
-        public Tasks_EventType(int EventTypeId)
+        public Tasks_EventType(int EventTypeId, int NationalPowerId)
         {
             AlertMonths = new List<myIntAndStr>();
             AlertDays = new List<myIntAndStr>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [EventTypeId], [ExpYears], [ExpMonths], [AlertMonths], [AlertDays], [AlertDescr] " + 
-                              "FROM [dbo].[Tasks_EventType] " + 
-                              "WHERE EventTypeId = @EventTypeId " + 
+            string SelectSt = "SELECT [EventTypeId], [NationalPowerId], [ExpYears], [ExpMonths], [AlertMonths], [AlertDays], [AlertDescr] " + 
+                              "FROM [dbo].[Tasks_EventType] " +
+                              "WHERE EventTypeId = @EventTypeId AND NationalPowerId = @NationalPowerId " + 
                               "ORDER BY AlertMonths desc, AlertDays desc";
 
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -2382,12 +2382,14 @@ namespace Trademarks
                 sqlConn.Open();
 
                 cmd.Parameters.AddWithValue("@EventTypeId", EventTypeId);
+                cmd.Parameters.AddWithValue("@NationalPowerId", NationalPowerId);
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     EventTypeId = Convert.ToInt32(reader["EventTypeId"].ToString());
-                                        
+                    NationalPowerId = Convert.ToInt32(reader["NationalPowerId"].ToString());
+
                     if (reader["ExpYears"] != DBNull.Value)
                     {
                         ExpYears = Convert.ToInt32(reader["ExpYears"].ToString());

@@ -576,7 +576,7 @@ namespace Trademarks
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 2; //Απόφαση σε εκκρεμότητα
 
-            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId);
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRecord.NationalPowerId);
 
             DateTime ExpDate = TMRecord.DepositDt.AddMonths(task_EventType.ExpMonths); //1 month
 
@@ -1714,6 +1714,46 @@ namespace Trademarks
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
+                cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
+                cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@RenewalDt", tmstatus.RenewalDt);
+                cmd.Parameters.AddWithValue("@RenewalFees", tmstatus.RenewalFees);
+                cmd.Parameters.AddWithValue("@RenewalProtocol", tmstatus.RenewalProtocol);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool UpdateTM_Status_Renewal(TM_Status tmstatus)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[TM_Status] " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [Remarks] = @Remarks, [RenewalDt] = @RenewalDt, " +
+                           "[RenewalFees] = @RenewalFees, [RenewalProtocol] = @RenewalProtocol, [InsDt] = getdate() " +
+                           "WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@Id", tmstatus.Id);
 
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);

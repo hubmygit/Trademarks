@@ -146,7 +146,7 @@ namespace Trademarks
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 1; //Ανανεώσεις
 
-            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId);
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRec.NationalPowerId);
 
             DateTime ExpDate = TMRec.DepositDt.AddYears(task_EventType.ExpYears); //10 years
 

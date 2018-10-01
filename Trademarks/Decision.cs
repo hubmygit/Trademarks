@@ -89,7 +89,7 @@ namespace Trademarks
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 3; //Οριστικοποίηση σε εκκρεμότητα
 
-            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId);
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRec.NationalPowerId);
 
             DateTime ExpDate = TMStatus.DecisionPublDt.AddMonths(task_EventType.ExpMonths); //3 months
 
@@ -300,7 +300,7 @@ namespace Trademarks
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 4; //Προσφυγή σε εκκρεμότητα
 
-            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId);
+            Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRec.NationalPowerId);
 
             DateTime ExpDate = TMStatus.DecisionPublDt.AddMonths(task_EventType.ExpMonths); //2 months
 
