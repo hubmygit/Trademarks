@@ -505,8 +505,9 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string UpdSt = "UPDATE [dbo].[Trademarks] SET [TMNo] = @TMNo, [DepositDt] = @DepositDt, [NationalPowerId] = @NationalPowerId, [TMGrNo] = @TMGrNo, " +
                 "[CompanyId] = @CompanyId, [ResponsibleLawyerId] = @ResponsibleLawyerId, [TMName] = @TMName, [FileName] = @FileName, [FileContents] = @FileContents, " +
-                "[Description] = @Description, [Fees] = @Fees, [DecisionNo] = @DecisionNo, [PublicationDate] = @PublicationDate, [FinalizationDate] = @FinalizationDate, " +
-                "[Url] = @Url, [RenewalDt] = @RenewalDt, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                "[Description] = @Description, [Fees] = @Fees, " + //[DecisionNo] = @DecisionNo, [PublicationDate] = @PublicationDate, [FinalizationDate] = @FinalizationDate, " +
+                //"[Url] = @Url, [RenewalDt] = @RenewalDt, 
+                "[UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                 "WHERE Id = @Id ";
             try
             {
@@ -671,6 +672,103 @@ namespace Trademarks
             return ret;
         }
 
+        void Insert_TMLog(Trademark oldRec, Trademark newRec)
+        {
+            int Trademarks_Id = newRec.Id;
+            //int? TM_Status_Id = null;
+            int AppUsers_Id = UserInfo.DB_AppUser_Id;
+            //DateTime Dt = DateTime.Now;
+            string ExecStatement = "UPDATE";
+            string TableName = "Trademarks";
+
+            string FieldName = "";
+            string OldValue = "";
+            string NewValue = "";
+            //string FieldNameToShow = "";
+
+            List<string> FieldsToCheck = new List<string>();
+            FieldsToCheck.Add("TMNo");
+            FieldsToCheck.Add("DepositDt");
+            FieldsToCheck.Add("NationalPowerId");
+            FieldsToCheck.Add("TMGrNo");
+            FieldsToCheck.Add("CompanyId");
+            FieldsToCheck.Add("ResponsibleLawyerId");
+            FieldsToCheck.Add("TMName");
+            FieldsToCheck.Add("FileName");
+            FieldsToCheck.Add("FileContents");
+            FieldsToCheck.Add("Description");
+            FieldsToCheck.Add("Fees");
+
+            //if (oldRec.TMNo == newRec.TMNo)
+            //{
+            //    FieldName = "Αριθμός Σήματος";
+            //    OldValue = oldRec.TMNo;
+            //    NewValue = newRec.TMNo;
+            //}
+
+            //List<string> fNames = typeof(Trademark).GetFields()
+            //                .Select(field => field.Name)
+            //                .ToList();
+
+            
+            List<string> fNames = typeof(Trademark).GetType().GetFields()
+                            .Select(field => field.Name)
+                            .ToList();
+
+            foreach (string fName in fNames)
+            {
+                if (FieldsToCheck.Contains(fName))
+                {
+                    string oldStr = oldRec.GetType().GetProperty(fName).GetValue(fName, null).ToString();
+                    string newStr = newRec.GetType().GetProperty(fName).GetValue(fName, null).ToString();
+
+                    if (oldStr != newStr)
+                    {
+                        FieldName = fName;
+                        OldValue = oldStr;
+                        NewValue = newStr;
+                        //FieldNameToShow = "";
+
+                        SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+                        string InsSt = "INSERT INTO [dbo].[TM_Log] " + 
+                                       "([Trademarks_Id], [TM_Status_Id], [AppUsers_Id], [Dt], [ExecStatement], [TableName], [FieldName], [FieldNameToShow], [OldValue], [NewValue]) " + 
+                                       "VALUES " +                                                                                                                       
+                                       "(@Trademarks_Id, NULL, @AppUsers_Id, getdate(), @ExecStatement, @TableName, @FieldName, @FieldNameToShow, @OldValue, @NewValue) ";
+                        try
+                        {
+                            sqlConn.Open();
+                            SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                            cmd.Parameters.AddWithValue("@Trademarks_Id", Trademarks_Id);
+                            cmd.Parameters.AddWithValue("@AppUsers_Id", AppUsers_Id);
+                            cmd.Parameters.AddWithValue("@ExecStatement", ExecStatement);
+                            cmd.Parameters.AddWithValue("@TableName", TableName);
+                            cmd.Parameters.AddWithValue("@FieldName", FieldName);
+                            cmd.Parameters.AddWithValue("@FieldNameToShow", FieldName);
+                            cmd.Parameters.AddWithValue("@OldValue", OldValue);
+                            cmd.Parameters.AddWithValue("@NewValue", NewValue);
+
+                            cmd.CommandType = CommandType.Text;
+                            cmd.ExecuteNonQuery();                            
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("The following error occurred: " + ex.Message);
+
+                        }
+                        sqlConn.Close();
+
+
+                    }
+                }
+            }
+
+
+            
+
+
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check that all fields has been filled correctly
@@ -790,6 +888,8 @@ namespace Trademarks
                 bool successful = true;
                 if (UpdateTrademark(NewRecord))
                 {
+                    Insert_TMLog(OldRecord, NewRecord);
+
                     //delete old records first...
                     Type.DeleteTM_Types(NewRecord.Id);
 
@@ -1337,8 +1437,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DepositDt, @Remarks, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DepositDt, @Remarks, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1348,6 +1448,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DepositDt", tmstatus.DepositDt);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1373,7 +1474,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DepositDt] = @DepositDt, [Remarks] = @Remarks, [InsDt] = getdate()" +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DepositDt] = @DepositDt, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate()" +
                            "WHERE TrademarksId = @TrademarksId AND StatusId = 1 ";
             try
             {
@@ -1386,6 +1487,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DepositDt", tmstatus.DepositDt);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1410,8 +1512,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks], [InsDt]) VALUES " + 
-                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionPublDt, @Remarks, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionPublDt, @Remarks, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1422,6 +1524,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionPublDt", tmstatus.DecisionPublDt);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1448,7 +1551,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
                            "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, " +
-                           "[DecisionPublDt] = @DecisionPublDt, [Remarks] = @Remarks, [InsDt] = getdate() " +
+                           "[DecisionPublDt] = @DecisionPublDt, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1461,6 +1564,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionPublDt", tmstatus.DecisionPublDt);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1485,8 +1589,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1496,6 +1600,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1521,7 +1626,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [InsDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1533,6 +1638,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1557,8 +1663,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [TermCompany], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @TermCompany, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [TermCompany], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @TermCompany, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1569,6 +1675,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1594,7 +1701,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [TermCompany] = @TermCompany, [InsDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [TermCompany] = @TermCompany, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1607,6 +1714,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1631,8 +1739,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [FinalizedDt], [FinalizedUrl], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @FinalizedDt, @FinalizedUrl, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [FinalizedDt], [FinalizedUrl], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @FinalizedDt, @FinalizedUrl, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1644,6 +1752,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@FinalizedDt", tmstatus.FinalizedDt);
                 cmd.Parameters.AddWithValue("@FinalizedUrl", tmstatus.FinalizedUrl);
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1670,7 +1779,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
                            "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [FinalizedDt] = @FinalizedDt, " +
-                           "[FinalizedUrl] = @FinalizedUrl, [InsDt] = getdate() " +
+                           "[FinalizedUrl] = @FinalizedUrl, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1684,6 +1793,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@FinalizedDt", tmstatus.FinalizedDt);
                 cmd.Parameters.AddWithValue("@FinalizedUrl", tmstatus.FinalizedUrl);
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1708,8 +1818,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @Remarks, @RenewalDt, @RenewalFees, @RenewalProtocol, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @Remarks, @RenewalDt, @RenewalFees, @RenewalProtocol, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1721,6 +1831,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@RenewalDt", tmstatus.RenewalDt);
                 cmd.Parameters.AddWithValue("@RenewalFees", tmstatus.RenewalFees);
                 cmd.Parameters.AddWithValue("@RenewalProtocol", tmstatus.RenewalProtocol);
+                cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -1747,7 +1858,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
                            "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [Remarks] = @Remarks, [RenewalDt] = @RenewalDt, " +
-                           "[RenewalFees] = @RenewalFees, [RenewalProtocol] = @RenewalProtocol, [InsDt] = getdate() " +
+                           "[RenewalFees] = @RenewalFees, [RenewalProtocol] = @RenewalProtocol, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1761,6 +1872,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@RenewalDt", tmstatus.RenewalDt);
                 cmd.Parameters.AddWithValue("@RenewalFees", tmstatus.RenewalFees);
                 cmd.Parameters.AddWithValue("@RenewalProtocol", tmstatus.RenewalProtocol);
+                cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
