@@ -295,6 +295,8 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
+                    TmLog.Insert_TMLog(OldRecord, NewRecord, "Οριστικοποίηση", 5);
+
                     if (OldRecord.StatusId != NewRecord.StatusId)
                     {
                         //disable old Alarms first...

@@ -119,6 +119,8 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
+                    TmLog.Insert_TMLog(OldRecord, NewRecord, "Ανανέωση", 6);
+
                     if (OldRecord.RenewalDt != NewRecord.RenewalDt)
                     {
                         //disable old Alarms first...

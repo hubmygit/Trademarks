@@ -794,7 +794,7 @@ namespace Trademarks
                 bool successful = true;
                 if (UpdateTrademark(NewRecord))
                 {
-                    TmLog.Insert_TMLog(OldRecord, NewRecord);
+                    TmLog.Insert_TMLog(OldRecord, NewRecord, "Κατάθεση");
 
                     //delete old records first...
                     Type.DeleteTM_Types(NewRecord.Id);
@@ -1011,14 +1011,15 @@ namespace Trademarks
         public string OldValue { get; set; }
         public string NewValue { get; set; }
         public string FieldNameToShow { get; set; }
+        public string Section { get; set; }
 
         public static void Ins_TMLog(TmLog givenTmLog)
         {
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "INSERT INTO [dbo].[TM_Log] " +
-                           "([Trademarks_Id], [TM_Status_Id], [AppUsers_Id], [Dt], [ExecStatement], [TableName], [FieldName], [FieldNameToShow], [OldValue], [NewValue]) " +
+                           "([Trademarks_Id], [TM_Status_Id], [AppUsers_Id], [Dt], [ExecStatement], [TableName], [FieldName], [FieldNameToShow], [OldValue], [NewValue], [Section]) " +
                            "VALUES " +
-                           "(@Trademarks_Id, @TM_Status_Id, @AppUsers_Id, @Dt, @ExecStatement, @TableName, @FieldName, @FieldNameToShow, @OldValue, @NewValue) ";
+                           "(@Trademarks_Id, @TM_Status_Id, @AppUsers_Id, @Dt, @ExecStatement, @TableName, @FieldName, @FieldNameToShow, @OldValue, @NewValue, @Section) ";
             try
             {
                 sqlConn.Open();
@@ -1038,9 +1039,10 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@ExecStatement", givenTmLog.ExecStatement);
                 cmd.Parameters.AddWithValue("@TableName", givenTmLog.TableName);
                 cmd.Parameters.AddWithValue("@FieldName", givenTmLog.FieldName);
-                cmd.Parameters.AddWithValue("@FieldNameToShow", givenTmLog.FieldName);
+                cmd.Parameters.AddWithValue("@FieldNameToShow", givenTmLog.FieldNameToShow);
                 cmd.Parameters.AddWithValue("@OldValue", givenTmLog.OldValue);
                 cmd.Parameters.AddWithValue("@NewValue", givenTmLog.NewValue);
+                cmd.Parameters.AddWithValue("@Section", givenTmLog.Section);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1053,9 +1055,10 @@ namespace Trademarks
             sqlConn.Close();
         }
 
-        public static void Insert_TMLog(TM_Status oldRec, TM_Status newRec)
+        public static void Insert_TMLog(TM_Status oldRec, TM_Status newRec, string section, int mandatoryGroup)
         {
             TmLog tml = new TmLog();
+            tml.Section = section;
             tml.Trademarks_Id = oldRec.TmId;
             tml.TM_Status_Id = oldRec.Id;
             tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
@@ -1065,18 +1068,27 @@ namespace Trademarks
 
             List<TmLogFields> FieldsToCheck = new List<TmLogFields>();
 
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "StatusId", FieldNameToShow = "Κατάσταση" });
+            //[MandatoryGroup]
+            //Όλα = 0
+            //Κατάθεση = 1
+            //Απόφαση = 2
+            //Προσφυγή = 3 
+            //Ανακοπή = 4
+            //Οριστικοποίηση / Ολική Απόρριψη = 5
+            //Ανανέωση = 6
 
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "DepositDt", FieldNameToShow = "Ημ/νία Κατάθεσης" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "Remarks", FieldNameToShow = "Παρατηρήσεις" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "DecisionNo", FieldNameToShow = "Αρ. Απόφασης" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "DecisionPublDt", FieldNameToShow = "Ημ/νία Δημ. Απόφασης" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "TermCompany", FieldNameToShow = "Ανακόπτουσα Εταιρία" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedDt", FieldNameToShow = "Ημ/νία Οριστικοποίησης" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedUrl", FieldNameToShow = "Url" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalDt", FieldNameToShow = "Ημ/νία Ανανέωσης" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalFees", FieldNameToShow = "Παράβολα Ανανέωσης" });
-            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalProtocol", FieldNameToShow = "Πρωτόκολο Ανανέωσης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "StatusId", FieldNameToShow = "Κατάσταση", MandatoryGroup = 0 });
+
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DepositDt", FieldNameToShow = "Ημ/νία Κατάθεσης", MandatoryGroup = 1 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "Remarks", FieldNameToShow = "Παρατηρήσεις", MandatoryGroup = 0 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DecisionNo", FieldNameToShow = "Αρ. Απόφασης", MandatoryGroup = 2 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DecisionPublDt", FieldNameToShow = "Ημ/νία Δημ. Απόφασης", MandatoryGroup = 2 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "TermCompany", FieldNameToShow = "Ανακόπτουσα Εταιρία", MandatoryGroup = 4 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedDt", FieldNameToShow = "Ημ/νία Οριστικοποίησης", MandatoryGroup = 5 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedUrl", FieldNameToShow = "Url", MandatoryGroup = 5 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalDt", FieldNameToShow = "Ημ/νία Ανανέωσης", MandatoryGroup = 6 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalFees", FieldNameToShow = "Παράβολα Ανανέωσης", MandatoryGroup = 6 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalProtocol", FieldNameToShow = "Πρωτόκολο Ανανέωσης", MandatoryGroup = 6 });
 
             foreach (TmLogFields tmlf in FieldsToCheck)
             {
@@ -1094,7 +1106,7 @@ namespace Trademarks
                     strNew = objNew.ToString();
                 }
 
-                if (strOld != strNew)
+                if (strOld != strNew && (tmlf.MandatoryGroup == 0 || tmlf.MandatoryGroup == mandatoryGroup))
                 {
                     tml.FieldName = tmlf.FieldName;
                     tml.OldValue = strOld;
@@ -1107,9 +1119,10 @@ namespace Trademarks
             }
         }
 
-        public static void Insert_TMLog(Trademark oldRec, Trademark newRec)
+        public static void Insert_TMLog(Trademark oldRec, Trademark newRec, string section)
         {
             TmLog tml = new TmLog();
+            tml.Section = section;
             tml.Trademarks_Id = oldRec.Id;
             //tml.TM_Status_Id = null;
             tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
@@ -1193,6 +1206,7 @@ namespace Trademarks
         public string FieldName { get; set; }
         public string FieldNameToShow { get; set; }
         public string FieldType { get; set; }
+        public int MandatoryGroup { get; set; }
     }   
 
     public class Trademark

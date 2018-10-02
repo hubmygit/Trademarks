@@ -253,15 +253,15 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
-                    TmLog.Insert_TMLog(OldRecord, NewRecord);
+                    TmLog.Insert_TMLog(OldRecord, StRec, "Απόφαση", 2);
 
-                    if (OldRecord.DecisionPublDt != NewRecord.DecisionPublDt || OldRecord.StatusId != NewRecord.StatusId)
+                    if (OldRecord.DecisionPublDt != StRec.DecisionPublDt || OldRecord.StatusId != StRec.StatusId)
                     {
                         //disable old Alarms first...
                         Task.DisableNotSentTasks(StRec.TmId);
 
                         //delete recipients
-                        Recipient.DeleteRecipients(NewRecord.Id);
+                        Recipient.DeleteRecipients(StRec.Id);
 
                         if (StRec.StatusId == 2 || StRec.StatusId == 3) //egkritiki || merikws aporriptiki : oristikopoiisi
                         {

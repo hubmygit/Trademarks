@@ -134,6 +134,8 @@ namespace Trademarks
                 //Save
                 if (TM_Status.UpdateTM_Status_Termination(NewRecord) == true)
                 {
+                    TmLog.Insert_TMLog(OldRecord, NewRecord, "Ανακοπή", 4);
+
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                     success = true;
                     Close();

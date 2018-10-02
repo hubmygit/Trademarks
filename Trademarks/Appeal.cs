@@ -123,6 +123,8 @@ namespace Trademarks
                     //Save
                     if (TM_Status.UpdateTM_Status_Appeal(NewRecord) == true)
                     {
+                        TmLog.Insert_TMLog(OldRecord, NewRecord, "Προσφυγή", 3);
+
                         MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                         success = true;
                         Close();
