@@ -253,6 +253,8 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
+                    TmLog.Insert_TMLog(OldRecord, NewRecord);
+
                     if (OldRecord.DecisionPublDt != NewRecord.DecisionPublDt || OldRecord.StatusId != NewRecord.StatusId)
                     {
                         //disable old Alarms first...
@@ -278,12 +280,12 @@ namespace Trademarks
                                 return;
                             }
                         }
-
-                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
-                        success = true;
-                        Close();
-
+                                                
                     }
+
+                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
+                    Close();
                 }
                 else
                 {

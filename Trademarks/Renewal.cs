@@ -131,12 +131,12 @@ namespace Trademarks
                         {
                             MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                             return;
-                        }
-
-                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
-                        success = true;
-                        Close();
+                        }                        
                     }
+
+                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
+                    Close();
                 }
                 else
                 {

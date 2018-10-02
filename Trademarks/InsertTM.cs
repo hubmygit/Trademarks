@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace Trademarks
 {
     public partial class InsertTM : Form
@@ -672,102 +673,7 @@ namespace Trademarks
             return ret;
         }
 
-        void Insert_TMLog(Trademark oldRec, Trademark newRec)
-        {
-            int Trademarks_Id = newRec.Id;
-            //int? TM_Status_Id = null;
-            int AppUsers_Id = UserInfo.DB_AppUser_Id;
-            //DateTime Dt = DateTime.Now;
-            string ExecStatement = "UPDATE";
-            string TableName = "Trademarks";
-
-            string FieldName = "";
-            string OldValue = "";
-            string NewValue = "";
-            //string FieldNameToShow = "";
-
-            List<string> FieldsToCheck = new List<string>();
-            FieldsToCheck.Add("TMNo");
-            FieldsToCheck.Add("DepositDt");
-            FieldsToCheck.Add("NationalPowerId");
-            FieldsToCheck.Add("TMGrNo");
-            FieldsToCheck.Add("CompanyId");
-            FieldsToCheck.Add("ResponsibleLawyerId");
-            FieldsToCheck.Add("TMName");
-            FieldsToCheck.Add("FileName");
-            FieldsToCheck.Add("FileContents");
-            FieldsToCheck.Add("Description");
-            FieldsToCheck.Add("Fees");
-
-            //if (oldRec.TMNo == newRec.TMNo)
-            //{
-            //    FieldName = "Αριθμός Σήματος";
-            //    OldValue = oldRec.TMNo;
-            //    NewValue = newRec.TMNo;
-            //}
-
-            //List<string> fNames = typeof(Trademark).GetFields()
-            //                .Select(field => field.Name)
-            //                .ToList();
-
-            
-            List<string> fNames = typeof(Trademark).GetType().GetFields()
-                            .Select(field => field.Name)
-                            .ToList();
-
-            foreach (string fName in fNames)
-            {
-                if (FieldsToCheck.Contains(fName))
-                {
-                    string oldStr = oldRec.GetType().GetProperty(fName).GetValue(fName, null).ToString();
-                    string newStr = newRec.GetType().GetProperty(fName).GetValue(fName, null).ToString();
-
-                    if (oldStr != newStr)
-                    {
-                        FieldName = fName;
-                        OldValue = oldStr;
-                        NewValue = newStr;
-                        //FieldNameToShow = "";
-
-                        SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-                        string InsSt = "INSERT INTO [dbo].[TM_Log] " + 
-                                       "([Trademarks_Id], [TM_Status_Id], [AppUsers_Id], [Dt], [ExecStatement], [TableName], [FieldName], [FieldNameToShow], [OldValue], [NewValue]) " + 
-                                       "VALUES " +                                                                                                                       
-                                       "(@Trademarks_Id, NULL, @AppUsers_Id, getdate(), @ExecStatement, @TableName, @FieldName, @FieldNameToShow, @OldValue, @NewValue) ";
-                        try
-                        {
-                            sqlConn.Open();
-                            SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
-
-                            cmd.Parameters.AddWithValue("@Trademarks_Id", Trademarks_Id);
-                            cmd.Parameters.AddWithValue("@AppUsers_Id", AppUsers_Id);
-                            cmd.Parameters.AddWithValue("@ExecStatement", ExecStatement);
-                            cmd.Parameters.AddWithValue("@TableName", TableName);
-                            cmd.Parameters.AddWithValue("@FieldName", FieldName);
-                            cmd.Parameters.AddWithValue("@FieldNameToShow", FieldName);
-                            cmd.Parameters.AddWithValue("@OldValue", OldValue);
-                            cmd.Parameters.AddWithValue("@NewValue", NewValue);
-
-                            cmd.CommandType = CommandType.Text;
-                            cmd.ExecuteNonQuery();                            
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("The following error occurred: " + ex.Message);
-
-                        }
-                        sqlConn.Close();
-
-
-                    }
-                }
-            }
-
-
-            
-
-
-        }
+        
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -888,7 +794,7 @@ namespace Trademarks
                 bool successful = true;
                 if (UpdateTrademark(NewRecord))
                 {
-                    Insert_TMLog(OldRecord, NewRecord);
+                    TmLog.Insert_TMLog(OldRecord, NewRecord);
 
                     //delete old records first...
                     Type.DeleteTM_Types(NewRecord.Id);
@@ -956,12 +862,12 @@ namespace Trademarks
                                 MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                                 return;
                             }
-                        }
-
-                        MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
-                        success = true;
-                        Close();
+                        }                        
                     }
+
+                    MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
+                    Close();
                 }
                 else
                 {
@@ -1092,6 +998,202 @@ namespace Trademarks
             }
         }
     }
+
+    public class TmLog
+    {
+        public int Trademarks_Id { get; set; }
+        public int? TM_Status_Id { get; set; }
+        public int AppUsers_Id { get; set; }
+        public DateTime DtNow { get; set; }
+        public string ExecStatement { get; set; }
+        public string TableName { get; set; }
+        public string FieldName { get; set; }
+        public string OldValue { get; set; }
+        public string NewValue { get; set; }
+        public string FieldNameToShow { get; set; }
+
+        public static void Ins_TMLog(TmLog givenTmLog)
+        {
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[TM_Log] " +
+                           "([Trademarks_Id], [TM_Status_Id], [AppUsers_Id], [Dt], [ExecStatement], [TableName], [FieldName], [FieldNameToShow], [OldValue], [NewValue]) " +
+                           "VALUES " +
+                           "(@Trademarks_Id, @TM_Status_Id, @AppUsers_Id, @Dt, @ExecStatement, @TableName, @FieldName, @FieldNameToShow, @OldValue, @NewValue) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Trademarks_Id", givenTmLog.Trademarks_Id);
+                if (givenTmLog.TM_Status_Id is null)
+                {
+                    cmd.Parameters.AddWithValue("@TM_Status_Id", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TM_Status_Id", givenTmLog.TM_Status_Id);
+                }
+                cmd.Parameters.AddWithValue("@AppUsers_Id", givenTmLog.AppUsers_Id);
+                cmd.Parameters.AddWithValue("@Dt", givenTmLog.DtNow);
+                cmd.Parameters.AddWithValue("@ExecStatement", givenTmLog.ExecStatement);
+                cmd.Parameters.AddWithValue("@TableName", givenTmLog.TableName);
+                cmd.Parameters.AddWithValue("@FieldName", givenTmLog.FieldName);
+                cmd.Parameters.AddWithValue("@FieldNameToShow", givenTmLog.FieldName);
+                cmd.Parameters.AddWithValue("@OldValue", givenTmLog.OldValue);
+                cmd.Parameters.AddWithValue("@NewValue", givenTmLog.NewValue);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+        }
+
+        public static void Insert_TMLog(TM_Status oldRec, TM_Status newRec)
+        {
+            TmLog tml = new TmLog();
+            tml.Trademarks_Id = oldRec.TmId;
+            tml.TM_Status_Id = oldRec.Id;
+            tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
+            tml.DtNow = DateTime.Now;
+            tml.ExecStatement = "UPDATE";
+            tml.TableName = "TM_Status";
+
+            List<TmLogFields> FieldsToCheck = new List<TmLogFields>();
+
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "StatusId", FieldNameToShow = "Κατάσταση" });
+
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DepositDt", FieldNameToShow = "Ημ/νία Κατάθεσης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "Remarks", FieldNameToShow = "Παρατηρήσεις" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DecisionNo", FieldNameToShow = "Αρ. Απόφασης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DecisionPublDt", FieldNameToShow = "Ημ/νία Δημ. Απόφασης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "TermCompany", FieldNameToShow = "Ανακόπτουσα Εταιρία" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedDt", FieldNameToShow = "Ημ/νία Οριστικοποίησης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedUrl", FieldNameToShow = "Url" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalDt", FieldNameToShow = "Ημ/νία Ανανέωσης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalFees", FieldNameToShow = "Παράβολα Ανανέωσης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalProtocol", FieldNameToShow = "Πρωτόκολο Ανανέωσης" });
+
+            foreach (TmLogFields tmlf in FieldsToCheck)
+            {
+                object objOld = oldRec.GetType().GetProperty(tmlf.FieldName).GetValue(oldRec, null);
+                object objNew = newRec.GetType().GetProperty(tmlf.FieldName).GetValue(newRec, null);
+                string strOld = "";
+                string strNew = "";
+                
+                if (objOld != null)
+                {
+                    strOld = objOld.ToString();
+                }
+                if (objNew != null)
+                {
+                    strNew = objNew.ToString();
+                }
+
+                if (strOld != strNew)
+                {
+                    tml.FieldName = tmlf.FieldName;
+                    tml.OldValue = strOld;
+                    tml.NewValue = strNew;
+                    tml.FieldNameToShow = tmlf.FieldNameToShow;
+
+                    Ins_TMLog(tml);
+                }
+                
+            }
+        }
+
+        public static void Insert_TMLog(Trademark oldRec, Trademark newRec)
+        {
+            TmLog tml = new TmLog();
+            tml.Trademarks_Id = oldRec.Id;
+            //tml.TM_Status_Id = null;
+            tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
+            tml.DtNow = DateTime.Now;
+            tml.ExecStatement = "UPDATE";
+            tml.TableName = "Trademarks";
+
+            List<TmLogFields> FieldsToCheck = new List<TmLogFields>();
+
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "TMNo", FieldNameToShow = "Αρ. Σήματος" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "DepositDt", FieldNameToShow = "Ημ/νία Κατάθεσης" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "NationalPowerId", FieldNameToShow = "Εθνική Ισχύς" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "TMGrNo", FieldNameToShow = "Αρ. Εθν. Σήματος" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "CompanyId", FieldNameToShow = "Εταιρία" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "ResponsibleLawyerId", FieldNameToShow = "Υπεύθυνος" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "TMName", FieldNameToShow = "Όνομα Σήματος" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "FileName", FieldNameToShow = "Όνομα Αρχείου" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "FileContents", FieldNameToShow = "Αρχείο" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "Description", FieldNameToShow = "Περιγραφή" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "Fees", FieldNameToShow = "Παράβολα" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "TMTypeIds", FieldNameToShow = "Τύποι", FieldType = "List<int>" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "ClassIds", FieldNameToShow = "Κλάσεις", FieldType = "List<int>" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "CountryIds", FieldNameToShow = "Χώρες", FieldType = "List<int>" });
+
+            foreach (TmLogFields tmlf in FieldsToCheck)
+            {
+                object objOld = oldRec.GetType().GetProperty(tmlf.FieldName).GetValue(oldRec, null);
+                object objNew = newRec.GetType().GetProperty(tmlf.FieldName).GetValue(newRec, null);
+                string strOld = "";
+                string strNew = "";
+
+                if (tmlf.FieldType == "List<int>")
+                {
+                    if (objOld != null)
+                    {
+                        strOld = String.Join(",", ((List<int>)objOld).ToArray());
+                    }
+                    if (objNew != null)
+                    {
+                        strNew = String.Join(",", ((List<int>)objNew).ToArray());
+                    }
+
+                    if (strOld != strNew)
+                    {
+                        tml.FieldName = tmlf.FieldName;
+                        tml.OldValue = strOld;
+                        tml.NewValue = strNew;
+                        tml.FieldNameToShow = tmlf.FieldNameToShow;
+
+                        Ins_TMLog(tml);
+                    }
+                }
+                else
+                {
+                    if (objOld != null)
+                    {
+                        strOld = objOld.ToString();
+                    }
+                    if (objNew != null)
+                    {
+                        strNew = objNew.ToString();
+                    }
+
+                    if (strOld != strNew)
+                    {
+                        tml.FieldName = tmlf.FieldName;
+                        tml.OldValue = strOld;
+                        tml.NewValue = strNew;
+                        tml.FieldNameToShow = tmlf.FieldNameToShow;
+
+                        Ins_TMLog(tml);
+                    }
+                }
+
+            }
+        }
+    }
+
+    public class TmLogFields
+    {
+        public string FieldName { get; set; }
+        public string FieldNameToShow { get; set; }
+        public string FieldType { get; set; }
+    }   
 
     public class Trademark
     {
@@ -1483,7 +1585,6 @@ namespace Trademarks
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 
-                cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DepositDt", tmstatus.DepositDt);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
