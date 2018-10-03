@@ -1559,6 +1559,67 @@ namespace Trademarks
             return ret;
         }
 
+        public static List<int> getAllStatuses(int Trademarks_Id)
+        {
+            List<int> ret = new List<int>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT TS.StatusId " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(Convert.ToInt32(reader["StatusId"].ToString()));                    
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static List<int> getProsfygesAnakopesByDecision(int Trademarks_Id, int TMStatus_Id)
+        {
+            List<int> ret = new List<int>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT TS.StatusId " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId AND TS.Id = @TmstatusId ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
+                cmd.Parameters.AddWithValue("@TmstatusId", TMStatus_Id);
+
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(Convert.ToInt32(reader["StatusId"].ToString()));
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool IsFinalized(int Trademarks_Id)
         {
             bool ret = false;
