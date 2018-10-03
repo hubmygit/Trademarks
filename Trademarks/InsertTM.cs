@@ -1150,6 +1150,7 @@ namespace Trademarks
             FieldsToCheck.Add(new TmLogFields() { FieldName = "TMTypeIds", FieldNameToShow = "Τύποι", FieldType = "List<int>" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "ClassIds", FieldNameToShow = "Κλάσεις", FieldType = "List<int>" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "CountryIds", FieldNameToShow = "Χώρες", FieldType = "List<int>" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "IsDeleted", FieldNameToShow = "Flag Διαγραφής" });
 
             foreach (TmLogFields tmlf in FieldsToCheck)
             {
@@ -1395,13 +1396,13 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "UPDATE [dbo].[Trademarks] SET IsDeleted = 'True', DelDt = getdate(), DelUser = @DelUser  WHERE TrademarksId = @TrademarksId ";
+            string InsSt = "UPDATE [dbo].[Trademarks] SET IsDeleted = 'True', DelDt = getdate(), DelUser = @DelUser  WHERE Id = @Id ";
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
-                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+                cmd.Parameters.AddWithValue("@Id", TrademarksId);
 
                 cmd.Parameters.AddWithValue("@DelUser", UserInfo.DB_AppUser_Id);
 

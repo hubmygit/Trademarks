@@ -376,5 +376,14 @@ namespace Trademarks
 
             }
         }
+
+        private void tsmiDelDecision_Click(object sender, EventArgs e)
+        {
+            // Delete
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+
+            }
+        }
     }
 }
