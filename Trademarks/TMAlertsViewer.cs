@@ -43,7 +43,7 @@ namespace Trademarks
                               "[dbo].[NationalPower] N on T.NationalPowerId = N.Id left outer join " +
                               "[dbo].[Company] C on T.CompanyId = C.Id left outer join " +
                               "[dbo].[Responsible] L on T.ResponsibleLawyerId = L.Id " +
-                              "WHERE A.TrademarksId = @TmId " +
+                              "WHERE A.TrademarksId = @TmId AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY A.Id "; //A.TrademarksId
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try

@@ -1128,6 +1128,10 @@ namespace Trademarks
             tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
             tml.DtNow = DateTime.Now;
             tml.ExecStatement = "UPDATE";
+            if (newRec.IsDeleted == true)
+            {
+                tml.ExecStatement = "DELETE";
+            }
             tml.TableName = "Trademarks";
 
             List<TmLogFields> FieldsToCheck = new List<TmLogFields>();
@@ -1226,6 +1230,8 @@ namespace Trademarks
         public List<int> CountryIds { get; set; }
         public string Description { get; set; }
         public string Fees { get; set; } //paravola
+        public bool IsDeleted { get; set; }
+
         //public string DecisionNo { get; set; }
         //public DateTime PublicationDate { get; set; }
         //public DateTime FinalizationDate { get; set; }
@@ -1352,6 +1358,70 @@ namespace Trademarks
             sqlConn.Close();
         }
 
+        public static int SelectRefTmRecs(string TMNo)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT count(*) as Cnt " +
+                              "FROM [dbo].[Trademarks] " +
+                              "WHERE TMGrNo = @TMNo AND isnull(IsDeleted, 'False') = 'False' ";
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TMNo", TMNo);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Cnt"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool DisableTM(int TrademarksId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[Trademarks] SET IsDeleted = 'True', DelDt = getdate(), DelUser = @DelUser  WHERE TrademarksId = @TrademarksId ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+
+                cmd.Parameters.AddWithValue("@DelUser", UserInfo.DB_AppUser_Id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                //ret = true;
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
     }
 
     public class Status

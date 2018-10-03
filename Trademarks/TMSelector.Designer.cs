@@ -48,6 +48,7 @@
             this.tsmiAlertsViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelTM = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -127,9 +128,10 @@
             this.tsmiStatusViewer,
             this.tsmiAlertsViewer,
             this.toolStripSeparator2,
-            this.tsmiUpdTM});
+            this.tsmiUpdTM,
+            this.tsmiDelTM});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(181, 214);
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 236);
             // 
             // tsmiDecision
             // 
@@ -197,6 +199,13 @@
             this.tsmiUpdTM.Text = "UpdateTM";
             this.tsmiUpdTM.Click += new System.EventHandler(this.tsmiUpdTM_Click);
             // 
+            // tsmiDelTM
+            // 
+            this.tsmiDelTM.Name = "tsmiDelTM";
+            this.tsmiDelTM.Size = new System.Drawing.Size(180, 22);
+            this.tsmiDelTM.Text = "DeleteTM";
+            this.tsmiDelTM.Click += new System.EventHandler(this.tsmiDelTM_Click);
+            // 
             // TMSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,5 +242,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAlertsViewer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdTM;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelTM;
     }
 }

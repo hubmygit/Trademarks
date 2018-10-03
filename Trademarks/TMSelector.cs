@@ -31,6 +31,7 @@ namespace Trademarks
             string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId], [TMGrNo], " +
                               "[FileContents], [FileName], [Description], [Fees] " +
                               "FROM [dbo].[Trademarks] " +
+                              "WHERE isnull(IsDeleted, 'False') = 'False'" +
                               "ORDER BY Id ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
@@ -238,12 +239,76 @@ namespace Trademarks
                 if (frmUpdTm.success)
                 {
                     //refresh
-                    tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
+                    //tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
 
                     //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
                     tempRecList = SelectTempRecs();
                     FillDataGridView(dgvTempRecs, tempRecList);
                 }
+            }
+        }
+
+        private void tsmiDelTM_Click(object sender, EventArgs e)
+        {
+            // Delete
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvTempRecs.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                Trademark tm = tempRecList.Where(i => i.Id == Id).First();
+                bool success = true;
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                //check references
+                if (Trademark.SelectRefTmRecs(tm.TMNo)  > 0)
+                {
+                    MessageBox.Show("Προσοχή! Δεν είναι δυνατή η διαγραφή της επιλεγμένης εγγραφής! \r\nΥπάρχουν άλλες εγγραφές (Διεθνή / Κοινοτικά Σήματα) που αναφέρονται σε αυτήν.");
+                    return;
+                }
+
+                TM_Status tms = TM_Status.getLastDecision(tm.Id);
+                if (tms.StatusId == 2 && tms.StatusId == 3 && tms.StatusId == 4) //check oti exei apofasi
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΥπάρχει καταχωρημένη Aπόφαση.");
+                    return;
+                }
+                
+                if (MessageBox.Show("Προσοχή! Πρόκειται να διαγράψετε το Σήμα: \r\n" +
+                              tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;", 
+                              "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {                      
+                    //disable Tasks
+                    if (Task.DisableNotSentTasks(tm.Id) == false)
+                    {
+                        success = false;
+                    }
+                    
+                    //delete from Trademarks (make inactive, mark as deleted)
+                    if (Trademark.DisableTM(tm.Id) == false)
+                    {
+                        success = false;
+                    }
+
+                    if (success)
+                    {
+                        TmLog.Insert_TMLog(new Trademark() { IsDeleted = false }, new Trademark() { IsDeleted = true }, "Κατάθεση");
+
+
+                        //refresh
+                        //tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
+
+                        //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                        tempRecList = SelectTempRecs();
+                        FillDataGridView(dgvTempRecs, tempRecList);
+                    }
+
+                }
+
             }
         }
     }
