@@ -55,6 +55,7 @@
             this.tsmiDelAppeal = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelTermination = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelFinalization = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelRenewal = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -188,9 +189,10 @@
             this.tsmiDelDecision,
             this.tsmiDelAppeal,
             this.tsmiDelTermination,
-            this.tsmiDelFinalization});
+            this.tsmiDelFinalization,
+            this.tsmiDelRenewal});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 224);
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 246);
             // 
             // tsmiUpdDecision
             // 
@@ -255,6 +257,13 @@
             this.tsmiDelFinalization.Text = "Delete Οριστικοποίησης";
             this.tsmiDelFinalization.Click += new System.EventHandler(this.tsmiDelFinalization_Click);
             // 
+            // tsmiDelRenewal
+            // 
+            this.tsmiDelRenewal.Name = "tsmiDelRenewal";
+            this.tsmiDelRenewal.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelRenewal.Text = "Delete Ανανέωσης";
+            this.tsmiDelRenewal.Click += new System.EventHandler(this.tsmiDelRenewal_Click);
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,5 +307,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDelAppeal;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelTermination;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelFinalization;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelRenewal;
     }
 }
