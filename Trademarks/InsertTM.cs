@@ -1064,6 +1064,10 @@ namespace Trademarks
             tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
             tml.DtNow = DateTime.Now;
             tml.ExecStatement = "UPDATE";
+            if (newRec.IsDeleted == true)
+            {
+                tml.ExecStatement = "DELETE";
+            }
             tml.TableName = "TM_Status";
 
             List<TmLogFields> FieldsToCheck = new List<TmLogFields>();
@@ -1089,6 +1093,7 @@ namespace Trademarks
             FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalDt", FieldNameToShow = "Ημ/νία Ανανέωσης", MandatoryGroup = 6 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalFees", FieldNameToShow = "Παράβολα Ανανέωσης", MandatoryGroup = 6 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalProtocol", FieldNameToShow = "Πρωτόκολο Ανανέωσης", MandatoryGroup = 6 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "IsDeleted", FieldNameToShow = "Flag Διαγραφής", MandatoryGroup = 0 });
 
             foreach (TmLogFields tmlf in FieldsToCheck)
             {
@@ -1446,6 +1451,7 @@ namespace Trademarks
         public string Remarks { get; set; }
         public string DecisionNo { get; set; }
         public DateTime DecisionPublDt { get; set; }
+        public int DecisionRefId { get; set; }
         public string TermCompany { get; set; }
         public DateTime FinalizedDt { get; set; }
         public string FinalizedUrl { get; set; }
@@ -1453,6 +1459,7 @@ namespace Trademarks
         public string RenewalFees { get; set; }
         public string RenewalProtocol { get; set; }
         public DateTime InsDt { get; set; }
+        public bool IsDeleted { get; set; }
 
         public TM_Status()
         {
@@ -1466,7 +1473,8 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT top (1) TS.RenewalDt " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId = 9 order by TS.RenewalDt desc";
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId = 9 AND isnull(TS.IsDeleted, 'False') = 'False' " + 
+                              "order by TS.RenewalDt desc";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1494,9 +1502,10 @@ namespace Trademarks
             TM_Status ret = new TM_Status();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
-                              "FROM [dbo].[TM_Status] TS " + 
-                              "WHERE TS.TrademarksId = @TmId order by TS.Id desc";
+            string SelectSt = "SELECT top (1) TS.Id, TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
+                              "FROM [dbo].[TM_Status] TS " +
+                              "WHERE TS.TrademarksId = @TmId AND isnull(TS.IsDeleted, 'False') = 'False' " + 
+                              "order by TS.Id desc";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1506,6 +1515,7 @@ namespace Trademarks
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    ret.Id = Convert.ToInt32(reader["Id"].ToString());
                     ret.StatusId = Convert.ToInt32(reader["StatusId"].ToString());
                     ret.DecisionNo = reader["DecisionNo"].ToString();
                     if (reader["DecisionPublDt"] != DBNull.Value)
@@ -1529,9 +1539,10 @@ namespace Trademarks
             TM_Status ret = new TM_Status();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
+            string SelectSt = "SELECT top (1) TS.Id, TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (2,3,4) ORDER BY TS.Id DESC";
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (2,3,4) AND isnull(IsDeleted, 'False') = 'False' " + 
+                              "ORDER BY TS.Id DESC";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1541,6 +1552,7 @@ namespace Trademarks
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    ret.Id = Convert.ToInt32(reader["Id"].ToString());
                     ret.StatusId = Convert.ToInt32(reader["StatusId"].ToString());
                     ret.DecisionNo = reader["DecisionNo"].ToString();
                     if (reader["DecisionPublDt"] != DBNull.Value)
@@ -1566,7 +1578,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT TS.StatusId " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TrademarksId = @TmId ";
+                              "WHERE TS.TrademarksId = @TmId AND isnull(TS.IsDeleted, 'False') = 'False' ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1589,25 +1601,27 @@ namespace Trademarks
             return ret;
         }
 
-        public static List<int> getProsfygesAnakopesByDecision(int Trademarks_Id, int TMStatus_Id)
+        public static int SelectRefStatusRecs(int Trademarks_Id, int TMStatus_Id)
         {
-            List<int> ret = new List<int>();
+            int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT TS.StatusId " +
-                              "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TrademarksId = @TmId AND TS.Id = @TmstatusId ";
+            string SelectSt = "SELECT count(*) as Cnt " +
+                              "FROM [dbo].[TM_Status] " +
+                              "WHERE TrademarksId = @TmId AND DecisionRefId = @TmstatusId AND isnull(IsDeleted, 'False') = 'False' ";
+
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
+                sqlConn.Open();
+
                 cmd.Parameters.AddWithValue("@TmId", Trademarks_Id);
                 cmd.Parameters.AddWithValue("@TmstatusId", TMStatus_Id);
 
-                sqlConn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret.Add(Convert.ToInt32(reader["StatusId"].ToString()));
+                    ret = Convert.ToInt32(reader["Cnt"].ToString());
                 }
                 reader.Close();
             }
@@ -1620,6 +1634,8 @@ namespace Trademarks
             return ret;
         }
 
+        
+
         public static bool IsFinalized(int Trademarks_Id)
         {
             bool ret = false;
@@ -1627,7 +1643,8 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (7) ORDER BY TS.Id DESC";
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (7) AND isnull(IsDeleted, 'False') = 'False' " +
+                              "ORDER BY TS.Id DESC";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1657,7 +1674,8 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT top (1) TS.StatusId, TS.DecisionNo, TS.DecisionPublDt " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (7, 8) ORDER BY TS.Id DESC";
+                              "WHERE TS.TrademarksId = @TmId AND TS.StatusId in (7, 8) AND isnull(IsDeleted, 'False') = 'False' " +
+                              "ORDER BY TS.Id DESC";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1723,7 +1741,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
                            "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DepositDt] = @DepositDt, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate()" +
-                           "WHERE TrademarksId = @TrademarksId AND StatusId = 1 ";
+                           "WHERE TrademarksId = @TrademarksId AND StatusId = 1 AND isnull(IsDeleted, 'False') = 'False' ";
             try
             {
                 sqlConn.Open();               
@@ -1831,13 +1849,46 @@ namespace Trademarks
             return ret;
         }
 
+        public static bool DisableTM_Status_Decision(int givenId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[TM_Status] SET IsDeleted = 'True', DelDt = getdate(), DelUser = @DelUser  WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", givenId);
+
+                cmd.Parameters.AddWithValue("@DelUser", UserInfo.DB_AppUser_Id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                //ret = true;
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static bool InsertTM_Status_Appeal(TM_Status tmstatus)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [InsUser], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @InsUser, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionRefId], [Remarks], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionRefId, @Remarks, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1846,6 +1897,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
@@ -1873,7 +1925,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [DecisionRefId] = @DecisionRefId, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1884,6 +1936,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
@@ -1910,8 +1963,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [TermCompany], [InsUser], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @TermCompany, @InsUser, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionRefId], [Remarks], [TermCompany], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionRefId, @Remarks, @TermCompany, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -1920,6 +1973,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
@@ -1948,7 +2002,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [Remarks] = @Remarks, [TermCompany] = @TermCompany, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [DecisionRefId] = @DecisionRefId, [Remarks] = @Remarks, [TermCompany] = @TermCompany, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -1959,6 +2013,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
+                cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
                 cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);

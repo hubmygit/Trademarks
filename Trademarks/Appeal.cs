@@ -100,6 +100,7 @@ namespace Trademarks
                 NewRecord.StatusId = 5; //prosfygi
                 NewRecord.DecisionNo = prevTMStatus.DecisionNo; //txtDecisionNo.Text;
                 NewRecord.DecisionPublDt = prevTMStatus.DecisionPublDt; //dtpPublicationDate.Value.Date;
+                NewRecord.DecisionRefId = prevTMStatus.Id;
                 NewRecord.Remarks = txtDescription.Text;
 
                 NewRecord.Id = TempRecUpdId;

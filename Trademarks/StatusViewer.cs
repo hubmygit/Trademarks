@@ -35,7 +35,7 @@ namespace Trademarks
             string SelectSt = "SELECT [Id], [TrademarksId], [StatusId], (SELECT S.Name FROM Status S WHERE S.Id = TS.StatusId) as Status_Name, [DepositDt], " +
                               "[DecisionNo], [DecisionPublDt], [TermCompany], [FinalizedDt], [FinalizedUrl], [RenewalDt], [RenewalFees], [RenewalProtocol], [Remarks], [InsDt] " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TrademarksId = @TmId " +
+                              "WHERE TrademarksId = @TmId AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY Id ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
@@ -385,6 +385,7 @@ namespace Trademarks
                 int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
                 int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+                bool success = true; 
 
                 if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
                 {
@@ -400,14 +401,48 @@ namespace Trademarks
                     return;
                 }
 
-                //List<int> TMStatuses = TM_Status.getAllStatuses(tm.Id);
+                //check references
+                if (TM_Status.SelectRefStatusRecs(tm.Id, tms.Id) > 0)
+                {
+                    MessageBox.Show("Προσοχή! Δεν είναι δυνατή η διαγραφή της επιλεγμένης εγγραφής! \r\nΥπάρχουν άλλες εγγραφές (Προσφυγές ή Ανακοπές) που αναφέρονται σε αυτήν.");
+                    return;
+                }
 
-                //getProsfygesAnakopesByDecision
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Απόφαση. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
 
-                //if (TMStatuses.Contains())
-                //{
-                //}
+                if (MessageBox.Show("Προσοχή! Πρόκειται να διαγράψετε την Απόφαση: " + tms.DecisionNo + " / " + tms.DecisionPublDt.ToString("dd.MM.yyyy") +
+                                    "\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;",
+                                    "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //disable decision Tasks 
+                    if (Task.DisableNotSentTasks(tm.Id, 2) == false) //Απόφασης
+                    {
+                        success = false;
+                    }
 
+                    //delete from TM_Status (make inactive, mark as deleted)
+                    if (TM_Status.DisableTM_Status_Decision(tms.Id) == false)
+                    {
+                        success = false;
+                    }
+
+                    if (success)
+                    {
+                        TmLog.Insert_TMLog(new TM_Status() { IsDeleted = false }, new TM_Status() { IsDeleted = true }, "Απόφαση", 2);
+                        
+                        //refresh
+                        //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
+
+                        //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                        tmStatusList = SelectTmStatusRecs(tms.TmId);
+                        FillDataGridView(dgvStatusViewer, tmStatusList);
+                    }
+                    
+                }
 
             }
         }

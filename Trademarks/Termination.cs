@@ -110,6 +110,7 @@ namespace Trademarks
             NewRecord.StatusId = 6; //anakopi
             NewRecord.DecisionNo = prevTMStatus.DecisionNo; //txtDecisionNo.Text;
             NewRecord.DecisionPublDt = prevTMStatus.DecisionPublDt; //dtpPublicationDate.Value.Date;
+            NewRecord.DecisionRefId = prevTMStatus.Id;
             NewRecord.Remarks = txtDescription.Text;
             NewRecord.TermCompany = txtTermCompany.Text;
 
