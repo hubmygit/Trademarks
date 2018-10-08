@@ -296,9 +296,8 @@ namespace Trademarks
 
                     if (success)
                     {
-                        TmLog.Insert_TMLog(new Trademark() { IsDeleted = false }, new Trademark() { IsDeleted = true }, "Κατάθεση");
-
-
+                        TmLog.Insert_TMLog(new Trademark() { Id = tm.Id, IsDeleted = false }, new Trademark() { Id = tm.Id, IsDeleted = true }, "Κατάθεση");
+                        
                         //refresh
                         //tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
 

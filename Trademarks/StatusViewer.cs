@@ -425,14 +425,14 @@ namespace Trademarks
                     }
 
                     //delete from TM_Status (make inactive, mark as deleted)
-                    if (TM_Status.DisableTM_Status_Decision(tms.Id) == false)
+                    if (TM_Status.DisableTM_Status(tms.Id) == false)
                     {
                         success = false;
                     }
 
                     if (success)
                     {
-                        TmLog.Insert_TMLog(new TM_Status() { IsDeleted = false }, new TM_Status() { IsDeleted = true }, "Απόφαση", 2);
+                        TmLog.Insert_TMLog(new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = false }, new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = true }, "Απόφαση", 2);
                         
                         //refresh
                         //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
@@ -443,6 +443,66 @@ namespace Trademarks
                     }
                     
                 }
+
+            }
+        }
+
+        private void tsmiDelAppeal_Click(object sender, EventArgs e)
+        {
+            // Delete
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+                bool success = true;
+
+                if (tms.StatusId != 5)
+                {
+                    MessageBox.Show("Δεν είναι Προσφυγή...!");
+                    return;
+                }
+
+                Trademark tm = new Trademark(tms.TmId);
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Προσφυγή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                if (MessageBox.Show("Προσοχή! Πρόκειται να διαγράψετε την Προσφυγή της απόφασης: " + tms.DecisionNo + " / " + tms.DecisionPublDt.ToString("dd.MM.yyyy") +
+                                    //"\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;",
+                                    "\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΕίστε σίγουροι;",
+                                    "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //delete from TM_Status (make inactive, mark as deleted)
+                    if (TM_Status.DisableTM_Status(tms.Id) == false)
+                    {
+                        success = false;
+                    }
+
+                    if (success)
+                    {
+                        TmLog.Insert_TMLog(new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = false }, new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = true }, "Προσφυγή", 3);
+
+                        //refresh
+                        //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
+
+                        //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                        tmStatusList = SelectTmStatusRecs(tms.TmId);
+                        FillDataGridView(dgvStatusViewer, tmStatusList);
+                    }
+
+
+                }
+
 
             }
         }

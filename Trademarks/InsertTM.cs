@@ -1849,12 +1849,12 @@ namespace Trademarks
             return ret;
         }
 
-        public static bool DisableTM_Status_Decision(int givenId)
+        public static bool DisableTM_Status(int givenId)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "UPDATE [dbo].[TM_Status] SET IsDeleted = 'True', DelDt = getdate(), DelUser = @DelUser  WHERE Id = @Id ";
+            string InsSt = "UPDATE [dbo].[TM_Status] SET IsDeleted = 'True', DelDt = getdate(), DelUser = @DelUser WHERE Id = @Id ";
             try
             {
                 sqlConn.Open();

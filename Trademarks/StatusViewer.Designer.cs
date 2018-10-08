@@ -52,6 +52,7 @@
             this.tsmiUpdFinalization = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdRenewal = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelDecision = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelAppeal = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -182,9 +183,10 @@
             this.tsmiUpdTermination,
             this.tsmiUpdFinalization,
             this.tsmiUpdRenewal,
-            this.tsmiDelDecision});
+            this.tsmiDelDecision,
+            this.tsmiDelAppeal});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 158);
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 180);
             // 
             // tsmiUpdDecision
             // 
@@ -228,6 +230,13 @@
             this.tsmiDelDecision.Text = "Delete Απόφασης";
             this.tsmiDelDecision.Click += new System.EventHandler(this.tsmiDelDecision_Click);
             // 
+            // tsmiDelAppeal
+            // 
+            this.tsmiDelAppeal.Name = "tsmiDelAppeal";
+            this.tsmiDelAppeal.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelAppeal.Text = "Delete Προσφυγής";
+            this.tsmiDelAppeal.Click += new System.EventHandler(this.tsmiDelAppeal_Click);
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,5 +277,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdFinalization;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdRenewal;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelDecision;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelAppeal;
     }
 }
