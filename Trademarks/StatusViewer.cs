@@ -506,5 +506,70 @@ namespace Trademarks
 
             }
         }
+
+        private void tsmiDelTermination_Click(object sender, EventArgs e)
+        {
+            // Delete
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+                bool success = true;
+
+                if (tms.StatusId != 6)
+                {
+                    MessageBox.Show("Δεν είναι Ανακοπή...!");
+                    return;
+                }
+
+                Trademark tm = new Trademark(tms.TmId);
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Ανακοπή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                if (MessageBox.Show("Προσοχή! Πρόκειται να διαγράψετε την Ανακοπή της απόφασης: " + tms.DecisionNo + " / " + tms.DecisionPublDt.ToString("dd.MM.yyyy") +
+                                    //"\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;",
+                                    "\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΕίστε σίγουροι;",
+                                    "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //delete from TM_Status (make inactive, mark as deleted)
+                    if (TM_Status.DisableTM_Status(tms.Id) == false)
+                    {
+                        success = false;
+                    }
+
+                    if (success)
+                    {
+                        TmLog.Insert_TMLog(new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = false }, new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = true }, "Ανακοπή", 4);
+
+                        //refresh
+                        //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
+
+                        //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                        tmStatusList = SelectTmStatusRecs(tms.TmId);
+                        FillDataGridView(dgvStatusViewer, tmStatusList);
+                    }
+
+
+
+                }
+
+
+
+
+
+
+            }
+        }
     }
 }
