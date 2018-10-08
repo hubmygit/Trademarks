@@ -54,6 +54,7 @@
             this.tsmiDelDecision = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelAppeal = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelTermination = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelFinalization = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -186,9 +187,10 @@
             this.tsmiUpdRenewal,
             this.tsmiDelDecision,
             this.tsmiDelAppeal,
-            this.tsmiDelTermination});
+            this.tsmiDelTermination,
+            this.tsmiDelFinalization});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 202);
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 224);
             // 
             // tsmiUpdDecision
             // 
@@ -246,6 +248,13 @@
             this.tsmiDelTermination.Text = "Delete Ανακοπής";
             this.tsmiDelTermination.Click += new System.EventHandler(this.tsmiDelTermination_Click);
             // 
+            // tsmiDelFinalization
+            // 
+            this.tsmiDelFinalization.Name = "tsmiDelFinalization";
+            this.tsmiDelFinalization.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelFinalization.Text = "Delete Οριστικοποίησης";
+            this.tsmiDelFinalization.Click += new System.EventHandler(this.tsmiDelFinalization_Click);
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,5 +297,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDelDecision;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelAppeal;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelTermination;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelFinalization;
     }
 }

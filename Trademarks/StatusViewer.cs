@@ -418,8 +418,14 @@ namespace Trademarks
                                     "\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;",
                                     "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    //disable decision Tasks 
-                    if (Task.DisableNotSentTasks(tm.Id, 2) == false) //Απόφασης
+                    //disable decision->appeal Tasks 
+                    if (Task.DisableNotSentTasks(tm.Id, 4) == false) //Προσφυγής
+                    {
+                        success = false;
+                    }
+
+                    //disable decision->finalization Tasks 
+                    if (Task.DisableNotSentTasks(tm.Id, 3) == false) //Οριστικοποίησης
                     {
                         success = false;
                     }
@@ -560,13 +566,72 @@ namespace Trademarks
                         FillDataGridView(dgvStatusViewer, tmStatusList);
                     }
 
+                }
+                                          
+            }
+        }
 
+        private void tsmiDelFinalization_Click(object sender, EventArgs e)
+        {
+            // Delete
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+                bool success = true;
 
+                if (tms.StatusId != 7 && tms.StatusId != 8)
+                {
+                    MessageBox.Show("Δεν είναι Οριστικοποίηση (ή Απόρριψη)...!");
+                    return;
+                }
+
+                Trademark tm = new Trademark(tms.TmId);
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.getLastRenewal(tm.Id) != null) //Πρέπει να μην έχει Ανανέωση
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Οριστικοποίηση. \r\nΥπάρχει ήδη Ανανέωση!");
+                    return;
                 }
 
 
+                if (MessageBox.Show("Προσοχή! Πρόκειται να διαγράψετε την Απόφαση: " + tms.DecisionNo + " / " + tms.DecisionPublDt.ToString("dd.MM.yyyy") +
+                                    "\r\nΤου Σήματος: " + tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;",
+                                    "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //disable finalization->Renewal Tasks 
+                    if (Task.DisableNotSentTasks(tm.Id, 1) == false) //Ανανέωσης
+                    {
+                        success = false;
+                    }
 
+                    //delete from TM_Status (make inactive, mark as deleted)
+                    if (TM_Status.DisableTM_Status(tms.Id) == false)
+                    {
+                        success = false;
+                    }
 
+                    if (success)
+                    {
+                        TmLog.Insert_TMLog(new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = false }, new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = true }, "Οριστικοποίηση", 5);
+
+                        //refresh
+                        //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
+
+                        //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                        tmStatusList = SelectTmStatusRecs(tms.TmId);
+                        FillDataGridView(dgvStatusViewer, tmStatusList);
+
+                    }
+
+                }
 
 
             }
