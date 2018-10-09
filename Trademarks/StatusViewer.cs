@@ -33,7 +33,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TrademarksId], [StatusId], (SELECT S.Name FROM Status S WHERE S.Id = TS.StatusId) as Status_Name, [DepositDt], " +
-                              "[DecisionNo], [DecisionPublDt], [TermCompany], [FinalizedDt], [FinalizedUrl], [RenewalDt], [RenewalFees], [RenewalProtocol], [Remarks], [InsDt] " +
+                              "[DecisionNo], [DecisionPublDt], [TermCompany], [FinalizedDt], [FinalizedUrl], [RenewalApplicationDt], [RenewalDt], [RenewalFees], [RenewalProtocol], [Remarks], [InsDt] " +
                               "FROM [dbo].[TM_Status] TS " +
                               "WHERE TrademarksId = @TmId AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY Id ";
@@ -69,6 +69,10 @@ namespace Trademarks
                         stat.FinalizedDt = Convert.ToDateTime(reader["FinalizedDt"].ToString());
                     }
                     stat.FinalizedUrl = reader["FinalizedUrl"].ToString();
+                    if (reader["RenewalApplicationDt"] != DBNull.Value)
+                    {
+                        stat.RenewalApplicationDt = Convert.ToDateTime(reader["RenewalApplicationDt"].ToString());
+                    }
                     if (reader["RenewalDt"] != DBNull.Value)
                     {
                         stat.RenewalDt = Convert.ToDateTime(reader["RenewalDt"].ToString());
@@ -117,6 +121,10 @@ namespace Trademarks
                     dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FinalizedDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_FinalizedDt" });
                 }
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FinalizedUrl, dgvColumnHeader = "st_FinalizedUrl" });
+                if (thisRecord.RenewalApplicationDt != null && thisRecord.RenewalApplicationDt > new DateTime(1800, 1, 1))
+                {
+                    dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.RenewalApplicationDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_RenewalApplicationDt" });
+                }
                 if (thisRecord.RenewalDt != null && thisRecord.RenewalDt > new DateTime(1800, 1, 1))
                 {
                     dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.RenewalDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_RenewalDt" });

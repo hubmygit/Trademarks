@@ -41,17 +41,21 @@
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.lblRenewalTitle = new System.Windows.Forms.Label();
             this.dtpRenewalDate = new System.Windows.Forms.DateTimePicker();
-            this.lblRenewalDate = new System.Windows.Forms.Label();
+            this.lblRenewalDateFrom = new System.Windows.Forms.Label();
             this.txtFees = new System.Windows.Forms.TextBox();
             this.lblFees = new System.Windows.Forms.Label();
             this.txtProtocolNo = new System.Windows.Forms.TextBox();
             this.lblProtocolNo = new System.Windows.Forms.Label();
+            this.lblApplicationDate = new System.Windows.Forms.Label();
+            this.dtpApplicationDate = new System.Windows.Forms.DateTimePicker();
+            this.lblRenewalDateTo = new System.Windows.Forms.Label();
+            this.lblExpDt = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtDescription
             // 
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtDescription.Location = new System.Drawing.Point(41, 375);
+            this.txtDescription.Location = new System.Drawing.Point(41, 398);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(705, 70);
@@ -61,7 +65,7 @@
             // 
             this.lblDescription.AutoSize = true;
             this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDescription.Location = new System.Drawing.Point(368, 356);
+            this.lblDescription.Location = new System.Drawing.Point(368, 379);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(49, 16);
             this.lblDescription.TabIndex = 0;
@@ -163,25 +167,26 @@
             // dtpRenewalDate
             // 
             this.dtpRenewalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtpRenewalDate.Location = new System.Drawing.Point(327, 230);
+            this.dtpRenewalDate.Location = new System.Drawing.Point(162, 251);
             this.dtpRenewalDate.Name = "dtpRenewalDate";
             this.dtpRenewalDate.Size = new System.Drawing.Size(250, 22);
             this.dtpRenewalDate.TabIndex = 5;
+            this.dtpRenewalDate.ValueChanged += new System.EventHandler(this.dtpRenewalDate_ValueChanged);
             // 
-            // lblRenewalDate
+            // lblRenewalDateFrom
             // 
-            this.lblRenewalDate.AutoSize = true;
-            this.lblRenewalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblRenewalDate.Location = new System.Drawing.Point(207, 235);
-            this.lblRenewalDate.Name = "lblRenewalDate";
-            this.lblRenewalDate.Size = new System.Drawing.Size(116, 16);
-            this.lblRenewalDate.TabIndex = 0;
-            this.lblRenewalDate.Text = "Ημ/νία Ανανέωσης";
+            this.lblRenewalDateFrom.AutoSize = true;
+            this.lblRenewalDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblRenewalDateFrom.Location = new System.Drawing.Point(21, 256);
+            this.lblRenewalDateFrom.Name = "lblRenewalDateFrom";
+            this.lblRenewalDateFrom.Size = new System.Drawing.Size(135, 16);
+            this.lblRenewalDateFrom.TabIndex = 0;
+            this.lblRenewalDateFrom.Text = "Ισχύς Ανανέωσης από";
             // 
             // txtFees
             // 
             this.txtFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtFees.Location = new System.Drawing.Point(162, 305);
+            this.txtFees.Location = new System.Drawing.Point(162, 328);
             this.txtFees.Multiline = true;
             this.txtFees.Name = "txtFees";
             this.txtFees.Size = new System.Drawing.Size(584, 39);
@@ -191,7 +196,7 @@
             // 
             this.lblFees.AutoSize = true;
             this.lblFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblFees.Location = new System.Drawing.Point(38, 308);
+            this.lblFees.Location = new System.Drawing.Point(38, 331);
             this.lblFees.Name = "lblFees";
             this.lblFees.Size = new System.Drawing.Size(101, 16);
             this.lblFees.TabIndex = 0;
@@ -200,7 +205,7 @@
             // txtProtocolNo
             // 
             this.txtProtocolNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtProtocolNo.Location = new System.Drawing.Point(162, 269);
+            this.txtProtocolNo.Location = new System.Drawing.Point(162, 292);
             this.txtProtocolNo.Name = "txtProtocolNo";
             this.txtProtocolNo.Size = new System.Drawing.Size(584, 22);
             this.txtProtocolNo.TabIndex = 6;
@@ -209,11 +214,50 @@
             // 
             this.lblProtocolNo.AutoSize = true;
             this.lblProtocolNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblProtocolNo.Location = new System.Drawing.Point(38, 272);
+            this.lblProtocolNo.Location = new System.Drawing.Point(38, 295);
             this.lblProtocolNo.Name = "lblProtocolNo";
             this.lblProtocolNo.Size = new System.Drawing.Size(118, 16);
             this.lblProtocolNo.TabIndex = 0;
             this.lblProtocolNo.Text = "Αρ. Πρωτοκόλλου";
+            // 
+            // lblApplicationDate
+            // 
+            this.lblApplicationDate.AutoSize = true;
+            this.lblApplicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblApplicationDate.Location = new System.Drawing.Point(224, 217);
+            this.lblApplicationDate.Name = "lblApplicationDate";
+            this.lblApplicationDate.Size = new System.Drawing.Size(97, 16);
+            this.lblApplicationDate.TabIndex = 10;
+            this.lblApplicationDate.Text = "Ημ/νία Αίτησης";
+            // 
+            // dtpApplicationDate
+            // 
+            this.dtpApplicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpApplicationDate.Location = new System.Drawing.Point(327, 212);
+            this.dtpApplicationDate.Name = "dtpApplicationDate";
+            this.dtpApplicationDate.Size = new System.Drawing.Size(250, 22);
+            this.dtpApplicationDate.TabIndex = 11;
+            this.dtpApplicationDate.ValueChanged += new System.EventHandler(this.dtpApplicationDate_ValueChanged);
+            // 
+            // lblRenewalDateTo
+            // 
+            this.lblRenewalDateTo.AutoSize = true;
+            this.lblRenewalDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblRenewalDateTo.Location = new System.Drawing.Point(460, 256);
+            this.lblRenewalDateTo.Name = "lblRenewalDateTo";
+            this.lblRenewalDateTo.Size = new System.Drawing.Size(30, 16);
+            this.lblRenewalDateTo.TabIndex = 12;
+            this.lblRenewalDateTo.Text = "έως";
+            // 
+            // lblExpDt
+            // 
+            this.lblExpDt.AutoSize = true;
+            this.lblExpDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblExpDt.Location = new System.Drawing.Point(496, 256);
+            this.lblExpDt.Name = "lblExpDt";
+            this.lblExpDt.Size = new System.Drawing.Size(40, 16);
+            this.lblExpDt.TabIndex = 13;
+            this.lblExpDt.Text = "--/--/--";
             // 
             // Renewal
             // 
@@ -221,12 +265,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.lblExpDt);
+            this.Controls.Add(this.lblRenewalDateTo);
+            this.Controls.Add(this.dtpApplicationDate);
+            this.Controls.Add(this.lblApplicationDate);
             this.Controls.Add(this.txtProtocolNo);
             this.Controls.Add(this.lblProtocolNo);
             this.Controls.Add(this.txtFees);
             this.Controls.Add(this.lblFees);
             this.Controls.Add(this.dtpRenewalDate);
-            this.Controls.Add(this.lblRenewalDate);
+            this.Controls.Add(this.lblRenewalDateFrom);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnSave);
@@ -261,10 +309,14 @@
         private System.Windows.Forms.TextBox txtTMId;
         private System.Windows.Forms.Label lblRenewalTitle;
         private System.Windows.Forms.DateTimePicker dtpRenewalDate;
-        private System.Windows.Forms.Label lblRenewalDate;
+        private System.Windows.Forms.Label lblRenewalDateFrom;
         private System.Windows.Forms.TextBox txtFees;
         private System.Windows.Forms.Label lblFees;
         private System.Windows.Forms.TextBox txtProtocolNo;
         private System.Windows.Forms.Label lblProtocolNo;
+        private System.Windows.Forms.Label lblApplicationDate;
+        private System.Windows.Forms.DateTimePicker dtpApplicationDate;
+        private System.Windows.Forms.Label lblRenewalDateTo;
+        private System.Windows.Forms.Label lblExpDt;
     }
 }

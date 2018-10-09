@@ -30,6 +30,14 @@ namespace Trademarks
             dtpDepositTime.Value = TM.DepositDt;
 
             isInsert = true;
+
+            DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value);
+
+            if (renDt != null)
+            {
+                dtpRenewalDate.Value = (DateTime)renDt;
+                lblExpDt.Text = ((DateTime)renDt).AddYears(10).ToString("dd/MM/yyyy");
+            }
         }
 
         public Renewal(Trademark TM, TM_Status TMS) //update
@@ -49,6 +57,7 @@ namespace Trademarks
             OldRecord = TMS;
             TempRecUpdId = TMS.Id;
 
+            dtpApplicationDate.Value = TMS.RenewalApplicationDt;
             dtpRenewalDate.Value = TMS.RenewalDt;
             txtProtocolNo.Text = TMS.RenewalProtocol;
             txtFees.Text = TMS.RenewalFees;
@@ -71,6 +80,48 @@ namespace Trademarks
         private void Renewal_Load(object sender, EventArgs e)
         {
             txtTMId.Select();
+        }
+
+        public DateTime? CalcRenewalDt(DateTime depositDt, DateTime applicationDt)
+        {
+            DateTime ret = depositDt;
+            bool goOn = true;
+
+            while (goOn)
+            {
+                ret = ret.AddYears(10); 
+
+                if (applicationDt >= ret.AddMonths(-6) && applicationDt <= ret.AddMonths(6)) 
+                {
+                    goOn = false;
+                }
+
+                if (applicationDt < ret.AddMonths(-6))
+                {
+                    return null;
+                }
+            }
+
+            return ret;
+        }
+
+        public DateTime? CalcRenewalDt(DateTime depositDt)
+        {
+            DateTime ret = depositDt;
+            DateTime NowDt = DateTime.Now;
+            bool goOn = true;
+
+            while (goOn)
+            {
+                ret = ret.AddYears(10);
+
+                if (NowDt >= ret && NowDt <= ret.AddYears(10))
+                {
+                    goOn = false;
+                }
+            }
+
+            return ret;
         }
 
         private void RenewalProcedure(TM_Status StRec, Trademark TmRec)
@@ -168,6 +219,7 @@ namespace Trademarks
             NewRecord.TmId = givenTM.Id;
             NewRecord.StatusId = 9; //ananewsi
 
+            NewRecord.RenewalApplicationDt = dtpApplicationDate.Value;
             NewRecord.RenewalDt = dtpRenewalDate.Value;
             NewRecord.RenewalProtocol = txtProtocolNo.Text;
             NewRecord.RenewalFees = txtFees.Text;
@@ -177,6 +229,24 @@ namespace Trademarks
 
             RenewalProcedure(NewRecord, givenTM);
 
+        }
+
+        private void dtpApplicationDate_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value, dtpApplicationDate.Value);
+
+            if (renDt != null)
+            {
+                dtpRenewalDate.Value = (DateTime)renDt;
+
+                //dtpExpDt.Value = ((DateTime)renDt).AddYears(10);
+                lblExpDt.Text = ((DateTime)renDt).AddYears(10).ToString("dd/MM/yyyy");
+            }
+        }
+
+        private void dtpRenewalDate_ValueChanged(object sender, EventArgs e)
+        {
+            lblExpDt.Text = dtpRenewalDate.Value.AddYears(10).ToString("dd/MM/yyyy");
         }
     }
 }

@@ -1090,6 +1090,7 @@ namespace Trademarks
             FieldsToCheck.Add(new TmLogFields() { FieldName = "TermCompany", FieldNameToShow = "Ανακόπτουσα Εταιρία", MandatoryGroup = 4 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedDt", FieldNameToShow = "Ημ/νία Οριστικοποίησης", MandatoryGroup = 5 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "FinalizedUrl", FieldNameToShow = "Url", MandatoryGroup = 5 });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalApplicationDt", FieldNameToShow = "Ημ/νία Αίτησης Ανανέωσης", MandatoryGroup = 6 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalDt", FieldNameToShow = "Ημ/νία Ανανέωσης", MandatoryGroup = 6 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalFees", FieldNameToShow = "Παράβολα Ανανέωσης", MandatoryGroup = 6 });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "RenewalProtocol", FieldNameToShow = "Πρωτόκολο Ανανέωσης", MandatoryGroup = 6 });
@@ -1455,6 +1456,7 @@ namespace Trademarks
         public string TermCompany { get; set; }
         public DateTime FinalizedDt { get; set; }
         public string FinalizedUrl { get; set; }
+        public DateTime RenewalApplicationDt { get; set; }
         public DateTime RenewalDt { get; set; }
         public string RenewalFees { get; set; }
         public string RenewalProtocol { get; set; }
@@ -2120,8 +2122,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsUser], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @Remarks, @RenewalDt, @RenewalFees, @RenewalProtocol, @InsUser, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalApplicationDt], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @Remarks, @RenewalApplicationDt, @RenewalDt, @RenewalFees, @RenewalProtocol, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -2130,6 +2132,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@RenewalApplicationDt", tmstatus.RenewalApplicationDt);
                 cmd.Parameters.AddWithValue("@RenewalDt", tmstatus.RenewalDt);
                 cmd.Parameters.AddWithValue("@RenewalFees", tmstatus.RenewalFees);
                 cmd.Parameters.AddWithValue("@RenewalProtocol", tmstatus.RenewalProtocol);
@@ -2159,8 +2162,8 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [Remarks] = @Remarks, [RenewalDt] = @RenewalDt, " +
-                           "[RenewalFees] = @RenewalFees, [RenewalProtocol] = @RenewalProtocol, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [Remarks] = @Remarks, [RenewalApplicationDt] = @RenewalApplicationDt, " +
+                           "[RenewalDt] = @RenewalDt, [RenewalFees] = @RenewalFees, [RenewalProtocol] = @RenewalProtocol, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -2171,6 +2174,7 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                cmd.Parameters.AddWithValue("@RenewalApplicationDt", tmstatus.RenewalApplicationDt);
                 cmd.Parameters.AddWithValue("@RenewalDt", tmstatus.RenewalDt);
                 cmd.Parameters.AddWithValue("@RenewalFees", tmstatus.RenewalFees);
                 cmd.Parameters.AddWithValue("@RenewalProtocol", tmstatus.RenewalProtocol);
