@@ -591,14 +591,24 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId],[ExpDate],[NotificationDate] ,[IsActive], [EventTypesId], [AlertDescr]) VALUES " +
-                           "(@TrademarksId, @ExpDate, @NotificationDate, @IsActive, @EventTypesId, @AlertDescr ) ";
+            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId],[TM_StatusId], [ExpDate],[NotificationDate] ,[IsActive], [EventTypesId], [AlertDescr]) VALUES " +
+                           "(@TrademarksId, @TM_StatusId, @ExpDate, @NotificationDate, @IsActive, @EventTypesId, @AlertDescr ) ";
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
                 cmd.Parameters.AddWithValue("@TrademarksId", task.TrademarksId);
+
+                if (task.TM_StatusId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@TM_StatusId", task.TM_StatusId);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TM_StatusId", DBNull.Value);
+                }
+
                 cmd.Parameters.AddWithValue("@ExpDate", task.ExpDate);
                 cmd.Parameters.AddWithValue("@NotificationDate", task.NotificationDate);
                 cmd.Parameters.AddWithValue("@IsActive", task.IsActive);
@@ -1583,6 +1593,7 @@ namespace Trademarks
     public class Task
     {
         public int TrademarksId { get; set; }
+        public int TM_StatusId { get; set; }
         public DateTime ExpDate { get; set; }
         public DateTime NotificationDate { get; set; }
         public bool IsActive { get; set; }

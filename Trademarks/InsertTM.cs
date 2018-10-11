@@ -1774,12 +1774,14 @@ namespace Trademarks
             return ret;
         }
 
-        public static bool InsertTM_Status_Decision(TM_Status tmstatus)
+        public static int InsertTM_Status_Decision(TM_Status tmstatus)
         {
-            bool ret = false;
+            int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks], [InsUser], [InsDt]) VALUES " +
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionPublDt], [Remarks], [InsUser], [InsDt]) " +
+                           "OUTPUT INSERTED.Id " + 
+                           "VALUES " +
                            "(@TrademarksId, @StatusId, @DecisionNo, @DecisionPublDt, @Remarks, @InsUser, getdate()) ";
             try
             {
@@ -1794,12 +1796,18 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
+                //int rowsAffected = cmd.ExecuteNonQuery();
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
 
-                if (rowsAffected > 0)
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    ret = true;
+                    ret = Convert.ToInt32(reader["Id"].ToString());
                 }
+                reader.Close();
             }
             catch (Exception ex)
             {

@@ -88,6 +88,7 @@ namespace Trademarks
 
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 3; //Οριστικοποίηση σε εκκρεμότητα
+            TaskToInsert.TM_StatusId = TMStatus.Id;
 
             Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRec.NationalPowerId);
 
@@ -202,7 +203,8 @@ namespace Trademarks
                 //Save
                 bool successful = true;
 
-                if (TM_Status.InsertTM_Status_Decision(StRec) == false)
+                StRec.Id = TM_Status.InsertTM_Status_Decision(StRec);
+                if (StRec.Id <= 0)
                 {
                     //TM_Status ins error
                     successful = false;
@@ -301,6 +303,7 @@ namespace Trademarks
 
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 4; //Προσφυγή σε εκκρεμότητα
+            TaskToInsert.TM_StatusId = TMStatus.Id;
 
             Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRec.NationalPowerId);
 
