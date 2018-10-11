@@ -101,7 +101,7 @@ namespace Trademarks
             }
 
             //delete previous alerts 
-            Task.DisableNotSentTasks(givenTM.Id);
+            //Task.DisableNotSentTasks(givenTM.Id);
 
             NewRecord = new TM_Status();
 

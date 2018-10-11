@@ -31,13 +31,12 @@ namespace Trademarks
 
             isInsert = true;
 
-            DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value);
-
-            if (renDt != null)
-            {
-                dtpRenewalDate.Value = (DateTime)renDt;
-                lblExpDt.Text = ((DateTime)renDt).AddYears(10).ToString("dd/MM/yyyy");
-            }
+            //DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value);
+            //if (renDt != null)
+            //{
+            //    dtpRenewalDate.Value = (DateTime)renDt;
+            //    lblExpDt.Text = ((DateTime)renDt).AddYears(10).ToString("dd/MM/yyyy");
+            //}
         }
 
         public Renewal(Trademark TM, TM_Status TMS) //update
@@ -105,24 +104,24 @@ namespace Trademarks
             return ret;
         }
 
-        public DateTime? CalcRenewalDt(DateTime depositDt)
-        {
-            DateTime ret = depositDt;
-            DateTime NowDt = DateTime.Now;
-            bool goOn = true;
+        //public DateTime? CalcRenewalDt(DateTime depositDt)
+        //{
+        //    DateTime ret = depositDt;
+        //    DateTime NowDt = DateTime.Now;
+        //    bool goOn = true;
 
-            while (goOn)
-            {
-                ret = ret.AddYears(10);
+        //    while (goOn)
+        //    {
+        //        ret = ret.AddYears(10);
 
-                if (NowDt >= ret && NowDt <= ret.AddYears(10))
-                {
-                    goOn = false;
-                }
-            }
+        //        if (NowDt >= ret && NowDt <= ret.AddYears(10))
+        //        {
+        //            goOn = false;
+        //        }
+        //    }
 
-            return ret;
-        }
+        //    return ret;
+        //}
 
         private void RenewalProcedure(TM_Status StRec, Trademark TmRec)
         {

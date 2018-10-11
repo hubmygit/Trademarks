@@ -232,11 +232,11 @@ namespace Trademarks
                     return;
                 }
 
-                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
-                {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
-                    return;
-                }
+                //if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                //{
+                //    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                //    return;
+                //}
 
                 TM_Status prevTms = TM_Status.getLastDecision(tm.Id);
 
@@ -279,11 +279,11 @@ namespace Trademarks
                     return;
                 }
 
-                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
-                {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανακοπή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
-                    return;
-                }
+                //if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                //{
+                //    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανακοπή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                //    return;
+                //}
 
                 TM_Status prevTms = TM_Status.getLastDecision(tm.Id);
 

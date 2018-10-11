@@ -38,7 +38,7 @@ namespace Trademarks
                               "[FileName], [Description], [Fees] " +
                               "FROM [dbo].[Trademarks] " +
                               "WHERE NationalPowerId = 1 AND isnull(IsDeleted, 'False') = 'False' " +
-                              "ORDER BY Id "; //??
+                              "ORDER BY TMNo "; //??
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
