@@ -38,14 +38,6 @@
             this.tsmiAlerts = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts_ViewGrouped = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
-            this.newItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.insertTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.appealToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.terminationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.finalizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renewalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -80,7 +72,6 @@
             this.menuStripBasic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiTM,
             this.tsmiAlerts,
-            this.newItemsToolStripMenuItem,
             this.tsmiAdmin});
             this.menuStripBasic.Location = new System.Drawing.Point(0, 0);
             this.menuStripBasic.Name = "menuStripBasic";
@@ -133,69 +124,6 @@
             this.tsmiAlerts_View.Size = new System.Drawing.Size(217, 22);
             this.tsmiAlerts_View.Text = "Προβολή (Αναλυτικά)";
             this.tsmiAlerts_View.Click += new System.EventHandler(this.tsmiAlerts_View_Click);
-            // 
-            // newItemsToolStripMenuItem
-            // 
-            this.newItemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.insertTMToolStripMenuItem,
-            this.selectToolStripMenuItem,
-            this.decisionToolStripMenuItem,
-            this.appealToolStripMenuItem,
-            this.terminationToolStripMenuItem,
-            this.finalizationToolStripMenuItem,
-            this.renewalToolStripMenuItem});
-            this.newItemsToolStripMenuItem.Name = "newItemsToolStripMenuItem";
-            this.newItemsToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.newItemsToolStripMenuItem.Text = "NewItems";
-            // 
-            // insertTMToolStripMenuItem
-            // 
-            this.insertTMToolStripMenuItem.Name = "insertTMToolStripMenuItem";
-            this.insertTMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.insertTMToolStripMenuItem.Text = "Κατάθεση";
-            this.insertTMToolStripMenuItem.Click += new System.EventHandler(this.insertTMToolStripMenuItem_Click);
-            // 
-            // selectToolStripMenuItem
-            // 
-            this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
-            this.selectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.selectToolStripMenuItem.Text = "Εμφάνιση";
-            this.selectToolStripMenuItem.Click += new System.EventHandler(this.selectToolStripMenuItem_Click);
-            // 
-            // decisionToolStripMenuItem
-            // 
-            this.decisionToolStripMenuItem.Name = "decisionToolStripMenuItem";
-            this.decisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.decisionToolStripMenuItem.Text = "//Απόφαση";
-            this.decisionToolStripMenuItem.Click += new System.EventHandler(this.decisionToolStripMenuItem_Click);
-            // 
-            // appealToolStripMenuItem
-            // 
-            this.appealToolStripMenuItem.Name = "appealToolStripMenuItem";
-            this.appealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.appealToolStripMenuItem.Text = "//Προσφυγή";
-            this.appealToolStripMenuItem.Click += new System.EventHandler(this.appealToolStripMenuItem_Click);
-            // 
-            // terminationToolStripMenuItem
-            // 
-            this.terminationToolStripMenuItem.Name = "terminationToolStripMenuItem";
-            this.terminationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.terminationToolStripMenuItem.Text = "//Ανακοπή";
-            this.terminationToolStripMenuItem.Click += new System.EventHandler(this.terminationToolStripMenuItem_Click);
-            // 
-            // finalizationToolStripMenuItem
-            // 
-            this.finalizationToolStripMenuItem.Name = "finalizationToolStripMenuItem";
-            this.finalizationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.finalizationToolStripMenuItem.Text = "//Οριστικοποίηση";
-            this.finalizationToolStripMenuItem.Click += new System.EventHandler(this.finalizationToolStripMenuItem_Click);
-            // 
-            // renewalToolStripMenuItem
-            // 
-            this.renewalToolStripMenuItem.Name = "renewalToolStripMenuItem";
-            this.renewalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.renewalToolStripMenuItem.Text = "//Ανανέωση";
-            this.renewalToolStripMenuItem.Click += new System.EventHandler(this.renewalToolStripMenuItem_Click);
             // 
             // tsmiAdmin
             // 
@@ -283,14 +211,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAdmin;
         private System.Windows.Forms.ToolStripMenuItem tsmiAdmin_Encrypt;
         private System.Windows.Forms.ToolStripMenuItem tsmiAlerts_ViewGrouped;
-        private System.Windows.Forms.ToolStripMenuItem newItemsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem insertTMToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem decisionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem appealToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem terminationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem finalizationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem renewalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem selectToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton TSBtnShow;
         private System.Windows.Forms.ToolStripButton TSBtnAlerts;

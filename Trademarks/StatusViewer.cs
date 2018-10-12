@@ -701,5 +701,13 @@ namespace Trademarks
                 }
             }
         }
+
+        private void btnOpenLink_Click(object sender, EventArgs e)
+        {
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+
+            }
+        }
     }
 }

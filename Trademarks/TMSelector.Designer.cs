@@ -31,7 +31,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TMSelector));
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
+            this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
+            this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiDecision = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAppeal = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTermination = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,9 +53,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiStatusViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlertsViewer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.cbNatPower = new System.Windows.Forms.ComboBox();
             this.lblNatPower = new System.Windows.Forms.Label();
             this.cbLawyerFullname = new System.Windows.Forms.ComboBox();
@@ -53,19 +64,9 @@
             this.txtTMName = new System.Windows.Forms.TextBox();
             this.lblTMId = new System.Windows.Forms.Label();
             this.txtTMId = new System.Windows.Forms.TextBox();
-            this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
-            this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.tsmiTmLog = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -100,6 +101,65 @@
             this.dgvTempRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTempRecs_SortCompare);
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
             // 
+            // tmp_Id
+            // 
+            this.tmp_Id.HeaderText = "Id";
+            this.tmp_Id.Name = "tmp_Id";
+            this.tmp_Id.Visible = false;
+            // 
+            // tmp_No
+            // 
+            this.tmp_No.HeaderText = "Σήμα";
+            this.tmp_No.Name = "tmp_No";
+            this.tmp_No.ReadOnly = true;
+            // 
+            // tmp_Pic
+            // 
+            this.tmp_Pic.HeaderText = "Αρχείο";
+            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.tmp_Pic.Name = "tmp_Pic";
+            this.tmp_Pic.ReadOnly = true;
+            // 
+            // tmp_Name
+            // 
+            this.tmp_Name.HeaderText = "Όνομα";
+            this.tmp_Name.Name = "tmp_Name";
+            this.tmp_Name.ReadOnly = true;
+            this.tmp_Name.Width = 220;
+            // 
+            // tmp_DepositDt
+            // 
+            this.tmp_DepositDt.HeaderText = "Κατάθεση";
+            this.tmp_DepositDt.Name = "tmp_DepositDt";
+            this.tmp_DepositDt.ReadOnly = true;
+            // 
+            // tmp_NatPower
+            // 
+            this.tmp_NatPower.HeaderText = "Εθνική Ισχύς";
+            this.tmp_NatPower.Name = "tmp_NatPower";
+            this.tmp_NatPower.ReadOnly = true;
+            // 
+            // tmp_GrNo
+            // 
+            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
+            this.tmp_GrNo.Name = "tmp_GrNo";
+            this.tmp_GrNo.ReadOnly = true;
+            this.tmp_GrNo.Width = 120;
+            // 
+            // tmp_Com
+            // 
+            this.tmp_Com.HeaderText = "Εταιρία";
+            this.tmp_Com.Name = "tmp_Com";
+            this.tmp_Com.ReadOnly = true;
+            this.tmp_Com.Width = 220;
+            // 
+            // tmp_Responsible
+            // 
+            this.tmp_Responsible.HeaderText = "Υπεύθυνος";
+            this.tmp_Responsible.Name = "tmp_Responsible";
+            this.tmp_Responsible.ReadOnly = true;
+            this.tmp_Responsible.Width = 180;
+            // 
             // cmsOnGrid
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -115,9 +175,36 @@
             this.toolStripSeparator1,
             this.tsmiStatusViewer,
             this.tsmiAlertsViewer,
-            this.tsmiOpenUrl});
+            this.tsmiOpenUrl,
+            this.tsmiTmLog});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 258);
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 302);
+            // 
+            // tsmiViewTM
+            // 
+            this.tsmiViewTM.Name = "tsmiViewTM";
+            this.tsmiViewTM.Size = new System.Drawing.Size(208, 22);
+            this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
+            this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
+            // 
+            // tsmiUpdTM
+            // 
+            this.tsmiUpdTM.Name = "tsmiUpdTM";
+            this.tsmiUpdTM.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdTM.Text = "Μεταβολή Σήματος";
+            this.tsmiUpdTM.Click += new System.EventHandler(this.tsmiUpdTM_Click);
+            // 
+            // tsmiDelTM
+            // 
+            this.tsmiDelTM.Name = "tsmiDelTM";
+            this.tsmiDelTM.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelTM.Text = "Διαγραφή Σήματος";
+            this.tsmiDelTM.Click += new System.EventHandler(this.tsmiDelTM_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
             // 
             // tsmiDecision
             // 
@@ -173,24 +260,12 @@
             this.tsmiAlertsViewer.Text = "Ειδοποιήσεις";
             this.tsmiAlertsViewer.Click += new System.EventHandler(this.tsmiAlertsViewer_Click);
             // 
-            // toolStripSeparator2
+            // tsmiOpenUrl
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
-            // 
-            // tsmiUpdTM
-            // 
-            this.tsmiUpdTM.Name = "tsmiUpdTM";
-            this.tsmiUpdTM.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdTM.Text = "Μεταβολή Σήματος";
-            this.tsmiUpdTM.Click += new System.EventHandler(this.tsmiUpdTM_Click);
-            // 
-            // tsmiDelTM
-            // 
-            this.tsmiDelTM.Name = "tsmiDelTM";
-            this.tsmiDelTM.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelTM.Text = "Διαγραφή Σήματος";
-            this.tsmiDelTM.Click += new System.EventHandler(this.tsmiDelTM_Click);
+            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
+            this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
+            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
             // 
             // cbNatPower
             // 
@@ -297,79 +372,6 @@
             this.txtTMId.Size = new System.Drawing.Size(200, 22);
             this.txtTMId.TabIndex = 25;
             // 
-            // tmp_Id
-            // 
-            this.tmp_Id.HeaderText = "Id";
-            this.tmp_Id.Name = "tmp_Id";
-            this.tmp_Id.Visible = false;
-            // 
-            // tmp_No
-            // 
-            this.tmp_No.HeaderText = "Σήμα";
-            this.tmp_No.Name = "tmp_No";
-            this.tmp_No.ReadOnly = true;
-            // 
-            // tmp_Pic
-            // 
-            this.tmp_Pic.HeaderText = "Αρχείο";
-            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.tmp_Pic.Name = "tmp_Pic";
-            this.tmp_Pic.ReadOnly = true;
-            // 
-            // tmp_Name
-            // 
-            this.tmp_Name.HeaderText = "Όνομα";
-            this.tmp_Name.Name = "tmp_Name";
-            this.tmp_Name.ReadOnly = true;
-            this.tmp_Name.Width = 220;
-            // 
-            // tmp_DepositDt
-            // 
-            this.tmp_DepositDt.HeaderText = "Κατάθεση";
-            this.tmp_DepositDt.Name = "tmp_DepositDt";
-            this.tmp_DepositDt.ReadOnly = true;
-            // 
-            // tmp_NatPower
-            // 
-            this.tmp_NatPower.HeaderText = "Εθνική Ισχύς";
-            this.tmp_NatPower.Name = "tmp_NatPower";
-            this.tmp_NatPower.ReadOnly = true;
-            // 
-            // tmp_GrNo
-            // 
-            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
-            this.tmp_GrNo.Name = "tmp_GrNo";
-            this.tmp_GrNo.ReadOnly = true;
-            this.tmp_GrNo.Width = 120;
-            // 
-            // tmp_Com
-            // 
-            this.tmp_Com.HeaderText = "Εταιρία";
-            this.tmp_Com.Name = "tmp_Com";
-            this.tmp_Com.ReadOnly = true;
-            this.tmp_Com.Width = 220;
-            // 
-            // tmp_Responsible
-            // 
-            this.tmp_Responsible.HeaderText = "Υπεύθυνος";
-            this.tmp_Responsible.Name = "tmp_Responsible";
-            this.tmp_Responsible.ReadOnly = true;
-            this.tmp_Responsible.Width = 180;
-            // 
-            // tsmiOpenUrl
-            // 
-            this.tsmiOpenUrl.Name = "tsmiOpenUrl";
-            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
-            this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
-            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
-            // 
-            // tsmiViewTM
-            // 
-            this.tsmiViewTM.Name = "tsmiViewTM";
-            this.tsmiViewTM.Size = new System.Drawing.Size(208, 22);
-            this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
-            this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
-            // 
             // btnCreateNew
             // 
             this.btnCreateNew.Image = global::Trademarks.Properties.Resources.Create_32x;
@@ -395,6 +397,13 @@
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // tsmiTmLog
+            // 
+            this.tsmiTmLog.Name = "tsmiTmLog";
+            this.tsmiTmLog.Size = new System.Drawing.Size(208, 22);
+            this.tsmiTmLog.Text = "Log Μεταβολών";
+            this.tsmiTmLog.Click += new System.EventHandler(this.tsmiTmLog_Click);
             // 
             // TMSelector
             // 
@@ -464,5 +473,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
         private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
         private System.Windows.Forms.Button btnCreateNew;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTmLog;
     }
 }

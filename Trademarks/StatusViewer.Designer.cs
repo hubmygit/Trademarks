@@ -31,17 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusViewer));
             this.dgvStatusViewer = new System.Windows.Forms.DataGridView();
-            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiUpdDecision = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiUpdAppeal = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiUpdTermination = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiUpdFinalization = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiUpdRenewal = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelDecision = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelAppeal = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelTermination = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelFinalization = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelRenewal = new System.Windows.Forms.ToolStripMenuItem();
             this.st_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_TmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +46,18 @@
             this.st_RenewalProtocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_InsDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiUpdDecision = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdAppeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdTermination = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdFinalization = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUpdRenewal = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelDecision = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelAppeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelTermination = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelFinalization = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelRenewal = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenLink = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -94,92 +95,6 @@
             this.dgvStatusViewer.Size = new System.Drawing.Size(1298, 483);
             this.dgvStatusViewer.TabIndex = 4;
             this.dgvStatusViewer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvStatusViewer_MouseDown);
-            // 
-            // cmsOnGrid
-            // 
-            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiUpdDecision,
-            this.tsmiUpdAppeal,
-            this.tsmiUpdTermination,
-            this.tsmiUpdFinalization,
-            this.tsmiUpdRenewal,
-            this.tsmiDelDecision,
-            this.tsmiDelAppeal,
-            this.tsmiDelTermination,
-            this.tsmiDelFinalization,
-            this.tsmiDelRenewal});
-            this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 224);
-            // 
-            // tsmiUpdDecision
-            // 
-            this.tsmiUpdDecision.Name = "tsmiUpdDecision";
-            this.tsmiUpdDecision.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdDecision.Text = "Update Απόφασης";
-            this.tsmiUpdDecision.Click += new System.EventHandler(this.tsmiUpdDecision_Click);
-            // 
-            // tsmiUpdAppeal
-            // 
-            this.tsmiUpdAppeal.Name = "tsmiUpdAppeal";
-            this.tsmiUpdAppeal.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdAppeal.Text = "Update Προσφυγής";
-            this.tsmiUpdAppeal.Click += new System.EventHandler(this.tsmiUpdAppeal_Click);
-            // 
-            // tsmiUpdTermination
-            // 
-            this.tsmiUpdTermination.Name = "tsmiUpdTermination";
-            this.tsmiUpdTermination.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdTermination.Text = "Update Ανακοπής";
-            this.tsmiUpdTermination.Click += new System.EventHandler(this.tsmiUpdTermination_Click);
-            // 
-            // tsmiUpdFinalization
-            // 
-            this.tsmiUpdFinalization.Name = "tsmiUpdFinalization";
-            this.tsmiUpdFinalization.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdFinalization.Text = "Update Οριστικοποίησης";
-            this.tsmiUpdFinalization.Click += new System.EventHandler(this.tsmiUpdFinalization_Click);
-            // 
-            // tsmiUpdRenewal
-            // 
-            this.tsmiUpdRenewal.Name = "tsmiUpdRenewal";
-            this.tsmiUpdRenewal.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdRenewal.Text = "Update Ανανέωσης";
-            this.tsmiUpdRenewal.Click += new System.EventHandler(this.tsmiUpdRenewal_Click);
-            // 
-            // tsmiDelDecision
-            // 
-            this.tsmiDelDecision.Name = "tsmiDelDecision";
-            this.tsmiDelDecision.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelDecision.Text = "Delete Απόφασης";
-            this.tsmiDelDecision.Click += new System.EventHandler(this.tsmiDelDecision_Click);
-            // 
-            // tsmiDelAppeal
-            // 
-            this.tsmiDelAppeal.Name = "tsmiDelAppeal";
-            this.tsmiDelAppeal.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelAppeal.Text = "Delete Προσφυγής";
-            this.tsmiDelAppeal.Click += new System.EventHandler(this.tsmiDelAppeal_Click);
-            // 
-            // tsmiDelTermination
-            // 
-            this.tsmiDelTermination.Name = "tsmiDelTermination";
-            this.tsmiDelTermination.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelTermination.Text = "Delete Ανακοπής";
-            this.tsmiDelTermination.Click += new System.EventHandler(this.tsmiDelTermination_Click);
-            // 
-            // tsmiDelFinalization
-            // 
-            this.tsmiDelFinalization.Name = "tsmiDelFinalization";
-            this.tsmiDelFinalization.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelFinalization.Text = "Delete Οριστικοποίησης";
-            this.tsmiDelFinalization.Click += new System.EventHandler(this.tsmiDelFinalization_Click);
-            // 
-            // tsmiDelRenewal
-            // 
-            this.tsmiDelRenewal.Name = "tsmiDelRenewal";
-            this.tsmiDelRenewal.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelRenewal.Text = "Delete Ανανέωσης";
-            this.tsmiDelRenewal.Click += new System.EventHandler(this.tsmiDelRenewal_Click);
             // 
             // st_Id
             // 
@@ -272,11 +187,112 @@
             this.st_InsDt.Name = "st_InsDt";
             this.st_InsDt.ReadOnly = true;
             // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiUpdDecision,
+            this.tsmiUpdAppeal,
+            this.tsmiUpdTermination,
+            this.tsmiUpdFinalization,
+            this.tsmiUpdRenewal,
+            this.tsmiDelDecision,
+            this.tsmiDelAppeal,
+            this.tsmiDelTermination,
+            this.tsmiDelFinalization,
+            this.tsmiDelRenewal});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 224);
+            // 
+            // tsmiUpdDecision
+            // 
+            this.tsmiUpdDecision.Name = "tsmiUpdDecision";
+            this.tsmiUpdDecision.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdDecision.Text = "Update Απόφασης";
+            this.tsmiUpdDecision.Click += new System.EventHandler(this.tsmiUpdDecision_Click);
+            // 
+            // tsmiUpdAppeal
+            // 
+            this.tsmiUpdAppeal.Name = "tsmiUpdAppeal";
+            this.tsmiUpdAppeal.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdAppeal.Text = "Update Προσφυγής";
+            this.tsmiUpdAppeal.Click += new System.EventHandler(this.tsmiUpdAppeal_Click);
+            // 
+            // tsmiUpdTermination
+            // 
+            this.tsmiUpdTermination.Name = "tsmiUpdTermination";
+            this.tsmiUpdTermination.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdTermination.Text = "Update Ανακοπής";
+            this.tsmiUpdTermination.Click += new System.EventHandler(this.tsmiUpdTermination_Click);
+            // 
+            // tsmiUpdFinalization
+            // 
+            this.tsmiUpdFinalization.Name = "tsmiUpdFinalization";
+            this.tsmiUpdFinalization.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdFinalization.Text = "Update Οριστικοποίησης";
+            this.tsmiUpdFinalization.Click += new System.EventHandler(this.tsmiUpdFinalization_Click);
+            // 
+            // tsmiUpdRenewal
+            // 
+            this.tsmiUpdRenewal.Name = "tsmiUpdRenewal";
+            this.tsmiUpdRenewal.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdRenewal.Text = "Update Ανανέωσης";
+            this.tsmiUpdRenewal.Click += new System.EventHandler(this.tsmiUpdRenewal_Click);
+            // 
+            // tsmiDelDecision
+            // 
+            this.tsmiDelDecision.Name = "tsmiDelDecision";
+            this.tsmiDelDecision.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelDecision.Text = "Delete Απόφασης";
+            this.tsmiDelDecision.Click += new System.EventHandler(this.tsmiDelDecision_Click);
+            // 
+            // tsmiDelAppeal
+            // 
+            this.tsmiDelAppeal.Name = "tsmiDelAppeal";
+            this.tsmiDelAppeal.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelAppeal.Text = "Delete Προσφυγής";
+            this.tsmiDelAppeal.Click += new System.EventHandler(this.tsmiDelAppeal_Click);
+            // 
+            // tsmiDelTermination
+            // 
+            this.tsmiDelTermination.Name = "tsmiDelTermination";
+            this.tsmiDelTermination.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelTermination.Text = "Delete Ανακοπής";
+            this.tsmiDelTermination.Click += new System.EventHandler(this.tsmiDelTermination_Click);
+            // 
+            // tsmiDelFinalization
+            // 
+            this.tsmiDelFinalization.Name = "tsmiDelFinalization";
+            this.tsmiDelFinalization.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelFinalization.Text = "Delete Οριστικοποίησης";
+            this.tsmiDelFinalization.Click += new System.EventHandler(this.tsmiDelFinalization_Click);
+            // 
+            // tsmiDelRenewal
+            // 
+            this.tsmiDelRenewal.Name = "tsmiDelRenewal";
+            this.tsmiDelRenewal.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelRenewal.Text = "Delete Ανανέωσης";
+            this.tsmiDelRenewal.Click += new System.EventHandler(this.tsmiDelRenewal_Click);
+            // 
+            // btnOpenLink
+            // 
+            this.btnOpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
+            this.btnOpenLink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOpenLink.Location = new System.Drawing.Point(1186, 22);
+            this.btnOpenLink.Name = "btnOpenLink";
+            this.btnOpenLink.Size = new System.Drawing.Size(100, 40);
+            this.btnOpenLink.TabIndex = 14;
+            this.btnOpenLink.Text = "Άνοιγμα Url";
+            this.btnOpenLink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOpenLink.UseVisualStyleBackColor = true;
+            this.btnOpenLink.Click += new System.EventHandler(this.btnOpenLink_Click);
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 562);
+            this.Controls.Add(this.btnOpenLink);
             this.Controls.Add(this.dgvStatusViewer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StatusViewer";
@@ -317,5 +333,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn st_RenewalProtocol;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_InsDt;
+        private System.Windows.Forms.Button btnOpenLink;
     }
 }

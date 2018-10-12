@@ -179,8 +179,8 @@ namespace Trademarks
 
         private void tsmiAlerts_ViewGrouped_Click(object sender, EventArgs e)
         {
-            //AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
-            //frmAlertsViewGrouped.ShowDialog();
+            AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            frmAlertsViewGrouped.ShowDialog();
         }
 
         private void btnAlertsGrouped_Click(object sender, EventArgs e)
@@ -189,46 +189,46 @@ namespace Trademarks
             frmAlertsViewGrouped.ShowDialog();
         }
 
-        private void insertTMToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InsertTM frmInsTm = new InsertTM();
-            frmInsTm.ShowDialog();
-        }
+        //private void insertTMToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    InsertTM frmInsTm = new InsertTM();
+        //    frmInsTm.ShowDialog();
+        //}
 
-        private void decisionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+        //private void decisionToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
-            GoForDecision(tm);
-        }
+        //    GoForDecision(tm);
+        //}
 
-        private void appealToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+        //private void appealToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
             
-            GoForAppeal(tm);
-        }
+        //    GoForAppeal(tm);
+        //}
         
-        private void terminationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
+        //private void terminationToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15) };
 
-            GoForTermination(tm);
-        }                
+        //    GoForTermination(tm);
+        //}                
 
-        private void finalizationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+        //private void finalizationToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
-            GoForFinalization(tm);
-        }
+        //    GoForFinalization(tm);
+        //}
         
-        private void renewalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
+        //private void renewalToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Trademark tm = new Trademark() { Id = 9, TMNo = "777", TMName = "test", DepositDt = new DateTime(2018, 09, 19, 16, 3, 15), ResponsibleLawyerId = 2 };
 
-            GoForRenewal(tm);
-        }
+        //    GoForRenewal(tm);
+        //}
 
         public void GoForDecision(Trademark tm)
         {
@@ -343,17 +343,19 @@ namespace Trademarks
             frmRenewal.ShowDialog();
         }
 
-        private void selectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TMSelector tmsel = new TMSelector();
-            tmsel.ShowDialog();
-        }
+        //private void selectToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    TMSelector tmsel = new TMSelector();
+        //    tmsel.ShowDialog();
+        //}
 
         private void TSBtnShow_Click(object sender, EventArgs e)
         {
             TMSelector tmsel = new TMSelector();
             tmsel.ShowDialog();
         }
+
+
     }
 
     public static class AppVer

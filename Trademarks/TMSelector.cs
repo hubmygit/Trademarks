@@ -463,6 +463,9 @@ namespace Trademarks
             }
         }
 
-
+        private void tsmiTmLog_Click(object sender, EventArgs e)
+        {
+            //...
+        }
     }
 }
