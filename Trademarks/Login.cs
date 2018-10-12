@@ -31,6 +31,9 @@ namespace Trademarks
 
             //IsAuthorized = false;
 
+            IsAdmin = false;
+
+
             try
             {
                 WindowsUser = Environment.UserName; //get windows/domain logged in username
@@ -47,6 +50,11 @@ namespace Trademarks
                     FullName = "Unknown";
                 }
                 DB_AppUser_Id = Get_DB_AppUser_Id(Environment.UserName);
+
+                if (DB_AppUser_Id != 0) //found
+                {
+                    IsAdmin = Get_Admin_Rights(Environment.UserName);
+                }
             }
             catch (Exception ex)
             {
@@ -60,6 +68,7 @@ namespace Trademarks
         public static string FullName { get; set; }
         public static string MachineName { get { return Environment.MachineName; } set { } }
         public static int DB_AppUser_Id { get; set; }
+        public static bool IsAdmin { get; set; }
         public static void UserLogIn()
         {
             
@@ -107,7 +116,7 @@ namespace Trademarks
         private static void Insert_AppUser()
         {
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[AppUsers] (WinUser, FullName, EmailAddress, LastEntrance) VALUES (@winUser, @fullName, @emailAddr, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[AppUsers] (WinUser, FullName, EmailAddress, LastEntrance, IsAdmin) VALUES (@winUser, @fullName, @emailAddr, getdate(), 'False') ";
 
             try
             {
@@ -140,6 +149,32 @@ namespace Trademarks
                 while (reader.Read())
                 {
                     ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        private static bool Get_Admin_Rights(string UserName)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT IsAdmin FROM [dbo].[AppUsers] WHERE WinUser = '" + UserName + "'";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToBoolean(reader["IsAdmin"].ToString());
                 }
                 reader.Close();
             }

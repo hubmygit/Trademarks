@@ -227,7 +227,7 @@ namespace Trademarks
 
         public void GoForDecision(Trademark tm)
         {
-            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                 return;
@@ -245,7 +245,7 @@ namespace Trademarks
 
         public void GoForAppeal(Trademark tm)
         {
-            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                 return;
@@ -270,7 +270,7 @@ namespace Trademarks
 
         public void GoForTermination(Trademark tm)
         {
-            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                 return;
@@ -295,7 +295,7 @@ namespace Trademarks
 
         public void GoForFinalization(Trademark tm)
         {
-            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                 return;
@@ -320,7 +320,7 @@ namespace Trademarks
 
         public void GoForRenewal(Trademark tm)
         {
-            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId)
+            if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
             {
                 MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανανέωση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                 return;
