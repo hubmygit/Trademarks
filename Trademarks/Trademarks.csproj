@@ -265,6 +265,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parameter.ico" />
+    <None Include="Resources\Create_32x.png" />
+    <None Include="Resources\SendEmail_32x1.png" />
+    <None Include="Resources\SendEmail_32x.png" />
+    <None Include="Resources\ReportParameter_32x.png" />
     <None Include="Resources\Save_32x.png" />
     <None Include="Resources\OpenFile_16x.png" />
     <None Include="Resources\find_40x.png" />

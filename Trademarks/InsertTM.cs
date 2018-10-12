@@ -781,6 +781,7 @@ namespace Trademarks
                     }
 
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
+                    success = true;
                     Close();
                 }
                 else
@@ -997,6 +998,110 @@ namespace Trademarks
                 }
             }
         }
+
+        public void MakeAllControlsReadOnly(Form frm)
+        {
+            foreach (Control control in frm.Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).ReadOnly = true;
+                }
+
+                if (control is DateTimePicker)
+                {
+                    ((DateTimePicker)control).Enabled = false;
+                }
+
+                if (control is CheckBox)
+                {
+                    ((CheckBox)control).Enabled = false;
+                }
+
+                if (control is GroupBox)
+                {
+                    ((GroupBox)control).Enabled = false;
+                }
+
+                if (control is DataGridView)
+                {
+                    //((DataGridView)control).Enabled = false;
+                    if (control.Name == "dgvCountries")
+                    {
+                        ((DataGridView)control).Columns["Country_Checked"].ReadOnly = true;
+                    }
+                    if (control.Name == "dgvTypes")
+                    {
+                        ((DataGridView)control).Columns["Type_Checked"].ReadOnly = true;
+                    }
+                    if (control.Name == "dgvClasses")
+                    {
+                        ((DataGridView)control).Columns["Class_Checked"].ReadOnly = true;
+                    }
+                }
+
+                if (control is ComboBox)
+                {
+                    ((ComboBox)control).Enabled = false;
+                }
+
+                if (control is Button)
+                {
+                    ((Button)control).Enabled = false;
+
+                    if (control.Name == "btnOpenLink" || control.Name == "btnOpenFile")
+                    {
+                        ((Button)control).Enabled = true;
+                    }
+
+                }
+            }
+        }
+
+        public void GetFromGridOnlyChecked()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is DataGridView)
+                {
+                    if (control.Name == "dgvCountries")
+                    {
+                        foreach (DataGridViewRow dgvr in dgvCountries.Rows)
+                        {
+                            if (Convert.ToBoolean(dgvr.Cells["Country_Checked"].Value) == false)
+                            {
+                                //dgvCountries.Rows.Remove(dgvr);
+                                dgvr.Visible = false;
+                            }
+                        }
+                    }
+                    if (control.Name == "dgvTypes")
+                    {
+                        foreach (DataGridViewRow dgvr in dgvTypes.Rows)
+                        {
+                            if (Convert.ToBoolean(dgvr.Cells["Type_Checked"].Value) == false)
+                            {
+                                //dgvTypes.Rows.Remove(dgvr);
+                                dgvr.Visible = false;
+                            }
+                        }
+                    }
+                    if (control.Name == "dgvClasses")
+                    {
+                        foreach (DataGridViewRow dgvr in dgvClasses.Rows)
+                        {
+                            if (Convert.ToBoolean(dgvr.Cells["Class_Checked"].Value) == false)
+                            {
+                                //gvClasses.Rows.Remove(dgvr);
+                                dgvr.Visible = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 
     public class TmLog
@@ -1363,6 +1468,36 @@ namespace Trademarks
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
+        }
+
+        public string getUrl()
+        {
+            string ret = "";
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT FinalizedUrl FROM [dbo].[TM_Status] WHERE TrademarksId = @TrademarksId AND StatusId in (7, 8) ";
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TrademarksId", this.Id);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["FinalizedUrl"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
         }
 
         public static int SelectRefTmRecs(string TMNo)

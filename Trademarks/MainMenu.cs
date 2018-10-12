@@ -25,22 +25,22 @@ namespace Trademarks
 
         private void btnQuickInsert_Click(object sender, EventArgs e)
         {
-            QuickInsert frmQuickIns = new QuickInsert();
-            frmQuickIns.ShowDialog();
+            //QuickInsert frmQuickIns = new QuickInsert();
+            //frmQuickIns.ShowDialog();
 
-            while (frmQuickIns.GoToNext)
-            {
-                frmQuickIns.GoToNext = false;
+            //while (frmQuickIns.GoToNext)
+            //{
+            //    frmQuickIns.GoToNext = false;
 
-                frmQuickIns = new QuickInsert();
-                frmQuickIns.ShowDialog();
-            }
+            //    frmQuickIns = new QuickInsert();
+            //    frmQuickIns.ShowDialog();
+            //}
         }
 
         private void btnQuickView_Click(object sender, EventArgs e)
         {
-            QuickView frmQuickView = new QuickView();
-            frmQuickView.ShowDialog();
+            //QuickView frmQuickView = new QuickView();
+            //frmQuickView.ShowDialog();
         }
 
         private void btnAlerts_Click(object sender, EventArgs e)
@@ -142,22 +142,27 @@ namespace Trademarks
 
         private void tsmiTM_ins_Click(object sender, EventArgs e)
         {
-            QuickInsert frmQuickIns = new QuickInsert();
-            frmQuickIns.ShowDialog();
+            //QuickInsert frmQuickIns = new QuickInsert();
+            //frmQuickIns.ShowDialog();
 
-            while (frmQuickIns.GoToNext)
-            {
-                frmQuickIns.GoToNext = false;
+            //while (frmQuickIns.GoToNext)
+            //{
+            //    frmQuickIns.GoToNext = false;
 
-                frmQuickIns = new QuickInsert();
-                frmQuickIns.ShowDialog();
-            }
+            //    frmQuickIns = new QuickInsert();
+            //    frmQuickIns.ShowDialog();
+            //}
+
+            InsertTM frmInsTm = new InsertTM();
+            frmInsTm.ShowDialog();
         }
 
         private void tsmiTM_View_Click(object sender, EventArgs e)
         {
-            QuickView frmQuickView = new QuickView();
-            frmQuickView.ShowDialog();
+            //QuickView frmQuickView = new QuickView();
+            //frmQuickView.ShowDialog();
+            TMSelector tmsel = new TMSelector();
+            tmsel.ShowDialog();
         }
 
         private void tsmiAlerts_View_Click(object sender, EventArgs e)
@@ -174,8 +179,8 @@ namespace Trademarks
 
         private void tsmiAlerts_ViewGrouped_Click(object sender, EventArgs e)
         {
-            AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
-            frmAlertsViewGrouped.ShowDialog();
+            //AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            //frmAlertsViewGrouped.ShowDialog();
         }
 
         private void btnAlertsGrouped_Click(object sender, EventArgs e)
@@ -339,6 +344,12 @@ namespace Trademarks
         }
 
         private void selectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TMSelector tmsel = new TMSelector();
+            tmsel.ShowDialog();
+        }
+
+        private void TSBtnShow_Click(object sender, EventArgs e)
         {
             TMSelector tmsel = new TMSelector();
             tmsel.ShowDialog();

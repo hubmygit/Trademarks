@@ -19,20 +19,33 @@ namespace Trademarks
             tempRecList = SelectTempRecs();
 
             FillDataGridView(dgvTempRecs, tempRecList);
+
+            cbCompany.SelectedIndex = 0;
+            cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
+
+            cbLawyerFullname.SelectedIndex = 0;
+            cbLawyerFullname.Items.AddRange(Responsible.GetResponsibleComboboxItemsList(responsibleList).ToArray<ComboboxItem>());
+
+            cbNatPower.SelectedIndex = 0;
+            cbNatPower.Items.AddRange(NationalPower.GetNationalPowerComboboxItemsList(nationalPowerList).ToArray<ComboboxItem>());
         }
 
         public List<Trademark> tempRecList = new List<Trademark>();
+        public List<Company> companyList = Company.getCompanyList();
+        public List<Responsible> responsibleList = Responsible.getResponsibleList();
+        public List<NationalPower> nationalPowerList = NationalPower.getNationalPowerListList();
 
         public List<Trademark> SelectTempRecs()
         {
             List<Trademark> ret = new List<Trademark>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId], [TMGrNo], " +
-                              "[FileContents], [FileName], [Description], [Fees] " +
+            string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], " +
+                              "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
+                              "[FileName], [Description], [Fees] " +
                               "FROM [dbo].[Trademarks] " +
                               "WHERE isnull(IsDeleted, 'False') = 'False'" +
-                              "ORDER BY Id ";
+                              "ORDER BY [TMNo] ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -92,6 +105,14 @@ namespace Trademarks
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.DepositDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "tmp_DepositDt" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = NationalPower.getNationalPowerName(thisRecord.NationalPowerId), dgvColumnHeader = "tmp_NatPower" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = Responsible.getResponsibleName(thisRecord.ResponsibleLawyerId), dgvColumnHeader = "tmp_Responsible" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.TMGrNo, dgvColumnHeader = "tmp_GrNo" });
+                dgvDictList.Add(new dgvDictionary() { dbfield = Company.getCompanyName(thisRecord.CompanyId), dgvColumnHeader = "tmp_Com" });
+                dgv.Columns["tmp_Pic"].DefaultCellStyle.NullValue = null;
+                string fn = System.IO.Path.GetExtension(thisRecord.FileName);
+                if ((thisRecord.FileContents != null) && (fn == ".gif" || fn == ".jpg" || fn == ".jpeg" || fn == ".bmp" || fn == ".wmf" || fn == ".png"))
+                {
+                    dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
+                }
 
                 object[] obj = new object[dgv.Columns.Count];
 
@@ -310,5 +331,138 @@ namespace Trademarks
 
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            List<Trademark> filteredRecs = tempRecList;
+            if (txtTMId.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (txtTMName.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (cbCompany.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.CompanyId == ComboboxItem.getComboboxItem<Company>(cbCompany).Id).ToList();
+            }
+
+            if (cbLawyerFullname.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.ResponsibleLawyerId == ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id).ToList();
+            }
+
+            if (cbNatPower.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.NationalPowerId == ComboboxItem.getComboboxItem<NationalPower>(cbNatPower).Id).ToList();
+            }
+
+            FillDataGridView(dgvTempRecs, filteredRecs);
+        }
+
+        private void dgvTempRecs_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == "tmp_DepositDt")// || e.Column.Name == "tmp_RenewalDt")
+            {
+                string dtA = "";
+                string dtB = "";
+
+                if (e.CellValue1 != null && e.CellValue1.ToString().Trim() != "")
+                {
+                    dtA = Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                if (e.CellValue2 != null && e.CellValue2.ToString().Trim() != "")
+                {
+                    dtB = Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                //e.SortResult = System.String.Compare(Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss"),
+                //                                     Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss"));
+
+                e.SortResult = System.String.Compare(dtA, dtB);
+
+                e.Handled = true;
+            }
+        }
+
+        private void dgvTempRecs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                string url = thisTmpRec.getUrl();
+
+                if (url.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(url);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
+            }
+        }
+
+        private void tsmiOpenUrl_Click(object sender, EventArgs e)
+        {
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                string url = thisTmpRec.getUrl();
+
+                if (url.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(url);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
+            }
+        }
+        
+        private void btnCreateNew_Click(object sender, EventArgs e)
+        {
+            InsertTM frmInsTm = new InsertTM();
+            frmInsTm.ShowDialog();
+
+            if (frmInsTm.success)
+            {
+                //refresh
+                //tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
+
+                //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                tempRecList = SelectTempRecs();
+                FillDataGridView(dgvTempRecs, tempRecList);
+            }
+        }
+
+
+
+        private void tsmiViewTM_Click(object sender, EventArgs e)
+        {
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                InsertTM frmViewTm = new InsertTM(thisTmpRec);
+                frmViewTm.MakeAllControlsReadOnly(frmViewTm);
+                frmViewTm.GetFromGridOnlyChecked();
+
+                frmViewTm.btnSave.Enabled = false;
+                frmViewTm.ShowDialog();
+            }
+        }
+
+
     }
 }
