@@ -355,7 +355,6 @@ namespace Trademarks
             tmsel.ShowDialog();
         }
 
-
     }
 
     public static class AppVer

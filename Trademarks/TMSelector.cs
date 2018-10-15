@@ -217,6 +217,13 @@ namespace Trademarks
 
                 StatusViewer frmStatViewer = new StatusViewer(Id);
                 frmStatViewer.ShowDialog();
+
+                //refresh...deposit updates or deletions
+                //tempRecList[tempRecList.FindIndex(w => w.Id == Id)] = frmUpdTm.NewRecord;
+
+                //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                tempRecList = SelectTempRecs();
+                FillDataGridView(dgvTempRecs, tempRecList);
             }
         }
 
@@ -465,7 +472,20 @@ namespace Trademarks
 
         private void tsmiTmLog_Click(object sender, EventArgs e)
         {
-            //...
+            if (dgvTempRecs.SelectedRows.Count > 0)
+            {
+                int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                Trademark tm = tempRecList.Where(i => i.Id == Id).First();
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε δείτε το Log μεταβολών της εγγραφής. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                TmUpdLog frmViewLog = new TmUpdLog(tm.Id);
+                frmViewLog.ShowDialog();
+            }
         }
     }
 }

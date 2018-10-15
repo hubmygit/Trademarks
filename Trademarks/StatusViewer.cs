@@ -166,7 +166,7 @@ namespace Trademarks
 
             dgv.ClearSelection();
         }
-        
+
         private void dgvStatusViewer_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -182,6 +182,9 @@ namespace Trademarks
 
         private void tsmiUpdDecision_Click(object sender, EventArgs e)
         {
+        }
+        private void UpdDecision()
+        {
             // Update
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -189,23 +192,23 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-                if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
-                {
-                    MessageBox.Show("Δεν είναι Απόφαση...!");
-                    return;
-                }
+                //if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
+                //{
+                //    MessageBox.Show("Δεν είναι Απόφαση...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId); 
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Απόφαση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                     return;
                 }
 
                 if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
                 {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Απόφαση. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Απόφαση. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
                     return;
                 }
 
@@ -227,6 +230,10 @@ namespace Trademarks
 
         private void tsmiUpdAppeal_Click(object sender, EventArgs e)
         {
+        }
+
+        private void UpdAppeal()
+        {
             // Update
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -234,17 +241,17 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-                if (tms.StatusId != 5)
-                {
-                    MessageBox.Show("Δεν είναι Προσφυγή...!");
-                    return;
-                }
+                //if (tms.StatusId != 5)
+                //{
+                //    MessageBox.Show("Δεν είναι Προσφυγή...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                     return;
                 }
 
@@ -274,6 +281,10 @@ namespace Trademarks
 
         private void tsmiUpdTermination_Click(object sender, EventArgs e)
         {
+        }
+
+        private void UpdTermination()
+        {
             // Update
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -281,17 +292,17 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-                if (tms.StatusId != 6)
-                {
-                    MessageBox.Show("Δεν είναι Ανακοπή...!");
-                    return;
-                }
+                //if (tms.StatusId != 6)
+                //{
+                //    MessageBox.Show("Δεν είναι Ανακοπή...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                     return;
                 }
 
@@ -321,6 +332,10 @@ namespace Trademarks
 
         private void tsmiUpdFinalization_Click(object sender, EventArgs e)
         {
+        }
+
+        private void UpdFinalization()
+        {
             // Update
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -328,17 +343,17 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-                if (tms.StatusId != 7 && tms.StatusId != 8)
-                {
-                    MessageBox.Show("Δεν είναι Οριστικοποίηση (ή Απόρριψη)...!");
-                    return;
-                }
+                //if (tms.StatusId != 7 && tms.StatusId != 8)
+                //{
+                //    MessageBox.Show("Δεν είναι Οριστικοποίηση (ή Απόρριψη)...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                     return;
                 }
 
@@ -362,6 +377,10 @@ namespace Trademarks
 
         private void tsmiUpdRenewal_Click(object sender, EventArgs e)
         {
+        }
+
+        private void UpdRenewal()
+        {
             // Update
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -369,17 +388,17 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-                if (tms.StatusId != 9)
-                {
-                    MessageBox.Show("Δεν είναι Ανανέωση...!");
-                    return;
-                }
+                //if (tms.StatusId != 9)
+                //{
+                //    MessageBox.Show("Δεν είναι Ανανέωση...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
-                    MessageBox.Show("Προσοχή! Δεν μπορείτε να καταχωρήσετε Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Ανανέωση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
                     return;
                 }
 
@@ -403,6 +422,10 @@ namespace Trademarks
 
         private void tsmiDelDecision_Click(object sender, EventArgs e)
         {
+        }
+
+        private void DelDecision()
+        {
             // Delete
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -411,11 +434,11 @@ namespace Trademarks
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
                 bool success = true; 
 
-                if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
-                {
-                    MessageBox.Show("Δεν είναι Απόφαση...!");
-                    return;
-                }
+                //if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
+                //{
+                //    MessageBox.Show("Δεν είναι Απόφαση...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
@@ -479,6 +502,10 @@ namespace Trademarks
 
         private void tsmiDelAppeal_Click(object sender, EventArgs e)
         {
+        }
+
+        private void DelAppeal()
+        {
             // Delete
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -487,11 +514,11 @@ namespace Trademarks
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
                 bool success = true;
 
-                if (tms.StatusId != 5)
-                {
-                    MessageBox.Show("Δεν είναι Προσφυγή...!");
-                    return;
-                }
+                //if (tms.StatusId != 5)
+                //{
+                //    MessageBox.Show("Δεν είναι Προσφυγή...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
@@ -539,6 +566,10 @@ namespace Trademarks
 
         private void tsmiDelTermination_Click(object sender, EventArgs e)
         {
+        }
+
+        private void DelTermination()
+        {
             // Delete
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -547,11 +578,11 @@ namespace Trademarks
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
                 bool success = true;
 
-                if (tms.StatusId != 6)
-                {
-                    MessageBox.Show("Δεν είναι Ανακοπή...!");
-                    return;
-                }
+                //if (tms.StatusId != 6)
+                //{
+                //    MessageBox.Show("Δεν είναι Ανακοπή...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
@@ -597,6 +628,10 @@ namespace Trademarks
 
         private void tsmiDelFinalization_Click(object sender, EventArgs e)
         {
+        }
+
+        private void DelFinalization()
+        {
             // Delete
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -605,11 +640,11 @@ namespace Trademarks
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
                 bool success = true;
 
-                if (tms.StatusId != 7 && tms.StatusId != 8)
-                {
-                    MessageBox.Show("Δεν είναι Οριστικοποίηση (ή Απόρριψη)...!");
-                    return;
-                }
+                //if (tms.StatusId != 7 && tms.StatusId != 8)
+                //{
+                //    MessageBox.Show("Δεν είναι Οριστικοποίηση (ή Απόρριψη)...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
@@ -662,6 +697,10 @@ namespace Trademarks
 
         private void tsmiDelRenewal_Click(object sender, EventArgs e)
         {
+        }
+
+        private void DelRenewal()
+        {
             // Delete
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
@@ -670,11 +709,11 @@ namespace Trademarks
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
                 bool success = true;
 
-                if (tms.StatusId != 9)
-                {
-                    MessageBox.Show("Δεν είναι Ανανέωση...!");
-                    return;
-                }
+                //if (tms.StatusId != 9)
+                //{
+                //    MessageBox.Show("Δεν είναι Ανανέωση...!");
+                //    return;
+                //}
 
                 Trademark tm = new Trademark(tms.TmId);
 
@@ -719,6 +758,195 @@ namespace Trademarks
         }
 
         private void btnOpenLink_Click(object sender, EventArgs e)
+        {
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                //int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                //Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                //string url = thisTmpRec.getUrl();
+                string url = dgvStatusViewer.SelectedRows[0].Cells["st_FinalizedUrl"].Value.ToString();
+
+                if (url.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(url);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
+            }
+        }
+
+        private void UpdDeposit()
+        {
+            // Update
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int TM_Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_TmId"].Value.ToString());
+                int ST_Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == ST_Id).First();
+                Trademark tm = new Trademark(TM_Id);
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                InsertTM frmUpdTm = new InsertTM(tm);
+                frmUpdTm.ShowDialog();
+
+                if (frmUpdTm.success)
+                {
+                    //refresh
+                    //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdDecision.NewRecord;
+
+                    //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                    tmStatusList = SelectTmStatusRecs(tms.TmId);
+                    FillDataGridView(dgvStatusViewer, tmStatusList);
+                }
+            }
+        }
+
+        private void DelDeposit()
+        {
+            // Delete
+            if (dgvStatusViewer.SelectedRows.Count > 0)
+            {
+                int dgvIndex = dgvStatusViewer.SelectedRows[0].Index;
+                int TM_Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_TmId"].Value.ToString());
+                int ST_Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+                //TM_Status tms = tmStatusList.Where(i => i.Id == ST_Id).First();
+                Trademark tm = new Trademark(TM_Id);
+
+                bool success = true;
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                //check references
+                if (Trademark.SelectRefTmRecs(tm.TMNo) > 0)
+                {
+                    MessageBox.Show("Προσοχή! Δεν είναι δυνατή η διαγραφή της επιλεγμένης εγγραφής! \r\nΥπάρχουν άλλες εγγραφές (Διεθνή / Κοινοτικά Σήματα) που αναφέρονται σε αυτήν.");
+                    return;
+                }
+
+                TM_Status tms = TM_Status.getLastDecision(tm.Id);
+                if (tms.StatusId == 2 && tms.StatusId == 3 && tms.StatusId == 4) //check oti exei apofasi
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΥπάρχει καταχωρημένη Aπόφαση.");
+                    return;
+                }
+
+                if (MessageBox.Show("Προσοχή! Πρόκειται να διαγράψετε το Σήμα: \r\n" +
+                              tm.TMNo + " - " + tm.TMName + ".\r\n\r\nΘα διαγραφούν επίσης και οι αντίστοιχες ειδοποιήσεις. \r\nΕίστε σίγουροι;",
+                              "Διαγραφή", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //disable Tasks
+                    if (Task.DisableNotSentTasks(tm.Id) == false)
+                    {
+                        success = false;
+                    }
+
+                    //delete from Trademarks (make inactive, mark as deleted)
+                    if (Trademark.DisableTM(tm.Id) == false)
+                    {
+                        success = false;
+                    }
+
+                    if (success)
+                    {
+                        TmLog.Insert_TMLog(new Trademark() { Id = tm.Id, IsDeleted = false }, new Trademark() { Id = tm.Id, IsDeleted = true }, "Κατάθεση");
+
+                        //refresh
+                        //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdDecision.NewRecord;
+
+                        //FillDataGridView(dgvTempRecs, frmUpdTm.NewRecord, dgvIndex);
+                        tmStatusList = SelectTmStatusRecs(tms.TmId);
+                        FillDataGridView(dgvStatusViewer, tmStatusList);
+                    }
+
+                }
+
+            }
+        }
+
+        private void tsmiUpdate_Click(object sender, EventArgs e)
+        {
+            int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+            TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+
+            if (tms.StatusId == 1)
+            {
+                UpdDeposit();
+            }
+            else if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4)
+            {
+                UpdDecision();
+            }
+            else if (tms.StatusId == 5)
+            {
+                UpdAppeal();
+            }
+            else if (tms.StatusId == 6)
+            {
+                UpdTermination();
+            }
+            else if (tms.StatusId == 7 || tms.StatusId == 8)
+            {
+                UpdFinalization();
+            }
+            else if (tms.StatusId == 9)
+            {
+                UpdRenewal();
+            }
+
+        }
+
+        private void tsmiDelete_Click(object sender, EventArgs e)
+        {
+            int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+            TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+
+            if (tms.StatusId == 1)
+            {
+                DelDeposit();
+            }
+            else if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4)
+            {
+                DelDecision();
+            }
+            else if (tms.StatusId == 5)
+            {
+                DelAppeal();
+            }
+            else if (tms.StatusId == 6)
+            {
+                DelTermination();
+            }
+            else if (tms.StatusId == 7 || tms.StatusId == 8)
+            {
+                DelFinalization();
+            }
+            else if (tms.StatusId == 9)
+            {
+                DelRenewal();
+            }
+
+        }
+
+        private void tsmiOpenFinUrl_Click(object sender, EventArgs e)
         {
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {

@@ -1109,7 +1109,7 @@ namespace Trademarks
         public int Trademarks_Id { get; set; }
         public int? TM_Status_Id { get; set; }
         public int AppUsers_Id { get; set; }
-        public DateTime DtNow { get; set; }
+        public DateTime Dt { get; set; }
         public string ExecStatement { get; set; }
         public string TableName { get; set; }
         public string FieldName { get; set; }
@@ -1117,6 +1117,15 @@ namespace Trademarks
         public string NewValue { get; set; }
         public string FieldNameToShow { get; set; }
         public string Section { get; set; }
+
+        //other fields - refs
+        public string FullName { get; set; }
+        public string TMNo { get; set; }
+        public string TMName { get; set; }
+        public string Status { get; set; }
+
+
+
 
         public static void Ins_TMLog(TmLog givenTmLog)
         {
@@ -1140,7 +1149,7 @@ namespace Trademarks
                     cmd.Parameters.AddWithValue("@TM_Status_Id", givenTmLog.TM_Status_Id);
                 }
                 cmd.Parameters.AddWithValue("@AppUsers_Id", givenTmLog.AppUsers_Id);
-                cmd.Parameters.AddWithValue("@Dt", givenTmLog.DtNow);
+                cmd.Parameters.AddWithValue("@Dt", givenTmLog.Dt);
                 cmd.Parameters.AddWithValue("@ExecStatement", givenTmLog.ExecStatement);
                 cmd.Parameters.AddWithValue("@TableName", givenTmLog.TableName);
                 cmd.Parameters.AddWithValue("@FieldName", givenTmLog.FieldName);
@@ -1167,7 +1176,7 @@ namespace Trademarks
             tml.Trademarks_Id = oldRec.TmId;
             tml.TM_Status_Id = oldRec.Id;
             tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
-            tml.DtNow = DateTime.Now;
+            tml.Dt = DateTime.Now;
             tml.ExecStatement = "UPDATE";
             if (newRec.IsDeleted == true)
             {
@@ -1237,7 +1246,7 @@ namespace Trademarks
             tml.Trademarks_Id = oldRec.Id;
             //tml.TM_Status_Id = null;
             tml.AppUsers_Id = UserInfo.DB_AppUser_Id;
-            tml.DtNow = DateTime.Now;
+            tml.Dt = DateTime.Now;
             tml.ExecStatement = "UPDATE";
             if (newRec.IsDeleted == true)
             {

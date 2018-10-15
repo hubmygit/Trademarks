@@ -137,7 +137,7 @@
             // tsmiAdmin_Encrypt
             // 
             this.tsmiAdmin_Encrypt.Name = "tsmiAdmin_Encrypt";
-            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(153, 22);
             this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
             this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
             // 

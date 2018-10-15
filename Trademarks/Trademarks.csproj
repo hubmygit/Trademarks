@@ -176,6 +176,12 @@
     <Compile Include="TMSelector.Designer.cs">
       <DependentUpon>TMSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="TmUpdLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TmUpdLog.Designer.cs">
+      <DependentUpon>TmUpdLog.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Alarms.resx">
       <DependentUpon>Alarms.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TMSelector.resx">
       <DependentUpon>TMSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TmUpdLog.resx">
+      <DependentUpon>TmUpdLog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
