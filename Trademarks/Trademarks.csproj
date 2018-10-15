@@ -170,6 +170,12 @@
     <Compile Include="TMAlertsViewer.Designer.cs">
       <DependentUpon>TMAlertsViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="TMAlertsViewerGrouped.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TMAlertsViewerGrouped.Designer.cs">
+      <DependentUpon>TMAlertsViewerGrouped.cs</DependentUpon>
+    </Compile>
     <Compile Include="TMSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,9 +254,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Termination.resx">
       <DependentUpon>Termination.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TMAlertsViewer.resx">
       <DependentUpon>TMAlertsViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TMAlertsViewerGrouped.resx">
+      <DependentUpon>TMAlertsViewerGrouped.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TMSelector.resx">
       <DependentUpon>TMSelector.cs</DependentUpon>

@@ -170,6 +170,7 @@
             this.TSBtnAlerts.Name = "TSBtnAlerts";
             this.TSBtnAlerts.Size = new System.Drawing.Size(250, 36);
             this.TSBtnAlerts.Text = "Προβολή Ειδοποιήσεων";
+            this.TSBtnAlerts.Click += new System.EventHandler(this.TSBtnAlerts_Click);
             // 
             // MainMenu
             // 

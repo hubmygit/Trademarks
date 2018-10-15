@@ -182,14 +182,17 @@ namespace Trademarks
 
         private void tsmiAlerts_ViewGrouped_Click(object sender, EventArgs e)
         {
-            AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            //AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            //frmAlertsViewGrouped.ShowDialog();
+
+            TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
             frmAlertsViewGrouped.ShowDialog();
         }
 
         private void btnAlertsGrouped_Click(object sender, EventArgs e)
         {
-            AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
-            frmAlertsViewGrouped.ShowDialog();
+            //AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
+            //frmAlertsViewGrouped.ShowDialog();
         }
 
         //private void insertTMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,6 +361,11 @@ namespace Trademarks
             tmsel.ShowDialog();
         }
 
+        private void TSBtnAlerts_Click(object sender, EventArgs e)
+        {
+            TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
+            frmAlertsViewGrouped.ShowDialog();
+        }
     }
 
     public static class AppVer
