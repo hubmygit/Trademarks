@@ -167,7 +167,10 @@ namespace Trademarks
 
         private void tsmiAlerts_View_Click(object sender, EventArgs e)
         {
-            AlertsView frmAlertsView = new AlertsView();
+            //AlertsView frmAlertsView = new AlertsView();
+            //frmAlertsView.ShowDialog();
+
+            TMAlertsViewer frmAlertsView = new TMAlertsViewer();
             frmAlertsView.ShowDialog();
         }
 

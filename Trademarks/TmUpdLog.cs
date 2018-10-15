@@ -119,7 +119,28 @@ namespace Trademarks
             dgv.ClearSelection();
         }
 
+        private void dgvTmLogRecs_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == "Log_Dt")
+            {
+                string dtA = "";
+                string dtB = "";
 
+                if (e.CellValue1 != null && e.CellValue1.ToString().Trim() != "")
+                {
+                    dtA = Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+
+                if (e.CellValue2 != null && e.CellValue2.ToString().Trim() != "")
+                {
+                    dtB = Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd HHmmss");
+                }
+                
+                e.SortResult = System.String.Compare(dtA, dtB);
+
+                e.Handled = true;
+            }
+        }
     }
 
     

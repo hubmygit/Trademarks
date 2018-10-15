@@ -71,6 +71,7 @@
             this.dgvTmLogRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTmLogRecs.Size = new System.Drawing.Size(984, 442);
             this.dgvTmLogRecs.TabIndex = 4;
+            this.dgvTmLogRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTmLogRecs_SortCompare);
             // 
             // Log_TmId
             // 

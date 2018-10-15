@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TMAlertsViewer));
             this.dgvAlerts = new System.Windows.Forms.DataGridView();
             this.alarm_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +48,17 @@
             this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_RespLawyer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chbActive = new System.Windows.Forms.CheckBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.lblTMName = new System.Windows.Forms.Label();
+            this.txtTMName = new System.Windows.Forms.TextBox();
+            this.lblTMId = new System.Windows.Forms.Label();
+            this.txtTMId = new System.Windows.Forms.TextBox();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRecipients = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).BeginInit();
+            this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvAlerts
@@ -76,6 +87,7 @@
             this.tmp_NatPower,
             this.tmp_Com,
             this.tmp_RespLawyer});
+            this.dgvAlerts.ContextMenuStrip = this.cmsOnGrid;
             this.dgvAlerts.Location = new System.Drawing.Point(0, 79);
             this.dgvAlerts.MultiSelect = false;
             this.dgvAlerts.Name = "dgvAlerts";
@@ -83,6 +95,8 @@
             this.dgvAlerts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAlerts.Size = new System.Drawing.Size(1234, 523);
             this.dgvAlerts.TabIndex = 3;
+            this.dgvAlerts.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvAlerts_SortCompare);
+            this.dgvAlerts.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvAlerts_MouseDown);
             // 
             // alarm_Id
             // 
@@ -200,18 +214,112 @@
             this.tmp_RespLawyer.ReadOnly = true;
             this.tmp_RespLawyer.Width = 110;
             // 
+            // chbActive
+            // 
+            this.chbActive.AutoSize = true;
+            this.chbActive.Checked = true;
+            this.chbActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.chbActive.Location = new System.Drawing.Point(1015, 31);
+            this.chbActive.Name = "chbActive";
+            this.chbActive.Size = new System.Drawing.Size(143, 20);
+            this.chbActive.TabIndex = 28;
+            this.chbActive.Text = "Ενεργές Εγγραφές";
+            this.chbActive.ThreeState = true;
+            this.chbActive.UseVisualStyleBackColor = true;
+            this.chbActive.CheckStateChanged += new System.EventHandler(this.chbActive_CheckStateChanged);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Image = global::Trademarks.Properties.Resources.find_40x;
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(727, 25);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(90, 30);
+            this.btnSearch.TabIndex = 27;
+            this.btnSearch.Text = "Εύρεση";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // lblTMName
+            // 
+            this.lblTMName.AutoSize = true;
+            this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTMName.Location = new System.Drawing.Point(348, 48);
+            this.lblTMName.Name = "lblTMName";
+            this.lblTMName.Size = new System.Drawing.Size(103, 16);
+            this.lblTMName.TabIndex = 23;
+            this.lblTMName.Text = "Όνομα Σήματος";
+            // 
+            // txtTMName
+            // 
+            this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTMName.Location = new System.Drawing.Point(457, 45);
+            this.txtTMName.Name = "txtTMName";
+            this.txtTMName.Size = new System.Drawing.Size(250, 22);
+            this.txtTMName.TabIndex = 26;
+            // 
+            // lblTMId
+            // 
+            this.lblTMId.AutoSize = true;
+            this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTMId.Location = new System.Drawing.Point(339, 15);
+            this.lblTMId.Name = "lblTMId";
+            this.lblTMId.Size = new System.Drawing.Size(112, 16);
+            this.lblTMId.TabIndex = 24;
+            this.lblTMId.Text = "Αριθμός Σήματος";
+            // 
+            // txtTMId
+            // 
+            this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTMId.Location = new System.Drawing.Point(457, 12);
+            this.txtTMId.Name = "txtTMId";
+            this.txtTMId.Size = new System.Drawing.Size(250, 22);
+            this.txtTMId.TabIndex = 25;
+            // 
+            // cmsOnGrid
+            // 
+            this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiViewTM,
+            this.tsmiRecipients});
+            this.cmsOnGrid.Name = "cmsOnGrid";
+            this.cmsOnGrid.Size = new System.Drawing.Size(181, 70);
+            // 
+            // tsmiViewTM
+            // 
+            this.tsmiViewTM.Name = "tsmiViewTM";
+            this.tsmiViewTM.Size = new System.Drawing.Size(180, 22);
+            this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
+            this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
+            // 
+            // tsmiRecipients
+            // 
+            this.tsmiRecipients.Name = "tsmiRecipients";
+            this.tsmiRecipients.Size = new System.Drawing.Size(180, 22);
+            this.tsmiRecipients.Text = "Παραλήπτες";
+            this.tsmiRecipients.Click += new System.EventHandler(this.tsmiRecipients_Click);
+            // 
             // TMAlertsViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1234, 602);
+            this.Controls.Add(this.chbActive);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.lblTMName);
+            this.Controls.Add(this.txtTMName);
+            this.Controls.Add(this.lblTMId);
+            this.Controls.Add(this.txtTMId);
             this.Controls.Add(this.dgvAlerts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TMAlertsViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ειδοποιήσεις Σήματος";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlerts)).EndInit();
+            this.cmsOnGrid.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -235,5 +343,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_NatPower;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_RespLawyer;
+        private System.Windows.Forms.CheckBox chbActive;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label lblTMName;
+        public System.Windows.Forms.TextBox txtTMName;
+        private System.Windows.Forms.Label lblTMId;
+        public System.Windows.Forms.TextBox txtTMId;
+        private System.Windows.Forms.ContextMenuStrip cmsOnGrid;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRecipients;
     }
 }
