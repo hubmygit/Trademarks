@@ -23,6 +23,22 @@ namespace Trademarks
 
             tmStatusList = SelectTmStatusRecs(TmId);
             FillDataGridView(dgvStatusViewer, tmStatusList);
+
+            Trademark tm = new Trademark(TmId);
+            txtTMId.Text = tm.TMNo;
+            txtTMName.Text = tm.TMName;
+            if (tm.NationalPowerId == 1) //1 Εθνικό
+            {
+                rbEthniko.Checked = true;
+            }
+            else if (tm.NationalPowerId == 2) //2 Κοινοτικό
+            {
+                rbKoinotiko.Checked = true;
+            }
+            else if (tm.NationalPowerId == 3) //3 Διεθνές
+            {
+                rbDiethnes.Checked = true;
+            }
         }
 
         public List<TM_Status> tmStatusList = new List<TM_Status>();
@@ -706,7 +722,20 @@ namespace Trademarks
         {
             if (dgvStatusViewer.SelectedRows.Count > 0)
             {
+                //int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                //Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
 
+                //string url = thisTmpRec.getUrl();
+                string url = dgvStatusViewer.SelectedRows[0].Cells["st_FinalizedUrl"].Value.ToString();
+
+                if (url.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(url);
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχει καταχωρημένο Url για τη συγκεκριμένη εγγραφή!");
+                }
             }
         }
     }

@@ -1475,7 +1475,7 @@ namespace Trademarks
             string ret = "";
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT FinalizedUrl FROM [dbo].[TM_Status] WHERE TrademarksId = @TrademarksId AND StatusId in (7, 8) ";
+            string SelectSt = "SELECT FinalizedUrl FROM [dbo].[TM_Status] WHERE TrademarksId = @TrademarksId AND StatusId in (7, 8) AND isnull(TS.IsDeleted, 'False') = 'False' ";
 
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try

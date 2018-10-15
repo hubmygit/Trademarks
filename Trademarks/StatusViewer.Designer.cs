@@ -58,8 +58,17 @@
             this.tsmiDelFinalization = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelRenewal = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOpenLink = new System.Windows.Forms.Button();
+            this.lblTMName = new System.Windows.Forms.Label();
+            this.txtTMName = new System.Windows.Forms.TextBox();
+            this.lblTMId = new System.Windows.Forms.Label();
+            this.txtTMId = new System.Windows.Forms.TextBox();
+            this.gbNatPower = new System.Windows.Forms.GroupBox();
+            this.rbDiethnes = new System.Windows.Forms.RadioButton();
+            this.rbKoinotiko = new System.Windows.Forms.RadioButton();
+            this.rbEthniko = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
+            this.gbNatPower.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvStatusViewer
@@ -287,11 +296,101 @@
             this.btnOpenLink.UseVisualStyleBackColor = true;
             this.btnOpenLink.Click += new System.EventHandler(this.btnOpenLink_Click);
             // 
+            // lblTMName
+            // 
+            this.lblTMName.AutoSize = true;
+            this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTMName.Location = new System.Drawing.Point(21, 46);
+            this.lblTMName.Name = "lblTMName";
+            this.lblTMName.Size = new System.Drawing.Size(103, 16);
+            this.lblTMName.TabIndex = 15;
+            this.lblTMName.Text = "Όνομα Σήματος";
+            // 
+            // txtTMName
+            // 
+            this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTMName.Location = new System.Drawing.Point(130, 43);
+            this.txtTMName.Name = "txtTMName";
+            this.txtTMName.ReadOnly = true;
+            this.txtTMName.Size = new System.Drawing.Size(384, 22);
+            this.txtTMName.TabIndex = 18;
+            // 
+            // lblTMId
+            // 
+            this.lblTMId.AutoSize = true;
+            this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTMId.Location = new System.Drawing.Point(12, 18);
+            this.lblTMId.Name = "lblTMId";
+            this.lblTMId.Size = new System.Drawing.Size(112, 16);
+            this.lblTMId.TabIndex = 16;
+            this.lblTMId.Text = "Αριθμός Σήματος";
+            // 
+            // txtTMId
+            // 
+            this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTMId.Location = new System.Drawing.Point(130, 15);
+            this.txtTMId.Name = "txtTMId";
+            this.txtTMId.ReadOnly = true;
+            this.txtTMId.Size = new System.Drawing.Size(100, 22);
+            this.txtTMId.TabIndex = 17;
+            // 
+            // gbNatPower
+            // 
+            this.gbNatPower.Controls.Add(this.rbDiethnes);
+            this.gbNatPower.Controls.Add(this.rbKoinotiko);
+            this.gbNatPower.Controls.Add(this.rbEthniko);
+            this.gbNatPower.Location = new System.Drawing.Point(236, 1);
+            this.gbNatPower.Name = "gbNatPower";
+            this.gbNatPower.Size = new System.Drawing.Size(278, 36);
+            this.gbNatPower.TabIndex = 19;
+            this.gbNatPower.TabStop = false;
+            // 
+            // rbDiethnes
+            // 
+            this.rbDiethnes.AutoCheck = false;
+            this.rbDiethnes.AutoSize = true;
+            this.rbDiethnes.Location = new System.Drawing.Point(202, 12);
+            this.rbDiethnes.Name = "rbDiethnes";
+            this.rbDiethnes.Size = new System.Drawing.Size(65, 17);
+            this.rbDiethnes.TabIndex = 7;
+            this.rbDiethnes.TabStop = true;
+            this.rbDiethnes.Text = "Διεθνές";
+            this.rbDiethnes.UseVisualStyleBackColor = true;
+            // 
+            // rbKoinotiko
+            // 
+            this.rbKoinotiko.AutoCheck = false;
+            this.rbKoinotiko.AutoSize = true;
+            this.rbKoinotiko.Location = new System.Drawing.Point(103, 12);
+            this.rbKoinotiko.Name = "rbKoinotiko";
+            this.rbKoinotiko.Size = new System.Drawing.Size(72, 17);
+            this.rbKoinotiko.TabIndex = 6;
+            this.rbKoinotiko.TabStop = true;
+            this.rbKoinotiko.Text = "Κοινοτικό";
+            this.rbKoinotiko.UseVisualStyleBackColor = true;
+            // 
+            // rbEthniko
+            // 
+            this.rbEthniko.AutoCheck = false;
+            this.rbEthniko.AutoSize = true;
+            this.rbEthniko.Location = new System.Drawing.Point(15, 12);
+            this.rbEthniko.Name = "rbEthniko";
+            this.rbEthniko.Size = new System.Drawing.Size(57, 17);
+            this.rbEthniko.TabIndex = 5;
+            this.rbEthniko.TabStop = true;
+            this.rbEthniko.Text = "Εθνικό";
+            this.rbEthniko.UseVisualStyleBackColor = true;
+            // 
             // StatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 562);
+            this.Controls.Add(this.gbNatPower);
+            this.Controls.Add(this.lblTMName);
+            this.Controls.Add(this.txtTMName);
+            this.Controls.Add(this.lblTMId);
+            this.Controls.Add(this.txtTMId);
             this.Controls.Add(this.btnOpenLink);
             this.Controls.Add(this.dgvStatusViewer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -300,7 +399,10 @@
             this.Text = "Καταστάσεις Σήματος";
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).EndInit();
             this.cmsOnGrid.ResumeLayout(false);
+            this.gbNatPower.ResumeLayout(false);
+            this.gbNatPower.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -334,5 +436,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_InsDt;
         private System.Windows.Forms.Button btnOpenLink;
+        private System.Windows.Forms.Label lblTMName;
+        private System.Windows.Forms.TextBox txtTMName;
+        private System.Windows.Forms.Label lblTMId;
+        private System.Windows.Forms.TextBox txtTMId;
+        private System.Windows.Forms.GroupBox gbNatPower;
+        private System.Windows.Forms.RadioButton rbDiethnes;
+        private System.Windows.Forms.RadioButton rbKoinotiko;
+        private System.Windows.Forms.RadioButton rbEthniko;
     }
 }
