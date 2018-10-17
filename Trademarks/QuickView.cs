@@ -362,6 +362,9 @@ namespace Trademarks
 
         private void tsmiDelete_Click(object sender, EventArgs e)
         {
+            //obsolete
+
+            /*
             // Delete
             if (dgvTempRecs.SelectedRows.Count > 0)
             {
@@ -431,8 +434,9 @@ namespace Trademarks
 
                 }
             }
+            */
         }
-
+        
         private void tsmiView_Click(object sender, EventArgs e)
         {
             //Select

@@ -571,12 +571,13 @@ namespace Trademarks
             return ret;
         }
 
-        private bool CreateDecisionAlarms(Trademark TMRecord)
+        private bool CreateDecisionAlarms(Trademark TMRecord, int TMS_Id)
         {
             bool ret = true;
 
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 2; //Απόφαση σε εκκρεμότητα
+            TaskToInsert.TM_StatusId = TMS_Id;
 
             Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRecord.NationalPowerId);
 
@@ -657,6 +658,8 @@ namespace Trademarks
 
             Recipient rec = new Recipient();
             rec.TrademarksId = TaskToInsert.TrademarksId;
+            rec.TM_StatusId = TaskToInsert.TM_StatusId;
+            rec.EventTypesId = TaskToInsert.EventTypesId;
             foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
             {
                 if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))
@@ -756,7 +759,9 @@ namespace Trademarks
                         }
                     }
 
-                    if (TM_Status.InsertTM_Status_Deposit(tmStatus) == false)
+                    tmStatus.Id = TM_Status.InsertTM_Status_Deposit(tmStatus);
+                    //if (TM_Status.InsertTM_Status_Deposit(tmStatus) == false)
+                    if(tmStatus.Id <= 0)
                     {
                         //TM_Status ins error
                         successful = false;
@@ -773,7 +778,7 @@ namespace Trademarks
                 {
                     if (NewRecord.NationalPowerId == 1) //1 month to decision, only national tm
                     {
-                        if (CreateDecisionAlarms(NewRecord) == false)
+                        if (CreateDecisionAlarms(NewRecord, tmStatus.Id) == false)
                         {
                             MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                             return;
@@ -833,7 +838,8 @@ namespace Trademarks
                         }
                     }
 
-                    if (TM_Status.UpdateTM_Status_Deposit(tmStatus) == false)
+                    tmStatus.Id = TM_Status.UpdateTM_Status_Deposit(tmStatus);
+                    if (tmStatus.Id <= 0)
                     {
                         //TM_Status ins error
                         successful = false;
@@ -854,11 +860,11 @@ namespace Trademarks
                         Task.DisableNotSentTasks(NewRecord.Id);
 
                         //delete recipients
-                        Recipient.DeleteRecipients(NewRecord.Id);
+                        Recipient.DeleteRecipients(NewRecord.Id, tmStatus.Id, 2); //Απόφαση σε εκκρεμότητα
 
                         if (NewRecord.NationalPowerId == 1) //1 month to decision, only national tm
                         {
-                            if (CreateDecisionAlarms(NewRecord) == false)
+                            if (CreateDecisionAlarms(NewRecord, tmStatus.Id) == false)
                             {
                                 MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                                 return;
@@ -1844,12 +1850,14 @@ namespace Trademarks
             return ret;
         }
 
-        public static bool InsertTM_Status_Deposit(TM_Status tmstatus)
+        public static int InsertTM_Status_Deposit(TM_Status tmstatus)
         {
-            bool ret = false;
+            int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks], [InsUser], [InsDt]) VALUES " +
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DepositDt], [Remarks], [InsUser], [InsDt]) " +
+                           "OUTPUT INSERTED.Id " +
+                           "VALUES " +
                            "(@TrademarksId, @StatusId, @DepositDt, @Remarks, @InsUser, getdate()) ";
             try
             {
@@ -1863,12 +1871,18 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
+                //int rowsAffected = cmd.ExecuteNonQuery();
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
 
-                if (rowsAffected > 0)
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    ret = true;
+                    ret = Convert.ToInt32(reader["Id"].ToString());
                 }
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -1880,33 +1894,43 @@ namespace Trademarks
             return ret;
         }
 
-        public static bool UpdateTM_Status_Deposit(TM_Status tmstatus)
+        public static int UpdateTM_Status_Deposit(TM_Status tmstatus)
         {
-            bool ret = false;
+            int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
                            "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DepositDt] = @DepositDt, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate()" +
+                           "OUTPUT deleted.Id " + 
                            "WHERE TrademarksId = @TrademarksId AND StatusId = 1 AND isnull(IsDeleted, 'False') = 'False' ";
+                           //"WHERE Id = @Id ";
             try
             {
                 sqlConn.Open();               
-
+                               
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                //cmd.Parameters.AddWithValue("@Id", tmstatus.Id);
+
                 cmd.Parameters.AddWithValue("@TrademarksId", tmstatus.TmId);
-                
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DepositDt", tmstatus.DepositDt);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
+                //int rowsAffected = cmd.ExecuteNonQuery();
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
 
-                if (rowsAffected > 0)
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    ret = true;
+                    ret = Convert.ToInt32(reader["Id"].ToString());
                 }
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -2190,12 +2214,14 @@ namespace Trademarks
             return ret;
         }
 
-        public static bool InsertTM_Status_Finalization(TM_Status tmstatus)
+        public static int InsertTM_Status_Finalization(TM_Status tmstatus)
         {
-            bool ret = false;
+            int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [FinalizedDt], [FinalizedUrl], [InsUser], [InsDt]) VALUES " +
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [Remarks], [FinalizedDt], [FinalizedUrl], [InsUser], [InsDt]) " +
+                           "OUTPUT INSERTED.Id " +
+                           "VALUES " +  
                            "(@TrademarksId, @StatusId, @DecisionNo, @Remarks, @FinalizedDt, @FinalizedUrl, @InsUser, getdate()) ";
             try
             {
@@ -2211,12 +2237,18 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
+                //int rowsAffected = cmd.ExecuteNonQuery();
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
 
-                if (rowsAffected > 0)
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    ret = true;
+                    ret = Convert.ToInt32(reader["Id"].ToString());
                 }
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -2269,12 +2301,14 @@ namespace Trademarks
             return ret;
         }
 
-        public static bool InsertTM_Status_Renewal(TM_Status tmstatus)
+        public static int InsertTM_Status_Renewal(TM_Status tmstatus)
         {
-            bool ret = false;
+            int ret = 0;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalApplicationDt], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsUser], [InsDt]) VALUES " +
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [Remarks], [RenewalApplicationDt], [RenewalDt], [RenewalFees], [RenewalProtocol], [InsUser], [InsDt]) " +
+                           "OUTPUT INSERTED.Id " +
+                           "VALUES " +
                            "(@TrademarksId, @StatusId, @Remarks, @RenewalApplicationDt, @RenewalDt, @RenewalFees, @RenewalProtocol, @InsUser, getdate()) ";
             try
             {
@@ -2291,12 +2325,18 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
                 cmd.CommandType = CommandType.Text;
-                int rowsAffected = cmd.ExecuteNonQuery();
+                //int rowsAffected = cmd.ExecuteNonQuery();
+                //if (rowsAffected > 0)
+                //{
+                //    ret = true;
+                //}
 
-                if (rowsAffected > 0)
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    ret = true;
+                    ret = Convert.ToInt32(reader["Id"].ToString());
                 }
+                reader.Close();
             }
             catch (Exception ex)
             {

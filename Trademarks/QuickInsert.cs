@@ -591,7 +591,7 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId],[TM_StatusId], [ExpDate],[NotificationDate] ,[IsActive], [EventTypesId], [AlertDescr]) VALUES " +
+            string InsSt = "INSERT INTO [dbo].[Tasks] ([TrademarksId], [TM_StatusId], [ExpDate],[NotificationDate] ,[IsActive], [EventTypesId], [AlertDescr]) VALUES " +
                            "(@TrademarksId, @TM_StatusId, @ExpDate, @NotificationDate, @IsActive, @EventTypesId, @AlertDescr ) ";
             try
             {
@@ -639,14 +639,16 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Recipients] ([TrademarksId],[FullName],[Email] ,[IsActive]) VALUES " +
-                           "(@TrademarksId, @FullName, @Email, 'True') ";
+            string InsSt = "INSERT INTO [dbo].[Recipients] ([TrademarksId], [TM_StatusId], [EventTypesId], [FullName], [Email] ,[IsActive]) VALUES " +
+                           "(@TrademarksId, @TM_StatusId, @EventTypesId, @FullName, @Email, 'True') ";
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
                 cmd.Parameters.AddWithValue("@TrademarksId", rec.TrademarksId);
+                cmd.Parameters.AddWithValue("@TM_StatusId", rec.TM_StatusId);
+                cmd.Parameters.AddWithValue("@EventTypesId", rec.EventTypesId);
                 cmd.Parameters.AddWithValue("@FullName", rec.FullName);
                 cmd.Parameters.AddWithValue("@Email", rec.Email);
 
@@ -930,6 +932,9 @@ namespace Trademarks
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //obsolete
+
+            /*
             //check that all fields has been filled correctly
             if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false || 
                 txtTMName.Text.Trim() == "" || txtDecisionNo.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false || //txtFees.Text.Trim() == "" ||
@@ -1119,6 +1124,7 @@ namespace Trademarks
 
 
             }
+            */
         }
         
         private void btnAddTMPic_Click(object sender, EventArgs e)
@@ -1735,7 +1741,7 @@ namespace Trademarks
             List<Recipient> ret = new List<Recipient>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Id], [TrademarksId], [FullName], [Email] " +
+            string SelectSt = "SELECT [Id], [TrademarksId], [TM_StatusId], [EventTypesId], [FullName], [Email] " +
                               "FROM [dbo].[Recipients] " +
                               "WHERE TrademarksId = " + givenTrademarksId.ToString();
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -1748,6 +1754,14 @@ namespace Trademarks
                     Recipient rec = new Recipient();
                     rec.Id = Convert.ToInt32(reader["Id"].ToString());
                     rec.TrademarksId = Convert.ToInt32(reader["TrademarksId"].ToString());
+                    if (reader["TM_StatusId"] != DBNull.Value)
+                    {
+                        rec.TM_StatusId = Convert.ToInt32(reader["TM_StatusId"].ToString());
+                    }
+                    if (reader["EventTypesId"] != DBNull.Value)
+                    {
+                        rec.EventTypesId = Convert.ToInt32(reader["EventTypesId"].ToString());
+                    }
                     rec.FullName = reader["FullName"].ToString();
                     rec.Email = reader["Email"].ToString();
 
@@ -2313,24 +2327,28 @@ namespace Trademarks
     {
         public int Id { get; set; }
         public int TrademarksId { get; set; }
+        public int TM_StatusId { get; set; }
+        public int EventTypesId { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
 
         public Recipient()
         { }
 
-        public static bool DeleteRecipients(int TrademarksId)
+        public static bool DeleteRecipients(int TrademarksId, int TM_StatusId, int EventTypesId)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "DELETE FROM [dbo].[Recipients] WHERE TrademarksId = @TrademarksId ";
+            string InsSt = "DELETE FROM [dbo].[Recipients] WHERE TrademarksId = @TrademarksId AND TM_StatusId = @TM_StatusId and EventTypesId = @EventTypesId ";
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
                 cmd.Parameters.AddWithValue("@TrademarksId", TrademarksId);
+                cmd.Parameters.AddWithValue("@TM_StatusId", TM_StatusId);
+                cmd.Parameters.AddWithValue("@EventTypesId", EventTypesId);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();

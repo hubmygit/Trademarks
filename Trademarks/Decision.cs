@@ -169,6 +169,8 @@ namespace Trademarks
 
             Recipient rec = new Recipient();
             rec.TrademarksId = TaskToInsert.TrademarksId;
+            rec.TM_StatusId = TaskToInsert.TM_StatusId;
+            rec.EventTypesId = TaskToInsert.EventTypesId;
             foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
             {
                 if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))
@@ -263,7 +265,8 @@ namespace Trademarks
                         Task.DisableNotSentTasks(StRec.TmId);
 
                         //delete recipients
-                        Recipient.DeleteRecipients(StRec.Id);
+                        Recipient.DeleteRecipients(StRec.TmId, OldRecord.Id, 3);//oristikop
+                        Recipient.DeleteRecipients(StRec.TmId, OldRecord.Id, 4);//prosf
 
                         if (StRec.StatusId == 2 || StRec.StatusId == 3) //egkritiki || merikws aporriptiki : oristikopoiisi
                         {
@@ -386,6 +389,8 @@ namespace Trademarks
 
             Recipient rec = new Recipient();
             rec.TrademarksId = TaskToInsert.TrademarksId;
+            rec.TM_StatusId = TaskToInsert.TM_StatusId;
+            rec.EventTypesId = TaskToInsert.EventTypesId;
             foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
             {
                 if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))

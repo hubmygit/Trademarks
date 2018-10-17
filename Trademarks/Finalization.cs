@@ -139,12 +139,13 @@ namespace Trademarks
         
         
 
-        public bool CreateRenewalAlarms(Trademark TMRec, DateTime? RenewalDt)
+        public bool CreateRenewalAlarms(Trademark TMRec, DateTime? RenewalDt, int TMS_Id)
         {
             bool ret = true;
 
             Task TaskToInsert = new Task();
             TaskToInsert.EventTypesId = 1; //Ανανεώσεις
+            TaskToInsert.TM_StatusId = TMS_Id;
 
             Tasks_EventType task_EventType = new Tasks_EventType(TaskToInsert.EventTypesId, TMRec.NationalPowerId);
 
@@ -230,6 +231,8 @@ namespace Trademarks
 
             Recipient rec = new Recipient();
             rec.TrademarksId = TaskToInsert.TrademarksId;
+            rec.TM_StatusId = TaskToInsert.TM_StatusId;
+            rec.EventTypesId = TaskToInsert.EventTypesId;
             foreach (DataGridViewRow dgvr in frmAlarms.dgvRecipients.Rows)
             {
                 if (Convert.ToBoolean(dgvr.Cells["Rec_Checked"].Value))
@@ -253,7 +256,8 @@ namespace Trademarks
                 //Save
                 bool successful = true;
 
-                if (TM_Status.InsertTM_Status_Finalization(StRec) == false)
+                StRec.Id = TM_Status.InsertTM_Status_Finalization(StRec);
+                if (StRec.Id <= 0)
                 {
                     //TM_Status ins error
                     successful = false;
@@ -264,7 +268,7 @@ namespace Trademarks
                 {
                     if (StRec.StatusId == 7) //oristikopoiisi
                     {
-                        if (CreateRenewalAlarms(TmRec, null) == false)
+                        if (CreateRenewalAlarms(TmRec, null, StRec.Id) == false)
                         {
                             MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                             return;
@@ -303,11 +307,11 @@ namespace Trademarks
                         Task.DisableNotSentTasks(StRec.TmId);
 
                         //delete recipients
-                        Recipient.DeleteRecipients(NewRecord.Id);
+                        Recipient.DeleteRecipients(StRec.TmId, StRec.Id, 1);//ananewsi
 
                         if (StRec.StatusId == 7) //oristikopoiisi
                         {
-                            if (CreateRenewalAlarms(TmRec, null) == false)
+                            if (CreateRenewalAlarms(TmRec, null, StRec.Id) == false)
                             {
                                 MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                                 return;

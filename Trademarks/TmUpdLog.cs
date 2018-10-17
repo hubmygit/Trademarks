@@ -59,7 +59,10 @@ namespace Trademarks
                     TmLog tmlRec = new TmLog();
 
                     tmlRec.Trademarks_Id = Convert.ToInt32(reader["TmId"].ToString());
-                    tmlRec.TM_Status_Id = Convert.ToInt32(reader["TsId"].ToString());
+                    if (reader["TsId"] != DBNull.Value)
+                    {
+                        tmlRec.TM_Status_Id = Convert.ToInt32(reader["TsId"].ToString());
+                    }
                     tmlRec.ExecStatement = reader["ExecStatement"].ToString();
                     tmlRec.Dt = Convert.ToDateTime(reader["Dt"].ToString());
                     tmlRec.FullName = reader["FullName"].ToString();

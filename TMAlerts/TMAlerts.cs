@@ -107,7 +107,7 @@ namespace TMAlerts
             List<Recipient> ret = new List<Recipient>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Id], [TrademarksId], [FullName], [Email] " +
+            string SelectSt = "SELECT [Id], [TrademarksId], [TM_StatusId], [FullName], [Email] " +
                               "FROM [dbo].[Recipients] " +
                               "WHERE IsActive = 'True' AND TrademarksId = " + givenTrademarksId.ToString();
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
@@ -120,6 +120,10 @@ namespace TMAlerts
                     Recipient rec = new Recipient();
                     rec.Id = Convert.ToInt32(reader["Id"].ToString());
                     rec.TrademarksId = Convert.ToInt32(reader["TrademarksId"].ToString());
+                    if (reader["TM_StatusId"] != DBNull.Value)
+                    {
+                        rec.TM_StatusId = Convert.ToInt32(reader["TM_StatusId"].ToString());
+                    }
                     rec.FullName = reader["FullName"].ToString();
                     rec.Email = reader["Email"].ToString();
 
@@ -650,6 +654,8 @@ namespace TMAlerts
     {
         public int Id { get; set; }
         public int TrademarksId { get; set; }
+        public int TM_StatusId { get; set; }
+        public int EventTypesId { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
 

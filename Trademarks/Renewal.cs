@@ -130,7 +130,8 @@ namespace Trademarks
                 //Save
                 bool successful = true;
 
-                if (TM_Status.InsertTM_Status_Renewal(StRec) == false)
+                StRec.Id = TM_Status.InsertTM_Status_Renewal(StRec);
+                if (StRec.Id <= 0)
                 {
                     //TM_Status ins error
                     successful = false;
@@ -139,7 +140,7 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
-                    if (new Finalization().CreateRenewalAlarms(TmRec, StRec.RenewalDt) == false)
+                    if (new Finalization().CreateRenewalAlarms(TmRec, StRec.RenewalDt, StRec.Id) == false)
                     {
                         MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                         return;
@@ -177,9 +178,9 @@ namespace Trademarks
                         Task.DisableNotSentTasks(StRec.TmId);
 
                         //delete recipients
-                        Recipient.DeleteRecipients(NewRecord.Id);
+                        Recipient.DeleteRecipients(StRec.TmId, StRec.Id, 1); //ananewsi
 
-                        if (new Finalization().CreateRenewalAlarms(TmRec, StRec.RenewalDt) == false)
+                        if (new Finalization().CreateRenewalAlarms(TmRec, StRec.RenewalDt, StRec.Id) == false)
                         {
                             MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
                             return;
