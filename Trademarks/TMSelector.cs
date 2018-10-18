@@ -42,9 +42,9 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], " +
                               "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
-                              "[FileName], [Description], [Fees] " +
+                              "[FileName], [Description], [Fees], isnull([IsDeleted], 'False') as IsDeleted " +
                               "FROM [dbo].[Trademarks] " +
-                              "WHERE isnull(IsDeleted, 'False') = 'False'" +
+                              //"WHERE isnull(IsDeleted, 'False') = 'False'" +
                               "ORDER BY [TMNo] ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
@@ -75,6 +75,7 @@ namespace Trademarks
                     tmpRec.FileName = reader["FileName"].ToString();
                     tmpRec.Description = reader["Description"].ToString();
                     tmpRec.Fees = reader["Fees"].ToString();
+                    tmpRec.IsDeleted = Convert.ToBoolean(reader["IsDeleted"].ToString());
 
                     ret.Add(tmpRec);
                 }
@@ -113,6 +114,7 @@ namespace Trademarks
                 {
                     dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FileContents, dgvColumnHeader = "tmp_Pic" }); //???
                 }
+                dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.IsDeleted, dgvColumnHeader = "tmp_IsDeleted" });
 
                 object[] obj = new object[dgv.Columns.Count];
 
@@ -367,6 +369,11 @@ namespace Trademarks
                 filteredRecs = filteredRecs.Where(i => i.NationalPowerId == ComboboxItem.getComboboxItem<NationalPower>(cbNatPower).Id).ToList();
             }
 
+            if (chbDeleted.CheckState != CheckState.Indeterminate)
+            {
+                filteredRecs = filteredRecs.Where(i => i.IsDeleted == chbDeleted.Checked).ToList();
+            }
+
             FillDataGridView(dgvTempRecs, filteredRecs);
         }
 
@@ -487,5 +494,6 @@ namespace Trademarks
                 frmViewLog.ShowDialog();
             }
         }
+
     }
 }

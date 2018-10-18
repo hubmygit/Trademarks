@@ -40,6 +40,7 @@
             this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +55,7 @@
             this.tsmiStatusViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAlertsViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenUrl = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTmLog = new System.Windows.Forms.ToolStripMenuItem();
             this.cbNatPower = new System.Windows.Forms.ComboBox();
             this.lblNatPower = new System.Windows.Forms.Label();
             this.cbLawyerFullname = new System.Windows.Forms.ComboBox();
@@ -66,7 +68,7 @@
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.tsmiTmLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.chbDeleted = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -88,14 +90,15 @@
             this.tmp_NatPower,
             this.tmp_GrNo,
             this.tmp_Com,
-            this.tmp_Responsible});
+            this.tmp_Responsible,
+            this.tmp_IsDeleted});
             this.dgvTempRecs.ContextMenuStrip = this.cmsOnGrid;
-            this.dgvTempRecs.Location = new System.Drawing.Point(0, 79);
+            this.dgvTempRecs.Location = new System.Drawing.Point(0, 119);
             this.dgvTempRecs.MultiSelect = false;
             this.dgvTempRecs.Name = "dgvTempRecs";
-            this.dgvTempRecs.RowTemplate.Height = 24;
+            this.dgvTempRecs.RowTemplate.Height = 50;
             this.dgvTempRecs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTempRecs.Size = new System.Drawing.Size(1234, 523);
+            this.dgvTempRecs.Size = new System.Drawing.Size(1234, 643);
             this.dgvTempRecs.TabIndex = 3;
             this.dgvTempRecs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTempRecs_CellDoubleClick);
             this.dgvTempRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTempRecs_SortCompare);
@@ -160,6 +163,14 @@
             this.tmp_Responsible.ReadOnly = true;
             this.tmp_Responsible.Width = 180;
             // 
+            // tmp_IsDeleted
+            // 
+            this.tmp_IsDeleted.HeaderText = "Διαγραμμένο";
+            this.tmp_IsDeleted.Name = "tmp_IsDeleted";
+            this.tmp_IsDeleted.ReadOnly = true;
+            this.tmp_IsDeleted.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.tmp_IsDeleted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // cmsOnGrid
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -178,94 +189,101 @@
             this.tsmiOpenUrl,
             this.tsmiTmLog});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 302);
+            this.cmsOnGrid.Size = new System.Drawing.Size(233, 280);
             // 
             // tsmiViewTM
             // 
             this.tsmiViewTM.Name = "tsmiViewTM";
-            this.tsmiViewTM.Size = new System.Drawing.Size(208, 22);
+            this.tsmiViewTM.Size = new System.Drawing.Size(232, 22);
             this.tsmiViewTM.Text = "Εμφάνιση Σήματος";
             this.tsmiViewTM.Click += new System.EventHandler(this.tsmiViewTM_Click);
             // 
             // tsmiUpdTM
             // 
             this.tsmiUpdTM.Name = "tsmiUpdTM";
-            this.tsmiUpdTM.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdTM.Size = new System.Drawing.Size(232, 22);
             this.tsmiUpdTM.Text = "Μεταβολή Σήματος";
             this.tsmiUpdTM.Click += new System.EventHandler(this.tsmiUpdTM_Click);
             // 
             // tsmiDelTM
             // 
             this.tsmiDelTM.Name = "tsmiDelTM";
-            this.tsmiDelTM.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelTM.Size = new System.Drawing.Size(232, 22);
             this.tsmiDelTM.Text = "Διαγραφή Σήματος";
             this.tsmiDelTM.Click += new System.EventHandler(this.tsmiDelTM_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
             // 
             // tsmiDecision
             // 
             this.tsmiDecision.Name = "tsmiDecision";
-            this.tsmiDecision.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDecision.Text = "Απόφαση";
+            this.tsmiDecision.Size = new System.Drawing.Size(232, 22);
+            this.tsmiDecision.Text = "Δημιουργία Απόφασης";
             this.tsmiDecision.Click += new System.EventHandler(this.tsmiDecision_Click);
             // 
             // tsmiAppeal
             // 
             this.tsmiAppeal.Name = "tsmiAppeal";
-            this.tsmiAppeal.Size = new System.Drawing.Size(208, 22);
-            this.tsmiAppeal.Text = "Προσφυγή";
+            this.tsmiAppeal.Size = new System.Drawing.Size(232, 22);
+            this.tsmiAppeal.Text = "Δημιουργία Προσφυγής";
             this.tsmiAppeal.Click += new System.EventHandler(this.tsmiAppeal_Click);
             // 
             // tsmiTermination
             // 
             this.tsmiTermination.Name = "tsmiTermination";
-            this.tsmiTermination.Size = new System.Drawing.Size(208, 22);
-            this.tsmiTermination.Text = "Ανακοπή";
+            this.tsmiTermination.Size = new System.Drawing.Size(232, 22);
+            this.tsmiTermination.Text = "Δημιουργία Ανακοπής";
             this.tsmiTermination.Click += new System.EventHandler(this.tsmiTermination_Click);
             // 
             // tsmiFinalization
             // 
             this.tsmiFinalization.Name = "tsmiFinalization";
-            this.tsmiFinalization.Size = new System.Drawing.Size(208, 22);
-            this.tsmiFinalization.Text = "Οριστικοποίηση";
+            this.tsmiFinalization.Size = new System.Drawing.Size(232, 22);
+            this.tsmiFinalization.Text = "Δημιουργία Οριστικοποίησης";
             this.tsmiFinalization.Click += new System.EventHandler(this.tsmiFinalization_Click);
             // 
             // tsmiRenewal
             // 
             this.tsmiRenewal.Name = "tsmiRenewal";
-            this.tsmiRenewal.Size = new System.Drawing.Size(208, 22);
-            this.tsmiRenewal.Text = "Ανανέωση";
+            this.tsmiRenewal.Size = new System.Drawing.Size(232, 22);
+            this.tsmiRenewal.Text = "Δημιουργία Ανανέωσης";
             this.tsmiRenewal.Click += new System.EventHandler(this.tsmiRenewal_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(229, 6);
             // 
             // tsmiStatusViewer
             // 
             this.tsmiStatusViewer.Name = "tsmiStatusViewer";
-            this.tsmiStatusViewer.Size = new System.Drawing.Size(208, 22);
+            this.tsmiStatusViewer.Size = new System.Drawing.Size(232, 22);
             this.tsmiStatusViewer.Text = "Καταστάσεις";
             this.tsmiStatusViewer.Click += new System.EventHandler(this.tsmiStatusViewer_Click);
             // 
             // tsmiAlertsViewer
             // 
             this.tsmiAlertsViewer.Name = "tsmiAlertsViewer";
-            this.tsmiAlertsViewer.Size = new System.Drawing.Size(208, 22);
+            this.tsmiAlertsViewer.Size = new System.Drawing.Size(232, 22);
             this.tsmiAlertsViewer.Text = "Ειδοποιήσεις";
             this.tsmiAlertsViewer.Click += new System.EventHandler(this.tsmiAlertsViewer_Click);
             // 
             // tsmiOpenUrl
             // 
             this.tsmiOpenUrl.Name = "tsmiOpenUrl";
-            this.tsmiOpenUrl.Size = new System.Drawing.Size(208, 22);
+            this.tsmiOpenUrl.Size = new System.Drawing.Size(232, 22);
             this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
             this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
+            // 
+            // tsmiTmLog
+            // 
+            this.tsmiTmLog.Name = "tsmiTmLog";
+            this.tsmiTmLog.Size = new System.Drawing.Size(232, 22);
+            this.tsmiTmLog.Text = "Log Μεταβολών";
+            this.tsmiTmLog.Click += new System.EventHandler(this.tsmiTmLog_Click);
             // 
             // cbNatPower
             // 
@@ -275,7 +293,7 @@
             this.cbNatPower.ItemHeight = 16;
             this.cbNatPower.Items.AddRange(new object[] {
             "Όλα"});
-            this.cbNatPower.Location = new System.Drawing.Point(971, 12);
+            this.cbNatPower.Location = new System.Drawing.Point(958, 12);
             this.cbNatPower.Name = "cbNatPower";
             this.cbNatPower.Size = new System.Drawing.Size(150, 24);
             this.cbNatPower.TabIndex = 32;
@@ -284,7 +302,7 @@
             // 
             this.lblNatPower.AutoSize = true;
             this.lblNatPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblNatPower.Location = new System.Drawing.Point(883, 15);
+            this.lblNatPower.Location = new System.Drawing.Point(870, 15);
             this.lblNatPower.Name = "lblNatPower";
             this.lblNatPower.Size = new System.Drawing.Size(82, 16);
             this.lblNatPower.TabIndex = 31;
@@ -298,7 +316,7 @@
             this.cbLawyerFullname.ItemHeight = 16;
             this.cbLawyerFullname.Items.AddRange(new object[] {
             "Όλα"});
-            this.cbLawyerFullname.Location = new System.Drawing.Point(621, 12);
+            this.cbLawyerFullname.Location = new System.Drawing.Point(608, 12);
             this.cbLawyerFullname.Name = "cbLawyerFullname";
             this.cbLawyerFullname.Size = new System.Drawing.Size(250, 24);
             this.cbLawyerFullname.TabIndex = 30;
@@ -307,7 +325,7 @@
             // 
             this.lblLawyerFullname.AutoSize = true;
             this.lblLawyerFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblLawyerFullname.Location = new System.Drawing.Point(488, 15);
+            this.lblLawyerFullname.Location = new System.Drawing.Point(475, 15);
             this.lblLawyerFullname.Name = "lblLawyerFullname";
             this.lblLawyerFullname.Size = new System.Drawing.Size(126, 16);
             this.lblLawyerFullname.TabIndex = 29;
@@ -321,7 +339,7 @@
             this.cbCompany.ItemHeight = 16;
             this.cbCompany.Items.AddRange(new object[] {
             "Όλα"});
-            this.cbCompany.Location = new System.Drawing.Point(621, 45);
+            this.cbCompany.Location = new System.Drawing.Point(608, 45);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(500, 24);
             this.cbCompany.TabIndex = 28;
@@ -330,7 +348,7 @@
             // 
             this.lblCompany.AutoSize = true;
             this.lblCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblCompany.Location = new System.Drawing.Point(562, 48);
+            this.lblCompany.Location = new System.Drawing.Point(549, 48);
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(52, 16);
             this.lblCompany.TabIndex = 27;
@@ -340,7 +358,7 @@
             // 
             this.lblTMName.AutoSize = true;
             this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMName.Location = new System.Drawing.Point(167, 48);
+            this.lblTMName.Location = new System.Drawing.Point(154, 48);
             this.lblTMName.Name = "lblTMName";
             this.lblTMName.Size = new System.Drawing.Size(103, 16);
             this.lblTMName.TabIndex = 23;
@@ -349,7 +367,7 @@
             // txtTMName
             // 
             this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMName.Location = new System.Drawing.Point(276, 45);
+            this.txtTMName.Location = new System.Drawing.Point(263, 45);
             this.txtTMName.Name = "txtTMName";
             this.txtTMName.Size = new System.Drawing.Size(200, 22);
             this.txtTMName.TabIndex = 26;
@@ -358,7 +376,7 @@
             // 
             this.lblTMId.AutoSize = true;
             this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMId.Location = new System.Drawing.Point(158, 15);
+            this.lblTMId.Location = new System.Drawing.Point(145, 15);
             this.lblTMId.Name = "lblTMId";
             this.lblTMId.Size = new System.Drawing.Size(112, 16);
             this.lblTMId.TabIndex = 24;
@@ -367,7 +385,7 @@
             // txtTMId
             // 
             this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMId.Location = new System.Drawing.Point(276, 12);
+            this.txtTMId.Location = new System.Drawing.Point(263, 12);
             this.txtTMId.Name = "txtTMId";
             this.txtTMId.Size = new System.Drawing.Size(200, 22);
             this.txtTMId.TabIndex = 25;
@@ -398,18 +416,24 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // tsmiTmLog
+            // chbDeleted
             // 
-            this.tsmiTmLog.Name = "tsmiTmLog";
-            this.tsmiTmLog.Size = new System.Drawing.Size(208, 22);
-            this.tsmiTmLog.Text = "Log Μεταβολών";
-            this.tsmiTmLog.Click += new System.EventHandler(this.tsmiTmLog_Click);
+            this.chbDeleted.AutoSize = true;
+            this.chbDeleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.chbDeleted.Location = new System.Drawing.Point(898, 84);
+            this.chbDeleted.Name = "chbDeleted";
+            this.chbDeleted.Size = new System.Drawing.Size(210, 20);
+            this.chbDeleted.TabIndex = 35;
+            this.chbDeleted.Text = "Διαγραμμένα Εμπορικά Σήματα";
+            this.chbDeleted.ThreeState = true;
+            this.chbDeleted.UseVisualStyleBackColor = true;
             // 
             // TMSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1234, 602);
+            this.ClientSize = new System.Drawing.Size(1234, 762);
+            this.Controls.Add(this.chbDeleted);
             this.Controls.Add(this.btnCreateNew);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.cbNatPower);
@@ -424,7 +448,7 @@
             this.Controls.Add(this.txtTMId);
             this.Controls.Add(this.dgvTempRecs);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1250, 640);
+            this.MinimumSize = new System.Drawing.Size(1250, 800);
             this.Name = "TMSelector";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Εμπορικά Σήματα";
@@ -461,6 +485,10 @@
         private System.Windows.Forms.Label lblTMId;
         private System.Windows.Forms.TextBox txtTMId;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
+        private System.Windows.Forms.Button btnCreateNew;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTmLog;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_No;
         private System.Windows.Forms.DataGridViewImageColumn tmp_Pic;
@@ -470,9 +498,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_GrNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Responsible;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOpenUrl;
-        private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
-        private System.Windows.Forms.Button btnCreateNew;
-        private System.Windows.Forms.ToolStripMenuItem tsmiTmLog;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn tmp_IsDeleted;
+        private System.Windows.Forms.CheckBox chbDeleted;
     }
 }

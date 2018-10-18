@@ -31,6 +31,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusViewer));
             this.dgvStatusViewer = new System.Windows.Forms.DataGridView();
+            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiOpenFinUrl = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenLink = new System.Windows.Forms.Button();
+            this.lblTMName = new System.Windows.Forms.Label();
+            this.txtTMName = new System.Windows.Forms.TextBox();
+            this.lblTMId = new System.Windows.Forms.Label();
+            this.txtTMId = new System.Windows.Forms.TextBox();
+            this.gbNatPower = new System.Windows.Forms.GroupBox();
+            this.rbDiethnes = new System.Windows.Forms.RadioButton();
+            this.rbKoinotiko = new System.Windows.Forms.RadioButton();
+            this.rbEthniko = new System.Windows.Forms.RadioButton();
             this.st_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_TmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,20 +60,6 @@
             this.st_RenewalProtocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_InsDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btnOpenLink = new System.Windows.Forms.Button();
-            this.lblTMName = new System.Windows.Forms.Label();
-            this.txtTMName = new System.Windows.Forms.TextBox();
-            this.lblTMId = new System.Windows.Forms.Label();
-            this.txtTMId = new System.Windows.Forms.TextBox();
-            this.gbNatPower = new System.Windows.Forms.GroupBox();
-            this.rbDiethnes = new System.Windows.Forms.RadioButton();
-            this.rbKoinotiko = new System.Windows.Forms.RadioButton();
-            this.rbEthniko = new System.Windows.Forms.RadioButton();
-            this.tsmiUpdate = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiOpenFinUrl = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatusViewer)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.gbNatPower.SuspendLayout();
@@ -99,97 +99,6 @@
             this.dgvStatusViewer.TabIndex = 4;
             this.dgvStatusViewer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvStatusViewer_MouseDown);
             // 
-            // st_Id
-            // 
-            this.st_Id.HeaderText = "Id";
-            this.st_Id.Name = "st_Id";
-            this.st_Id.Visible = false;
-            // 
-            // st_TmId
-            // 
-            this.st_TmId.HeaderText = "TmId";
-            this.st_TmId.Name = "st_TmId";
-            this.st_TmId.Visible = false;
-            // 
-            // st_Name
-            // 
-            this.st_Name.HeaderText = "Κατάσταση";
-            this.st_Name.Name = "st_Name";
-            this.st_Name.ReadOnly = true;
-            this.st_Name.Width = 140;
-            // 
-            // st_DepositDt
-            // 
-            this.st_DepositDt.HeaderText = "Ημ/νία Κατάθεσης";
-            this.st_DepositDt.Name = "st_DepositDt";
-            this.st_DepositDt.ReadOnly = true;
-            // 
-            // st_DecisionNo
-            // 
-            this.st_DecisionNo.HeaderText = "Αρ. Απόφασης";
-            this.st_DecisionNo.Name = "st_DecisionNo";
-            this.st_DecisionNo.ReadOnly = true;
-            // 
-            // st_DecisionDt
-            // 
-            this.st_DecisionDt.HeaderText = "Ημ/νία Δημ. Απόφασης";
-            this.st_DecisionDt.Name = "st_DecisionDt";
-            this.st_DecisionDt.ReadOnly = true;
-            // 
-            // st_TermCom
-            // 
-            this.st_TermCom.HeaderText = "Εταιρία Ανακοπής";
-            this.st_TermCom.Name = "st_TermCom";
-            this.st_TermCom.ReadOnly = true;
-            // 
-            // st_FinalizedDt
-            // 
-            this.st_FinalizedDt.HeaderText = "Ημ/νία Οριστικοπ.";
-            this.st_FinalizedDt.Name = "st_FinalizedDt";
-            this.st_FinalizedDt.ReadOnly = true;
-            // 
-            // st_FinalizedUrl
-            // 
-            this.st_FinalizedUrl.HeaderText = "Url Οριστικοπ.";
-            this.st_FinalizedUrl.Name = "st_FinalizedUrl";
-            this.st_FinalizedUrl.ReadOnly = true;
-            // 
-            // st_RenewalApplicationDt
-            // 
-            this.st_RenewalApplicationDt.HeaderText = "Ημ/νία Αίτ. Ανανέωσης";
-            this.st_RenewalApplicationDt.Name = "st_RenewalApplicationDt";
-            this.st_RenewalApplicationDt.ReadOnly = true;
-            // 
-            // st_RenewalDt
-            // 
-            this.st_RenewalDt.HeaderText = "Ημ/νία Ανανέωσης";
-            this.st_RenewalDt.Name = "st_RenewalDt";
-            this.st_RenewalDt.ReadOnly = true;
-            // 
-            // st_RenewalFees
-            // 
-            this.st_RenewalFees.HeaderText = "Παράβολα Ανανέωσης";
-            this.st_RenewalFees.Name = "st_RenewalFees";
-            this.st_RenewalFees.ReadOnly = true;
-            // 
-            // st_RenewalProtocol
-            // 
-            this.st_RenewalProtocol.HeaderText = "Πρωτόκολλο Ανανέωσης";
-            this.st_RenewalProtocol.Name = "st_RenewalProtocol";
-            this.st_RenewalProtocol.ReadOnly = true;
-            // 
-            // st_Remarks
-            // 
-            this.st_Remarks.HeaderText = "Παρατηρήσεις";
-            this.st_Remarks.Name = "st_Remarks";
-            this.st_Remarks.ReadOnly = true;
-            // 
-            // st_InsDt
-            // 
-            this.st_InsDt.HeaderText = "Ημ/νία Καταχώρησης";
-            this.st_InsDt.Name = "st_InsDt";
-            this.st_InsDt.ReadOnly = true;
-            // 
             // cmsOnGrid
             // 
             this.cmsOnGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -198,7 +107,33 @@
             this.toolStripSeparator1,
             this.tsmiOpenFinUrl});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(209, 98);
+            this.cmsOnGrid.Size = new System.Drawing.Size(209, 76);
+            // 
+            // tsmiUpdate
+            // 
+            this.tsmiUpdate.Name = "tsmiUpdate";
+            this.tsmiUpdate.Size = new System.Drawing.Size(208, 22);
+            this.tsmiUpdate.Text = "Μεταβολή";
+            this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(208, 22);
+            this.tsmiDelete.Text = "Διαγραφή";
+            this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            // 
+            // tsmiOpenFinUrl
+            // 
+            this.tsmiOpenFinUrl.Name = "tsmiOpenFinUrl";
+            this.tsmiOpenFinUrl.Size = new System.Drawing.Size(208, 22);
+            this.tsmiOpenFinUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
+            this.tsmiOpenFinUrl.Click += new System.EventHandler(this.tsmiOpenFinUrl_Click);
             // 
             // btnOpenLink
             // 
@@ -299,31 +234,96 @@
             this.rbEthniko.Text = "Εθνικό";
             this.rbEthniko.UseVisualStyleBackColor = true;
             // 
-            // tsmiUpdate
+            // st_Id
             // 
-            this.tsmiUpdate.Name = "tsmiUpdate";
-            this.tsmiUpdate.Size = new System.Drawing.Size(208, 22);
-            this.tsmiUpdate.Text = "Μεταβολή";
-            this.tsmiUpdate.Click += new System.EventHandler(this.tsmiUpdate_Click);
+            this.st_Id.HeaderText = "Id";
+            this.st_Id.Name = "st_Id";
+            this.st_Id.Visible = false;
             // 
-            // tsmiDelete
+            // st_TmId
             // 
-            this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(208, 22);
-            this.tsmiDelete.Text = "Διαγραφή";
-            this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
+            this.st_TmId.HeaderText = "TmId";
+            this.st_TmId.Name = "st_TmId";
+            this.st_TmId.Visible = false;
             // 
-            // toolStripSeparator1
+            // st_Name
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            this.st_Name.HeaderText = "Κατάσταση";
+            this.st_Name.Name = "st_Name";
+            this.st_Name.ReadOnly = true;
+            this.st_Name.Width = 140;
             // 
-            // tsmiOpenFinUrl
+            // st_DepositDt
             // 
-            this.tsmiOpenFinUrl.Name = "tsmiOpenFinUrl";
-            this.tsmiOpenFinUrl.Size = new System.Drawing.Size(208, 22);
-            this.tsmiOpenFinUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
-            this.tsmiOpenFinUrl.Click += new System.EventHandler(this.tsmiOpenFinUrl_Click);
+            this.st_DepositDt.HeaderText = "Ημ/νία Κατάθεσης";
+            this.st_DepositDt.Name = "st_DepositDt";
+            this.st_DepositDt.ReadOnly = true;
+            // 
+            // st_DecisionNo
+            // 
+            this.st_DecisionNo.HeaderText = "Αρ. Απόφασης";
+            this.st_DecisionNo.Name = "st_DecisionNo";
+            this.st_DecisionNo.ReadOnly = true;
+            // 
+            // st_DecisionDt
+            // 
+            this.st_DecisionDt.HeaderText = "Ημ/νία Δημοσίευσης Απόφασης";
+            this.st_DecisionDt.Name = "st_DecisionDt";
+            this.st_DecisionDt.ReadOnly = true;
+            // 
+            // st_TermCom
+            // 
+            this.st_TermCom.HeaderText = "Εταιρία Ανακοπής";
+            this.st_TermCom.Name = "st_TermCom";
+            this.st_TermCom.ReadOnly = true;
+            // 
+            // st_FinalizedDt
+            // 
+            this.st_FinalizedDt.HeaderText = "Ημ/νία Οριστικοπ.";
+            this.st_FinalizedDt.Name = "st_FinalizedDt";
+            this.st_FinalizedDt.ReadOnly = true;
+            // 
+            // st_FinalizedUrl
+            // 
+            this.st_FinalizedUrl.HeaderText = "Url Οριστικοπ.";
+            this.st_FinalizedUrl.Name = "st_FinalizedUrl";
+            this.st_FinalizedUrl.ReadOnly = true;
+            // 
+            // st_RenewalApplicationDt
+            // 
+            this.st_RenewalApplicationDt.HeaderText = "Ημ/νία Αίτ. Ανανέωσης";
+            this.st_RenewalApplicationDt.Name = "st_RenewalApplicationDt";
+            this.st_RenewalApplicationDt.ReadOnly = true;
+            // 
+            // st_RenewalDt
+            // 
+            this.st_RenewalDt.HeaderText = "Ημ/νία Ανανέωσης";
+            this.st_RenewalDt.Name = "st_RenewalDt";
+            this.st_RenewalDt.ReadOnly = true;
+            // 
+            // st_RenewalFees
+            // 
+            this.st_RenewalFees.HeaderText = "Παράβολα Ανανέωσης";
+            this.st_RenewalFees.Name = "st_RenewalFees";
+            this.st_RenewalFees.ReadOnly = true;
+            // 
+            // st_RenewalProtocol
+            // 
+            this.st_RenewalProtocol.HeaderText = "Πρωτόκολλο Ανανέωσης";
+            this.st_RenewalProtocol.Name = "st_RenewalProtocol";
+            this.st_RenewalProtocol.ReadOnly = true;
+            // 
+            // st_Remarks
+            // 
+            this.st_Remarks.HeaderText = "Παρατηρήσεις";
+            this.st_Remarks.Name = "st_Remarks";
+            this.st_Remarks.ReadOnly = true;
+            // 
+            // st_InsDt
+            // 
+            this.st_InsDt.HeaderText = "Ημ/νία Καταχώρησης";
+            this.st_InsDt.Name = "st_InsDt";
+            this.st_InsDt.ReadOnly = true;
             // 
             // StatusViewer
             // 
@@ -354,6 +354,19 @@
 
         public System.Windows.Forms.DataGridView dgvStatusViewer;
         private System.Windows.Forms.ContextMenuStrip cmsOnGrid;
+        private System.Windows.Forms.Button btnOpenLink;
+        private System.Windows.Forms.Label lblTMName;
+        private System.Windows.Forms.TextBox txtTMName;
+        private System.Windows.Forms.Label lblTMId;
+        private System.Windows.Forms.TextBox txtTMId;
+        private System.Windows.Forms.GroupBox gbNatPower;
+        private System.Windows.Forms.RadioButton rbDiethnes;
+        private System.Windows.Forms.RadioButton rbKoinotiko;
+        private System.Windows.Forms.RadioButton rbEthniko;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUpdate;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenFinUrl;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_TmId;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Name;
@@ -369,18 +382,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn st_RenewalProtocol;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_InsDt;
-        private System.Windows.Forms.Button btnOpenLink;
-        private System.Windows.Forms.Label lblTMName;
-        private System.Windows.Forms.TextBox txtTMName;
-        private System.Windows.Forms.Label lblTMId;
-        private System.Windows.Forms.TextBox txtTMId;
-        private System.Windows.Forms.GroupBox gbNatPower;
-        private System.Windows.Forms.RadioButton rbDiethnes;
-        private System.Windows.Forms.RadioButton rbKoinotiko;
-        private System.Windows.Forms.RadioButton rbEthniko;
-        private System.Windows.Forms.ToolStripMenuItem tsmiUpdate;
-        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiOpenFinUrl;
     }
 }
