@@ -49,7 +49,7 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TrademarksId], [StatusId], (SELECT S.Name FROM Status S WHERE S.Id = TS.StatusId) as Status_Name, [DepositDt], " +
-                              "[DecisionNo], [DecisionPublDt], [TermCompany], [FinalizedDt], [FinalizedUrl], [RenewalApplicationDt], [RenewalDt], [RenewalFees], [RenewalProtocol], [Remarks], [InsDt] " +
+                              "[DecisionNo], [DecisionPublDt], [AppealDt], [TermCompany], [TermDt], [FinalizedDt], [FinalizedUrl], [RenewalApplicationDt], [RenewalDt], [RenewalFees], [RenewalProtocol], [Remarks], [InsDt] " +
                               "FROM [dbo].[TM_Status] TS " +
                               "WHERE TrademarksId = @TmId AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY Id ";
@@ -79,7 +79,15 @@ namespace Trademarks
                     {
                         stat.DecisionPublDt = Convert.ToDateTime(reader["DecisionPublDt"].ToString());
                     }
+                    if (reader["AppealDt"] != DBNull.Value)
+                    {
+                        stat.AppealDt = Convert.ToDateTime(reader["AppealDt"].ToString());
+                    }
                     stat.TermCompany = reader["TermCompany"].ToString();
+                    if (reader["TermDt"] != DBNull.Value)
+                    {
+                        stat.TermDt = Convert.ToDateTime(reader["TermDt"].ToString());
+                    }
                     if (reader["FinalizedDt"] != DBNull.Value)
                     {
                         stat.FinalizedDt = Convert.ToDateTime(reader["FinalizedDt"].ToString());
@@ -131,7 +139,15 @@ namespace Trademarks
                 {
                     dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.DecisionPublDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_DecisionDt" });
                 }
+                if(thisRecord.AppealDt != null && thisRecord.AppealDt > new DateTime(1800, 1, 1))
+                {
+                    dgvDictList.Add(new dgvDictionary() { dbfield = ((DateTime)thisRecord.AppealDt).ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_AppealDt" });
+                }
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.TermCompany, dgvColumnHeader = "st_TermCom" });
+                if (thisRecord.TermDt != null && thisRecord.TermDt > new DateTime(1800, 1, 1))
+                {
+                    dgvDictList.Add(new dgvDictionary() { dbfield = ((DateTime)thisRecord.TermDt).ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_TermDt" });
+                }
                 if (thisRecord.FinalizedDt != null && thisRecord.FinalizedDt > new DateTime(1800, 1, 1))
                 {
                     dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.FinalizedDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "st_FinalizedDt" });

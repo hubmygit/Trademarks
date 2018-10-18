@@ -73,6 +73,10 @@ namespace Trademarks
             OldRecord = TMS;
             TempRecUpdId = TMS.Id;
 
+            if (TMS.AppealDt != null)
+            {
+                dtpAppealDt.Value = (DateTime)TMS.AppealDt;
+            }
             txtDescription.Text = TMS.Remarks;
 
         }
@@ -101,6 +105,10 @@ namespace Trademarks
                 NewRecord.DecisionNo = prevTMStatus.DecisionNo; //txtDecisionNo.Text;
                 NewRecord.DecisionPublDt = prevTMStatus.DecisionPublDt; //dtpPublicationDate.Value.Date;
                 NewRecord.DecisionRefId = prevTMStatus.Id;
+                if (dtpAppealDt.CustomFormat != " ")
+                {
+                    NewRecord.AppealDt = dtpAppealDt.Value;
+                }
                 NewRecord.Remarks = txtDescription.Text;
 
                 NewRecord.Id = TempRecUpdId;
@@ -145,6 +153,21 @@ namespace Trademarks
         private void Appeal_Load(object sender, EventArgs e)
         {
             txtTMId.Select();
+        }
+
+
+
+        private void dtpAppealDt_ValueChanged(object sender, EventArgs e)
+        {
+            dtpAppealDt.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void dtpAppealDt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Back) || (e.KeyCode == Keys.Delete))
+            {
+                dtpAppealDt.CustomFormat = " ";
+            }
         }
     }
 }

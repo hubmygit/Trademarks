@@ -48,13 +48,15 @@
             this.lblTMId = new System.Windows.Forms.Label();
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.lblAppealTitle = new System.Windows.Forms.Label();
+            this.dtpAppealDt = new System.Windows.Forms.DateTimePicker();
+            this.lblAppealDt = new System.Windows.Forms.Label();
             this.gbDecisionType.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtDescription
             // 
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtDescription.Location = new System.Drawing.Point(40, 368);
+            this.txtDescription.Location = new System.Drawing.Point(40, 400);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(705, 70);
@@ -64,7 +66,7 @@
             // 
             this.lblDescription.AutoSize = true;
             this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDescription.Location = new System.Drawing.Point(330, 349);
+            this.lblDescription.Location = new System.Drawing.Point(330, 381);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(125, 16);
             this.lblDescription.TabIndex = 0;
@@ -248,12 +250,36 @@
             this.lblAppealTitle.TabIndex = 0;
             this.lblAppealTitle.Text = "Προσφυγή Λόγω Απορριπτικής Απόφασης Σήματος";
             // 
+            // dtpAppealDt
+            // 
+            this.dtpAppealDt.CustomFormat = " ";
+            this.dtpAppealDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpAppealDt.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpAppealDt.Location = new System.Drawing.Point(330, 336);
+            this.dtpAppealDt.Name = "dtpAppealDt";
+            this.dtpAppealDt.Size = new System.Drawing.Size(250, 22);
+            this.dtpAppealDt.TabIndex = 15;
+            this.dtpAppealDt.ValueChanged += new System.EventHandler(this.dtpAppealDt_ValueChanged);
+            this.dtpAppealDt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpAppealDt_KeyDown);
+            // 
+            // lblAppealDt
+            // 
+            this.lblAppealDt.AutoSize = true;
+            this.lblAppealDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblAppealDt.Location = new System.Drawing.Point(204, 341);
+            this.lblAppealDt.Name = "lblAppealDt";
+            this.lblAppealDt.Size = new System.Drawing.Size(120, 16);
+            this.lblAppealDt.TabIndex = 16;
+            this.lblAppealDt.Text = "Ημ/νία Προσφυγής";
+            // 
             // Appeal
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.lblAppealDt);
+            this.Controls.Add(this.dtpAppealDt);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnSave);
@@ -303,5 +329,7 @@
         private System.Windows.Forms.Label lblTMId;
         private System.Windows.Forms.TextBox txtTMId;
         private System.Windows.Forms.Label lblAppealTitle;
+        private System.Windows.Forms.DateTimePicker dtpAppealDt;
+        private System.Windows.Forms.Label lblAppealDt;
     }
 }

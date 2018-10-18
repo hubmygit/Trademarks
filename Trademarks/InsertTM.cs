@@ -1603,7 +1603,9 @@ namespace Trademarks
         public string DecisionNo { get; set; }
         public DateTime DecisionPublDt { get; set; }
         public int DecisionRefId { get; set; }
+        public DateTime? AppealDt { get; set; }
         public string TermCompany { get; set; }
+        public DateTime? TermDt { get; set; }
         public DateTime FinalizedDt { get; set; }
         public string FinalizedUrl { get; set; }
         public DateTime RenewalApplicationDt { get; set; }
@@ -2065,8 +2067,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionRefId], [Remarks], [InsUser], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionRefId, @Remarks, @InsUser, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionRefId], [AppealDt], [Remarks], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionRefId, @AppealDt, @Remarks, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -2076,6 +2078,14 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
+                if (tmstatus.AppealDt == null)
+                {
+                    cmd.Parameters.AddWithValue("@AppealDt", DBNull.Value); 
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@AppealDt", tmstatus.AppealDt);
+                }                
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
@@ -2103,7 +2113,8 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [DecisionRefId] = @DecisionRefId, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [DecisionRefId] = @DecisionRefId, " + 
+                           "[AppealDt] = @AppealDt, [Remarks] = @Remarks, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -2115,6 +2126,14 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@StatusId", tmstatus.StatusId);
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
+                if (tmstatus.AppealDt == null)
+                {
+                    cmd.Parameters.AddWithValue("@AppealDt", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@AppealDt", tmstatus.AppealDt);
+                }
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
                 cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 
@@ -2141,8 +2160,8 @@ namespace Trademarks
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionRefId], [Remarks], [TermCompany], [InsUser], [InsDt]) VALUES " +
-                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionRefId, @Remarks, @TermCompany, @InsUser, getdate()) ";
+            string InsSt = "INSERT INTO [dbo].[TM_Status] ([TrademarksId], [StatusId], [DecisionNo], [DecisionRefId], [Remarks], [TermCompany], [TermDt], [InsUser], [InsDt]) VALUES " +
+                           "(@TrademarksId, @StatusId, @DecisionNo, @DecisionRefId, @Remarks, @TermCompany, @TermDt, @InsUser, getdate()) ";
             try
             {
                 sqlConn.Open();
@@ -2153,6 +2172,14 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                if (tmstatus.TermDt == null)
+                {
+                    cmd.Parameters.AddWithValue("@TermDt", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TermDt", tmstatus.TermDt);
+                }
                 cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
                 cmd.Parameters.AddWithValue("@InsUser", UserInfo.DB_AppUser_Id);
 
@@ -2180,7 +2207,8 @@ namespace Trademarks
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string InsSt = "UPDATE [dbo].[TM_Status] " +
-                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [DecisionRefId] = @DecisionRefId, [Remarks] = @Remarks, [TermCompany] = @TermCompany, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
+                           "SET [TrademarksId] = @TrademarksId, [StatusId] = @StatusId, [DecisionNo] = @DecisionNo, [DecisionRefId] = @DecisionRefId, " +
+                           "[Remarks] = @Remarks, [TermCompany] = @TermCompany, [TermDt] = @TermDt, [UpdUser] = @UpdUser, [UpdDt] = getdate() " +
                            "WHERE Id = @Id ";
             try
             {
@@ -2193,6 +2221,14 @@ namespace Trademarks
                 cmd.Parameters.AddWithValue("@DecisionNo", tmstatus.DecisionNo);
                 cmd.Parameters.AddWithValue("@DecisionRefId", tmstatus.DecisionRefId);
                 cmd.Parameters.AddWithValue("@Remarks", tmstatus.Remarks);
+                if (tmstatus.TermDt == null)
+                {
+                    cmd.Parameters.AddWithValue("@TermDt", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TermDt", tmstatus.TermDt);
+                }
                 cmd.Parameters.AddWithValue("@TermCompany", tmstatus.TermCompany);
                 cmd.Parameters.AddWithValue("@UpdUser", UserInfo.DB_AppUser_Id);
 

@@ -73,6 +73,10 @@ namespace Trademarks
             OldRecord = TMS;
             TempRecUpdId = TMS.Id;
 
+            if (TMS.TermDt != null)
+            {
+                dtpTerminationDt.Value = (DateTime)TMS.TermDt;
+            }
             txtTermCompany.Text = TMS.TermCompany;
             txtDescription.Text = TMS.Remarks;
         }
@@ -112,6 +116,10 @@ namespace Trademarks
             NewRecord.DecisionPublDt = prevTMStatus.DecisionPublDt; //dtpPublicationDate.Value.Date;
             NewRecord.DecisionRefId = prevTMStatus.Id;
             NewRecord.Remarks = txtDescription.Text;
+            if (dtpTerminationDt.CustomFormat != " ")
+            {
+                NewRecord.AppealDt = dtpTerminationDt.Value;
+            }
             NewRecord.TermCompany = txtTermCompany.Text;
 
             NewRecord.Id = TempRecUpdId;
@@ -145,6 +153,19 @@ namespace Trademarks
                 {
                     MessageBox.Show("Σφάλμα κατα την καταχώρηση της εγγραφής!");
                 }
+            }
+        }
+
+        private void dtpTerminationDt_ValueChanged(object sender, EventArgs e)
+        {
+            dtpTerminationDt.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void dtpTerminationDt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Back) || (e.KeyCode == Keys.Delete))
+            {
+                dtpTerminationDt.CustomFormat = " ";
             }
         }
     }

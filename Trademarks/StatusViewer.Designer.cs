@@ -51,7 +51,9 @@
             this.st_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_DecisionNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_DecisionDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.st_AppealDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_TermCom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.st_TermDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_FinalizedDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_FinalizedUrl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.st_RenewalApplicationDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +82,9 @@
             this.st_DepositDt,
             this.st_DecisionNo,
             this.st_DecisionDt,
+            this.st_AppealDt,
             this.st_TermCom,
+            this.st_TermDt,
             this.st_FinalizedDt,
             this.st_FinalizedUrl,
             this.st_RenewalApplicationDt,
@@ -271,11 +275,23 @@
             this.st_DecisionDt.Name = "st_DecisionDt";
             this.st_DecisionDt.ReadOnly = true;
             // 
+            // st_AppealDt
+            // 
+            this.st_AppealDt.HeaderText = "Ημ/νία Προσφυγής";
+            this.st_AppealDt.Name = "st_AppealDt";
+            this.st_AppealDt.ReadOnly = true;
+            // 
             // st_TermCom
             // 
             this.st_TermCom.HeaderText = "Εταιρία Ανακοπής";
             this.st_TermCom.Name = "st_TermCom";
             this.st_TermCom.ReadOnly = true;
+            // 
+            // st_TermDt
+            // 
+            this.st_TermDt.HeaderText = "Ημ/νία Ανακοπής";
+            this.st_TermDt.Name = "st_TermDt";
+            this.st_TermDt.ReadOnly = true;
             // 
             // st_FinalizedDt
             // 
@@ -373,7 +389,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn st_DepositDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_DecisionNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_DecisionDt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn st_AppealDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_TermCom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn st_TermDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_FinalizedDt;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_FinalizedUrl;
         private System.Windows.Forms.DataGridViewTextBoxColumn st_RenewalApplicationDt;

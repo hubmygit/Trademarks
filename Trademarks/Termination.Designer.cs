@@ -50,13 +50,15 @@
             this.lblAppealTitle = new System.Windows.Forms.Label();
             this.btnTermCompany = new System.Windows.Forms.Label();
             this.txtTermCompany = new System.Windows.Forms.TextBox();
+            this.lblTerminationDt = new System.Windows.Forms.Label();
+            this.dtpTerminationDt = new System.Windows.Forms.DateTimePicker();
             this.gbDecisionType.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtDescription
             // 
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtDescription.Location = new System.Drawing.Point(40, 380);
+            this.txtDescription.Location = new System.Drawing.Point(40, 412);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(705, 70);
@@ -66,7 +68,7 @@
             // 
             this.lblDescription.AutoSize = true;
             this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDescription.Location = new System.Drawing.Point(330, 361);
+            this.lblDescription.Location = new System.Drawing.Point(330, 393);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(125, 16);
             this.lblDescription.TabIndex = 0;
@@ -254,7 +256,7 @@
             // 
             this.btnTermCompany.AutoSize = true;
             this.btnTermCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnTermCompany.Location = new System.Drawing.Point(37, 318);
+            this.btnTermCompany.Location = new System.Drawing.Point(37, 356);
             this.btnTermCompany.Name = "btnTermCompany";
             this.btnTermCompany.Size = new System.Drawing.Size(138, 16);
             this.btnTermCompany.TabIndex = 0;
@@ -263,10 +265,32 @@
             // txtTermCompany
             // 
             this.txtTermCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTermCompany.Location = new System.Drawing.Point(181, 315);
+            this.txtTermCompany.Location = new System.Drawing.Point(181, 353);
             this.txtTermCompany.Name = "txtTermCompany";
             this.txtTermCompany.Size = new System.Drawing.Size(564, 22);
             this.txtTermCompany.TabIndex = 10;
+            // 
+            // lblTerminationDt
+            // 
+            this.lblTerminationDt.AutoSize = true;
+            this.lblTerminationDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTerminationDt.Location = new System.Drawing.Point(218, 312);
+            this.lblTerminationDt.Name = "lblTerminationDt";
+            this.lblTerminationDt.Size = new System.Drawing.Size(109, 16);
+            this.lblTerminationDt.TabIndex = 18;
+            this.lblTerminationDt.Text = "Ημ/νία Ανακοπής";
+            // 
+            // dtpTerminationDt
+            // 
+            this.dtpTerminationDt.CustomFormat = " ";
+            this.dtpTerminationDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpTerminationDt.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpTerminationDt.Location = new System.Drawing.Point(333, 310);
+            this.dtpTerminationDt.Name = "dtpTerminationDt";
+            this.dtpTerminationDt.Size = new System.Drawing.Size(250, 22);
+            this.dtpTerminationDt.TabIndex = 17;
+            this.dtpTerminationDt.ValueChanged += new System.EventHandler(this.dtpTerminationDt_ValueChanged);
+            this.dtpTerminationDt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpTerminationDt_KeyDown);
             // 
             // Termination
             // 
@@ -274,6 +298,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.lblTerminationDt);
+            this.Controls.Add(this.dtpTerminationDt);
             this.Controls.Add(this.txtTermCompany);
             this.Controls.Add(this.btnTermCompany);
             this.Controls.Add(this.txtDescription);
@@ -327,5 +353,7 @@
         private System.Windows.Forms.Label lblAppealTitle;
         private System.Windows.Forms.Label btnTermCompany;
         private System.Windows.Forms.TextBox txtTermCompany;
+        private System.Windows.Forms.Label lblTerminationDt;
+        private System.Windows.Forms.DateTimePicker dtpTerminationDt;
     }
 }
