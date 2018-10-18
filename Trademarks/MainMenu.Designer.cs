@@ -188,7 +188,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 480);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Main Menu";
+            this.Text = "Trademarks";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStripBasic.ResumeLayout(false);

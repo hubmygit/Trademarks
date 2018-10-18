@@ -34,15 +34,15 @@ namespace Trademarks
             {
                 rbApproved.Checked = true;
 
-                rbFinalization.Checked = true;
-                gbFinalizationStatus.Enabled = false;
+                //rbFinalization.Checked = true;
+                //gbFinalizationStatus.Enabled = false;
             }
             else if (LastDecision.StatusId == 3)
             {
                 rbPartiallyRejected.Checked = true;
 
-                rbFinalization.Checked = true;
-                gbFinalizationStatus.Enabled = false;
+                //rbFinalization.Checked = true;
+                //gbFinalizationStatus.Enabled = false;
             }
             else if (LastDecision.StatusId == 4)
             {
@@ -72,15 +72,15 @@ namespace Trademarks
             {
                 rbApproved.Checked = true;
 
-                rbFinalization.Checked = true;
-                gbFinalizationStatus.Enabled = false;
+                //rbFinalization.Checked = true;
+                //gbFinalizationStatus.Enabled = false;
             }
             else if (LastDecision.StatusId == 3)
             {
                 rbPartiallyRejected.Checked = true;
 
-                rbFinalization.Checked = true;
-                gbFinalizationStatus.Enabled = false;
+                //rbFinalization.Checked = true;
+                //gbFinalizationStatus.Enabled = false;
             }
             else if (LastDecision.StatusId == 4)
             {
@@ -95,14 +95,14 @@ namespace Trademarks
             OldRecord = TMS;
             TempRecUpdId = TMS.Id;
 
-            if (TMS.StatusId == 7) //oristikopoiisi
-            {
-                rbFinalization.Checked = true;
-            }
-            else if (TMS.StatusId == 8) //oliki aporripsi
-            {
-                rbRejected.Checked = true;
-            }
+            //if (TMS.StatusId == 7) //oristikopoiisi
+            //{
+            //    rbFinalization.Checked = true;
+            //}
+            //else if (TMS.StatusId == 8) //oliki aporripsi
+            //{
+            //    rbRejected.Checked = true;
+            //}
             dtpFinalizationDate.Value = TMS.FinalizedDt;
             txtUrl.Text = TMS.FinalizedUrl;
             txtDescription.Text = TMS.Remarks;
@@ -301,7 +301,7 @@ namespace Trademarks
                 {
                     TmLog.Insert_TMLog(OldRecord, NewRecord, "Οριστικοποίηση", 5);
 
-                    if (OldRecord.StatusId != NewRecord.StatusId)
+                    if (OldRecord.StatusId != NewRecord.StatusId) //..............OXI.............
                     {
                         //disable old Alarms first...
                         Task.DisableNotSentTasks(StRec.TmId);
@@ -336,11 +336,11 @@ namespace Trademarks
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check that all fields has been filled correctly
-            if (!rbFinalization.Checked && !rbRejected.Checked)
-            {
-                MessageBox.Show("Παρακαλώ επιλέξτε αν πρόκειται για Οριστικοποίηση ή Απόρριψη!");
-                return;
-            }
+            //if (!rbFinalization.Checked && !rbRejected.Checked)
+            //{
+            //    MessageBox.Show("Παρακαλώ επιλέξτε αν πρόκειται για Οριστικοποίηση ή Απόρριψη!");
+            //    return;
+            //}
 
             if (MessageBox.Show("Προσοχή! Πριν προχωρήσετε θα πρέπει να έχετε ολοκληρώσει τις αλλαγές στο εμπορικό σήμα \r\nκαθώς δεν θα επιτρέπονται αλλαγές μετά την οριστικοποίηση. \r\nΑν υπάρχουν προηγούμενες ειδοποιήσεις για αυτό το σήμα θα διακοπούν. \r\nΘέλετε να συνεχίσετε στην καταχώρηση;", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -358,15 +358,23 @@ namespace Trademarks
 
                 NewRecord.Id = TempRecUpdId;
 
-                if (rbFinalization.Checked)
+                if (prevTMStatus.StatusId == 2 || prevTMStatus.StatusId == 3) //egkr. || mer. apor.
                 {
                     NewRecord.StatusId = 7; //oristikopoiisi
                 }
-                else if (rbRejected.Checked)
+                else if(prevTMStatus.StatusId == 4) //ol. apor.
                 {
                     NewRecord.StatusId = 8; //oliki aporripsi
-
                 }
+
+                //if (rbFinalization.Checked)
+                //{
+                //    NewRecord.StatusId = 7; //oristikopoiisi
+                //}
+                //else if (rbRejected.Checked)
+                //{
+                //    NewRecord.StatusId = 8; //oliki aporripsi
+                //}
 
                 Finalized(NewRecord, givenTM);
             }
