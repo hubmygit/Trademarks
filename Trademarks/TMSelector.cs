@@ -42,7 +42,7 @@ namespace Trademarks
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], " +
                               "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
-                              "[FileName], [Description], [Fees], isnull([IsDeleted], 'False') as IsDeleted " +
+                              "[FileName], [Description], [Fees], [ValidTo], isnull([IsDeleted], 'False') as IsDeleted " +
                               "FROM [dbo].[Trademarks] " +
                               //"WHERE isnull(IsDeleted, 'False') = 'False'" +
                               "ORDER BY [TMNo] ";
@@ -75,6 +75,10 @@ namespace Trademarks
                     tmpRec.FileName = reader["FileName"].ToString();
                     tmpRec.Description = reader["Description"].ToString();
                     tmpRec.Fees = reader["Fees"].ToString();
+                    if (reader["ValidTo"] != DBNull.Value)
+                    {
+                        tmpRec.ValidTo = Convert.ToDateTime(reader["ValidTo"].ToString());
+                    }
                     tmpRec.IsDeleted = Convert.ToBoolean(reader["IsDeleted"].ToString());
 
                     ret.Add(tmpRec);
@@ -251,6 +255,12 @@ namespace Trademarks
                 int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
                 Trademark tm = tempRecList.Where(i => i.Id == Id).First();
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -288,6 +298,12 @@ namespace Trademarks
                 Trademark tm = tempRecList.Where(i => i.Id == Id).First();
                 bool success = true;
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -295,14 +311,14 @@ namespace Trademarks
                 }
 
                 //check references
-                if (Trademark.SelectRefTmRecs(tm.TMNo)  > 0)
+                if (Trademark.SelectRefTmRecs(tm.TMNo) > 0)
                 {
                     MessageBox.Show("Προσοχή! Δεν είναι δυνατή η διαγραφή της επιλεγμένης εγγραφής! \r\nΥπάρχουν άλλες εγγραφές (Διεθνή / Κοινοτικά Σήματα) που αναφέρονται σε αυτήν.");
                     return;
                 }
 
                 TM_Status tms = TM_Status.getLastDecision(tm.Id);
-                if (tms.StatusId == 2 && tms.StatusId == 3 && tms.StatusId == 4) //check oti exei apofasi
+                if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4) //check oti exei apofasi
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΥπάρχει καταχωρημένη Aπόφαση.");
                     return;

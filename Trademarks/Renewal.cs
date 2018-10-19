@@ -28,8 +28,12 @@ namespace Trademarks
             txtTMName.Text = TM.TMName;
             dtpDepositDt.Value = TM.DepositDt;
             dtpDepositTime.Value = TM.DepositDt;
+            dtpValidTo.Value = (DateTime)TM.ValidTo;
 
             isInsert = true;
+
+            dtpRenewalDate.Value = dtpValidTo.Value;
+            dtpRenewalDateTo.Value = dtpValidTo.Value.AddYears(10);
 
             //DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value);
             //if (renDt != null)
@@ -50,6 +54,7 @@ namespace Trademarks
             txtTMName.Text = TM.TMName;
             dtpDepositDt.Value = TM.DepositDt;
             dtpDepositTime.Value = TM.DepositDt;
+            dtpValidTo.Value = (DateTime)TM.ValidTo;
 
             isInsert = false;
 
@@ -58,6 +63,7 @@ namespace Trademarks
 
             dtpApplicationDate.Value = TMS.RenewalApplicationDt;
             dtpRenewalDate.Value = TMS.RenewalDt;
+            dtpRenewalDateTo.Value = (DateTime)TM.ValidTo; //TMS.RenewalDt.AddYears(10);
             txtProtocolNo.Text = TMS.RenewalProtocol;
             txtFees.Text = TMS.RenewalFees;
             txtDescription.Text = TMS.Remarks;
@@ -140,6 +146,15 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
+                    if (Trademark.UpdateTM_ValidTo(TmRec.Id, StRec.RenewalDt.AddYears(10)) == false)
+                    {
+                        MessageBox.Show("Προσοχή! \r\nΣφάλμα κατα την καταχώρηση της Καταληκτικής Ημερομηνίας του Σήματος!");
+                    }
+                    else
+                    {
+                        TmLog.Insert_TMLog(new Trademark() { Id = TmRec.Id, ValidTo = TmRec.ValidTo }, new Trademark() { Id = TmRec.Id, ValidTo = StRec.RenewalDt.AddYears(10) }, "Κατάθεση");
+                    }
+
                     if (new Finalization().CreateRenewalAlarms(TmRec, StRec.RenewalDt, StRec.Id) == false)
                     {
                         MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
@@ -171,6 +186,15 @@ namespace Trademarks
                 if (successful)
                 {
                     TmLog.Insert_TMLog(OldRecord, NewRecord, "Ανανέωση", 6);
+
+                    if (Trademark.UpdateTM_ValidTo(TmRec.Id, StRec.RenewalDt.AddYears(10)) == false)
+                    {
+                        MessageBox.Show("Προσοχή! \r\nΣφάλμα κατα την καταχώρηση της Καταληκτικής Ημερομηνίας του Σήματος!");
+                    }
+                    else
+                    {
+                        TmLog.Insert_TMLog(new Trademark() { Id = TmRec.Id, ValidTo = TmRec.ValidTo }, new Trademark() { Id = TmRec.Id, ValidTo = StRec.RenewalDt.AddYears(10) }, "Κατάθεση");
+                    }
 
                     if (OldRecord.RenewalDt != NewRecord.RenewalDt)
                     {
@@ -233,20 +257,15 @@ namespace Trademarks
 
         private void dtpApplicationDate_ValueChanged(object sender, EventArgs e)
         {
-            DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value, dtpApplicationDate.Value);
+            //DateTime? renDt = CalcRenewalDt(dtpDepositDt.Value, dtpApplicationDate.Value);
 
-            if (renDt != null)
-            {
-                dtpRenewalDate.Value = (DateTime)renDt;
+            //if (renDt != null)
+            //{
+            //    dtpRenewalDate.Value = (DateTime)renDt;
 
                 //dtpExpDt.Value = ((DateTime)renDt).AddYears(10);
-                lblExpDt.Text = ((DateTime)renDt).AddYears(10).ToString("dd/MM/yyyy");
-            }
+            //}
         }
 
-        private void dtpRenewalDate_ValueChanged(object sender, EventArgs e)
-        {
-            lblExpDt.Text = dtpRenewalDate.Value.AddYears(10).ToString("dd/MM/yyyy");
-        }
     }
 }

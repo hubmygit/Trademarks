@@ -118,7 +118,7 @@ namespace Trademarks
             NewRecord.Remarks = txtDescription.Text;
             if (dtpTerminationDt.CustomFormat != " ")
             {
-                NewRecord.AppealDt = dtpTerminationDt.Value;
+                NewRecord.TermDt = dtpTerminationDt.Value;
             }
             NewRecord.TermCompany = txtTermCompany.Text;
 

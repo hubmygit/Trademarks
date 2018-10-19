@@ -214,11 +214,25 @@ namespace Trademarks
                 //    return;
                 //}
 
-                Trademark tm = new Trademark(tms.TmId); 
+                Trademark tm = new Trademark(tms.TmId);
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Απόφαση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                TM_Status lastDec = TM_Status.getLastDecision(tm.Id);
+                //if (lastDec != null && lastDec.Id != tms.Id)
+                if (lastDec.Id != tms.Id)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Απόφαση. \r\nΈχει καταχωρηθεί νεότερη απόφαση!");
                     return;
                 }
 
@@ -264,6 +278,12 @@ namespace Trademarks
                 //}
 
                 Trademark tm = new Trademark(tms.TmId);
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
@@ -316,6 +336,12 @@ namespace Trademarks
 
                 Trademark tm = new Trademark(tms.TmId);
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -367,6 +393,12 @@ namespace Trademarks
 
                 Trademark tm = new Trademark(tms.TmId);
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να μεταβάλετε την Οριστικοποίηση. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -411,6 +443,12 @@ namespace Trademarks
                 //}
 
                 Trademark tm = new Trademark(tms.TmId);
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
@@ -457,6 +495,12 @@ namespace Trademarks
                 //}
 
                 Trademark tm = new Trademark(tms.TmId);
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
@@ -538,6 +582,12 @@ namespace Trademarks
 
                 Trademark tm = new Trademark(tms.TmId);
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Προσφυγή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -602,6 +652,12 @@ namespace Trademarks
 
                 Trademark tm = new Trademark(tms.TmId);
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την Ανακοπή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -663,6 +719,12 @@ namespace Trademarks
                 //}
 
                 Trademark tm = new Trademark(tms.TmId);
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
@@ -732,6 +794,12 @@ namespace Trademarks
                 //}
 
                 Trademark tm = new Trademark(tms.TmId);
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
 
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
@@ -805,6 +873,12 @@ namespace Trademarks
                 TM_Status tms = tmStatusList.Where(i => i.Id == ST_Id).First();
                 Trademark tm = new Trademark(TM_Id);
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -845,6 +919,12 @@ namespace Trademarks
 
                 bool success = true;
 
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
                 if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
@@ -859,7 +939,7 @@ namespace Trademarks
                 }
 
                 TM_Status tms = TM_Status.getLastDecision(tm.Id);
-                if (tms.StatusId == 2 && tms.StatusId == 3 && tms.StatusId == 4) //check oti exei apofasi
+                if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4) //check oti exei apofasi
                 {
                     MessageBox.Show("Προσοχή! Δεν μπορείτε να διαγράψετε την εγγραφή. \r\nΥπάρχει καταχωρημένη Aπόφαση.");
                     return;

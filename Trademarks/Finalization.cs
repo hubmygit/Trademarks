@@ -266,6 +266,15 @@ namespace Trademarks
                 //Alarms
                 if (successful)
                 {
+                    if (Trademark.UpdateTM_ValidTo(TmRec.Id, TmRec.DepositDt.AddYears(10)) == false)
+                    {
+                        MessageBox.Show("Προσοχή! \r\nΣφάλμα κατα την καταχώρηση της Καταληκτικής Ημερομηνίας του Σήματος!");
+                    }
+                    else
+                    {
+                        TmLog.Insert_TMLog(new Trademark() { Id = TmRec.Id, ValidTo = TmRec.ValidTo }, new Trademark() { Id = TmRec.Id, ValidTo = TmRec.DepositDt.AddYears(10) }, "Κατάθεση");
+                    }
+                                       
                     if (StRec.StatusId == 7) //oristikopoiisi
                     {
                         if (CreateRenewalAlarms(TmRec, null, StRec.Id) == false)
@@ -300,6 +309,15 @@ namespace Trademarks
                 if (successful)
                 {
                     TmLog.Insert_TMLog(OldRecord, NewRecord, "Οριστικοποίηση", 5);
+
+                    if (Trademark.UpdateTM_ValidTo(TmRec.Id, TmRec.DepositDt.AddYears(10)) == false)
+                    {
+                        MessageBox.Show("Προσοχή! \r\nΣφάλμα κατα την καταχώρηση της Καταληκτικής Ημερομηνίας του Σήματος!");
+                    }
+                    else
+                    {
+                        TmLog.Insert_TMLog(new Trademark() { Id = TmRec.Id, ValidTo = TmRec.ValidTo }, new Trademark() { Id = TmRec.Id, ValidTo = TmRec.DepositDt.AddYears(10) }, "Κατάθεση");
+                    }
 
                     if (OldRecord.StatusId != NewRecord.StatusId) //..............OXI.............
                     {

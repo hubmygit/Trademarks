@@ -856,8 +856,8 @@ namespace Trademarks
                 {
                     if (OldRecord.DepositDt != NewRecord.DepositDt || OldRecord.NationalPowerId != NewRecord.NationalPowerId)
                     {
-                        //disable old Alarms first...
-                        Task.DisableNotSentTasks(NewRecord.Id);
+                        //disable Alarms first...(only decision)
+                        Task.DisableNotSentTasks(NewRecord.Id, 2); 
 
                         //delete recipients
                         Recipient.DeleteRecipients(NewRecord.Id, tmStatus.Id, 2); //Απόφαση σε εκκρεμότητα
@@ -1273,6 +1273,7 @@ namespace Trademarks
             FieldsToCheck.Add(new TmLogFields() { FieldName = "FileContents", FieldNameToShow = "Αρχείο" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "Description", FieldNameToShow = "Περιγραφή" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "Fees", FieldNameToShow = "Παράβολα" });
+            FieldsToCheck.Add(new TmLogFields() { FieldName = "ValidTo", FieldNameToShow = "Ισχύς έως" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "TMTypeIds", FieldNameToShow = "Τύποι", FieldType = "List<int>" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "ClassIds", FieldNameToShow = "Κλάσεις", FieldType = "List<int>" });
             FieldsToCheck.Add(new TmLogFields() { FieldName = "CountryIds", FieldNameToShow = "Χώρες", FieldType = "List<int>" });
@@ -1338,7 +1339,7 @@ namespace Trademarks
         public string FieldNameToShow { get; set; }
         public string FieldType { get; set; }
         public int MandatoryGroup { get; set; }
-    }   
+    }
 
     public class Trademark
     {
@@ -1357,6 +1358,7 @@ namespace Trademarks
         public List<int> CountryIds { get; set; }
         public string Description { get; set; }
         public string Fees { get; set; } //paravola
+        public DateTime? ValidTo { get; set; }
         public bool IsDeleted { get; set; }
 
         //public string DecisionNo { get; set; }
@@ -1442,7 +1444,7 @@ namespace Trademarks
         {
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], [NationalPowerId], [ResponsibleLawyerId], [CompanyId], [TMGrNo], " +
-                              "[FileContents], [FileName], [Description], [Fees] " +
+                              "[FileContents], [FileName], [Description], [Fees], [ValidTo] " +
                               "FROM [dbo].[Trademarks] " +
                               "WHERE Id = @Id " +
                               "ORDER BY Id ";
@@ -1475,6 +1477,10 @@ namespace Trademarks
                     FileName = reader["FileName"].ToString();
                     Description = reader["Description"].ToString();
                     Fees = reader["Fees"].ToString();
+                    if (reader["ValidTo"] != DBNull.Value)
+                    {
+                        ValidTo = Convert.ToDateTime(reader["ValidTo"].ToString());
+                    }
                 }
                 reader.Close();
             }
@@ -1579,6 +1585,40 @@ namespace Trademarks
 
             return ret;
         }
+
+        public static bool UpdateTM_ValidTo(int TrademarksId, DateTime ValidTo)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "UPDATE [dbo].[Trademarks] SET ValidTo = @ValidTo WHERE Id = @Id ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", TrademarksId);
+
+                cmd.Parameters.AddWithValue("@ValidTo", ValidTo);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                //ret = true;
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
 
     public class Status

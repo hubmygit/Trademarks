@@ -49,7 +49,9 @@
             this.lblApplicationDate = new System.Windows.Forms.Label();
             this.dtpApplicationDate = new System.Windows.Forms.DateTimePicker();
             this.lblRenewalDateTo = new System.Windows.Forms.Label();
-            this.lblExpDt = new System.Windows.Forms.Label();
+            this.dtpValidTo = new System.Windows.Forms.DateTimePicker();
+            this.lblValidTo = new System.Windows.Forms.Label();
+            this.dtpRenewalDateTo = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // txtDescription
@@ -166,12 +168,12 @@
             // 
             // dtpRenewalDate
             // 
+            this.dtpRenewalDate.Enabled = false;
             this.dtpRenewalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dtpRenewalDate.Location = new System.Drawing.Point(162, 251);
             this.dtpRenewalDate.Name = "dtpRenewalDate";
             this.dtpRenewalDate.Size = new System.Drawing.Size(250, 22);
             this.dtpRenewalDate.TabIndex = 5;
-            this.dtpRenewalDate.ValueChanged += new System.EventHandler(this.dtpRenewalDate_ValueChanged);
             // 
             // lblRenewalDateFrom
             // 
@@ -249,15 +251,33 @@
             this.lblRenewalDateTo.TabIndex = 12;
             this.lblRenewalDateTo.Text = "έως";
             // 
-            // lblExpDt
+            // dtpValidTo
             // 
-            this.lblExpDt.AutoSize = true;
-            this.lblExpDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblExpDt.Location = new System.Drawing.Point(496, 256);
-            this.lblExpDt.Name = "lblExpDt";
-            this.lblExpDt.Size = new System.Drawing.Size(40, 16);
-            this.lblExpDt.TabIndex = 13;
-            this.lblExpDt.Text = "--/--/--";
+            this.dtpValidTo.Enabled = false;
+            this.dtpValidTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpValidTo.Location = new System.Drawing.Point(272, 143);
+            this.dtpValidTo.Name = "dtpValidTo";
+            this.dtpValidTo.Size = new System.Drawing.Size(250, 22);
+            this.dtpValidTo.TabIndex = 15;
+            // 
+            // lblValidTo
+            // 
+            this.lblValidTo.AutoSize = true;
+            this.lblValidTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblValidTo.Location = new System.Drawing.Point(202, 148);
+            this.lblValidTo.Name = "lblValidTo";
+            this.lblValidTo.Size = new System.Drawing.Size(64, 16);
+            this.lblValidTo.TabIndex = 14;
+            this.lblValidTo.Text = "Ισχύς έως";
+            // 
+            // dtpRenewalDateTo
+            // 
+            this.dtpRenewalDateTo.Enabled = false;
+            this.dtpRenewalDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpRenewalDateTo.Location = new System.Drawing.Point(496, 251);
+            this.dtpRenewalDateTo.Name = "dtpRenewalDateTo";
+            this.dtpRenewalDateTo.Size = new System.Drawing.Size(250, 22);
+            this.dtpRenewalDateTo.TabIndex = 16;
             // 
             // Renewal
             // 
@@ -265,7 +285,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.lblExpDt);
+            this.Controls.Add(this.dtpRenewalDateTo);
+            this.Controls.Add(this.dtpValidTo);
+            this.Controls.Add(this.lblValidTo);
             this.Controls.Add(this.lblRenewalDateTo);
             this.Controls.Add(this.dtpApplicationDate);
             this.Controls.Add(this.lblApplicationDate);
@@ -317,6 +339,8 @@
         private System.Windows.Forms.Label lblApplicationDate;
         private System.Windows.Forms.DateTimePicker dtpApplicationDate;
         private System.Windows.Forms.Label lblRenewalDateTo;
-        private System.Windows.Forms.Label lblExpDt;
+        private System.Windows.Forms.DateTimePicker dtpValidTo;
+        private System.Windows.Forms.Label lblValidTo;
+        private System.Windows.Forms.DateTimePicker dtpRenewalDateTo;
     }
 }
