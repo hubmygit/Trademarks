@@ -78,6 +78,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.pbTMPic = new System.Windows.Forms.PictureBox();
+            this.dtpValidTo = new System.Windows.Forms.DateTimePicker();
+            this.lblValidTo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasses)).BeginInit();
             this.cmsOnClasses.SuspendLayout();
@@ -560,12 +562,35 @@
             this.pbTMPic.TabIndex = 71;
             this.pbTMPic.TabStop = false;
             // 
+            // dtpValidTo
+            // 
+            this.dtpValidTo.CustomFormat = " ";
+            this.dtpValidTo.Enabled = false;
+            this.dtpValidTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtpValidTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpValidTo.Location = new System.Drawing.Point(108, 130);
+            this.dtpValidTo.Name = "dtpValidTo";
+            this.dtpValidTo.Size = new System.Drawing.Size(100, 22);
+            this.dtpValidTo.TabIndex = 72;
+            // 
+            // lblValidTo
+            // 
+            this.lblValidTo.AutoSize = true;
+            this.lblValidTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblValidTo.Location = new System.Drawing.Point(38, 135);
+            this.lblValidTo.Name = "lblValidTo";
+            this.lblValidTo.Size = new System.Drawing.Size(64, 16);
+            this.lblValidTo.TabIndex = 73;
+            this.lblValidTo.Text = "Ισχύς έως";
+            // 
             // InsertTM
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 812);
+            this.Controls.Add(this.lblValidTo);
+            this.Controls.Add(this.dtpValidTo);
             this.Controls.Add(this.btnTmGrNoSelector);
             this.Controls.Add(this.lblTMGrId);
             this.Controls.Add(this.txtTMGrId);
@@ -664,5 +689,7 @@
         private System.Windows.Forms.Button btnTmGrNoSelector;
         private System.Windows.Forms.Label lblTMGrId;
         private System.Windows.Forms.TextBox txtTMGrId;
+        private System.Windows.Forms.DateTimePicker dtpValidTo;
+        private System.Windows.Forms.Label lblValidTo;
     }
 }

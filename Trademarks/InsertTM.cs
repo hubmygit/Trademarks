@@ -41,6 +41,13 @@ namespace Trademarks
             txtTMName.Text = givenRec.TMName;
             dtpDepositDt.Value = givenRec.DepositDt;
             dtpDepositTime.Value = givenRec.DepositDt;
+
+            if (givenRec.ValidTo != null)
+            {
+                dtpValidTo.CustomFormat = "dd/MM/yyyy";
+                dtpValidTo.Value = (DateTime)givenRec.ValidTo;
+            }            
+
             if (givenRec.NationalPowerId == 1) //1 Εθνικό
             {
                 rbEthniko.Checked = true;

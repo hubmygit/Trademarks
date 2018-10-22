@@ -110,6 +110,12 @@ namespace Trademarks
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.TMNo, dgvColumnHeader = "tmp_No" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.TMName, dgvColumnHeader = "tmp_Name" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.DepositDt.ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "tmp_DepositDt" });
+
+                if (thisRecord.ValidTo != null && thisRecord.ValidTo > new DateTime(1800, 1, 1))
+                {
+                    dgvDictList.Add(new dgvDictionary() { dbfield = ((DateTime)thisRecord.ValidTo).ToString("dd.MM.yyyy HH:mm"), dgvColumnHeader = "tmp_ValidTo" });
+                }
+
                 dgvDictList.Add(new dgvDictionary() { dbfield = NationalPower.getNationalPowerName(thisRecord.NationalPowerId), dgvColumnHeader = "tmp_NatPower" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = Responsible.getResponsibleName(thisRecord.ResponsibleLawyerId), dgvColumnHeader = "tmp_Responsible" });
                 dgvDictList.Add(new dgvDictionary() { dbfield = thisRecord.TMGrNo, dgvColumnHeader = "tmp_GrNo" });

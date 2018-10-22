@@ -31,16 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TMSelector));
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
-            this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
-            this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +59,17 @@
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.chbDeleted = new System.Windows.Forms.CheckBox();
+            this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
+            this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_ValidTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +88,7 @@
             this.tmp_Pic,
             this.tmp_Name,
             this.tmp_DepositDt,
+            this.tmp_ValidTo,
             this.tmp_NatPower,
             this.tmp_GrNo,
             this.tmp_Com,
@@ -103,73 +105,6 @@
             this.dgvTempRecs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTempRecs_CellDoubleClick);
             this.dgvTempRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTempRecs_SortCompare);
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
-            // 
-            // tmp_Id
-            // 
-            this.tmp_Id.HeaderText = "Id";
-            this.tmp_Id.Name = "tmp_Id";
-            this.tmp_Id.Visible = false;
-            // 
-            // tmp_No
-            // 
-            this.tmp_No.HeaderText = "Σήμα";
-            this.tmp_No.Name = "tmp_No";
-            this.tmp_No.ReadOnly = true;
-            // 
-            // tmp_Pic
-            // 
-            this.tmp_Pic.HeaderText = "Αρχείο";
-            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.tmp_Pic.Name = "tmp_Pic";
-            this.tmp_Pic.ReadOnly = true;
-            // 
-            // tmp_Name
-            // 
-            this.tmp_Name.HeaderText = "Όνομα";
-            this.tmp_Name.Name = "tmp_Name";
-            this.tmp_Name.ReadOnly = true;
-            this.tmp_Name.Width = 220;
-            // 
-            // tmp_DepositDt
-            // 
-            this.tmp_DepositDt.HeaderText = "Κατάθεση";
-            this.tmp_DepositDt.Name = "tmp_DepositDt";
-            this.tmp_DepositDt.ReadOnly = true;
-            // 
-            // tmp_NatPower
-            // 
-            this.tmp_NatPower.HeaderText = "Εθνική Ισχύς";
-            this.tmp_NatPower.Name = "tmp_NatPower";
-            this.tmp_NatPower.ReadOnly = true;
-            // 
-            // tmp_GrNo
-            // 
-            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
-            this.tmp_GrNo.Name = "tmp_GrNo";
-            this.tmp_GrNo.ReadOnly = true;
-            this.tmp_GrNo.Width = 120;
-            // 
-            // tmp_Com
-            // 
-            this.tmp_Com.HeaderText = "Εταιρία";
-            this.tmp_Com.Name = "tmp_Com";
-            this.tmp_Com.ReadOnly = true;
-            this.tmp_Com.Width = 220;
-            // 
-            // tmp_Responsible
-            // 
-            this.tmp_Responsible.HeaderText = "Υπεύθυνος";
-            this.tmp_Responsible.Name = "tmp_Responsible";
-            this.tmp_Responsible.ReadOnly = true;
-            this.tmp_Responsible.Width = 180;
-            // 
-            // tmp_IsDeleted
-            // 
-            this.tmp_IsDeleted.HeaderText = "Διαγραμμένο";
-            this.tmp_IsDeleted.Name = "tmp_IsDeleted";
-            this.tmp_IsDeleted.ReadOnly = true;
-            this.tmp_IsDeleted.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.tmp_IsDeleted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // cmsOnGrid
             // 
@@ -432,6 +367,79 @@
             this.chbDeleted.UseVisualStyleBackColor = true;
             this.chbDeleted.CheckStateChanged += new System.EventHandler(this.chbDeleted_CheckStateChanged);
             // 
+            // tmp_Id
+            // 
+            this.tmp_Id.HeaderText = "Id";
+            this.tmp_Id.Name = "tmp_Id";
+            this.tmp_Id.Visible = false;
+            // 
+            // tmp_No
+            // 
+            this.tmp_No.HeaderText = "Σήμα";
+            this.tmp_No.Name = "tmp_No";
+            this.tmp_No.ReadOnly = true;
+            // 
+            // tmp_Pic
+            // 
+            this.tmp_Pic.HeaderText = "Αρχείο";
+            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.tmp_Pic.Name = "tmp_Pic";
+            this.tmp_Pic.ReadOnly = true;
+            // 
+            // tmp_Name
+            // 
+            this.tmp_Name.HeaderText = "Όνομα";
+            this.tmp_Name.Name = "tmp_Name";
+            this.tmp_Name.ReadOnly = true;
+            this.tmp_Name.Width = 220;
+            // 
+            // tmp_DepositDt
+            // 
+            this.tmp_DepositDt.HeaderText = "Κατάθεση";
+            this.tmp_DepositDt.Name = "tmp_DepositDt";
+            this.tmp_DepositDt.ReadOnly = true;
+            // 
+            // tmp_ValidTo
+            // 
+            this.tmp_ValidTo.HeaderText = "Ισχύς έως";
+            this.tmp_ValidTo.Name = "tmp_ValidTo";
+            this.tmp_ValidTo.ReadOnly = true;
+            // 
+            // tmp_NatPower
+            // 
+            this.tmp_NatPower.HeaderText = "Εθνική Ισχύς";
+            this.tmp_NatPower.Name = "tmp_NatPower";
+            this.tmp_NatPower.ReadOnly = true;
+            // 
+            // tmp_GrNo
+            // 
+            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
+            this.tmp_GrNo.Name = "tmp_GrNo";
+            this.tmp_GrNo.ReadOnly = true;
+            this.tmp_GrNo.Width = 120;
+            // 
+            // tmp_Com
+            // 
+            this.tmp_Com.HeaderText = "Εταιρία";
+            this.tmp_Com.Name = "tmp_Com";
+            this.tmp_Com.ReadOnly = true;
+            this.tmp_Com.Width = 220;
+            // 
+            // tmp_Responsible
+            // 
+            this.tmp_Responsible.HeaderText = "Υπεύθυνος";
+            this.tmp_Responsible.Name = "tmp_Responsible";
+            this.tmp_Responsible.ReadOnly = true;
+            this.tmp_Responsible.Width = 180;
+            // 
+            // tmp_IsDeleted
+            // 
+            this.tmp_IsDeleted.HeaderText = "Διαγραμμένο";
+            this.tmp_IsDeleted.Name = "tmp_IsDeleted";
+            this.tmp_IsDeleted.ReadOnly = true;
+            this.tmp_IsDeleted.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.tmp_IsDeleted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // TMSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -493,16 +501,17 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
         private System.Windows.Forms.Button btnCreateNew;
         private System.Windows.Forms.ToolStripMenuItem tsmiTmLog;
+        private System.Windows.Forms.CheckBox chbDeleted;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_No;
         private System.Windows.Forms.DataGridViewImageColumn tmp_Pic;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_DepositDt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tmp_ValidTo;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_NatPower;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_GrNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Responsible;
         private System.Windows.Forms.DataGridViewCheckBoxColumn tmp_IsDeleted;
-        private System.Windows.Forms.CheckBox chbDeleted;
     }
 }
