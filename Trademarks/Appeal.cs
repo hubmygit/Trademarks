@@ -95,7 +95,7 @@ namespace Trademarks
             if (MessageBox.Show("Προσοχή! Οι ειδοποιήσεις Προσφυγής για αυτό το σήμα θα διακοπούν. \r\nΘέλετε να συνεχίσετε στην καταχώρηση;", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 //delete previous alerts (only appeal alerts)
-                Task.DisableNotSentTasks(givenTM.Id, 4);
+                //Task.DisableNotSentTasks(givenTM.Id, 4); //mono sto insert
 
                 NewRecord = new TM_Status();
 
@@ -115,6 +115,9 @@ namespace Trademarks
 
                 if (isInsert)
                 {
+                    //delete previous alerts (only appeal alerts)
+                    Task.DisableNotSentTasks(givenTM.Id, 4);
+
                     //Save
                     if (TM_Status.InsertTM_Status_Appeal(NewRecord) == true)
                     {

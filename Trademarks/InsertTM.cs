@@ -571,7 +571,7 @@ namespace Trademarks
             return ret;
         }
 
-        private bool CreateDecisionAlarms(Trademark TMRecord, int TMS_Id)
+        public bool CreateDecisionAlarms(Trademark TMRecord, int TMS_Id)
         {
             bool ret = true;
 

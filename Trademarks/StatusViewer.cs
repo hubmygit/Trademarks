@@ -456,7 +456,14 @@ namespace Trademarks
                     return;
                 }
 
-                //TM_Status prevTms = TM_Status.getLastDecision(tm.Id);
+                //check oti paw na kanw update thn teleytaia ananewsi.....................
+
+                DateTime? LastRenewalDt = TM_Status.getLastRenewal(tm.Id);
+                if (LastRenewalDt == null || LastRenewalDt != tms.RenewalDt) //never null...
+                {
+                    MessageBox.Show("Προσοχή! Μπορείτε να μεταβάλετε μόνο την τελευταία Ανανέωση Σήματος.");
+                    return;
+                }
 
                 Renewal frmUpdRenewal = new Renewal(tm, tms);
                 frmUpdRenewal.ShowDialog();
@@ -528,12 +535,14 @@ namespace Trademarks
                     //disable decision->appeal Tasks 
                     if (Task.DisableNotSentTasks(tm.Id, 4) == false) //Προσφυγής
                     {
+                        Recipient.DeleteRecipients(tm.Id, tms.Id, 4);
                         success = false;
                     }
 
                     //disable decision->finalization Tasks 
                     if (Task.DisableNotSentTasks(tm.Id, 3) == false) //Οριστικοποίησης
                     {
+                        Recipient.DeleteRecipients(tm.Id, tms.Id, 3);
                         success = false;
                     }
 
@@ -546,7 +555,18 @@ namespace Trademarks
                     if (success)
                     {
                         TmLog.Insert_TMLog(new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = false }, new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = true }, "Απόφαση", 2);
-                        
+
+                        //get back decision alerts
+                        Recipient.DeleteRecipients(tm.Id, tms.Id, 2); //Απόφαση σε εκκρεμότητα
+
+                        if (tm.NationalPowerId == 1) //1 month to decision, only national tm
+                        {
+                            if (new InsertTM().CreateDecisionAlarms(tm, tms.Id) == false)
+                            {
+                                MessageBox.Show("Σφάλμα κατα την επαναφορά ειδοποιήσεων απόφασης!");
+                            }                            
+                        }
+
                         //refresh
                         //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
 
@@ -614,6 +634,18 @@ namespace Trademarks
                     if (success)
                     {
                         TmLog.Insert_TMLog(new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = false }, new TM_Status() { Id = tms.Id, TmId = tms.TmId, IsDeleted = true }, "Προσφυγή", 3);
+
+                        //get back appeal alerts
+                        Recipient.DeleteRecipients(tm.Id, tms.Id, 4); //prosfygi
+
+                        if (tms.StatusId == 3 || tms.StatusId == 4) //merikws aporriptiki || olikws aporriptiki : oristikopoiisi
+                        {
+                            if (new Decision().CreateProsfygiAlarms(tm, tms) == false) //prosfygi
+                            {
+                                MessageBox.Show("Σφάλμα κατα την επαναφορά ειδοποιήσεων προσφυγής!");
+                            }
+                        }
+
 
                         //refresh
                         //tmStatusList[tmStatusList.FindIndex(w => w.Id == Id)] = frmUpdRenewal.NewRecord;
@@ -1033,11 +1065,17 @@ namespace Trademarks
             }
             else if (tms.StatusId == 7 || tms.StatusId == 8)
             {
-                DelFinalization();
+                //DelFinalization();
+
+                MessageBox.Show("Προσοχή! Δεν επιτρέπεται η διαγραφή της Οριστικοποίησης.");
+                return;
             }
             else if (tms.StatusId == 9)
             {
-                DelRenewal();
+                //DelRenewal();
+
+                MessageBox.Show("Προσοχή! Δεν επιτρέπεται η διαγραφή της Ανανέωσης.");
+                return;
             }
 
         }

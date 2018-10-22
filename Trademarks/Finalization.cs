@@ -250,9 +250,12 @@ namespace Trademarks
         }
 
         private void Finalized(TM_Status StRec, Trademark TmRec)
-        {
+        {                        
             if (isInsert)
             {
+                //delete previous alerts 
+                Task.DisableNotSentTasks(givenTM.Id);
+
                 //Save
                 bool successful = true;
 
@@ -310,33 +313,33 @@ namespace Trademarks
                 {
                     TmLog.Insert_TMLog(OldRecord, NewRecord, "Οριστικοποίηση", 5);
 
-                    if (Trademark.UpdateTM_ValidTo(TmRec.Id, TmRec.DepositDt.AddYears(10)) == false)
-                    {
-                        MessageBox.Show("Προσοχή! \r\nΣφάλμα κατα την καταχώρηση της Καταληκτικής Ημερομηνίας του Σήματος!");
-                    }
-                    else
-                    {
-                        TmLog.Insert_TMLog(new Trademark() { Id = TmRec.Id, ValidTo = TmRec.ValidTo }, new Trademark() { Id = TmRec.Id, ValidTo = TmRec.DepositDt.AddYears(10) }, "Κατάθεση");
-                    }
 
-                    if (OldRecord.StatusId != NewRecord.StatusId) //..............OXI.............
-                    {
-                        //disable old Alarms first...
-                        Task.DisableNotSentTasks(StRec.TmId);
+                    //if (Trademark.UpdateTM_ValidTo(TmRec.Id, TmRec.DepositDt.AddYears(10)) == false)
+                    //{
+                    //    MessageBox.Show("Προσοχή! \r\nΣφάλμα κατα την καταχώρηση της Καταληκτικής Ημερομηνίας του Σήματος!");
+                    //}
+                    //else
+                    //{
+                    //    TmLog.Insert_TMLog(new Trademark() { Id = TmRec.Id, ValidTo = TmRec.ValidTo }, new Trademark() { Id = TmRec.Id, ValidTo = TmRec.DepositDt.AddYears(10) }, "Κατάθεση");
+                    //}
 
-                        //delete recipients
-                        Recipient.DeleteRecipients(StRec.TmId, StRec.Id, 1);//ananewsi
+                    //if (OldRecord.StatusId != NewRecord.StatusId) 
+                    //{
+                    //    //disable old Alarms first...
+                    //    Task.DisableNotSentTasks(StRec.TmId);
 
-                        if (StRec.StatusId == 7) //oristikopoiisi
-                        {
-                            if (CreateRenewalAlarms(TmRec, null, StRec.Id) == false)
-                            {
-                                MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
-                                return;
-                            }
-                        }                        
+                    //    //delete recipients
+                    //    Recipient.DeleteRecipients(StRec.TmId, StRec.Id, 1);//ananewsi
 
-                    }
+                    //    if (StRec.StatusId == 7) //oristikopoiisi
+                    //    {
+                    //        if (CreateRenewalAlarms(TmRec, null, StRec.Id) == false)
+                    //        {
+                    //            MessageBox.Show("Σφάλμα κατα την καταχώρηση ειδοποιήσεων!");
+                    //            return;
+                    //        }
+                    //    }                        
+                    //}
 
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                     success = true;
@@ -363,7 +366,7 @@ namespace Trademarks
             if (MessageBox.Show("Προσοχή! Πριν προχωρήσετε θα πρέπει να έχετε ολοκληρώσει τις αλλαγές στο εμπορικό σήμα \r\nκαθώς δεν θα επιτρέπονται αλλαγές μετά την οριστικοποίηση. \r\nΑν υπάρχουν προηγούμενες ειδοποιήσεις για αυτό το σήμα θα διακοπούν. \r\nΘέλετε να συνεχίσετε στην καταχώρηση;", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 //delete previous alerts 
-                Task.DisableNotSentTasks(givenTM.Id);
+                //Task.DisableNotSentTasks(givenTM.Id);
 
                 NewRecord = new TM_Status();
 

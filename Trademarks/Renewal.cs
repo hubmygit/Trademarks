@@ -130,9 +130,12 @@ namespace Trademarks
         //}
 
         private void RenewalProcedure(TM_Status StRec, Trademark TmRec)
-        {
+        {           
             if (isInsert)
             {
+                //delete previous alerts 
+                Task.DisableNotSentTasks(givenTM.Id);
+
                 //Save
                 bool successful = true;
 
@@ -237,7 +240,7 @@ namespace Trademarks
             }
 
             //delete previous alerts 
-            Task.DisableNotSentTasks(givenTM.Id);
+            //Task.DisableNotSentTasks(givenTM.Id);
 
             NewRecord = new TM_Status();
             NewRecord.TmId = givenTM.Id;

@@ -190,6 +190,12 @@ namespace Trademarks
 
         private void decision_Approval_or_Rejected(TM_Status StRec, Trademark TmRec, int Status_Id)
         {
+            //delete previous alerts (not only old decisions)
+            //Task.DisableNotSentTasks(givenTM.Id); 
+            //first decision / ins: decision Task 
+            //other(new) decision (ins) or upd: prosf & orist Tasks
+
+
             StRec = new TM_Status();
 
             StRec.TmId = TmRec.Id;
@@ -202,6 +208,9 @@ namespace Trademarks
 
             if (isInsert)
             {
+                //delete previous alerts (not only old decisions)
+                Task.DisableNotSentTasks(givenTM.Id); 
+
                 //Save
                 bool successful = true;
 
@@ -300,7 +309,7 @@ namespace Trademarks
             }
         }
 
-        private bool CreateProsfygiAlarms(Trademark TMRec, TM_Status TMStatus)
+        public bool CreateProsfygiAlarms(Trademark TMRec, TM_Status TMStatus)
         {
             bool ret = true;
 
@@ -478,10 +487,7 @@ namespace Trademarks
                 MessageBox.Show("Προσοχή! Η ημερομηνία Δημοσίευσης είναι μικρότερη από την ημερομηνία Κατάθεσης!");
                 return;
             }
-
-            //delete previous alerts (not only old decisions)
-            Task.DisableNotSentTasks(givenTM.Id);
-
+            
             if (rbApproved.Checked)
             {
                 decision_Approval_or_Rejected(NewRecord, givenTM, 2);

@@ -318,7 +318,7 @@ namespace Trademarks
                 return;
             }
 
-            if (tms.StatusId ==  4) //check oti exei apofasi
+            if (tms.StatusId ==  4) //check oti den einai olikws apor.
             {
                 MessageBox.Show("Προσοχή! Δεν μπορεί να καταχωρηθεί Ανακοπή σε Ολικώς Απορριπτική απόφαση.");
                 return;
