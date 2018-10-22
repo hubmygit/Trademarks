@@ -224,6 +224,8 @@ namespace Trademarks
 
         private void tsmiRecipients_Click(object sender, EventArgs e)
         {
+            //obsolete
+            /*
             if (dgvAlerts.SelectedRows.Count > 0)
             {
                 int Id = Convert.ToInt32(dgvAlerts.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
@@ -242,6 +244,7 @@ namespace Trademarks
 
                 frmRecipients.ShowDialog();
             }
+            */
         }
 
         private void dgvAlerts_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -288,6 +291,8 @@ namespace Trademarks
         public int AlertCountdownDays { get; set; }
         public int ExpCountdownDays { get; set; }
         public int TrademarksId { get; set; }
+        public int TM_StatusId { get; set; }
+        public int EventTypesId { get; set; }
         public string TMNo { get; set; }
         public string TMName { get; set; }
         public DateTime DepositDt { get; set; }

@@ -1736,18 +1736,23 @@ namespace Trademarks
             return ret;
         }
 
-        public static List<Recipient> getTaskRecipients(int givenTrademarksId)
+        public static List<Recipient> getTaskRecipients(int givenTrademarksId, int givenTM_StatusId, int givenEventTypesId)
         {
             List<Recipient> ret = new List<Recipient>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TrademarksId], [TM_StatusId], [EventTypesId], [FullName], [Email] " +
                               "FROM [dbo].[Recipients] " +
-                              "WHERE TrademarksId = " + givenTrademarksId.ToString();
+                              "WHERE TrademarksId = @TM_Id AND TM_StatusId = @TMS_Id AND EventTypesId = @EventTypesId ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
                 sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TM_Id", givenTrademarksId);
+                cmd.Parameters.AddWithValue("@TMS_Id", givenTM_StatusId);
+                cmd.Parameters.AddWithValue("@EventTypesId", givenEventTypesId);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {

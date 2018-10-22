@@ -293,16 +293,17 @@
             this.cbNatPower.ItemHeight = 16;
             this.cbNatPower.Items.AddRange(new object[] {
             "Όλα"});
-            this.cbNatPower.Location = new System.Drawing.Point(958, 12);
+            this.cbNatPower.Location = new System.Drawing.Point(646, 12);
             this.cbNatPower.Name = "cbNatPower";
             this.cbNatPower.Size = new System.Drawing.Size(150, 24);
             this.cbNatPower.TabIndex = 32;
+            this.cbNatPower.SelectedIndexChanged += new System.EventHandler(this.cbNatPower_SelectedIndexChanged);
             // 
             // lblNatPower
             // 
             this.lblNatPower.AutoSize = true;
             this.lblNatPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblNatPower.Location = new System.Drawing.Point(870, 15);
+            this.lblNatPower.Location = new System.Drawing.Point(558, 15);
             this.lblNatPower.Name = "lblNatPower";
             this.lblNatPower.Size = new System.Drawing.Size(82, 16);
             this.lblNatPower.TabIndex = 31;
@@ -316,16 +317,17 @@
             this.cbLawyerFullname.ItemHeight = 16;
             this.cbLawyerFullname.Items.AddRange(new object[] {
             "Όλα"});
-            this.cbLawyerFullname.Location = new System.Drawing.Point(608, 12);
+            this.cbLawyerFullname.Location = new System.Drawing.Point(296, 12);
             this.cbLawyerFullname.Name = "cbLawyerFullname";
             this.cbLawyerFullname.Size = new System.Drawing.Size(250, 24);
             this.cbLawyerFullname.TabIndex = 30;
+            this.cbLawyerFullname.SelectedIndexChanged += new System.EventHandler(this.cbLawyerFullname_SelectedIndexChanged);
             // 
             // lblLawyerFullname
             // 
             this.lblLawyerFullname.AutoSize = true;
             this.lblLawyerFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblLawyerFullname.Location = new System.Drawing.Point(475, 15);
+            this.lblLawyerFullname.Location = new System.Drawing.Point(163, 15);
             this.lblLawyerFullname.Name = "lblLawyerFullname";
             this.lblLawyerFullname.Size = new System.Drawing.Size(126, 16);
             this.lblLawyerFullname.TabIndex = 29;
@@ -339,16 +341,17 @@
             this.cbCompany.ItemHeight = 16;
             this.cbCompany.Items.AddRange(new object[] {
             "Όλα"});
-            this.cbCompany.Location = new System.Drawing.Point(608, 45);
+            this.cbCompany.Location = new System.Drawing.Point(296, 45);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(500, 24);
             this.cbCompany.TabIndex = 28;
+            this.cbCompany.SelectedIndexChanged += new System.EventHandler(this.cbCompany_SelectedIndexChanged);
             // 
             // lblCompany
             // 
             this.lblCompany.AutoSize = true;
             this.lblCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblCompany.Location = new System.Drawing.Point(549, 48);
+            this.lblCompany.Location = new System.Drawing.Point(237, 48);
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(52, 16);
             this.lblCompany.TabIndex = 27;
@@ -358,7 +361,7 @@
             // 
             this.lblTMName.AutoSize = true;
             this.lblTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMName.Location = new System.Drawing.Point(154, 48);
+            this.lblTMName.Location = new System.Drawing.Point(817, 48);
             this.lblTMName.Name = "lblTMName";
             this.lblTMName.Size = new System.Drawing.Size(103, 16);
             this.lblTMName.TabIndex = 23;
@@ -367,7 +370,7 @@
             // txtTMName
             // 
             this.txtTMName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMName.Location = new System.Drawing.Point(263, 45);
+            this.txtTMName.Location = new System.Drawing.Point(926, 45);
             this.txtTMName.Name = "txtTMName";
             this.txtTMName.Size = new System.Drawing.Size(200, 22);
             this.txtTMName.TabIndex = 26;
@@ -376,7 +379,7 @@
             // 
             this.lblTMId.AutoSize = true;
             this.lblTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTMId.Location = new System.Drawing.Point(145, 15);
+            this.lblTMId.Location = new System.Drawing.Point(808, 15);
             this.lblTMId.Name = "lblTMId";
             this.lblTMId.Size = new System.Drawing.Size(112, 16);
             this.lblTMId.TabIndex = 24;
@@ -385,7 +388,7 @@
             // txtTMId
             // 
             this.txtTMId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTMId.Location = new System.Drawing.Point(263, 12);
+            this.txtTMId.Location = new System.Drawing.Point(926, 12);
             this.txtTMId.Name = "txtTMId";
             this.txtTMId.Size = new System.Drawing.Size(200, 22);
             this.txtTMId.TabIndex = 25;
@@ -420,13 +423,14 @@
             // 
             this.chbDeleted.AutoSize = true;
             this.chbDeleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.chbDeleted.Location = new System.Drawing.Point(898, 84);
+            this.chbDeleted.Location = new System.Drawing.Point(927, 81);
             this.chbDeleted.Name = "chbDeleted";
             this.chbDeleted.Size = new System.Drawing.Size(210, 20);
             this.chbDeleted.TabIndex = 35;
             this.chbDeleted.Text = "Διαγραμμένα Εμπορικά Σήματα";
             this.chbDeleted.ThreeState = true;
             this.chbDeleted.UseVisualStyleBackColor = true;
+            this.chbDeleted.CheckStateChanged += new System.EventHandler(this.chbDeleted_CheckStateChanged);
             // 
             // TMSelector
             // 

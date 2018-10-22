@@ -34,7 +34,7 @@ namespace Trademarks
                 "( " +
                 "SELECT A.ExpDate, min(A.NotificationDate) as NotificationDate, E.Name as EventType, " +
                 "DATEDIFF(DAY, getdate(), min(A.ExpDate)) as ExpCountDown, DATEDIFF(DAY, getdate(), min(A.NotificationDate)) as AlertCountdown, " +
-                "A.TrademarksId, T.TMNo, T.TMName, T.DepositDt, " + 
+                "A.TrademarksId, A.TM_StatusId, A.EventTypesId, T.TMNo, T.TMName, T.DepositDt, " + 
                 //"'1900-01-01' as RenewalDt, " +
                 "(select max(tms.RenewalDt) from TM_Status tms where T.Id = tms.TrademarksId and tms.StatusId = 9 and isnull(tms.IsDeleted, 'False') = 'False' ) as RenewalDt, " +
                 "N.Name as NationalPower, C.Name as Company, " +
@@ -47,7 +47,7 @@ namespace Trademarks
                 "[dbo].[Responsible] L on T.ResponsibleLawyerId = L.Id " +
                 "WHERE A.IsActive = 'True' " +
                 //"GROUP BY A.ExpDate, E.Name, A.TrademarksId, T.TMNo, T.TMName, T.DepositDt, T.RenewalDt, N.Name, C.Name, L.FullName " +
-                "GROUP BY A.ExpDate, E.Name, A.TrademarksId, T.TMNo, T.TMName, T.DepositDt, T.Id, N.Name, C.Name, L.FullName " +
+                "GROUP BY A.ExpDate, E.Name, A.TrademarksId, A.TM_StatusId, A.EventTypesId, T.TMNo, T.TMName, T.DepositDt, T.Id, N.Name, C.Name, L.FullName " +
                 ")w left outer join [dbo].[Tasks] A2 on A2.IsActive = 'True' and w.TrademarksId = A2.TrademarksId and w.NotificationDate = A2.NotificationDate " +
                 //"ORDER BY w.TMNo " +
                 "ORDER BY w.ExpCountDown, w.TMNo";
@@ -78,6 +78,14 @@ namespace Trademarks
                     }
 
                     alertRec.TrademarksId = Convert.ToInt32(reader["TrademarksId"].ToString());
+                    if (reader["TM_StatusId"] != DBNull.Value)
+                    {
+                        alertRec.TM_StatusId = Convert.ToInt32(reader["TM_StatusId"].ToString());
+                    }
+                    if (reader["EventTypesId"] != DBNull.Value)
+                    {
+                        alertRec.EventTypesId = Convert.ToInt32(reader["EventTypesId"].ToString());
+                    }
                     alertRec.TMNo = reader["TMNo"].ToString();
                     alertRec.TMName = reader["TMName"].ToString();
 
@@ -236,7 +244,9 @@ namespace Trademarks
             if (dgvAlerts.SelectedRows.Count > 0)
             {
                 int Id = Convert.ToInt32(dgvAlerts.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
-                List<Recipient> recipientList = Task.getTaskRecipients(Id);
+                int alarm_Id = Convert.ToInt32(dgvAlerts.SelectedRows[0].Cells["alarm_Id"].Value.ToString());
+                AlertsDGV alDgcRec = tmAlertList.Where(i => i.Id == alarm_Id).First();
+                List<Recipient> recipientList = Task.getTaskRecipients(Id, alDgcRec.TM_StatusId, alDgcRec.EventTypesId);
 
                 Recipients frmRecipients = new Recipients();
                 frmRecipients.txtTMId.Text = dgvAlerts.SelectedRows[0].Cells["tmp_No"].Value.ToString();

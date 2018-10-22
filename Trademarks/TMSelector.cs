@@ -18,7 +18,7 @@ namespace Trademarks
 
             tempRecList = SelectTempRecs();
 
-            FillDataGridView(dgvTempRecs, tempRecList);
+            //FillDataGridView(dgvTempRecs, tempRecList);
 
             cbCompany.SelectedIndex = 0;
             cbCompany.Items.AddRange(Company.GetCompaniesComboboxItemsList(companyList).ToArray<ComboboxItem>());
@@ -28,6 +28,8 @@ namespace Trademarks
 
             cbNatPower.SelectedIndex = 0;
             cbNatPower.Items.AddRange(NationalPower.GetNationalPowerComboboxItemsList(nationalPowerList).ToArray<ComboboxItem>());
+
+            applyFilters();
         }
 
         public List<Trademark> tempRecList = new List<Trademark>();
@@ -134,6 +136,42 @@ namespace Trademarks
             }
 
             dgv.ClearSelection();
+        }
+
+        public void applyFilters()
+        {
+            List<Trademark> filteredRecs = tempRecList;
+            if (txtTMId.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (txtTMName.Text.Trim() != "")
+            {
+                filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+
+            if (cbCompany.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.CompanyId == ComboboxItem.getComboboxItem<Company>(cbCompany).Id).ToList();
+            }
+
+            if (cbLawyerFullname.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.ResponsibleLawyerId == ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id).ToList();
+            }
+
+            if (cbNatPower.SelectedIndex > 0)
+            {
+                filteredRecs = filteredRecs.Where(i => i.NationalPowerId == ComboboxItem.getComboboxItem<NationalPower>(cbNatPower).Id).ToList();
+            }
+
+            if (chbDeleted.CheckState != CheckState.Indeterminate)
+            {
+                filteredRecs = filteredRecs.Where(i => i.IsDeleted == chbDeleted.Checked).ToList();
+            }
+
+            FillDataGridView(dgvTempRecs, filteredRecs);
         }
 
         private void dgvTempRecs_MouseDown(object sender, MouseEventArgs e)
@@ -359,38 +397,7 @@ namespace Trademarks
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            List<Trademark> filteredRecs = tempRecList;
-            if (txtTMId.Text.Trim() != "")
-            {
-                filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
-            }
-
-            if (txtTMName.Text.Trim() != "")
-            {
-                filteredRecs = filteredRecs.Where(i => i.TMName.IndexOf(txtTMName.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
-            }
-
-            if (cbCompany.SelectedIndex > 0)
-            {
-                filteredRecs = filteredRecs.Where(i => i.CompanyId == ComboboxItem.getComboboxItem<Company>(cbCompany).Id).ToList();
-            }
-
-            if (cbLawyerFullname.SelectedIndex > 0)
-            {
-                filteredRecs = filteredRecs.Where(i => i.ResponsibleLawyerId == ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id).ToList();
-            }
-
-            if (cbNatPower.SelectedIndex > 0)
-            {
-                filteredRecs = filteredRecs.Where(i => i.NationalPowerId == ComboboxItem.getComboboxItem<NationalPower>(cbNatPower).Id).ToList();
-            }
-
-            if (chbDeleted.CheckState != CheckState.Indeterminate)
-            {
-                filteredRecs = filteredRecs.Where(i => i.IsDeleted == chbDeleted.Checked).ToList();
-            }
-
-            FillDataGridView(dgvTempRecs, filteredRecs);
+            applyFilters();
         }
 
         private void dgvTempRecs_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -511,5 +518,24 @@ namespace Trademarks
             }
         }
 
+        private void chbDeleted_CheckStateChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void cbNatPower_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void cbLawyerFullname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
+
+        private void cbCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            applyFilters();
+        }
     }
 }

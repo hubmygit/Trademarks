@@ -205,6 +205,8 @@ namespace Trademarks
 
         private void tsmiRecipients_Click(object sender, EventArgs e)
         {
+            //obsolete
+            /*
             if (dgvAlerts.SelectedRows.Count > 0)
             {
                 int Id = Convert.ToInt32(dgvAlerts.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
@@ -223,6 +225,7 @@ namespace Trademarks
 
                 frmRecipients.ShowDialog();
             }
+            */
         }
 
         private void dgvAlerts_SortCompare(object sender, DataGridViewSortCompareEventArgs e)

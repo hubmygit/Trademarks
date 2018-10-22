@@ -102,18 +102,23 @@ namespace TMAlerts
             return ret;
         }
 
-        public List<Recipient> getTaskRecipients(int givenTrademarksId)
+        public List<Recipient> getTaskRecipients(int givenTrademarksId, int givenTM_StatusId, int givenEventTypesId)
         {
             List<Recipient> ret = new List<Recipient>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Id], [TrademarksId], [TM_StatusId], [FullName], [Email] " +
+            string SelectSt = "SELECT [Id], [TrademarksId], [TM_StatusId], [FullName], [EventTypesId], [Email] " +
                               "FROM [dbo].[Recipients] " +
-                              "WHERE IsActive = 'True' AND TrademarksId = " + givenTrademarksId.ToString();
+                              "WHERE IsActive = 'True' AND TrademarksId = @TM_Id AND TM_StatusId = @TMS_Id AND EventTypesId = @EventTypesId ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
                 sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@TM_Id", givenTrademarksId);
+                cmd.Parameters.AddWithValue("@TMS_Id", givenTM_StatusId);
+                cmd.Parameters.AddWithValue("@EventTypesId", givenEventTypesId);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -125,6 +130,11 @@ namespace TMAlerts
                         rec.TM_StatusId = Convert.ToInt32(reader["TM_StatusId"].ToString());
                     }
                     rec.FullName = reader["FullName"].ToString();
+                    //rec.EventTypesId = Convert.ToInt32(reader["EventTypesId"].ToString());
+                    if (reader["EventTypesId"] != DBNull.Value)
+                    {
+                        rec.EventTypesId = Convert.ToInt32(reader["EventTypesId"].ToString());
+                    }
                     rec.Email = reader["Email"].ToString();
 
                     ret.Add(rec);
@@ -277,7 +287,7 @@ namespace TMAlerts
 
             foreach (Task thisTask in tasks)
             {
-                List<Recipient> recipients = getTaskRecipients(thisTask.TrademarksId);
+                List<Recipient> recipients = getTaskRecipients(thisTask.TrademarksId, thisTask.TM_StatusId, thisTask.EventTypesId);
 
                 if (recipients.Count <= 0)
                 {
@@ -563,7 +573,7 @@ namespace TMAlerts
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT TS.DecisionNo " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TM_StatusId = @TM_StatusId AND isnull(IsDeleted, 'False') = 'False' " +
+                              "WHERE TS.Id = @TM_StatusId AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY TS.Id DESC";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
@@ -594,7 +604,7 @@ namespace TMAlerts
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT TS.FinalizedUrl " +
                               "FROM [dbo].[TM_Status] TS " +
-                              "WHERE TS.TM_StatusId = @TM_StatusId AND isnull(IsDeleted, 'False') = 'False' " +
+                              "WHERE TS.Id = @TM_StatusId AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY TS.Id DESC";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
