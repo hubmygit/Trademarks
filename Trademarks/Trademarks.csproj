@@ -72,11 +72,17 @@
     <Compile Include="Appeal.Designer.cs">
       <DependentUpon>Appeal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Companies.cs">
+    <Compile Include="ComEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Companies.Designer.cs">
-      <DependentUpon>Companies.cs</DependentUpon>
+    <Compile Include="ComEdit.Designer.cs">
+      <DependentUpon>ComEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComView.Designer.cs">
+      <DependentUpon>ComView.cs</DependentUpon>
     </Compile>
     <Compile Include="Decision.cs">
       <SubType>Form</SubType>
@@ -200,8 +206,11 @@
     <EmbeddedResource Include="Appeal.resx">
       <DependentUpon>Appeal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Companies.resx">
-      <DependentUpon>Companies.cs</DependentUpon>
+    <EmbeddedResource Include="ComEdit.resx">
+      <DependentUpon>ComEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComView.resx">
+      <DependentUpon>ComView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Decision.resx">
       <DependentUpon>Decision.cs</DependentUpon>

@@ -1460,6 +1460,37 @@ namespace Trademarks
             return ret;
         }
 
+        public static bool Delete_Coms(int givenId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "DELETE FROM [dbo].[Company] WHERE Id = @givenId ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@givenId", givenId);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetCompaniesComboboxItemsList(List<Company> CompanyList)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();

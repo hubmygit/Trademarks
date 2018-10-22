@@ -402,6 +402,12 @@ namespace Trademarks
             TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
             frmAlertsViewGrouped.ShowDialog();
         }
+
+        private void tsmiCompanies_Click(object sender, EventArgs e)
+        {
+            ComView companiesView = new ComView();
+            companiesView.ShowDialog();
+        }
     }
 
     public static class AppVer

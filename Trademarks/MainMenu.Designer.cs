@@ -40,6 +40,8 @@
             this.tsmiAlerts_View = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAdmin_Encrypt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiParameters = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCompanies = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.TSBtnShow = new System.Windows.Forms.ToolStripButton();
             this.TSBtnAlerts = new System.Windows.Forms.ToolStripButton();
@@ -72,7 +74,8 @@
             this.menuStripBasic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiTM,
             this.tsmiAlerts,
-            this.tsmiAdmin});
+            this.tsmiAdmin,
+            this.tsmiParameters});
             this.menuStripBasic.Location = new System.Drawing.Point(0, 0);
             this.menuStripBasic.Name = "menuStripBasic";
             this.menuStripBasic.Size = new System.Drawing.Size(784, 24);
@@ -137,9 +140,25 @@
             // tsmiAdmin_Encrypt
             // 
             this.tsmiAdmin_Encrypt.Name = "tsmiAdmin_Encrypt";
-            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(153, 22);
+            this.tsmiAdmin_Encrypt.Size = new System.Drawing.Size(180, 22);
             this.tsmiAdmin_Encrypt.Text = "Encrypt Config";
             this.tsmiAdmin_Encrypt.Click += new System.EventHandler(this.tsmiAdmin_Encrypt_Click);
+            // 
+            // tsmiParameters
+            // 
+            this.tsmiParameters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCompanies});
+            this.tsmiParameters.Name = "tsmiParameters";
+            this.tsmiParameters.Size = new System.Drawing.Size(84, 20);
+            this.tsmiParameters.Text = "Παράμετροι";
+            this.tsmiParameters.Visible = false;
+            // 
+            // tsmiCompanies
+            // 
+            this.tsmiCompanies.Name = "tsmiCompanies";
+            this.tsmiCompanies.Size = new System.Drawing.Size(180, 22);
+            this.tsmiCompanies.Text = "Εταιρίες";
+            this.tsmiCompanies.Click += new System.EventHandler(this.tsmiCompanies_Click);
             // 
             // toolStrip1
             // 
@@ -215,6 +234,8 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton TSBtnShow;
         private System.Windows.Forms.ToolStripButton TSBtnAlerts;
+        private System.Windows.Forms.ToolStripMenuItem tsmiParameters;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCompanies;
     }
 }
 
