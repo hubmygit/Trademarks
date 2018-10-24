@@ -216,6 +216,8 @@ namespace Trademarks
             
             frmAlarms.ShowDialog();
 
+            bool foundSomething = false;
+
             foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)
             {
                 if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
@@ -226,7 +228,16 @@ namespace Trademarks
                     {
                         ret = false;
                     }
+                    else
+                    {
+                        foundSomething = true;
+                    }
                 }
+            }
+
+            if (foundSomething == false)
+            {
+                return ret;
             }
 
             Recipient rec = new Recipient();

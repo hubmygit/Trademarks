@@ -650,6 +650,8 @@ namespace Trademarks
 
             frmAlarms.ShowDialog();
 
+            bool foundSomething = false;
+
             foreach (DataGridViewRow dgvr in frmAlarms.dgvAlarms.Rows)
             {
                 if (Convert.ToBoolean(dgvr.Cells["Alarm_Active"].Value))
@@ -660,7 +662,16 @@ namespace Trademarks
                     {
                         ret = false;
                     }
+                    else
+                    {
+                        foundSomething = true;
+                    }
                 }
+            }
+
+            if (foundSomething == false)
+            {
+                return ret;
             }
 
             Recipient rec = new Recipient();
@@ -704,8 +715,23 @@ namespace Trademarks
 
             NewRecord.TMNo = txtTMId.Text;
             NewRecord.DepositDt = depositDatetime;
-            NewRecord.NationalPowerId = 1; //Εθνικό
-            NewRecord.TMGrNo = ""; //NULL ????
+            //NewRecord.NationalPowerId = 1; //Εθνικό
+            //NewRecord.TMGrNo = ""; //NULL ????
+
+            if (rbEthniko.Checked)//1 Εθνικό
+            {
+                NewRecord.NationalPowerId = 1; 
+            }
+            else if (rbKoinotiko.Checked) //2 Κοινοτικό
+            {
+                NewRecord.NationalPowerId = 2;
+            }
+            else if (rbDiethnes.Checked) //3 Διεθνές
+            {
+                NewRecord.NationalPowerId = 3;
+            }
+            NewRecord.TMGrNo = txtTMGrId.Text;
+                        
             NewRecord.CompanyId = ComboboxItem.getComboboxItem<Company>(cbCompany).Id;
             NewRecord.ResponsibleLawyerId = ComboboxItem.getComboboxItem<Responsible>(cbLawyerFullname).Id;
             NewRecord.TMTypeIds = getCheckedTypes(dgvTypes);

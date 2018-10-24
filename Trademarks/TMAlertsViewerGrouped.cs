@@ -28,7 +28,7 @@ namespace Trademarks
             List<AlertsDGV> ret = new List<AlertsDGV>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT A2.Id, w.ExpDate, w.NotificationDate, w.EventType, w.ExpCountDown, w.AlertCountdown, w.TrademarksId, " +
+            string SelectSt = "SELECT A2.Id, w.ExpDate, w.NotificationDate, w.EventType, w.ExpCountDown, w.AlertCountdown, w.TrademarksId, w.TM_StatusId, w.EventTypesId, " +
                 "w.TMNo, w.TMName, w.DepositDt, w.RenewalDt, w.NationalPower, w.Company, w.ResponsibleLawyer, A2.AlertDescr " +
                 "FROM " +
                 "( " +
