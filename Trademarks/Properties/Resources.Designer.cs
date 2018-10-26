@@ -63,6 +63,16 @@ namespace Trademarks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddAttachment_16x {
+            get {
+                object obj = ResourceManager.GetObject("AddAttachment_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Create_32x {
             get {
                 object obj = ResourceManager.GetObject("Create_32x", resourceCulture);
@@ -73,9 +83,29 @@ namespace Trademarks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DeleteAttachment_16x {
+            get {
+                object obj = ResourceManager.GetObject("DeleteAttachment_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap find_40x {
             get {
                 object obj = ResourceManager.GetObject("find_40x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenAttachment_16x {
+            get {
+                object obj = ResourceManager.GetObject("OpenAttachment_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

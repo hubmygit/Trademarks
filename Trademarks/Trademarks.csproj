@@ -158,6 +158,12 @@
     <Compile Include="Renewal.Designer.cs">
       <DependentUpon>Renewal.cs</DependentUpon>
     </Compile>
+    <Compile Include="SampleFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleFiles.Designer.cs">
+      <DependentUpon>SampleFiles.cs</DependentUpon>
+    </Compile>
     <Compile Include="StatusViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,6 +264,9 @@
     <EmbeddedResource Include="Renewal.resx">
       <DependentUpon>Renewal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SampleFiles.resx">
+      <DependentUpon>SampleFiles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StatusViewer.resx">
       <DependentUpon>StatusViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,6 +302,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parameter.ico" />
+    <None Include="Resources\OpenAttachment_16x.png" />
+    <None Include="Resources\DeleteAttachment_16x.png" />
+    <None Include="Resources\AddAttachment_16x.png" />
     <None Include="Resources\Create_32x.png" />
     <None Include="Resources\SendEmail_32x1.png" />
     <None Include="Resources\SendEmail_32x.png" />
