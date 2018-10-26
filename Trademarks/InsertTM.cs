@@ -702,7 +702,8 @@ namespace Trademarks
             if (txtTMId.Text.Trim() == "" || cbLawyerFullname.Text == "" || cbCompany.Text == "" || IsAnyTypeChecked(dgvTypes) == false ||
                 txtTMName.Text.Trim() == "" || IsAnyClassChecked(dgvClasses) == false ||
                 (!rbEthniko.Checked && !rbKoinotiko.Checked && !rbDiethnes.Checked) ||
-                ((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == "") || (rbDiethnes.Checked && IsAnyCountryChecked(dgvCountries) == false))
+                (rbDiethnes.Checked && IsAnyCountryChecked(dgvCountries) == false) )//||
+                //((rbKoinotiko.Checked || rbDiethnes.Checked) && txtTMGrId.Text.Trim() == "") )
             {
                 MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία!");
                 return;
@@ -1529,7 +1530,7 @@ namespace Trademarks
             string ret = "";
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT FinalizedUrl FROM [dbo].[TM_Status] WHERE TrademarksId = @TrademarksId AND StatusId in (7, 8) AND isnull(TS.IsDeleted, 'False') = 'False' ";
+            string SelectSt = "SELECT FinalizedUrl FROM [dbo].[TM_Status] WHERE TrademarksId = @TrademarksId AND StatusId in (7, 8) AND isnull(IsDeleted, 'False') = 'False' ";
 
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
