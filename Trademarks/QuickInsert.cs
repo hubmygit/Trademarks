@@ -1855,6 +1855,39 @@ namespace Trademarks
             return ret;
         }
 
+        public static List<Type> getTypeListPerTm(int TrademarkId)
+        {
+            List<Type> ret = new List<Type>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [dbo].[Type] WHERE Id = @Id ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Id", TrademarkId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Type type = new Type();
+                    type.Id = Convert.ToInt32(reader["Id"].ToString());
+                    type.Name = reader["Name"].ToString();
+
+                    ret.Add(type);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static List<int> getTM_TypesList(int TrademarkId)
         {
             List<int> ret = new List<int>();
@@ -1991,6 +2024,41 @@ namespace Trademarks
             return ret;
         }
 
+        public static List<Class> getClassListPerTm(int TrademarkId)
+        {
+            List<Class> ret = new List<Class>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, No, Headers, Link FROM [dbo].[Class] WHERE Id = @Id ORDER BY Id";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Id", TrademarkId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Class newclass = new Class();
+                    newclass.Id = Convert.ToInt32(reader["Id"].ToString());
+                    newclass.No = Convert.ToInt32(reader["No"].ToString());
+                    newclass.Headers = reader["Headers"].ToString();
+                    newclass.Link = reader["Link"].ToString();
+
+                    ret.Add(newclass);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public static List<int> getTM_ClassList(int TrademarkId)
         {
             List<int> ret = new List<int>();
@@ -2104,6 +2172,40 @@ namespace Trademarks
             try
             {
                 sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Country country = new Country();
+                    country.Id = Convert.ToInt32(reader["Id"].ToString());
+                    country.Name = reader["Name"].ToString();
+                    country.NameShort = reader["NameShort"].ToString();
+
+                    ret.Add(country);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static List<Country> getCountryListPerTm(int TrademarkId)
+        {
+            List<Country> ret = new List<Country>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name, NameShort FROM [dbo].[Country] WHERE Id = @Id ORDER BY Name";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@Id", TrademarkId);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {

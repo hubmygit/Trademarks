@@ -1377,6 +1377,55 @@ namespace Trademarks
         public int MandatoryGroup { get; set; }
     }
 
+    public class Trademark_Full
+    {
+        public int Id { get; set; }
+        public string TMNo { get; set; }
+        public DateTime DepositDt { get; set; }
+        public string NationalPowerName { get; set; } 
+        public string TMGrNo { get; set; }
+        public string CompanyName { get; set; }
+        public string ResponsibleLawyerName { get; set; }
+        public List<Type> TMTypes { get; set; } //?? other table??
+        public string TMName { get; set; }
+        public string FileName { get; set; }
+        public byte[] FileContents { get; set; }
+        public List<Class> TMClasses { get; set; } //?? other table??
+        public List<Country> MTCountries { get; set; }
+        public string Description { get; set; }
+        public string Fees { get; set; } //paravola
+        public DateTime? ValidTo { get; set; }
+        public bool IsDeleted { get; set; }
+        public List<TM_Status> TM_Statuses{ get; set; }
+
+        public Trademark_Full()
+        {
+
+        }
+
+        public Trademark_Full(Trademark tm)
+        {
+            Id = tm.Id;
+            TMNo = tm.TMNo;
+            DepositDt = tm.DepositDt;
+            NationalPowerName = NationalPower.getNationalPowerName(tm.NationalPowerId);
+            TMGrNo = tm.TMGrNo;
+            CompanyName = Company.getCompanyName(tm.CompanyId);
+            ResponsibleLawyerName = Responsible.getResponsibleName(tm.ResponsibleLawyerId);
+            TMTypes = Type.getTypeListPerTm(tm.Id);
+            TMName = tm.TMName;
+            FileName = tm.FileName;
+            FileContents = tm.FileContents;
+            TMClasses = Class.getClassListPerTm(tm.Id);
+            MTCountries = Country.getCountryListPerTm(tm.Id);
+            Description = tm.Description;
+            Fees = tm.Fees;
+            ValidTo = tm.ValidTo;
+            IsDeleted = tm.IsDeleted;
+            TM_Statuses = StatusViewer.SelectTmStatusRecs(tm.Id);
+        }
+    }
+
     public class Trademark
     {
         public int Id { get; set; }

@@ -43,7 +43,7 @@ namespace Trademarks
 
         public List<TM_Status> tmStatusList = new List<TM_Status>();
 
-        public List<TM_Status> SelectTmStatusRecs(int tm_Id)
+        public static List<TM_Status> SelectTmStatusRecs(int tm_Id)
         {
             List<TM_Status> ret = new List<TM_Status>();
 

@@ -561,13 +561,20 @@ namespace Trademarks
                 tm_list = filteredRecs;
             }
 
-            if (tm_list.Count > 0)
+            List<Trademark_Full> TM_Full_List = new List<Trademark_Full>();
+
+            foreach (Trademark tm in tm_list)
             {
-                BindingList<Trademark> tmBList = new BindingList<Trademark>(tm_list);
+                TM_Full_List.Add(new Trademark_Full(tm));
+            }
+            
+            if (TM_Full_List.Count > 0)
+            {
+                BindingList<Trademark_Full> tmBList = new BindingList<Trademark_Full>(TM_Full_List);
 
                 //send tm_list to report
             }
-            
+
         }
     }
 }
