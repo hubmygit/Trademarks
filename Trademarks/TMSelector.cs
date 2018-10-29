@@ -573,6 +573,14 @@ namespace Trademarks
                 BindingList<Trademark_Full> tmBList = new BindingList<Trademark_Full>(TM_Full_List);
 
                 //send tm_list to report
+                Report_TmBasic rep_tmBasic = new Report_TmBasic(tmBList);
+
+                DevExpress.XtraReports.UI.ReportPrintTool RepPrintTool = new DevExpress.XtraReports.UI.ReportPrintTool(rep_tmBasic);
+
+                //rep_tmBasic.ShowPreviewMarginLines = false;
+                RepPrintTool.PreviewForm.AllowFormSkin = false;
+
+                RepPrintTool.ShowPreview();
             }
 
         }

@@ -1860,7 +1860,7 @@ namespace Trademarks
             List<Type> ret = new List<Type>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, Name FROM [dbo].[Type] WHERE Id = @Id ORDER BY Id";
+            string SelectSt = "SELECT T.Id, T.Name FROM [dbo].[TM_Types] TM left outer join [dbo].[Type] T on TM.[Type_Id] = T.Id where Trademarks_Id = @Id ORDER BY Id";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -2029,7 +2029,8 @@ namespace Trademarks
             List<Class> ret = new List<Class>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, No, Headers, Link FROM [dbo].[Class] WHERE Id = @Id ORDER BY Id";
+            string SelectSt = "SELECT C.Id, C.No, C.Headers, C.Link FROM [dbo].[TM_Classes] TM left outer join [dbo].[Class] C on TM.[Class_Id] = C.Id where Trademarks_Id = @Id ORDER BY Id ";
+            //SELECT Id, No, Headers, Link FROM [dbo].[Class] WHERE Id = @Id ORDER BY Id";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -2198,7 +2199,7 @@ namespace Trademarks
             List<Country> ret = new List<Country>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, Name, NameShort FROM [dbo].[Country] WHERE Id = @Id ORDER BY Name";
+            string SelectSt = "SELECT C.Id, C.NameShort, C.Name FROM [dbo].[TM_Countries] TM left outer join [dbo].[Country] C on TM.Country_Id = C.Id where Trademarks_Id = @Id ORDER BY Name";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {

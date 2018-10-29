@@ -16,6 +16,8 @@ namespace Trademarks
         public Report_TmBasic(BindingList<Trademark_Full> TmFull_BList)
         {
             InitializeComponent();
+
+            DataSource = TmFull_BList;
         }
 
     }
