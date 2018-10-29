@@ -1100,5 +1100,33 @@ namespace Trademarks
                 }
             }
         }
+
+        private void tsmiFiles_Click(object sender, EventArgs e)
+        {
+            int Id = Convert.ToInt32(dgvStatusViewer.SelectedRows[0].Cells["st_Id"].Value.ToString());
+            TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+
+            if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4 || tms.StatusId == 5 || tms.StatusId == 6)
+            {
+                SampleFiles frmFiles = new SampleFiles(tms.Id);
+                if (frmFiles.filesCnt > 0)
+                {
+                    frmFiles.btnAddFiles.Enabled = false;
+                    frmFiles.btnRemoveFile.Enabled = false;
+                    frmFiles.btnRemoveAll.Enabled = false;
+                    frmFiles.btnSave.Enabled = false;
+
+                    frmFiles.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Δεν υπάρχουν καταχωρημένα αρχεία!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Δεν υπάρχουν καταχωρημένα αρχεία!");
+            }
+        }
     }
 }

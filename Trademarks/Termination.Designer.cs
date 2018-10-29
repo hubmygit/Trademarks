@@ -52,6 +52,7 @@
             this.txtTermCompany = new System.Windows.Forms.TextBox();
             this.lblTerminationDt = new System.Windows.Forms.Label();
             this.dtpTerminationDt = new System.Windows.Forms.DateTimePicker();
+            this.btnAttachments = new System.Windows.Forms.Button();
             this.gbDecisionType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -292,12 +293,27 @@
             this.dtpTerminationDt.ValueChanged += new System.EventHandler(this.dtpTerminationDt_ValueChanged);
             this.dtpTerminationDt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpTerminationDt_KeyDown);
             // 
+            // btnAttachments
+            // 
+            this.btnAttachments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAttachments.Image = global::Trademarks.Properties.Resources.OpenAttachment_16x;
+            this.btnAttachments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAttachments.Location = new System.Drawing.Point(670, 307);
+            this.btnAttachments.Name = "btnAttachments";
+            this.btnAttachments.Size = new System.Drawing.Size(75, 25);
+            this.btnAttachments.TabIndex = 28;
+            this.btnAttachments.Text = "Αρχεία";
+            this.btnAttachments.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAttachments.UseVisualStyleBackColor = true;
+            this.btnAttachments.Click += new System.EventHandler(this.btnAttachments_Click);
+            // 
             // Termination
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.btnAttachments);
             this.Controls.Add(this.lblTerminationDt);
             this.Controls.Add(this.dtpTerminationDt);
             this.Controls.Add(this.txtTermCompany);
@@ -355,5 +371,6 @@
         private System.Windows.Forms.TextBox txtTermCompany;
         private System.Windows.Forms.Label lblTerminationDt;
         private System.Windows.Forms.DateTimePicker dtpTerminationDt;
+        private System.Windows.Forms.Button btnAttachments;
     }
 }

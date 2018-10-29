@@ -50,6 +50,7 @@
             this.lblAppealTitle = new System.Windows.Forms.Label();
             this.dtpAppealDt = new System.Windows.Forms.DateTimePicker();
             this.lblAppealDt = new System.Windows.Forms.Label();
+            this.btnAttachments = new System.Windows.Forms.Button();
             this.gbDecisionType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -272,12 +273,27 @@
             this.lblAppealDt.TabIndex = 16;
             this.lblAppealDt.Text = "Ημ/νία Προσφυγής";
             // 
+            // btnAttachments
+            // 
+            this.btnAttachments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAttachments.Image = global::Trademarks.Properties.Resources.OpenAttachment_16x;
+            this.btnAttachments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAttachments.Location = new System.Drawing.Point(670, 336);
+            this.btnAttachments.Name = "btnAttachments";
+            this.btnAttachments.Size = new System.Drawing.Size(75, 25);
+            this.btnAttachments.TabIndex = 27;
+            this.btnAttachments.Text = "Αρχεία";
+            this.btnAttachments.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAttachments.UseVisualStyleBackColor = true;
+            this.btnAttachments.Click += new System.EventHandler(this.btnAttachments_Click);
+            // 
             // Appeal
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.btnAttachments);
             this.Controls.Add(this.lblAppealDt);
             this.Controls.Add(this.dtpAppealDt);
             this.Controls.Add(this.txtDescription);
@@ -331,5 +347,6 @@
         private System.Windows.Forms.Label lblAppealTitle;
         private System.Windows.Forms.DateTimePicker dtpAppealDt;
         private System.Windows.Forms.Label lblAppealDt;
+        private System.Windows.Forms.Button btnAttachments;
     }
 }

@@ -42,6 +42,8 @@ namespace Trademarks
             dtpPublicationDate.Value = LastDecision.DecisionPublDt;
 
             isInsert = true;
+
+            frmAttachments = new SampleFiles();
         }
 
         public Termination(Trademark TM, TM_Status LastDecision, TM_Status TMS) //update
@@ -79,6 +81,8 @@ namespace Trademarks
             }
             txtTermCompany.Text = TMS.TermCompany;
             txtDescription.Text = TMS.Remarks;
+
+            frmAttachments = new SampleFiles(TempRecUpdId);
         }
 
         public TM_Status NewRecord = new TM_Status();
@@ -89,6 +93,7 @@ namespace Trademarks
         public bool isInsert = false;
         public int TempRecUpdId = 0;
         public bool success = false;
+        public SampleFiles frmAttachments;
 
         private void Termination_Load(object sender, EventArgs e)
         {
@@ -127,8 +132,15 @@ namespace Trademarks
             if (isInsert)
             {
                 //Save
-                if (TM_Status.InsertTM_Status_Termination(NewRecord) == true)
+                NewRecord.Id = TM_Status.InsertTM_Status_Termination(NewRecord);
+
+                if (NewRecord.Id > 0)
                 {
+                    if (frmAttachments.success)
+                    {
+                        frmAttachments.saveAttachments(NewRecord.Id);
+                    }
+
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                     success = true;
                     Close();
@@ -143,6 +155,11 @@ namespace Trademarks
                 //Save
                 if (TM_Status.UpdateTM_Status_Termination(NewRecord) == true)
                 {
+                    if (frmAttachments.success)
+                    {
+                        frmAttachments.saveAttachments(NewRecord.Id);
+                    }
+
                     TmLog.Insert_TMLog(OldRecord, NewRecord, "Ανακοπή", 4);
 
                     MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
@@ -167,6 +184,12 @@ namespace Trademarks
             {
                 dtpTerminationDt.CustomFormat = " ";
             }
+        }
+
+        private void btnAttachments_Click(object sender, EventArgs e)
+        {
+            frmAttachments.success = false;
+            frmAttachments.ShowDialog();
         }
     }
 }

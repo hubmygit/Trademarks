@@ -14,12 +14,12 @@ namespace Trademarks
 {
     public partial class SampleFiles : Form
     {
-        public SampleFiles()
+        public SampleFiles() //insert
         {
             InitializeComponent();
         }
 
-        public SampleFiles(int TMStatus_Id)
+        public SampleFiles(int TMStatus_Id) //update
         {
             InitializeComponent();
 
@@ -31,9 +31,13 @@ namespace Trademarks
             {
                 lvAttachedFiles.Items.Add(new ListViewItem(thisFileName));
             }
+
+            filesCnt = fileNames.Count();
         }
 
         int tmStatus_Id = 0;
+        public bool success = false;
+        public int filesCnt = 0;
 
         public string[] getSavedAttachments(int Id)
         {
@@ -272,15 +276,21 @@ namespace Trademarks
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (lvAttachedFiles.Items.Count > 0)
-            {
+            success = true;
+            Close();
+        }
+
+        public void saveAttachments(int tmSt_Id) //call me from parent form!
+        {
+            //if (lvAttachedFiles.Items.Count > 0)
+            //{
                 List<ListViewItem> newLvItems = new List<ListViewItem>();
 
                 foreach (ListViewItem lvi in lvAttachedFiles.Items)
                 {
                     if (lvi.SubItems.Count == 1) //only filename into lv -> from db
                     {
-                        LvFileInfo lvfi = saveAttachmentLocally(tmStatus_Id, lvi.SubItems[0].Text);
+                        LvFileInfo lvfi = saveAttachmentLocally(tmSt_Id, lvi.SubItems[0].Text);
 
                         newLvItems.Add(new ListViewItem(new string[] { lvfi.FileName, lvfi.FilePath }));
                     }
@@ -290,7 +300,7 @@ namespace Trademarks
                     }
                 }
 
-                Delete_SampleFiles(tmStatus_Id); //delete from db
+                Delete_SampleFiles(tmSt_Id); //delete from db
 
                 //lvAttachedFiles.Items.Clear();
                 //lvAttachedFiles.Items.AddRange(newLvItems.ToArray());
@@ -300,18 +310,18 @@ namespace Trademarks
                 {
                     byte[] attFileBytes = File.ReadAllBytes(lvi.SubItems[1].Text);
 
-                    if (!InertIntoTable_SampleFiles(tmStatus_Id, lvi.SubItems[0].Text, attFileBytes))
+                    if (!InertIntoTable_SampleFiles(tmSt_Id, lvi.SubItems[0].Text, attFileBytes))
                     {
                         MessageBox.Show("Αποτυχία αποθήκευσης του αρχείου: " + lvi.SubItems[0].Text);
                     }
                 }
 
                 Close();
-            }
-            else
-            {
-                MessageBox.Show("Δεν υπάρχουν αρχεία προς αποθήκευση!");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Δεν υπάρχουν αρχεία προς αποθήκευση!");
+            //}
         }
 
         private bool Delete_SampleFiles(int Id)

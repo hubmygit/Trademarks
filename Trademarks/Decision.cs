@@ -30,6 +30,8 @@ namespace Trademarks
             dtpDepositTime.Value = TM.DepositDt;
 
             isInsert = true;
+
+            frmAttachments = new SampleFiles();
         }
 
         public Decision(Trademark TM, TM_Status TMS) //update
@@ -65,6 +67,8 @@ namespace Trademarks
             txtDecisionNo.Text = TMS.DecisionNo;
             dtpPublicationDate.Value = TMS.DecisionPublDt;
             txtDescription.Text = TMS.Remarks;
+
+            frmAttachments = new SampleFiles(TempRecUpdId);
         }
 
         public TM_Status NewRecord = new TM_Status();
@@ -76,6 +80,7 @@ namespace Trademarks
         public List<Responsible> secretariesList = Responsible.getSecretariesList();
         public int TempRecUpdId = 0;
         public bool success = false;
+        public SampleFiles frmAttachments;
 
         private void Decision_Load(object sender, EventArgs e)
         {
@@ -231,6 +236,13 @@ namespace Trademarks
                     //TM_Status ins error
                     successful = false;
                 }
+                else
+                {
+                    if (frmAttachments.success)
+                    {
+                        frmAttachments.saveAttachments(StRec.Id);
+                    }
+                }
 
                 //Alarms
                 if (successful)
@@ -272,6 +284,13 @@ namespace Trademarks
                 {
                     //TM ins error
                     successful = false;
+                }
+                else
+                {
+                    if (frmAttachments.success)
+                    {
+                        frmAttachments.saveAttachments(StRec.Id);
+                    }
                 }
 
                 //Alarms
@@ -523,6 +542,12 @@ namespace Trademarks
                 decision_Approval_or_Rejected(NewRecord, givenTM, 4);
             }
 
+        }
+
+        private void btnAttachments_Click(object sender, EventArgs e)
+        {
+            frmAttachments.success = false;
+            frmAttachments.ShowDialog();            
         }
     }
 }

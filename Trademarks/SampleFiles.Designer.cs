@@ -156,10 +156,10 @@
 
         public System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnOpenFile;
-        private System.Windows.Forms.Button btnRemoveAll;
-        private System.Windows.Forms.Button btnRemoveFile;
-        private System.Windows.Forms.Button btnAddFiles;
         public System.Windows.Forms.ListView lvAttachedFiles;
         private System.Windows.Forms.ColumnHeader AttachedFiles;
+        public System.Windows.Forms.Button btnRemoveAll;
+        public System.Windows.Forms.Button btnRemoveFile;
+        public System.Windows.Forms.Button btnAddFiles;
     }
 }

@@ -48,6 +48,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
+            this.btnAttachments = new System.Windows.Forms.Button();
             this.gbDecisionType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -245,12 +246,27 @@
             this.lblDescription.TabIndex = 0;
             this.lblDescription.Text = "Περιγραφή / Σχόλια";
             // 
+            // btnAttachments
+            // 
+            this.btnAttachments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAttachments.Image = global::Trademarks.Properties.Resources.OpenAttachment_16x;
+            this.btnAttachments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAttachments.Location = new System.Drawing.Point(670, 294);
+            this.btnAttachments.Name = "btnAttachments";
+            this.btnAttachments.Size = new System.Drawing.Size(75, 25);
+            this.btnAttachments.TabIndex = 26;
+            this.btnAttachments.Text = "Αρχεία";
+            this.btnAttachments.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAttachments.UseVisualStyleBackColor = true;
+            this.btnAttachments.Click += new System.EventHandler(this.btnAttachments_Click);
+            // 
             // Decision
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.btnAttachments);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnSave);
@@ -300,5 +316,6 @@
         public System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.Button btnAttachments;
     }
 }

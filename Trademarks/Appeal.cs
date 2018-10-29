@@ -42,6 +42,8 @@ namespace Trademarks
             dtpPublicationDate.Value = LastDecision.DecisionPublDt;
 
             isInsert = true;
+
+            frmAttachments = new SampleFiles();
         }
 
         public Appeal(Trademark TM, TM_Status LastDecision, TM_Status TMS) //update
@@ -79,6 +81,7 @@ namespace Trademarks
             }
             txtDescription.Text = TMS.Remarks;
 
+            frmAttachments = new SampleFiles(TempRecUpdId);
         }
 
         public TM_Status NewRecord = new TM_Status();
@@ -89,6 +92,7 @@ namespace Trademarks
         public bool isInsert = false;
         public int TempRecUpdId = 0;
         public bool success = false;
+        public SampleFiles frmAttachments;
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -119,8 +123,15 @@ namespace Trademarks
                     Task.DisableNotSentTasks(givenTM.Id, 4);
 
                     //Save
-                    if (TM_Status.InsertTM_Status_Appeal(NewRecord) == true)
+                    NewRecord.Id = TM_Status.InsertTM_Status_Appeal(NewRecord);
+
+                    if (NewRecord.Id > 0)
                     {
+                        if (frmAttachments.success)
+                        {
+                            frmAttachments.saveAttachments(NewRecord.Id);
+                        }
+
                         MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
                         success = true;
                         Close();
@@ -135,6 +146,11 @@ namespace Trademarks
                     //Save
                     if (TM_Status.UpdateTM_Status_Appeal(NewRecord) == true)
                     {
+                        if (frmAttachments.success)
+                        {
+                            frmAttachments.saveAttachments(NewRecord.Id);
+                        }
+
                         TmLog.Insert_TMLog(OldRecord, NewRecord, "Προσφυγή", 3);
 
                         MessageBox.Show("Η εγγραφή καταχωρήθηκε επιτυχώς!");
@@ -171,6 +187,12 @@ namespace Trademarks
             {
                 dtpAppealDt.CustomFormat = " ";
             }
+        }
+
+        private void btnAttachments_Click(object sender, EventArgs e)
+        {
+            frmAttachments.success = false;
+            frmAttachments.ShowDialog();
         }
     }
 }
