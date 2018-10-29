@@ -31,6 +31,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TMSelector));
             this.dgvTempRecs = new System.Windows.Forms.DataGridView();
+            this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
+            this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_ValidTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmp_IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpdTM = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,22 +67,16 @@
             this.txtTMName = new System.Windows.Forms.TextBox();
             this.lblTMId = new System.Windows.Forms.Label();
             this.txtTMId = new System.Windows.Forms.TextBox();
+            this.chbDeleted = new System.Windows.Forms.CheckBox();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.chbDeleted = new System.Windows.Forms.CheckBox();
-            this.tmp_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Pic = new System.Windows.Forms.DataGridViewImageColumn();
-            this.tmp_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_DepositDt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_ValidTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_NatPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_GrNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Com = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_Responsible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmp_IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.gbPrint = new System.Windows.Forms.GroupBox();
+            this.rbPrintAll = new System.Windows.Forms.RadioButton();
+            this.rbPrintChoosen = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
+            this.gbPrint.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTempRecs
@@ -105,6 +110,79 @@
             this.dgvTempRecs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTempRecs_CellDoubleClick);
             this.dgvTempRecs.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvTempRecs_SortCompare);
             this.dgvTempRecs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvTempRecs_MouseDown);
+            // 
+            // tmp_Id
+            // 
+            this.tmp_Id.HeaderText = "Id";
+            this.tmp_Id.Name = "tmp_Id";
+            this.tmp_Id.Visible = false;
+            // 
+            // tmp_No
+            // 
+            this.tmp_No.HeaderText = "Σήμα";
+            this.tmp_No.Name = "tmp_No";
+            this.tmp_No.ReadOnly = true;
+            // 
+            // tmp_Pic
+            // 
+            this.tmp_Pic.HeaderText = "Αρχείο";
+            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.tmp_Pic.Name = "tmp_Pic";
+            this.tmp_Pic.ReadOnly = true;
+            // 
+            // tmp_Name
+            // 
+            this.tmp_Name.HeaderText = "Όνομα";
+            this.tmp_Name.Name = "tmp_Name";
+            this.tmp_Name.ReadOnly = true;
+            this.tmp_Name.Width = 220;
+            // 
+            // tmp_DepositDt
+            // 
+            this.tmp_DepositDt.HeaderText = "Κατάθεση";
+            this.tmp_DepositDt.Name = "tmp_DepositDt";
+            this.tmp_DepositDt.ReadOnly = true;
+            // 
+            // tmp_ValidTo
+            // 
+            this.tmp_ValidTo.HeaderText = "Ισχύς έως";
+            this.tmp_ValidTo.Name = "tmp_ValidTo";
+            this.tmp_ValidTo.ReadOnly = true;
+            // 
+            // tmp_NatPower
+            // 
+            this.tmp_NatPower.HeaderText = "Εθνική Ισχύς";
+            this.tmp_NatPower.Name = "tmp_NatPower";
+            this.tmp_NatPower.ReadOnly = true;
+            // 
+            // tmp_GrNo
+            // 
+            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
+            this.tmp_GrNo.Name = "tmp_GrNo";
+            this.tmp_GrNo.ReadOnly = true;
+            this.tmp_GrNo.Width = 120;
+            // 
+            // tmp_Com
+            // 
+            this.tmp_Com.HeaderText = "Εταιρία";
+            this.tmp_Com.Name = "tmp_Com";
+            this.tmp_Com.ReadOnly = true;
+            this.tmp_Com.Width = 220;
+            // 
+            // tmp_Responsible
+            // 
+            this.tmp_Responsible.HeaderText = "Υπεύθυνος";
+            this.tmp_Responsible.Name = "tmp_Responsible";
+            this.tmp_Responsible.ReadOnly = true;
+            this.tmp_Responsible.Width = 180;
+            // 
+            // tmp_IsDeleted
+            // 
+            this.tmp_IsDeleted.HeaderText = "Διαγραμμένο";
+            this.tmp_IsDeleted.Name = "tmp_IsDeleted";
+            this.tmp_IsDeleted.ReadOnly = true;
+            this.tmp_IsDeleted.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.tmp_IsDeleted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // cmsOnGrid
             // 
@@ -328,32 +406,6 @@
             this.txtTMId.Size = new System.Drawing.Size(200, 22);
             this.txtTMId.TabIndex = 25;
             // 
-            // btnCreateNew
-            // 
-            this.btnCreateNew.Image = global::Trademarks.Properties.Resources.Create_32x;
-            this.btnCreateNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateNew.Location = new System.Drawing.Point(12, 16);
-            this.btnCreateNew.Name = "btnCreateNew";
-            this.btnCreateNew.Size = new System.Drawing.Size(100, 45);
-            this.btnCreateNew.TabIndex = 34;
-            this.btnCreateNew.Text = "Νέο Σήμα";
-            this.btnCreateNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCreateNew.UseVisualStyleBackColor = true;
-            this.btnCreateNew.Click += new System.EventHandler(this.btnCreateNew_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Image = global::Trademarks.Properties.Resources.find_40x;
-            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(1132, 16);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(90, 45);
-            this.btnSearch.TabIndex = 33;
-            this.btnSearch.Text = "Εύρεση";
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // chbDeleted
             // 
             this.chbDeleted.AutoSize = true;
@@ -367,84 +419,84 @@
             this.chbDeleted.UseVisualStyleBackColor = true;
             this.chbDeleted.CheckStateChanged += new System.EventHandler(this.chbDeleted_CheckStateChanged);
             // 
-            // tmp_Id
+            // btnPrint
             // 
-            this.tmp_Id.HeaderText = "Id";
-            this.tmp_Id.Name = "tmp_Id";
-            this.tmp_Id.Visible = false;
+            this.btnPrint.Image = global::Trademarks.Properties.Resources.SwitchToPreview_32x;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(12, 63);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(100, 45);
+            this.btnPrint.TabIndex = 36;
+            this.btnPrint.Text = "Εκτύπωση";
+            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // tmp_No
+            // btnCreateNew
             // 
-            this.tmp_No.HeaderText = "Σήμα";
-            this.tmp_No.Name = "tmp_No";
-            this.tmp_No.ReadOnly = true;
+            this.btnCreateNew.Image = global::Trademarks.Properties.Resources.Create_32x;
+            this.btnCreateNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateNew.Location = new System.Drawing.Point(12, 11);
+            this.btnCreateNew.Name = "btnCreateNew";
+            this.btnCreateNew.Size = new System.Drawing.Size(100, 45);
+            this.btnCreateNew.TabIndex = 34;
+            this.btnCreateNew.Text = "Νέο Σήμα";
+            this.btnCreateNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCreateNew.UseVisualStyleBackColor = true;
+            this.btnCreateNew.Click += new System.EventHandler(this.btnCreateNew_Click);
             // 
-            // tmp_Pic
+            // btnSearch
             // 
-            this.tmp_Pic.HeaderText = "Αρχείο";
-            this.tmp_Pic.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.tmp_Pic.Name = "tmp_Pic";
-            this.tmp_Pic.ReadOnly = true;
+            this.btnSearch.Image = global::Trademarks.Properties.Resources.find_40x;
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(1132, 11);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(90, 45);
+            this.btnSearch.TabIndex = 33;
+            this.btnSearch.Text = "Εύρεση";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // tmp_Name
+            // gbPrint
             // 
-            this.tmp_Name.HeaderText = "Όνομα";
-            this.tmp_Name.Name = "tmp_Name";
-            this.tmp_Name.ReadOnly = true;
-            this.tmp_Name.Width = 220;
+            this.gbPrint.Controls.Add(this.rbPrintAll);
+            this.gbPrint.Controls.Add(this.rbPrintChoosen);
+            this.gbPrint.Location = new System.Drawing.Point(118, 57);
+            this.gbPrint.Name = "gbPrint";
+            this.gbPrint.Size = new System.Drawing.Size(89, 51);
+            this.gbPrint.TabIndex = 37;
+            this.gbPrint.TabStop = false;
             // 
-            // tmp_DepositDt
+            // rbPrintAll
             // 
-            this.tmp_DepositDt.HeaderText = "Κατάθεση";
-            this.tmp_DepositDt.Name = "tmp_DepositDt";
-            this.tmp_DepositDt.ReadOnly = true;
+            this.rbPrintAll.AutoSize = true;
+            this.rbPrintAll.Location = new System.Drawing.Point(6, 29);
+            this.rbPrintAll.Name = "rbPrintAll";
+            this.rbPrintAll.Size = new System.Drawing.Size(46, 17);
+            this.rbPrintAll.TabIndex = 6;
+            this.rbPrintAll.Text = "Όλα";
+            this.rbPrintAll.UseVisualStyleBackColor = true;
             // 
-            // tmp_ValidTo
+            // rbPrintChoosen
             // 
-            this.tmp_ValidTo.HeaderText = "Ισχύς έως";
-            this.tmp_ValidTo.Name = "tmp_ValidTo";
-            this.tmp_ValidTo.ReadOnly = true;
-            // 
-            // tmp_NatPower
-            // 
-            this.tmp_NatPower.HeaderText = "Εθνική Ισχύς";
-            this.tmp_NatPower.Name = "tmp_NatPower";
-            this.tmp_NatPower.ReadOnly = true;
-            // 
-            // tmp_GrNo
-            // 
-            this.tmp_GrNo.HeaderText = "Συνδ. Εθν. Σήμα";
-            this.tmp_GrNo.Name = "tmp_GrNo";
-            this.tmp_GrNo.ReadOnly = true;
-            this.tmp_GrNo.Width = 120;
-            // 
-            // tmp_Com
-            // 
-            this.tmp_Com.HeaderText = "Εταιρία";
-            this.tmp_Com.Name = "tmp_Com";
-            this.tmp_Com.ReadOnly = true;
-            this.tmp_Com.Width = 220;
-            // 
-            // tmp_Responsible
-            // 
-            this.tmp_Responsible.HeaderText = "Υπεύθυνος";
-            this.tmp_Responsible.Name = "tmp_Responsible";
-            this.tmp_Responsible.ReadOnly = true;
-            this.tmp_Responsible.Width = 180;
-            // 
-            // tmp_IsDeleted
-            // 
-            this.tmp_IsDeleted.HeaderText = "Διαγραμμένο";
-            this.tmp_IsDeleted.Name = "tmp_IsDeleted";
-            this.tmp_IsDeleted.ReadOnly = true;
-            this.tmp_IsDeleted.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.tmp_IsDeleted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.rbPrintChoosen.AutoSize = true;
+            this.rbPrintChoosen.Checked = true;
+            this.rbPrintChoosen.Location = new System.Drawing.Point(6, 10);
+            this.rbPrintChoosen.Name = "rbPrintChoosen";
+            this.rbPrintChoosen.Size = new System.Drawing.Size(81, 17);
+            this.rbPrintChoosen.TabIndex = 5;
+            this.rbPrintChoosen.TabStop = true;
+            this.rbPrintChoosen.Text = "Επιλεγμένο";
+            this.rbPrintChoosen.UseVisualStyleBackColor = true;
             // 
             // TMSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1234, 762);
+            this.Controls.Add(this.gbPrint);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.chbDeleted);
             this.Controls.Add(this.btnCreateNew);
             this.Controls.Add(this.btnSearch);
@@ -466,6 +518,8 @@
             this.Text = "Εμπορικά Σήματα";
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).EndInit();
             this.cmsOnGrid.ResumeLayout(false);
+            this.gbPrint.ResumeLayout(false);
+            this.gbPrint.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -513,5 +567,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Com;
         private System.Windows.Forms.DataGridViewTextBoxColumn tmp_Responsible;
         private System.Windows.Forms.DataGridViewCheckBoxColumn tmp_IsDeleted;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.GroupBox gbPrint;
+        private System.Windows.Forms.RadioButton rbPrintAll;
+        private System.Windows.Forms.RadioButton rbPrintChoosen;
     }
 }

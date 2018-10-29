@@ -36,6 +36,7 @@ namespace Trademarks
         public List<Company> companyList = Company.getCompanyList();
         public List<Responsible> responsibleList = Responsible.getResponsibleList();
         public List<NationalPower> nationalPowerList = NationalPower.getNationalPowerListList();
+        private List<Trademark> filteredRecs = new List<Trademark>();
 
         public List<Trademark> SelectTempRecs()
         {
@@ -146,7 +147,7 @@ namespace Trademarks
 
         public void applyFilters()
         {
-            List<Trademark> filteredRecs = tempRecList;
+            filteredRecs = tempRecList;
             if (txtTMId.Text.Trim() != "")
             {
                 filteredRecs = filteredRecs.Where(i => i.TMNo.IndexOf(txtTMId.Text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
@@ -542,6 +543,31 @@ namespace Trademarks
         private void cbCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
             applyFilters();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            List<Trademark> tm_list = new List<Trademark>();
+            if (rbPrintChoosen.Checked)
+            {
+                if (dgvTempRecs.SelectedRows.Count > 0)
+                {
+                    int Id = Convert.ToInt32(dgvTempRecs.SelectedRows[0].Cells["tmp_Id"].Value.ToString());
+                    tm_list = tempRecList.Where(i => i.Id == Id).ToList(); //.First()
+                }
+            }
+            else if (rbPrintAll.Checked)
+            {
+                tm_list = filteredRecs;
+            }
+
+            if (tm_list.Count > 0)
+            {
+                BindingList<Trademark> tmBList = new BindingList<Trademark>(tm_list);
+
+                //send tm_list to report
+            }
+            
         }
     }
 }
