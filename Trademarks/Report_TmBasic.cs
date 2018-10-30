@@ -20,5 +20,11 @@ namespace Trademarks
             DataSource = TmFull_BList;
         }
 
+        private void Detail4_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            string aa = xrLabel30.Value.ToString();
+
+            int help = 0;
+        }
     }
 }
