@@ -1391,7 +1391,7 @@ namespace Trademarks
         public string FileName { get; set; }
         public byte[] FileContents { get; set; }
         public List<Class> TMClasses { get; set; } //?? other table??
-        public List<Country> MTCountries { get; set; }
+        public List<Country> TMCountries { get; set; }
         public string Description { get; set; }
         public string Fees { get; set; } //paravola
         public DateTime? ValidTo { get; set; }
@@ -1417,7 +1417,7 @@ namespace Trademarks
             FileName = tm.FileName;
             FileContents = tm.FileContents;
             TMClasses = Class.getClassListPerTm(tm.Id);
-            MTCountries = Country.getCountryListPerTm(tm.Id);
+            TMCountries = Country.getCountryListPerTm(tm.Id);
             Description = tm.Description;
             Fees = tm.Fees;
             ValidTo = tm.ValidTo;

@@ -68,12 +68,12 @@
             this.lblTMId = new System.Windows.Forms.Label();
             this.txtTMId = new System.Windows.Forms.TextBox();
             this.chbDeleted = new System.Windows.Forms.CheckBox();
-            this.btnPrint = new System.Windows.Forms.Button();
-            this.btnCreateNew = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.gbPrint = new System.Windows.Forms.GroupBox();
             this.rbPrintAll = new System.Windows.Forms.RadioButton();
             this.rbPrintChoosen = new System.Windows.Forms.RadioButton();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnCreateNew = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTempRecs)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             this.gbPrint.SuspendLayout();
@@ -419,6 +419,38 @@
             this.chbDeleted.UseVisualStyleBackColor = true;
             this.chbDeleted.CheckStateChanged += new System.EventHandler(this.chbDeleted_CheckStateChanged);
             // 
+            // gbPrint
+            // 
+            this.gbPrint.Controls.Add(this.rbPrintAll);
+            this.gbPrint.Controls.Add(this.rbPrintChoosen);
+            this.gbPrint.Location = new System.Drawing.Point(118, 57);
+            this.gbPrint.Name = "gbPrint";
+            this.gbPrint.Size = new System.Drawing.Size(89, 51);
+            this.gbPrint.TabIndex = 37;
+            this.gbPrint.TabStop = false;
+            // 
+            // rbPrintAll
+            // 
+            this.rbPrintAll.AutoSize = true;
+            this.rbPrintAll.Location = new System.Drawing.Point(6, 29);
+            this.rbPrintAll.Name = "rbPrintAll";
+            this.rbPrintAll.Size = new System.Drawing.Size(46, 17);
+            this.rbPrintAll.TabIndex = 6;
+            this.rbPrintAll.Text = "Όλα";
+            this.rbPrintAll.UseVisualStyleBackColor = true;
+            // 
+            // rbPrintChoosen
+            // 
+            this.rbPrintChoosen.AutoSize = true;
+            this.rbPrintChoosen.Checked = true;
+            this.rbPrintChoosen.Location = new System.Drawing.Point(6, 10);
+            this.rbPrintChoosen.Name = "rbPrintChoosen";
+            this.rbPrintChoosen.Size = new System.Drawing.Size(81, 17);
+            this.rbPrintChoosen.TabIndex = 5;
+            this.rbPrintChoosen.TabStop = true;
+            this.rbPrintChoosen.Text = "Επιλεγμένο";
+            this.rbPrintChoosen.UseVisualStyleBackColor = true;
+            // 
             // btnPrint
             // 
             this.btnPrint.Image = global::Trademarks.Properties.Resources.SwitchToPreview_32x;
@@ -457,38 +489,6 @@
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // gbPrint
-            // 
-            this.gbPrint.Controls.Add(this.rbPrintAll);
-            this.gbPrint.Controls.Add(this.rbPrintChoosen);
-            this.gbPrint.Location = new System.Drawing.Point(118, 57);
-            this.gbPrint.Name = "gbPrint";
-            this.gbPrint.Size = new System.Drawing.Size(89, 51);
-            this.gbPrint.TabIndex = 37;
-            this.gbPrint.TabStop = false;
-            // 
-            // rbPrintAll
-            // 
-            this.rbPrintAll.AutoSize = true;
-            this.rbPrintAll.Location = new System.Drawing.Point(6, 29);
-            this.rbPrintAll.Name = "rbPrintAll";
-            this.rbPrintAll.Size = new System.Drawing.Size(46, 17);
-            this.rbPrintAll.TabIndex = 6;
-            this.rbPrintAll.Text = "Όλα";
-            this.rbPrintAll.UseVisualStyleBackColor = true;
-            // 
-            // rbPrintChoosen
-            // 
-            this.rbPrintChoosen.AutoSize = true;
-            this.rbPrintChoosen.Checked = true;
-            this.rbPrintChoosen.Location = new System.Drawing.Point(6, 10);
-            this.rbPrintChoosen.Name = "rbPrintChoosen";
-            this.rbPrintChoosen.Size = new System.Drawing.Size(81, 17);
-            this.rbPrintChoosen.TabIndex = 5;
-            this.rbPrintChoosen.TabStop = true;
-            this.rbPrintChoosen.Text = "Επιλεγμένο";
-            this.rbPrintChoosen.UseVisualStyleBackColor = true;
             // 
             // TMSelector
             // 

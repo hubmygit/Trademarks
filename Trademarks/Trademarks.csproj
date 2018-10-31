@@ -50,6 +50,8 @@
     <Reference Include="DevExpress.XtraCharts.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraGauges.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraReports.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v18.1.Extensions, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -219,6 +221,12 @@
     <Compile Include="TMSelector.Designer.cs">
       <DependentUpon>TMSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="TMSelectorDevEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TMSelectorDevEx.Designer.cs">
+      <DependentUpon>TMSelectorDevEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="TmUpdLog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,10 +320,18 @@
     <EmbeddedResource Include="TMSelector.resx">
       <DependentUpon>TMSelector.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TMSelectorDevEx.resx">
+      <DependentUpon>TMSelectorDevEx.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TmUpdLog.resx">
       <DependentUpon>TmUpdLog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\Company.datasource" />
+    <None Include="Properties\DataSources\NationalPower.datasource" />
+    <None Include="Properties\DataSources\Responsible.datasource" />
+    <None Include="Properties\DataSources\Trademark.datasource" />
+    <None Include="Properties\DataSources\Trademark_Full.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

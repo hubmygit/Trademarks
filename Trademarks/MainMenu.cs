@@ -161,8 +161,12 @@ namespace Trademarks
         {
             //QuickView frmQuickView = new QuickView();
             //frmQuickView.ShowDialog();
-            TMSelector tmsel = new TMSelector();
-            tmsel.ShowDialog();
+
+            //TMSelector tmsel = new TMSelector();
+            //tmsel.ShowDialog();
+
+            TMSelectorDevEx tmselDevEx = new TMSelectorDevEx();
+            tmselDevEx.ShowDialog();
         }
 
         private void tsmiAlerts_View_Click(object sender, EventArgs e)
