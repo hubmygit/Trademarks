@@ -16,17 +16,29 @@ namespace Trademarks
         {
             InitializeComponent();
 
-            tempRecList = SelectTempRecs();
+            tempRecList = SelectTempRecs_Trademark();
+            tempRecList_Full = SelectTempRecs(tempRecList);
 
-            gridControl1.DataSource = tempRecList;
-            gridControl2.DataSource = tempRecList;
+            gridControl1.DataSource = tempRecList_Full;
         }
 
-        public BindingList<Trademark_Full> tempRecList = new BindingList<Trademark_Full>();
+        public List<Trademark> tempRecList = new List<Trademark>();
+        public BindingList<Trademark_Full> tempRecList_Full = new BindingList<Trademark_Full>();
 
-        public BindingList<Trademark_Full> SelectTempRecs()
+        public BindingList<Trademark_Full> SelectTempRecs(List<Trademark> tmList)
         {
             BindingList<Trademark_Full> ret = new BindingList<Trademark_Full>();
+
+            foreach (Trademark tm in tmList)
+            {
+                ret.Add(new Trademark_Full(tm));
+            }
+
+            return ret;
+        }
+        public List<Trademark> SelectTempRecs_Trademark()
+        {
+            List<Trademark> ret = new List<Trademark>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT [Id], [TMNo], [TMName], [DepositDt], " +
@@ -69,8 +81,10 @@ namespace Trademarks
                     }
                     tmpRec.IsDeleted = Convert.ToBoolean(reader["IsDeleted"].ToString());
 
-                    Trademark_Full TMFull = new Trademark_Full(tmpRec);
-                    ret.Add(TMFull);
+                    //Trademark_Full TMFull = new Trademark_Full(tmpRec);
+                    //ret.Add(TMFull);
+
+                    ret.Add(tmpRec);
                 }
                 reader.Close();
             }
@@ -83,6 +97,141 @@ namespace Trademarks
             return ret;
         }
 
+        private void tsmiDecision_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
 
+                new MainMenu().GoForDecision(thisTmpRec);
+
+                tempRecList = SelectTempRecs_Trademark(); //List
+                tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
+                gridControl1.DataSource = tempRecList_Full; //DataSource
+            }
+        }
+
+        private void tsmiAppeal_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                new MainMenu().GoForAppeal(thisTmpRec);
+
+                tempRecList = SelectTempRecs_Trademark(); //List
+                tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
+                gridControl1.DataSource = tempRecList_Full; //DataSource
+            }
+        }
+
+        private void tsmiTermination_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                new MainMenu().GoForTermination(thisTmpRec);
+
+                tempRecList = SelectTempRecs_Trademark(); //List
+                tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
+                gridControl1.DataSource = tempRecList_Full; //DataSource
+            }
+        }
+
+        private void tsmiFinalization_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                tempRecList = SelectTempRecs_Trademark(); //List
+                tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
+                gridControl1.DataSource = tempRecList_Full; //DataSource
+            }
+        }
+
+        private void tsmiRenewal_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                new MainMenu().GoForRenewal(thisTmpRec);
+
+                tempRecList = SelectTempRecs_Trademark(); //List
+                tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
+                gridControl1.DataSource = tempRecList_Full; //DataSource
+            }
+        }
+
+
+
+
+
+
+        private void tsmiViewTM_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
+
+                InsertTM frmViewTm = new InsertTM(thisTmpRec);
+                frmViewTm.MakeAllControlsReadOnly(frmViewTm);
+                frmViewTm.GetFromGridOnlyChecked();
+
+                frmViewTm.btnSave.Enabled = false;
+                frmViewTm.ShowDialog();
+            }
+
+            
+
+        }
+
+        private void tsmiUpdTM_Click(object sender, EventArgs e)
+        {
+            // Update
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                Trademark tm = tempRecList.Where(i => i.Id == Id).First();
+
+                if (tm.IsDeleted)
+                {
+                    MessageBox.Show("Προσοχή! Το Σήμα είναι διαγραμμένο!");
+                    return;
+                }
+
+                if (UserInfo.Get_DB_AppUser_ResponsibleId(UserInfo.DB_AppUser_Id) != tm.ResponsibleLawyerId && UserInfo.IsAdmin == false)
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΟ Χρήστης πρέπει να έχει οριστεί Υπεύθυνος για το Σήμα.");
+                    return;
+                }
+
+                if (TM_Status.FinalizedOrRejected(tm.Id) != 0) //Πρέπει να μην έχει ορ./απορ.
+                {
+                    MessageBox.Show("Προσοχή! Δεν μπορείτε να ενημερώσετε την εγγραφή. \r\nΤο Σήμα έχει ήδη οριστικοποιηθεί!");
+                    return;
+                }
+
+                InsertTM frmUpdTm = new InsertTM(tm);
+                frmUpdTm.ShowDialog();
+
+                if (frmUpdTm.success)
+                {
+                    tempRecList = SelectTempRecs_Trademark(); //List
+                    tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
+                    gridControl1.DataSource = tempRecList_Full; //DataSource
+                }
+            }
+        }
+
+        
     }
 }

@@ -327,11 +327,16 @@
       <DependentUpon>TmUpdLog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\Class.datasource" />
     <None Include="Properties\DataSources\Company.datasource" />
+    <None Include="Properties\DataSources\Country.datasource" />
     <None Include="Properties\DataSources\NationalPower.datasource" />
     <None Include="Properties\DataSources\Responsible.datasource" />
+    <None Include="Properties\DataSources\Status.datasource" />
+    <None Include="Properties\DataSources\TM_Status.datasource" />
     <None Include="Properties\DataSources\Trademark.datasource" />
     <None Include="Properties\DataSources\Trademark_Full.datasource" />
+    <None Include="Properties\DataSources\Type.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
