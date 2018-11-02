@@ -32,9 +32,9 @@
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode3 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode4 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TMSelectorDevEx));
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.ObJ_Type_Name = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.cmsOnGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiViewTM = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,22 +53,23 @@
             this.tsmiTmLog = new System.Windows.Forms.ToolStripMenuItem();
             this.trademark_FullBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.Obj_Class_No = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Class_Headers = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.Obj_Countries_NameShort = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Countries_Name = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTMNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDepositDt = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNationalPowerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTMGrNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCompanyName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colResponsibleLawyerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTMName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFileName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFileContents = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFees = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colValidTo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_No = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Pic = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_DepositDt = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_ValidTo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_NatPower = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_GrNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Com = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_Responsible = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Obj_IsDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.gbPrint = new System.Windows.Forms.GroupBox();
             this.rbPrintAll = new System.Windows.Forms.RadioButton();
@@ -86,11 +87,27 @@
             // 
             // gridView2
             // 
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.ObJ_Type_Name});
             this.gridView2.GridControl = this.gridControl1;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.ReadOnly = true;
+            this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.ViewCaption = "Τύποι";
+            // 
+            // ObJ_Type_Name
+            // 
+            this.ObJ_Type_Name.Caption = "Όνομα";
+            this.ObJ_Type_Name.FieldName = "Name";
+            this.ObJ_Type_Name.Name = "ObJ_Type_Name";
+            this.ObJ_Type_Name.Visible = true;
+            this.ObJ_Type_Name.VisibleIndex = 0;
             // 
             // gridControl1
             // 
+            this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridControl1.ContextMenuStrip = this.cmsOnGrid;
             this.gridControl1.DataSource = this.trademark_FullBindingSource;
             gridLevelNode1.LevelTemplate = this.gridView2;
@@ -99,16 +116,14 @@
             gridLevelNode2.RelationName = "TMClasses";
             gridLevelNode3.LevelTemplate = this.gridView4;
             gridLevelNode3.RelationName = "TMCountries";
-            gridLevelNode4.RelationName = "TM_Statuses";
             this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1,
             gridLevelNode2,
-            gridLevelNode3,
-            gridLevelNode4});
-            this.gridControl1.Location = new System.Drawing.Point(221, 107);
+            gridLevelNode3});
+            this.gridControl1.Location = new System.Drawing.Point(0, 86);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(717, 364);
+            this.gridControl1.Size = new System.Drawing.Size(1184, 476);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView3,
@@ -236,132 +251,163 @@
             // 
             // gridView3
             // 
+            this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.Obj_Class_No,
+            this.Obj_Class_Headers});
             this.gridView3.GridControl = this.gridControl1;
             this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsBehavior.ReadOnly = true;
+            this.gridView3.OptionsView.ShowGroupPanel = false;
+            this.gridView3.ViewCaption = "Κλάσεις";
+            // 
+            // Obj_Class_No
+            // 
+            this.Obj_Class_No.Caption = "Νο";
+            this.Obj_Class_No.FieldName = "No";
+            this.Obj_Class_No.Name = "Obj_Class_No";
+            this.Obj_Class_No.Visible = true;
+            this.Obj_Class_No.VisibleIndex = 0;
+            // 
+            // Obj_Class_Headers
+            // 
+            this.Obj_Class_Headers.Caption = "Επικεφαλίδες";
+            this.Obj_Class_Headers.FieldName = "Headers";
+            this.Obj_Class_Headers.Name = "Obj_Class_Headers";
+            this.Obj_Class_Headers.Visible = true;
+            this.Obj_Class_Headers.VisibleIndex = 1;
             // 
             // gridView4
             // 
+            this.gridView4.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.Obj_Countries_NameShort,
+            this.Obj_Countries_Name});
             this.gridView4.GridControl = this.gridControl1;
             this.gridView4.Name = "gridView4";
+            this.gridView4.OptionsBehavior.ReadOnly = true;
+            this.gridView4.OptionsView.ShowGroupPanel = false;
+            this.gridView4.ViewCaption = "Χώρες";
+            // 
+            // Obj_Countries_NameShort
+            // 
+            this.Obj_Countries_NameShort.Caption = "Συντομογραφία";
+            this.Obj_Countries_NameShort.FieldName = "NameShort";
+            this.Obj_Countries_NameShort.Name = "Obj_Countries_NameShort";
+            this.Obj_Countries_NameShort.Visible = true;
+            this.Obj_Countries_NameShort.VisibleIndex = 0;
+            // 
+            // Obj_Countries_Name
+            // 
+            this.Obj_Countries_Name.Caption = "Όνομα";
+            this.Obj_Countries_Name.FieldName = "Name";
+            this.Obj_Countries_Name.Name = "Obj_Countries_Name";
+            this.Obj_Countries_Name.Visible = true;
+            this.Obj_Countries_Name.VisibleIndex = 1;
             // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colId,
-            this.colTMNo,
-            this.colDepositDt,
-            this.colNationalPowerName,
-            this.colTMGrNo,
-            this.colCompanyName,
-            this.colResponsibleLawyerName,
-            this.colTMName,
-            this.colFileName,
-            this.colFileContents,
-            this.colDescription,
-            this.colFees,
-            this.colValidTo,
-            this.colIsDeleted});
+            this.Obj_Id,
+            this.Obj_No,
+            this.Obj_Pic,
+            this.Obj_Name,
+            this.Obj_DepositDt,
+            this.Obj_ValidTo,
+            this.Obj_NatPower,
+            this.Obj_GrNo,
+            this.Obj_Com,
+            this.Obj_Responsible,
+            this.Obj_IsDeleted});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.ReadOnly = true;
+            this.gridView1.OptionsView.RowAutoHeight = true;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
-            // colId
+            // Obj_Id
             // 
-            this.colId.FieldName = "Id";
-            this.colId.Name = "colId";
-            this.colId.Visible = true;
-            this.colId.VisibleIndex = 0;
+            this.Obj_Id.Caption = "Id";
+            this.Obj_Id.FieldName = "Id";
+            this.Obj_Id.Name = "Obj_Id";
             // 
-            // colTMNo
+            // Obj_No
             // 
-            this.colTMNo.FieldName = "TMNo";
-            this.colTMNo.Name = "colTMNo";
-            this.colTMNo.Visible = true;
-            this.colTMNo.VisibleIndex = 1;
+            this.Obj_No.Caption = "Σήμα";
+            this.Obj_No.FieldName = "TMNo";
+            this.Obj_No.Name = "Obj_No";
+            this.Obj_No.Visible = true;
+            this.Obj_No.VisibleIndex = 0;
             // 
-            // colDepositDt
+            // Obj_Pic
             // 
-            this.colDepositDt.FieldName = "DepositDt";
-            this.colDepositDt.Name = "colDepositDt";
-            this.colDepositDt.Visible = true;
-            this.colDepositDt.VisibleIndex = 2;
+            this.Obj_Pic.Caption = "Αρχείο";
+            this.Obj_Pic.FieldName = "FileContents";
+            this.Obj_Pic.Name = "Obj_Pic";
+            this.Obj_Pic.Visible = true;
+            this.Obj_Pic.VisibleIndex = 1;
             // 
-            // colNationalPowerName
+            // Obj_Name
             // 
-            this.colNationalPowerName.FieldName = "NationalPowerName";
-            this.colNationalPowerName.Name = "colNationalPowerName";
-            this.colNationalPowerName.Visible = true;
-            this.colNationalPowerName.VisibleIndex = 3;
+            this.Obj_Name.Caption = "Όνομα";
+            this.Obj_Name.FieldName = "TMName";
+            this.Obj_Name.Name = "Obj_Name";
+            this.Obj_Name.Visible = true;
+            this.Obj_Name.VisibleIndex = 2;
             // 
-            // colTMGrNo
+            // Obj_DepositDt
             // 
-            this.colTMGrNo.FieldName = "TMGrNo";
-            this.colTMGrNo.Name = "colTMGrNo";
-            this.colTMGrNo.Visible = true;
-            this.colTMGrNo.VisibleIndex = 4;
+            this.Obj_DepositDt.Caption = "Κατάθεση";
+            this.Obj_DepositDt.FieldName = "DepositDt";
+            this.Obj_DepositDt.Name = "Obj_DepositDt";
+            this.Obj_DepositDt.Visible = true;
+            this.Obj_DepositDt.VisibleIndex = 3;
             // 
-            // colCompanyName
+            // Obj_ValidTo
             // 
-            this.colCompanyName.FieldName = "CompanyName";
-            this.colCompanyName.Name = "colCompanyName";
-            this.colCompanyName.Visible = true;
-            this.colCompanyName.VisibleIndex = 5;
+            this.Obj_ValidTo.Caption = "Ισχύς έως";
+            this.Obj_ValidTo.FieldName = "ValidTo";
+            this.Obj_ValidTo.Name = "Obj_ValidTo";
+            this.Obj_ValidTo.Visible = true;
+            this.Obj_ValidTo.VisibleIndex = 4;
             // 
-            // colResponsibleLawyerName
+            // Obj_NatPower
             // 
-            this.colResponsibleLawyerName.FieldName = "ResponsibleLawyerName";
-            this.colResponsibleLawyerName.Name = "colResponsibleLawyerName";
-            this.colResponsibleLawyerName.Visible = true;
-            this.colResponsibleLawyerName.VisibleIndex = 6;
+            this.Obj_NatPower.Caption = "Εθνική Ισχύς";
+            this.Obj_NatPower.FieldName = "NationalPowerName";
+            this.Obj_NatPower.Name = "Obj_NatPower";
+            this.Obj_NatPower.Visible = true;
+            this.Obj_NatPower.VisibleIndex = 5;
             // 
-            // colTMName
+            // Obj_GrNo
             // 
-            this.colTMName.FieldName = "TMName";
-            this.colTMName.Name = "colTMName";
-            this.colTMName.Visible = true;
-            this.colTMName.VisibleIndex = 7;
+            this.Obj_GrNo.Caption = "Συνδ. Εθν. Σήμα";
+            this.Obj_GrNo.FieldName = "TMGrNo";
+            this.Obj_GrNo.Name = "Obj_GrNo";
+            this.Obj_GrNo.Visible = true;
+            this.Obj_GrNo.VisibleIndex = 6;
             // 
-            // colFileName
+            // Obj_Com
             // 
-            this.colFileName.FieldName = "FileName";
-            this.colFileName.Name = "colFileName";
-            this.colFileName.Visible = true;
-            this.colFileName.VisibleIndex = 8;
+            this.Obj_Com.Caption = "Εταιρία";
+            this.Obj_Com.FieldName = "CompanyName";
+            this.Obj_Com.Name = "Obj_Com";
+            this.Obj_Com.Visible = true;
+            this.Obj_Com.VisibleIndex = 7;
             // 
-            // colFileContents
+            // Obj_Responsible
             // 
-            this.colFileContents.FieldName = "FileContents";
-            this.colFileContents.Name = "colFileContents";
-            this.colFileContents.Visible = true;
-            this.colFileContents.VisibleIndex = 9;
+            this.Obj_Responsible.Caption = "Υπεύθυνος";
+            this.Obj_Responsible.FieldName = "ResponsibleLawyerName";
+            this.Obj_Responsible.Name = "Obj_Responsible";
+            this.Obj_Responsible.Visible = true;
+            this.Obj_Responsible.VisibleIndex = 8;
             // 
-            // colDescription
+            // Obj_IsDeleted
             // 
-            this.colDescription.FieldName = "Description";
-            this.colDescription.Name = "colDescription";
-            this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 10;
-            // 
-            // colFees
-            // 
-            this.colFees.FieldName = "Fees";
-            this.colFees.Name = "colFees";
-            this.colFees.Visible = true;
-            this.colFees.VisibleIndex = 11;
-            // 
-            // colValidTo
-            // 
-            this.colValidTo.FieldName = "ValidTo";
-            this.colValidTo.Name = "colValidTo";
-            this.colValidTo.Visible = true;
-            this.colValidTo.VisibleIndex = 12;
-            // 
-            // colIsDeleted
-            // 
-            this.colIsDeleted.FieldName = "IsDeleted";
-            this.colIsDeleted.Name = "colIsDeleted";
-            this.colIsDeleted.Visible = true;
-            this.colIsDeleted.VisibleIndex = 13;
+            this.Obj_IsDeleted.Caption = "Διαγραμμένο";
+            this.Obj_IsDeleted.FieldName = "IsDeleted";
+            this.Obj_IsDeleted.Name = "Obj_IsDeleted";
+            this.Obj_IsDeleted.Visible = true;
+            this.Obj_IsDeleted.VisibleIndex = 9;
             // 
             // btnCreateNew
             // 
@@ -425,13 +471,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1234, 762);
+            this.ClientSize = new System.Drawing.Size(1184, 562);
             this.Controls.Add(this.gbPrint);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCreateNew);
             this.Controls.Add(this.gridControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1250, 800);
+            this.MinimumSize = new System.Drawing.Size(1200, 600);
             this.Name = "TMSelectorDevEx";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Εμπορικά Σήματα";
@@ -453,20 +499,17 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private System.Windows.Forms.BindingSource trademark_FullBindingSource;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn colId;
-        private DevExpress.XtraGrid.Columns.GridColumn colTMNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colDepositDt;
-        private DevExpress.XtraGrid.Columns.GridColumn colNationalPowerName;
-        private DevExpress.XtraGrid.Columns.GridColumn colTMGrNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colCompanyName;
-        private DevExpress.XtraGrid.Columns.GridColumn colResponsibleLawyerName;
-        private DevExpress.XtraGrid.Columns.GridColumn colTMName;
-        private DevExpress.XtraGrid.Columns.GridColumn colFileName;
-        private DevExpress.XtraGrid.Columns.GridColumn colFileContents;
-        private DevExpress.XtraGrid.Columns.GridColumn colDescription;
-        private DevExpress.XtraGrid.Columns.GridColumn colFees;
-        private DevExpress.XtraGrid.Columns.GridColumn colValidTo;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsDeleted;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Id;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_No;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_DepositDt;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_NatPower;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_GrNo;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Com;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Responsible;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Name;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Pic;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_ValidTo;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_IsDeleted;
         private System.Windows.Forms.ContextMenuStrip cmsOnGrid;
         private System.Windows.Forms.ToolStripMenuItem tsmiViewTM;
         private System.Windows.Forms.ToolStripMenuItem tsmiUpdTM;
@@ -490,5 +533,10 @@
         private System.Windows.Forms.RadioButton rbPrintAll;
         private System.Windows.Forms.RadioButton rbPrintChoosen;
         private System.Windows.Forms.Button btnPrint;
+        private DevExpress.XtraGrid.Columns.GridColumn ObJ_Type_Name;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Class_No;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Class_Headers;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Countries_NameShort;
+        private DevExpress.XtraGrid.Columns.GridColumn Obj_Countries_Name;
     }
 }
