@@ -320,6 +320,7 @@
             this.Obj_IsDeleted});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsView.RowAutoHeight = true;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);

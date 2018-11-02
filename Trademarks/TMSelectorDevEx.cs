@@ -176,7 +176,7 @@ namespace Trademarks
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
 
-                StatusViewer frmStatViewer = new StatusViewer(Id);
+                StatusViewerDevEx frmStatViewer = new StatusViewerDevEx(Id);
                 frmStatViewer.ShowDialog();
 
                 //refresh...deposit updates or deletions
