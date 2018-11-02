@@ -69,6 +69,11 @@
             this.colFees = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colValidTo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnCreateNew = new System.Windows.Forms.Button();
+            this.gbPrint = new System.Windows.Forms.GroupBox();
+            this.rbPrintAll = new System.Windows.Forms.RadioButton();
+            this.rbPrintChoosen = new System.Windows.Forms.RadioButton();
+            this.btnPrint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
@@ -76,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            this.gbPrint.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridView2
@@ -99,10 +105,10 @@
             gridLevelNode2,
             gridLevelNode3,
             gridLevelNode4});
-            this.gridControl1.Location = new System.Drawing.Point(222, 200);
+            this.gridControl1.Location = new System.Drawing.Point(221, 107);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(717, 223);
+            this.gridControl1.Size = new System.Drawing.Size(717, 364);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView3,
@@ -128,7 +134,7 @@
             this.tsmiOpenUrl,
             this.tsmiTmLog});
             this.cmsOnGrid.Name = "cmsOnGrid";
-            this.cmsOnGrid.Size = new System.Drawing.Size(233, 302);
+            this.cmsOnGrid.Size = new System.Drawing.Size(233, 280);
             // 
             // tsmiViewTM
             // 
@@ -149,6 +155,7 @@
             this.tsmiDelTM.Name = "tsmiDelTM";
             this.tsmiDelTM.Size = new System.Drawing.Size(232, 22);
             this.tsmiDelTM.Text = "Διαγραφή Σήματος";
+            this.tsmiDelTM.Click += new System.EventHandler(this.tsmiDelTM_Click);
             // 
             // toolStripSeparator2
             // 
@@ -200,24 +207,28 @@
             this.tsmiStatusViewer.Name = "tsmiStatusViewer";
             this.tsmiStatusViewer.Size = new System.Drawing.Size(232, 22);
             this.tsmiStatusViewer.Text = "Καταστάσεις";
+            this.tsmiStatusViewer.Click += new System.EventHandler(this.tsmiStatusViewer_Click);
             // 
             // tsmiAlertsViewer
             // 
             this.tsmiAlertsViewer.Name = "tsmiAlertsViewer";
             this.tsmiAlertsViewer.Size = new System.Drawing.Size(232, 22);
             this.tsmiAlertsViewer.Text = "Ειδοποιήσεις";
+            this.tsmiAlertsViewer.Click += new System.EventHandler(this.tsmiAlertsViewer_Click);
             // 
             // tsmiOpenUrl
             // 
             this.tsmiOpenUrl.Name = "tsmiOpenUrl";
             this.tsmiOpenUrl.Size = new System.Drawing.Size(232, 22);
             this.tsmiOpenUrl.Text = "Άνοιγμα Υπερσυνδέσμου";
+            this.tsmiOpenUrl.Click += new System.EventHandler(this.tsmiOpenUrl_Click);
             // 
             // tsmiTmLog
             // 
             this.tsmiTmLog.Name = "tsmiTmLog";
             this.tsmiTmLog.Size = new System.Drawing.Size(232, 22);
             this.tsmiTmLog.Text = "Log Μεταβολών";
+            this.tsmiTmLog.Click += new System.EventHandler(this.tsmiTmLog_Click);
             // 
             // trademark_FullBindingSource
             // 
@@ -252,6 +263,7 @@
             this.colIsDeleted});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colId
             // 
@@ -351,11 +363,72 @@
             this.colIsDeleted.Visible = true;
             this.colIsDeleted.VisibleIndex = 13;
             // 
+            // btnCreateNew
+            // 
+            this.btnCreateNew.Image = global::Trademarks.Properties.Resources.Create_32x;
+            this.btnCreateNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateNew.Location = new System.Drawing.Point(12, 12);
+            this.btnCreateNew.Name = "btnCreateNew";
+            this.btnCreateNew.Size = new System.Drawing.Size(100, 45);
+            this.btnCreateNew.TabIndex = 35;
+            this.btnCreateNew.Text = "Νέο Σήμα";
+            this.btnCreateNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCreateNew.UseVisualStyleBackColor = true;
+            this.btnCreateNew.Click += new System.EventHandler(this.btnCreateNew_Click);
+            // 
+            // gbPrint
+            // 
+            this.gbPrint.Controls.Add(this.rbPrintAll);
+            this.gbPrint.Controls.Add(this.rbPrintChoosen);
+            this.gbPrint.Location = new System.Drawing.Point(311, 6);
+            this.gbPrint.Name = "gbPrint";
+            this.gbPrint.Size = new System.Drawing.Size(89, 51);
+            this.gbPrint.TabIndex = 39;
+            this.gbPrint.TabStop = false;
+            // 
+            // rbPrintAll
+            // 
+            this.rbPrintAll.AutoSize = true;
+            this.rbPrintAll.Location = new System.Drawing.Point(6, 29);
+            this.rbPrintAll.Name = "rbPrintAll";
+            this.rbPrintAll.Size = new System.Drawing.Size(46, 17);
+            this.rbPrintAll.TabIndex = 6;
+            this.rbPrintAll.Text = "Όλα";
+            this.rbPrintAll.UseVisualStyleBackColor = true;
+            // 
+            // rbPrintChoosen
+            // 
+            this.rbPrintChoosen.AutoSize = true;
+            this.rbPrintChoosen.Checked = true;
+            this.rbPrintChoosen.Location = new System.Drawing.Point(6, 10);
+            this.rbPrintChoosen.Name = "rbPrintChoosen";
+            this.rbPrintChoosen.Size = new System.Drawing.Size(81, 17);
+            this.rbPrintChoosen.TabIndex = 5;
+            this.rbPrintChoosen.TabStop = true;
+            this.rbPrintChoosen.Text = "Επιλεγμένο";
+            this.rbPrintChoosen.UseVisualStyleBackColor = true;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Image = global::Trademarks.Properties.Resources.SwitchToPreview_32x;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(205, 12);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(100, 45);
+            this.btnPrint.TabIndex = 38;
+            this.btnPrint.Text = "Εκτύπωση";
+            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // TMSelectorDevEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1234, 762);
+            this.Controls.Add(this.gbPrint);
+            this.Controls.Add(this.btnPrint);
+            this.Controls.Add(this.btnCreateNew);
             this.Controls.Add(this.gridControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1250, 800);
@@ -369,6 +442,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            this.gbPrint.ResumeLayout(false);
+            this.gbPrint.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -410,5 +485,10 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
+        private System.Windows.Forms.Button btnCreateNew;
+        private System.Windows.Forms.GroupBox gbPrint;
+        private System.Windows.Forms.RadioButton rbPrintAll;
+        private System.Windows.Forms.RadioButton rbPrintChoosen;
+        private System.Windows.Forms.Button btnPrint;
     }
 }
