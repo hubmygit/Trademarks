@@ -120,10 +120,11 @@
             gridLevelNode1,
             gridLevelNode2,
             gridLevelNode3});
-            this.gridControl1.Location = new System.Drawing.Point(0, 86);
+            this.gridControl1.Location = new System.Drawing.Point(0, 63);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1184, 476);
+            this.gridControl1.ShowOnlyPredefinedDetails = true;
+            this.gridControl1.Size = new System.Drawing.Size(1184, 499);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView3,
@@ -426,7 +427,7 @@
             // 
             this.gbPrint.Controls.Add(this.rbPrintAll);
             this.gbPrint.Controls.Add(this.rbPrintChoosen);
-            this.gbPrint.Location = new System.Drawing.Point(311, 6);
+            this.gbPrint.Location = new System.Drawing.Point(1083, 6);
             this.gbPrint.Name = "gbPrint";
             this.gbPrint.Size = new System.Drawing.Size(89, 51);
             this.gbPrint.TabIndex = 39;
@@ -458,7 +459,7 @@
             // 
             this.btnPrint.Image = global::Trademarks.Properties.Resources.SwitchToPreview_32x;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(205, 12);
+            this.btnPrint.Location = new System.Drawing.Point(977, 12);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(100, 45);
             this.btnPrint.TabIndex = 38;

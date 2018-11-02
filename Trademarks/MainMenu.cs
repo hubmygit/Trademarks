@@ -397,8 +397,11 @@ namespace Trademarks
 
         private void TSBtnShow_Click(object sender, EventArgs e)
         {
-            TMSelector tmsel = new TMSelector();
-            tmsel.ShowDialog();
+            //TMSelector tmsel = new TMSelector();
+            //tmsel.ShowDialog();
+
+            TMSelectorDevEx tmselDevEx = new TMSelectorDevEx();
+            tmselDevEx.ShowDialog();
         }
 
         private void TSBtnAlerts_Click(object sender, EventArgs e)
