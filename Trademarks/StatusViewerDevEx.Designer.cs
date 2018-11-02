@@ -65,10 +65,12 @@
             this.Obj_RenewalProtocol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Obj_Remarks = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Obj_InsDt = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.tMStatusNullableDatesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gbNatPower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tMStatusNullableDatesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gbNatPower
@@ -176,7 +178,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridControl1.ContextMenuStrip = this.cmsOnGrid;
-            this.gridControl1.DataSource = typeof(Trademarks.TM_Status);
+            this.gridControl1.DataSource = this.tMStatusNullableDatesBindingSource;
             this.gridControl1.Location = new System.Drawing.Point(0, 88);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -392,6 +394,10 @@
             this.Obj_InsDt.Visible = true;
             this.Obj_InsDt.VisibleIndex = 14;
             // 
+            // tMStatusNullableDatesBindingSource
+            // 
+            this.tMStatusNullableDatesBindingSource.DataSource = typeof(Trademarks.TM_Status_NullableDates);
+            // 
             // StatusViewerDevEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,6 +420,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             this.cmsOnGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tMStatusNullableDatesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,5 +463,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenFinUrl;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem tsmiFiles;
+        private System.Windows.Forms.BindingSource tMStatusNullableDatesBindingSource;
     }
 }

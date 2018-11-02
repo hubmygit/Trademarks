@@ -1737,7 +1737,7 @@ namespace Trademarks
         public DateTime RenewalDt { get; set; }
         public string RenewalFees { get; set; }
         public string RenewalProtocol { get; set; }
-        public DateTime InsDt { get; set; }
+        public DateTime InsDt { get; set; } 
         public bool IsDeleted { get; set; }
 
         public TM_Status()

@@ -14,7 +14,7 @@ namespace Trademarks
     {
         public StatusViewerDevEx()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         public StatusViewerDevEx(int TmId)
@@ -22,7 +22,8 @@ namespace Trademarks
             InitializeComponent();
 
             tmStatusList = SelectTmStatusRecs(TmId);
-            gridControl1.DataSource = tmStatusList;
+            tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+            gridControl1.DataSource = tmStatusListNullableDates;
 
             Trademark tm = new Trademark(TmId);
             txtTMId.Text = tm.TMNo;
@@ -42,6 +43,19 @@ namespace Trademarks
         }
 
         public BindingList<TM_Status> tmStatusList = new BindingList<TM_Status>();
+        public BindingList<TM_Status_NullableDates> tmStatusListNullableDates = new BindingList<TM_Status_NullableDates>();
+
+        public BindingList<TM_Status_NullableDates> TM_StatusListToTM_StatusNullableDatesList(BindingList<TM_Status> givenList)
+        {
+            BindingList<TM_Status_NullableDates> ret = new BindingList<TM_Status_NullableDates>();
+
+            foreach (TM_Status tms in givenList)
+            {
+                ret.Add(new TM_Status_NullableDates(tms));
+            }
+
+            return ret;
+        }
 
         public static BindingList<TM_Status> SelectTmStatusRecs(int tm_Id)
         {
@@ -124,7 +138,7 @@ namespace Trademarks
             // Update
             if (gridView1.SelectedRowsCount > 0)
             {
-                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());                
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
                 //if (tms.StatusId != 2 && tms.StatusId != 3 && tms.StatusId != 4)
@@ -168,7 +182,8 @@ namespace Trademarks
                 {
                     //refresh
                     tmStatusList = SelectTmStatusRecs(tms.TmId);
-                    gridControl1.DataSource = tmStatusList;
+                    tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                    gridControl1.DataSource = tmStatusListNullableDates;
                 }
 
             }
@@ -217,7 +232,8 @@ namespace Trademarks
                 {
                     //refresh
                     tmStatusList = SelectTmStatusRecs(tms.TmId);
-                    gridControl1.DataSource = tmStatusList;
+                    tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                    gridControl1.DataSource = tmStatusListNullableDates;
                 }
 
             }
@@ -266,7 +282,8 @@ namespace Trademarks
                 {
                     //refresh
                     tmStatusList = SelectTmStatusRecs(tms.TmId);
-                    gridControl1.DataSource = tmStatusList;
+                    tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                    gridControl1.DataSource = tmStatusListNullableDates;
                 }
 
             }
@@ -309,7 +326,8 @@ namespace Trademarks
                 {
                     //refresh
                     tmStatusList = SelectTmStatusRecs(tms.TmId);
-                    gridControl1.DataSource = tmStatusList;
+                    tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                    gridControl1.DataSource = tmStatusListNullableDates;
                 }
 
             }
@@ -359,7 +377,8 @@ namespace Trademarks
                 {
                     //refresh
                     tmStatusList = SelectTmStatusRecs(tms.TmId);
-                    gridControl1.DataSource = tmStatusList;
+                    tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                    gridControl1.DataSource = tmStatusListNullableDates;
                 }
 
             }
@@ -448,7 +467,8 @@ namespace Trademarks
 
                         //refresh
                         tmStatusList = SelectTmStatusRecs(tms.TmId);
-                        gridControl1.DataSource = tmStatusList;
+                        tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                        gridControl1.DataSource = tmStatusListNullableDates;
                     }
 
                 }
@@ -520,7 +540,8 @@ namespace Trademarks
 
                         //refresh
                         tmStatusList = SelectTmStatusRecs(tms.TmId);
-                        gridControl1.DataSource = tmStatusList;
+                        tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                        gridControl1.DataSource = tmStatusListNullableDates;
                     }
 
 
@@ -582,7 +603,8 @@ namespace Trademarks
 
                         //refresh
                         tmStatusList = SelectTmStatusRecs(tms.TmId);
-                        gridControl1.DataSource = tmStatusList;
+                        tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                        gridControl1.DataSource = tmStatusListNullableDates;
                     }
 
                 }
@@ -647,7 +669,8 @@ namespace Trademarks
 
                         //refresh
                         tmStatusList = SelectTmStatusRecs(tms.TmId);
-                        gridControl1.DataSource = tmStatusList;
+                        tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                        gridControl1.DataSource = tmStatusListNullableDates;
 
                     }
 
@@ -707,7 +730,8 @@ namespace Trademarks
 
                         //refresh
                         tmStatusList = SelectTmStatusRecs(tms.TmId);
-                        gridControl1.DataSource = tmStatusList;
+                        tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                        gridControl1.DataSource = tmStatusListNullableDates;
 
                     }
 
@@ -720,7 +744,7 @@ namespace Trademarks
         private void btnOpenLink_Click(object sender, EventArgs e)
         {
             if (gridView1.SelectedRowsCount > 0)
-            {                
+            {
                 string url = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["FinalizedUrl"]).ToString();
 
                 if (url.Trim() != "")
@@ -769,7 +793,8 @@ namespace Trademarks
                 {
                     //refresh
                     tmStatusList = SelectTmStatusRecs(tms.TmId);
-                    gridControl1.DataSource = tmStatusList;
+                    tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                    gridControl1.DataSource = tmStatusListNullableDates;
                 }
             }
         }
@@ -834,7 +859,8 @@ namespace Trademarks
 
                         //refresh
                         tmStatusList = SelectTmStatusRecs(tms.TmId);
-                        gridControl1.DataSource = tmStatusList;
+                        tmStatusListNullableDates = TM_StatusListToTM_StatusNullableDatesList(tmStatusList);
+                        gridControl1.DataSource = tmStatusListNullableDates;
                     }
 
                 }
@@ -955,4 +981,72 @@ namespace Trademarks
             }
         }
     }
+
+    public class TM_Status_NullableDates
+    {
+        public int Id { get; set; }
+        public int TmId { get; set; }
+        public int StatusId { get; set; }
+        public Status status { get; set; }
+        public DateTime? DepositDt { get; set; }
+        public string Remarks { get; set; }
+        public string DecisionNo { get; set; }
+        public DateTime? DecisionPublDt { get; set; }
+        public int DecisionRefId { get; set; }
+        public DateTime? AppealDt { get; set; } //already nullable
+        public string TermCompany { get; set; }
+        public DateTime? TermDt { get; set; } //already nullable
+        public DateTime? FinalizedDt { get; set; }
+        public string FinalizedUrl { get; set; }
+        public DateTime? RenewalApplicationDt { get; set; }
+        public DateTime? RenewalDt { get; set; }
+        public string RenewalFees { get; set; }
+        public string RenewalProtocol { get; set; }
+        public DateTime? InsDt { get; set; }
+        public bool IsDeleted { get; set; }
+
+        public TM_Status_NullableDates(TM_Status tm)
+        {
+            this.Id = tm.Id;
+            this.TmId = tm.TmId;
+            this.StatusId = tm.StatusId;
+            this.status = tm.status;
+            if (tm.DepositDt > new DateTime(1800, 1, 1))
+            {
+                this.DepositDt = tm.DepositDt;
+            }
+            this.Remarks = tm.Remarks;
+            this.DecisionNo = tm.DecisionNo;
+            if (tm.DecisionPublDt > new DateTime(1800, 1, 1))
+            {
+                this.DecisionPublDt = tm.DecisionPublDt; //
+            }
+            this.DecisionRefId = tm.DecisionRefId;
+            this.AppealDt = tm.AppealDt;
+            this.TermCompany = tm.TermCompany;
+            this.TermDt = tm.TermDt;
+            if (tm.FinalizedDt > new DateTime(1800, 1, 1))
+            {
+                this.FinalizedDt = tm.FinalizedDt; //
+            }
+            this.FinalizedUrl = tm.FinalizedUrl;
+            if (tm.RenewalApplicationDt > new DateTime(1800, 1, 1))
+            {
+                this.RenewalApplicationDt = tm.RenewalApplicationDt; //
+            }
+            if (tm.RenewalDt > new DateTime(1800, 1, 1))
+            {
+                this.RenewalDt = tm.RenewalDt; //
+            }
+            this.RenewalFees = tm.RenewalFees;
+            this.RenewalProtocol = tm.RenewalProtocol;
+            if (tm.InsDt > new DateTime(1800, 1, 1))
+            {
+                this.InsDt = tm.InsDt; //
+            }
+            this.IsDeleted = tm.IsDeleted;
+        }
+
+    }
+
 }

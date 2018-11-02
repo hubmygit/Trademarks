@@ -343,6 +343,7 @@
     <None Include="Properties\DataSources\Responsible.datasource" />
     <None Include="Properties\DataSources\Status.datasource" />
     <None Include="Properties\DataSources\TM_Status.datasource" />
+    <None Include="Properties\DataSources\TM_Status_NullableDates.datasource" />
     <None Include="Properties\DataSources\Trademark.datasource" />
     <None Include="Properties\DataSources\Trademark_Full.datasource" />
     <None Include="Properties\DataSources\Type.datasource" />
