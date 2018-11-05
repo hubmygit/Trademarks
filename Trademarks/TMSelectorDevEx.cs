@@ -194,9 +194,10 @@ namespace Trademarks
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
 
-                TMAlertsViewer frmAlertViewer = new TMAlertsViewer(Id);
-                frmAlertViewer.ShowDialog();
+                //TMAlertsViewer frmAlertViewer = new TMAlertsViewer(Id);
 
+                TMAlertsViewerDevEx frmAlertViewer = new TMAlertsViewerDevEx(Id);
+                frmAlertViewer.ShowDialog();
             }
         }
 

@@ -165,12 +165,22 @@ namespace Trademarks
                 string TMNo = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TMNo"]).ToString();
                 string TMName = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TMName"]).ToString();
 
-                TMAlertsViewer frmAlertsView = new TMAlertsViewer();
+                //TMAlertsViewer frmAlertsView = new TMAlertsViewer();
+                TMAlertsViewerDevEx frmAlertsView = new TMAlertsViewerDevEx();
 
-                frmAlertsView.txtTMId.Text = TMNo;
-                frmAlertsView.txtTMName.Text = TMName;
+                //frmAlertsView.txtTMId.Text = TMNo;
+                //frmAlertsView.txtTMName.Text = TMName;
 
-                frmAlertsView.applyFilters();
+                //Φίλτρα στο Grid!
+
+                if (frmAlertsView.gridView1.ActiveFilterString is null || frmAlertsView.gridView1.ActiveFilterString.Trim() == "")
+                {
+                    frmAlertsView.gridView1.ActiveFilterString += " [TMNo] = '" + TMNo + "' AND [TMName] = '" + TMNo + "' ";
+                }
+                else
+                {
+                    frmAlertsView.gridView1.ActiveFilterString += " AND [TMNo] = '" + TMNo + "' AND [TMName] = '" + TMNo + "' ";
+                }
 
                 frmAlertsView.ShowDialog();
             }

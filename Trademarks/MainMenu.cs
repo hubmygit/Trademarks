@@ -174,7 +174,9 @@ namespace Trademarks
             //AlertsView frmAlertsView = new AlertsView();
             //frmAlertsView.ShowDialog();
 
-            TMAlertsViewer frmAlertsView = new TMAlertsViewer();
+            //TMAlertsViewer frmAlertsView = new TMAlertsViewer();
+
+            TMAlertsViewerDevEx frmAlertsView = new TMAlertsViewerDevEx();
             frmAlertsView.ShowDialog();
         }
 
