@@ -53,6 +53,7 @@
             this.colNationalPower = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCompany = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colResponsibleLawyer = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnExcelExport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.alertsDGVBindingSource)).BeginInit();
@@ -66,10 +67,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridControl1.ContextMenuStrip = this.cmsOnGrid;
             this.gridControl1.DataSource = this.alertsDGVBindingSource;
-            this.gridControl1.Location = new System.Drawing.Point(0, 76);
+            this.gridControl1.Location = new System.Drawing.Point(0, 63);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1184, 486);
+            this.gridControl1.Size = new System.Drawing.Size(1184, 499);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -256,11 +257,25 @@
             this.colResponsibleLawyer.Visible = true;
             this.colResponsibleLawyer.VisibleIndex = 14;
             // 
+            // btnExcelExport
+            // 
+            this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
+            this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExcelExport.Location = new System.Drawing.Point(1072, 12);
+            this.btnExcelExport.Name = "btnExcelExport";
+            this.btnExcelExport.Size = new System.Drawing.Size(100, 45);
+            this.btnExcelExport.TabIndex = 41;
+            this.btnExcelExport.Text = "Export (xls)";
+            this.btnExcelExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExcelExport.UseVisualStyleBackColor = true;
+            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
+            // 
             // TMAlertsViewerDevEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 562);
+            this.Controls.Add(this.btnExcelExport);
             this.Controls.Add(this.gridControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1200, 600);
@@ -299,5 +314,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiRecipients;
         public DevExpress.XtraGrid.GridControl gridControl1;
         public DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private System.Windows.Forms.Button btnExcelExport;
     }
 }

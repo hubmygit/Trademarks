@@ -267,5 +267,16 @@ namespace Trademarks
                 frmRecipients.ShowDialog();
             }
         }
+
+        private void btnExcelExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel files (*.xls)|*.xls";
+            DialogResult result = sfd.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                gridControl1.ExportToXls(sfd.FileName);
+            }
+        }
     }
 }

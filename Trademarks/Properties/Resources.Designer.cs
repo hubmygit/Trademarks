@@ -93,6 +93,16 @@ namespace Trademarks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ExportToExcel_32x {
+            get {
+                object obj = ResourceManager.GetObject("ExportToExcel_32x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap find_40x {
             get {
                 object obj = ResourceManager.GetObject("find_40x", resourceCulture);

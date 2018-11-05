@@ -75,6 +75,7 @@
             this.rbPrintAll = new System.Windows.Forms.RadioButton();
             this.rbPrintChoosen = new System.Windows.Forms.RadioButton();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.btnExcelExport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
@@ -469,11 +470,25 @@
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // btnExcelExport
+            // 
+            this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
+            this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExcelExport.Location = new System.Drawing.Point(871, 12);
+            this.btnExcelExport.Name = "btnExcelExport";
+            this.btnExcelExport.Size = new System.Drawing.Size(100, 45);
+            this.btnExcelExport.TabIndex = 40;
+            this.btnExcelExport.Text = "Export (xls)";
+            this.btnExcelExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExcelExport.UseVisualStyleBackColor = true;
+            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
+            // 
             // TMSelectorDevEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 562);
+            this.Controls.Add(this.btnExcelExport);
             this.Controls.Add(this.gbPrint);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCreateNew);
@@ -540,5 +555,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn Obj_Class_Headers;
         private DevExpress.XtraGrid.Columns.GridColumn Obj_Countries_NameShort;
         private DevExpress.XtraGrid.Columns.GridColumn Obj_Countries_Name;
+        private System.Windows.Forms.Button btnExcelExport;
     }
 }

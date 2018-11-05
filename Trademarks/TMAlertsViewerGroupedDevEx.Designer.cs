@@ -35,16 +35,17 @@
             this.tsmiRecipients = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAnalyticalView = new System.Windows.Forms.ToolStripMenuItem();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.alertsDGVBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsActive = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colExpDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colExpCountdownDays = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotificationDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAlertCountdownDays = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAlertDescr = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotificationSent = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colEventType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAlertCountdownDays = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colExpCountdownDays = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTrademarksId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTMNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTMName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -53,11 +54,11 @@
             this.colNationalPower = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCompany = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colResponsibleLawyer = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAlertDescr = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnExcelExport = new System.Windows.Forms.Button();
             this.cmsOnGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertsDGVBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmsOnGrid
@@ -97,13 +98,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridControl1.ContextMenuStrip = this.cmsOnGrid;
             this.gridControl1.DataSource = this.alertsDGVBindingSource;
-            this.gridControl1.Location = new System.Drawing.Point(0, 75);
+            this.gridControl1.Location = new System.Drawing.Point(0, 63);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1184, 527);
+            this.gridControl1.Size = new System.Drawing.Size(1184, 539);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            // 
+            // alertsDGVBindingSource
+            // 
+            this.alertsDGVBindingSource.DataSource = typeof(Trademarks.AlertsDGV);
             // 
             // gridView1
             // 
@@ -130,10 +135,6 @@
             this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.ReadOnly = true;
             // 
-            // alertsDGVBindingSource
-            // 
-            this.alertsDGVBindingSource.DataSource = typeof(Trademarks.AlertsDGV);
-            // 
             // colId
             // 
             this.colId.Caption = "Id";
@@ -156,6 +157,15 @@
             this.colExpDate.Visible = true;
             this.colExpDate.VisibleIndex = 1;
             // 
+            // colExpCountdownDays
+            // 
+            this.colExpCountdownDays.Caption = "Λήξη (Ημέρες)";
+            this.colExpCountdownDays.FieldName = "ExpCountdownDays";
+            this.colExpCountdownDays.FieldNameSortGroup = "Λήξη (Ημέρες)";
+            this.colExpCountdownDays.Name = "colExpCountdownDays";
+            this.colExpCountdownDays.Visible = true;
+            this.colExpCountdownDays.VisibleIndex = 2;
+            // 
             // colNotificationDate
             // 
             this.colNotificationDate.Caption = "Ημ/νία Ειδοποίησης";
@@ -164,6 +174,23 @@
             this.colNotificationDate.Name = "colNotificationDate";
             this.colNotificationDate.Visible = true;
             this.colNotificationDate.VisibleIndex = 3;
+            // 
+            // colAlertCountdownDays
+            // 
+            this.colAlertCountdownDays.Caption = "Ειδοπ. (Ημέρες)";
+            this.colAlertCountdownDays.FieldName = "AlertCountdownDays";
+            this.colAlertCountdownDays.FieldNameSortGroup = "Ειδοπ. (Ημέρες)";
+            this.colAlertCountdownDays.Name = "colAlertCountdownDays";
+            this.colAlertCountdownDays.Visible = true;
+            this.colAlertCountdownDays.VisibleIndex = 4;
+            // 
+            // colAlertDescr
+            // 
+            this.colAlertDescr.Caption = "Περίοδος Ειδοπ.";
+            this.colAlertDescr.FieldName = "AlertDescr";
+            this.colAlertDescr.Name = "colAlertDescr";
+            this.colAlertDescr.Visible = true;
+            this.colAlertDescr.VisibleIndex = 5;
             // 
             // colNotificationSent
             // 
@@ -178,24 +205,6 @@
             this.colEventType.Name = "colEventType";
             this.colEventType.Visible = true;
             this.colEventType.VisibleIndex = 6;
-            // 
-            // colAlertCountdownDays
-            // 
-            this.colAlertCountdownDays.Caption = "Ειδοπ. (Ημέρες)";
-            this.colAlertCountdownDays.FieldName = "AlertCountdownDays";
-            this.colAlertCountdownDays.FieldNameSortGroup = "Ειδοπ. (Ημέρες)";
-            this.colAlertCountdownDays.Name = "colAlertCountdownDays";
-            this.colAlertCountdownDays.Visible = true;
-            this.colAlertCountdownDays.VisibleIndex = 4;
-            // 
-            // colExpCountdownDays
-            // 
-            this.colExpCountdownDays.Caption = "Λήξη (Ημέρες)";
-            this.colExpCountdownDays.FieldName = "ExpCountdownDays";
-            this.colExpCountdownDays.FieldNameSortGroup = "Λήξη (Ημέρες)";
-            this.colExpCountdownDays.Name = "colExpCountdownDays";
-            this.colExpCountdownDays.Visible = true;
-            this.colExpCountdownDays.VisibleIndex = 2;
             // 
             // colTrademarksId
             // 
@@ -258,19 +267,25 @@
             this.colResponsibleLawyer.Visible = true;
             this.colResponsibleLawyer.VisibleIndex = 13;
             // 
-            // colAlertDescr
+            // btnExcelExport
             // 
-            this.colAlertDescr.Caption = "Περίοδος Ειδοπ.";
-            this.colAlertDescr.FieldName = "AlertDescr";
-            this.colAlertDescr.Name = "colAlertDescr";
-            this.colAlertDescr.Visible = true;
-            this.colAlertDescr.VisibleIndex = 5;
+            this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
+            this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExcelExport.Location = new System.Drawing.Point(1072, 12);
+            this.btnExcelExport.Name = "btnExcelExport";
+            this.btnExcelExport.Size = new System.Drawing.Size(100, 45);
+            this.btnExcelExport.TabIndex = 41;
+            this.btnExcelExport.Text = "Export (xls)";
+            this.btnExcelExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExcelExport.UseVisualStyleBackColor = true;
+            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
             // 
             // TMAlertsViewerGroupedDevEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 602);
+            this.Controls.Add(this.btnExcelExport);
             this.Controls.Add(this.gridControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1200, 640);
@@ -279,8 +294,8 @@
             this.Text = "Ειδοποιήσεις (Συγκεντρωτικά)";
             this.cmsOnGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertsDGVBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -311,5 +326,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCompany;
         private DevExpress.XtraGrid.Columns.GridColumn colResponsibleLawyer;
         private DevExpress.XtraGrid.Columns.GridColumn colAlertDescr;
+        private System.Windows.Forms.Button btnExcelExport;
     }
 }

@@ -380,6 +380,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parameter.ico" />
+    <None Include="Resources\ExportToExcel_32x.png" />
     <None Include="Resources\SwitchToPreview_32x.png" />
     <None Include="Resources\OpenAttachment_16x.png" />
     <None Include="Resources\DeleteAttachment_16x.png" />

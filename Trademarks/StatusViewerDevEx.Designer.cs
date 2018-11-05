@@ -47,6 +47,7 @@
             this.tsmiOpenFinUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.tMStatusNullableDatesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.Obj_Id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Obj_TmId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -65,12 +66,12 @@
             this.Obj_RenewalProtocol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Obj_Remarks = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Obj_InsDt = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.tMStatusNullableDatesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnExcelExport = new System.Windows.Forms.Button();
             this.gbNatPower.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             this.cmsOnGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tMStatusNullableDatesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // gbNatPower
@@ -163,9 +164,9 @@
             this.btnOpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
             this.btnOpenLink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOpenLink.Location = new System.Drawing.Point(1072, 24);
+            this.btnOpenLink.Location = new System.Drawing.Point(1072, 21);
             this.btnOpenLink.Name = "btnOpenLink";
-            this.btnOpenLink.Size = new System.Drawing.Size(100, 40);
+            this.btnOpenLink.Size = new System.Drawing.Size(100, 45);
             this.btnOpenLink.TabIndex = 20;
             this.btnOpenLink.Text = "Άνοιγμα Url";
             this.btnOpenLink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -236,6 +237,10 @@
             this.tsmiFiles.Size = new System.Drawing.Size(208, 22);
             this.tsmiFiles.Text = "Αρχεία";
             this.tsmiFiles.Click += new System.EventHandler(this.tsmiFiles_Click);
+            // 
+            // tMStatusNullableDatesBindingSource
+            // 
+            this.tMStatusNullableDatesBindingSource.DataSource = typeof(Trademarks.TM_Status_NullableDates);
             // 
             // gridView1
             // 
@@ -394,15 +399,25 @@
             this.Obj_InsDt.Visible = true;
             this.Obj_InsDt.VisibleIndex = 14;
             // 
-            // tMStatusNullableDatesBindingSource
+            // btnExcelExport
             // 
-            this.tMStatusNullableDatesBindingSource.DataSource = typeof(Trademarks.TM_Status_NullableDates);
+            this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
+            this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExcelExport.Location = new System.Drawing.Point(966, 21);
+            this.btnExcelExport.Name = "btnExcelExport";
+            this.btnExcelExport.Size = new System.Drawing.Size(100, 45);
+            this.btnExcelExport.TabIndex = 41;
+            this.btnExcelExport.Text = "Export (xls)";
+            this.btnExcelExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExcelExport.UseVisualStyleBackColor = true;
+            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
             // 
             // StatusViewerDevEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 562);
+            this.Controls.Add(this.btnExcelExport);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.gbNatPower);
             this.Controls.Add(this.lblTMName);
@@ -419,8 +434,8 @@
             this.gbNatPower.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             this.cmsOnGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tMStatusNullableDatesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -464,5 +479,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem tsmiFiles;
         private System.Windows.Forms.BindingSource tMStatusNullableDatesBindingSource;
+        private System.Windows.Forms.Button btnExcelExport;
     }
 }
