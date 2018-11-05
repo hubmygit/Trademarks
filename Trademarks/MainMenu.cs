@@ -189,7 +189,10 @@ namespace Trademarks
             //AlertsViewGrouped frmAlertsViewGrouped = new AlertsViewGrouped();
             //frmAlertsViewGrouped.ShowDialog();
 
-            TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
+            //TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
+            //frmAlertsViewGrouped.ShowDialog();
+
+            TMAlertsViewerGroupedDevEx frmAlertsViewGrouped = new TMAlertsViewerGroupedDevEx();
             frmAlertsViewGrouped.ShowDialog();
         }
 
@@ -406,7 +409,10 @@ namespace Trademarks
 
         private void TSBtnAlerts_Click(object sender, EventArgs e)
         {
-            TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
+            //TMAlertsViewerGrouped frmAlertsViewGrouped = new TMAlertsViewerGrouped();
+            //frmAlertsViewGrouped.ShowDialog();
+
+            TMAlertsViewerGroupedDevEx frmAlertsViewGrouped = new TMAlertsViewerGroupedDevEx();
             frmAlertsViewGrouped.ShowDialog();
         }
 

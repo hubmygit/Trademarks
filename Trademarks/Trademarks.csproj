@@ -221,6 +221,12 @@
     <Compile Include="TMAlertsViewerGrouped.Designer.cs">
       <DependentUpon>TMAlertsViewerGrouped.cs</DependentUpon>
     </Compile>
+    <Compile Include="TMAlertsViewerGroupedDevEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TMAlertsViewerGroupedDevEx.Designer.cs">
+      <DependentUpon>TMAlertsViewerGroupedDevEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="TMSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TMAlertsViewerGrouped.resx">
       <DependentUpon>TMAlertsViewerGrouped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TMAlertsViewerGroupedDevEx.resx">
+      <DependentUpon>TMAlertsViewerGroupedDevEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TMSelector.resx">
       <DependentUpon>TMSelector.cs</DependentUpon>
