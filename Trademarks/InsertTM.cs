@@ -959,7 +959,8 @@ namespace Trademarks
 
         private void btnTmGrNoSelector_Click(object sender, EventArgs e)
         {
-            NatTmSelector frmNatTmSel = new NatTmSelector();
+            //NatTmSelector frmNatTmSel = new NatTmSelector();
+            NatTmSelectorDevEx frmNatTmSel = new NatTmSelectorDevEx();
             frmNatTmSel.ShowDialog();
 
             if (frmNatTmSel.succeed)

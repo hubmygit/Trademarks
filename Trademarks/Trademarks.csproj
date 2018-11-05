@@ -153,6 +153,12 @@
     <Compile Include="NatTmSelector.Designer.cs">
       <DependentUpon>NatTmSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="NatTmSelectorDevEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NatTmSelectorDevEx.Designer.cs">
+      <DependentUpon>NatTmSelectorDevEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickInsert.cs">
@@ -292,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NatTmSelector.resx">
       <DependentUpon>NatTmSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NatTmSelectorDevEx.resx">
+      <DependentUpon>NatTmSelectorDevEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
