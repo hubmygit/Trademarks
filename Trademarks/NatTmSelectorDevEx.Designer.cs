@@ -35,13 +35,13 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTMNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDepositDt = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNationalPowerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCompanyName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colResponsibleLawyerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTMName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFileContents = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTMName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDepositDt = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colValidTo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCompanyName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNationalPowerName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colResponsibleLawyerName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trademarkBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -53,10 +53,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridControl1.DataSource = this.trademarkBindingSource;
-            this.gridControl1.Location = new System.Drawing.Point(0, 88);
+            this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(884, 374);
+            this.gridControl1.Size = new System.Drawing.Size(884, 462);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -81,6 +81,7 @@
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.ReadOnly = true;
+            this.gridView1.OptionsView.RowAutoHeight = true;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colId
@@ -97,31 +98,13 @@
             this.colTMNo.Visible = true;
             this.colTMNo.VisibleIndex = 0;
             // 
-            // colDepositDt
+            // colFileContents
             // 
-            this.colDepositDt.Caption = "Κατάθεση";
-            this.colDepositDt.FieldName = "DepositDt";
-            this.colDepositDt.Name = "colDepositDt";
-            this.colDepositDt.Visible = true;
-            this.colDepositDt.VisibleIndex = 3;
-            // 
-            // colNationalPowerName
-            // 
-            this.colNationalPowerName.FieldName = "NationalPowerName";
-            this.colNationalPowerName.Name = "colNationalPowerName";
-            // 
-            // colCompanyName
-            // 
-            this.colCompanyName.Caption = "Εταιρία";
-            this.colCompanyName.FieldName = "CompanyName";
-            this.colCompanyName.Name = "colCompanyName";
-            this.colCompanyName.Visible = true;
-            this.colCompanyName.VisibleIndex = 5;
-            // 
-            // colResponsibleLawyerName
-            // 
-            this.colResponsibleLawyerName.FieldName = "ResponsibleLawyerName";
-            this.colResponsibleLawyerName.Name = "colResponsibleLawyerName";
+            this.colFileContents.Caption = "Αρχείο";
+            this.colFileContents.FieldName = "FileContents";
+            this.colFileContents.Name = "colFileContents";
+            this.colFileContents.Visible = true;
+            this.colFileContents.VisibleIndex = 1;
             // 
             // colTMName
             // 
@@ -131,13 +114,13 @@
             this.colTMName.Visible = true;
             this.colTMName.VisibleIndex = 2;
             // 
-            // colFileContents
+            // colDepositDt
             // 
-            this.colFileContents.Caption = "Αρχείο";
-            this.colFileContents.FieldName = "FileContents";
-            this.colFileContents.Name = "colFileContents";
-            this.colFileContents.Visible = true;
-            this.colFileContents.VisibleIndex = 1;
+            this.colDepositDt.Caption = "Κατάθεση";
+            this.colDepositDt.FieldName = "DepositDt";
+            this.colDepositDt.Name = "colDepositDt";
+            this.colDepositDt.Visible = true;
+            this.colDepositDt.VisibleIndex = 3;
             // 
             // colValidTo
             // 
@@ -146,6 +129,24 @@
             this.colValidTo.Name = "colValidTo";
             this.colValidTo.Visible = true;
             this.colValidTo.VisibleIndex = 4;
+            // 
+            // colCompanyName
+            // 
+            this.colCompanyName.Caption = "Εταιρία";
+            this.colCompanyName.FieldName = "CompanyName";
+            this.colCompanyName.Name = "colCompanyName";
+            this.colCompanyName.Visible = true;
+            this.colCompanyName.VisibleIndex = 5;
+            // 
+            // colNationalPowerName
+            // 
+            this.colNationalPowerName.FieldName = "NationalPowerName";
+            this.colNationalPowerName.Name = "colNationalPowerName";
+            // 
+            // colResponsibleLawyerName
+            // 
+            this.colResponsibleLawyerName.FieldName = "ResponsibleLawyerName";
+            this.colResponsibleLawyerName.Name = "colResponsibleLawyerName";
             // 
             // NatTmSelectorDevEx
             // 
@@ -157,7 +158,7 @@
             this.MinimumSize = new System.Drawing.Size(900, 500);
             this.Name = "NatTmSelectorDevEx";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Trademark Selector";
+            this.Text = "Επιλογή Σήματος";
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trademarkBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

@@ -427,6 +427,7 @@
             // 
             // gbPrint
             // 
+            this.gbPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbPrint.Controls.Add(this.rbPrintAll);
             this.gbPrint.Controls.Add(this.rbPrintChoosen);
             this.gbPrint.Location = new System.Drawing.Point(1083, 6);
@@ -459,6 +460,7 @@
             // 
             // btnPrint
             // 
+            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrint.Image = global::Trademarks.Properties.Resources.SwitchToPreview_32x;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPrint.Location = new System.Drawing.Point(977, 12);
@@ -472,6 +474,7 @@
             // 
             // btnExcelExport
             // 
+            this.btnExcelExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
             this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExcelExport.Location = new System.Drawing.Point(871, 12);

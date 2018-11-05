@@ -257,6 +257,12 @@
     <Compile Include="TmUpdLog.Designer.cs">
       <DependentUpon>TmUpdLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="TMUpdLogDevEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TMUpdLogDevEx.Designer.cs">
+      <DependentUpon>TMUpdLogDevEx.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Alarms.resx">
       <DependentUpon>Alarms.cs</DependentUpon>
     </EmbeddedResource>
@@ -361,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TmUpdLog.resx">
       <DependentUpon>TmUpdLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TMUpdLogDevEx.resx">
+      <DependentUpon>TMUpdLogDevEx.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\DataSources\Class.datasource" />

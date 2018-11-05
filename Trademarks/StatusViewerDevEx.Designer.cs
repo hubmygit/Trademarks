@@ -161,6 +161,7 @@
             // 
             // btnOpenLink
             // 
+            this.btnOpenLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnOpenLink.Image = global::Trademarks.Properties.Resources.OpenLink_16x;
             this.btnOpenLink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -401,6 +402,7 @@
             // 
             // btnExcelExport
             // 
+            this.btnExcelExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
             this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExcelExport.Location = new System.Drawing.Point(966, 21);

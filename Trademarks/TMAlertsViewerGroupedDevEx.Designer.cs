@@ -269,6 +269,7 @@
             // 
             // btnExcelExport
             // 
+            this.btnExcelExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
             this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExcelExport.Location = new System.Drawing.Point(1072, 12);

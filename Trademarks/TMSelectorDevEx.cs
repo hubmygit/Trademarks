@@ -395,7 +395,8 @@ namespace Trademarks
                     return;
                 }
 
-                TmUpdLog frmViewLog = new TmUpdLog(tm.Id);
+                //TmUpdLog frmViewLog = new TmUpdLog(tm.Id);
+                TMUpdLogDevEx frmViewLog = new TMUpdLogDevEx(tm.Id);
                 frmViewLog.ShowDialog();
             }
         }

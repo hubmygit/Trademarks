@@ -259,6 +259,7 @@
             // 
             // btnExcelExport
             // 
+            this.btnExcelExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcelExport.Image = global::Trademarks.Properties.Resources.ExportToExcel_32x;
             this.btnExcelExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExcelExport.Location = new System.Drawing.Point(1072, 12);
@@ -281,7 +282,7 @@
             this.MinimumSize = new System.Drawing.Size(1200, 600);
             this.Name = "TMAlertsViewerDevEx";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "TMAlertsViewerDevEx";
+            this.Text = "Ειδοποιήσεις (Αναλυτικά)";
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             this.cmsOnGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.alertsDGVBindingSource)).EndInit();
