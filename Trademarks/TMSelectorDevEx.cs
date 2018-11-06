@@ -149,6 +149,8 @@ namespace Trademarks
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
 
+                new MainMenu().GoForFinalization(thisTmpRec);
+
                 tempRecList = SelectTempRecs_Trademark(); //List
                 tempRecList_Full = SelectTempRecs(tempRecList); //BindingList
                 gridControl1.DataSource = tempRecList_Full; //DataSource
