@@ -15,8 +15,15 @@ namespace Trademarks
         public NatTmSelectorDevEx()
         {
             InitializeComponent();
+        }
 
-            tempRecList = SelectTempRecs();
+        public NatTmSelectorDevEx(string NatPow) 
+        {
+            InitializeComponent();
+
+            //("1");//Εθνικό Μόνο
+            //("1, 2");//Εθνικό και Κοινοτικό
+            tempRecList = SelectTempRecs(NatPow); 
             gridControl1.DataSource = Tm_To_TmFull(tempRecList);
         }
 
@@ -39,7 +46,7 @@ namespace Trademarks
             return ret;
         }
 
-        public BindingList<Trademark> SelectTempRecs()
+        public BindingList<Trademark> SelectTempRecs(string np)
         {
             BindingList<Trademark> ret = new BindingList<Trademark>();
 
@@ -48,7 +55,7 @@ namespace Trademarks
                               "[NationalPowerId], [TMGrNo], [CompanyId], [ResponsibleLawyerId], [FileContents], " +
                               "[FileName], [Description], [Fees], [ValidTo] " +
                               "FROM [dbo].[Trademarks] " +
-                              "WHERE NationalPowerId = 1 AND isnull(IsDeleted, 'False') = 'False' " +
+                              "WHERE NationalPowerId in (" + np + ") AND isnull(IsDeleted, 'False') = 'False' " +
                               "ORDER BY TMNo "; //??
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try

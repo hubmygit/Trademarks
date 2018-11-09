@@ -382,7 +382,7 @@
             // 
             // Obj_GrNo
             // 
-            this.Obj_GrNo.Caption = "Συνδ. Εθν. Σήμα";
+            this.Obj_GrNo.Caption = "Συνδ. Σήμα";
             this.Obj_GrNo.FieldName = "TMGrNo";
             this.Obj_GrNo.Name = "Obj_GrNo";
             this.Obj_GrNo.Visible = true;

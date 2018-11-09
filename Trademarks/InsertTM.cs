@@ -960,14 +960,25 @@ namespace Trademarks
         private void btnTmGrNoSelector_Click(object sender, EventArgs e)
         {
             //NatTmSelector frmNatTmSel = new NatTmSelector();
-            NatTmSelectorDevEx frmNatTmSel = new NatTmSelectorDevEx();
+            //NatTmSelectorDevEx frmNatTmSel = new NatTmSelectorDevEx();
+            NatTmSelectorDevEx frmNatTmSel;
+
+            if (rbKoinotiko.Checked) //Κοινοτικό
+            {
+                frmNatTmSel = new NatTmSelectorDevEx("1");
+            }
+            else //rbDiethnes.Checked //Διεθνές
+            {
+                frmNatTmSel = new NatTmSelectorDevEx("1, 2");
+            }
+
             frmNatTmSel.ShowDialog();
 
             if (frmNatTmSel.succeed)
             {
                 txtTMGrId.Text = frmNatTmSel.TMGrNo;
 
-                if (MessageBox.Show("Θέλετε να μεταφερθούν από το εθνικό σήμα τα παρακάτω πεδία; \r\n" + 
+                if (MessageBox.Show("Θέλετε να μεταφερθούν από το σήμα που επιλέξατε τα παρακάτω πεδία; \r\n" + 
                     "-> Εταιρία\r\n" +
                     "-> Ονομ/μο Δικηγόρου\r\n" +
                     "-> Τύπος\r\n" +

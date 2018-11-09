@@ -140,8 +140,11 @@
             // 
             // colNationalPowerName
             // 
+            this.colNationalPowerName.Caption = "Εθνική Ισχύς";
             this.colNationalPowerName.FieldName = "NationalPowerName";
             this.colNationalPowerName.Name = "colNationalPowerName";
+            this.colNationalPowerName.Visible = true;
+            this.colNationalPowerName.VisibleIndex = 6;
             // 
             // colResponsibleLawyerName
             // 
