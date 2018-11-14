@@ -229,7 +229,7 @@ namespace Trademarks
         private void tsmiViewTM_Click(object sender, EventArgs e)
         {
             //Select
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 //int dgvIndex = dgvAlerts.SelectedRows[0].Index;
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TrademarksId"]).ToString());
@@ -246,7 +246,7 @@ namespace Trademarks
 
         private void tsmiRecipients_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TrademarksId"]).ToString());
                 int alarm_Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());

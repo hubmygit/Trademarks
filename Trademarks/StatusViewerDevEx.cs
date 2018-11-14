@@ -870,75 +870,82 @@ namespace Trademarks
 
         private void tsmiUpdate_Click(object sender, EventArgs e)
         {
-            int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
-            TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-            if (tms.StatusId == 1)
-            {
-                UpdDeposit();
-            }
-            else if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4)
-            {
-                UpdDecision();
-            }
-            else if (tms.StatusId == 5)
-            {
-                UpdAppeal();
-            }
-            else if (tms.StatusId == 6)
-            {
-                UpdTermination();
-            }
-            else if (tms.StatusId == 7 || tms.StatusId == 8)
-            {
-                UpdFinalization();
-            }
-            else if (tms.StatusId == 9)
-            {
-                UpdRenewal();
+                if (tms.StatusId == 1)
+                {
+                    UpdDeposit();
+                }
+                else if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4)
+                {
+                    UpdDecision();
+                }
+                else if (tms.StatusId == 5)
+                {
+                    UpdAppeal();
+                }
+                else if (tms.StatusId == 6)
+                {
+                    UpdTermination();
+                }
+                else if (tms.StatusId == 7 || tms.StatusId == 8)
+                {
+                    UpdFinalization();
+                }
+                else if (tms.StatusId == 9)
+                {
+                    UpdRenewal();
+                }
+
             }
         }
 
         private void tsmiDelete_Click(object sender, EventArgs e)
         {
-            int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
-            TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
+            {
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-            if (tms.StatusId == 1)
-            {
-                DelDeposit();
-            }
-            else if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4)
-            {
-                DelDecision();
-            }
-            else if (tms.StatusId == 5)
-            {
-                DelAppeal();
-            }
-            else if (tms.StatusId == 6)
-            {
-                DelTermination();
-            }
-            else if (tms.StatusId == 7 || tms.StatusId == 8)
-            {
-                //DelFinalization();
+                if (tms.StatusId == 1)
+                {
+                    DelDeposit();
+                }
+                else if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4)
+                {
+                    DelDecision();
+                }
+                else if (tms.StatusId == 5)
+                {
+                    DelAppeal();
+                }
+                else if (tms.StatusId == 6)
+                {
+                    DelTermination();
+                }
+                else if (tms.StatusId == 7 || tms.StatusId == 8)
+                {
+                    //DelFinalization();
 
-                MessageBox.Show("Προσοχή! Δεν επιτρέπεται η διαγραφή της Οριστικοποίησης.");
-                return;
-            }
-            else if (tms.StatusId == 9)
-            {
-                //DelRenewal();
+                    MessageBox.Show("Προσοχή! Δεν επιτρέπεται η διαγραφή της Οριστικοποίησης.");
+                    return;
+                }
+                else if (tms.StatusId == 9)
+                {
+                    //DelRenewal();
 
-                MessageBox.Show("Προσοχή! Δεν επιτρέπεται η διαγραφή της Ανανέωσης.");
-                return;
+                    MessageBox.Show("Προσοχή! Δεν επιτρέπεται η διαγραφή της Ανανέωσης.");
+                    return;
+                }
             }
         }
 
         private void tsmiOpenFinUrl_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 string url = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["FinalizedUrl"]).ToString();
 
@@ -955,29 +962,32 @@ namespace Trademarks
 
         private void tsmiFiles_Click(object sender, EventArgs e)
         {
-            int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
-            TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
-
-            if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4 || tms.StatusId == 5 || tms.StatusId == 6)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
-                SampleFiles frmFiles = new SampleFiles(tms.Id);
-                if (frmFiles.filesCnt > 0)
-                {
-                    frmFiles.btnAddFiles.Enabled = false;
-                    frmFiles.btnRemoveFile.Enabled = false;
-                    frmFiles.btnRemoveAll.Enabled = false;
-                    frmFiles.btnSave.Enabled = false;
+                int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
+                TM_Status tms = tmStatusList.Where(i => i.Id == Id).First();
 
-                    frmFiles.ShowDialog();
+                if (tms.StatusId == 2 || tms.StatusId == 3 || tms.StatusId == 4 || tms.StatusId == 5 || tms.StatusId == 6)
+                {
+                    SampleFiles frmFiles = new SampleFiles(tms.Id);
+                    if (frmFiles.filesCnt > 0)
+                    {
+                        frmFiles.btnAddFiles.Enabled = false;
+                        frmFiles.btnRemoveFile.Enabled = false;
+                        frmFiles.btnRemoveAll.Enabled = false;
+                        frmFiles.btnSave.Enabled = false;
+
+                        frmFiles.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Δεν υπάρχουν καταχωρημένα αρχεία!");
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Δεν υπάρχουν καταχωρημένα αρχεία!");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Δεν υπάρχουν καταχωρημένα αρχεία!");
             }
         }
 

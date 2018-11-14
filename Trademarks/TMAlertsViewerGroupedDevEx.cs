@@ -119,7 +119,7 @@ namespace Trademarks
         private void tsmiViewTM_Click(object sender, EventArgs e)
         {
             //Select
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TrademarksId"]).ToString());
                 Trademark thisTmRec = new Trademark(Id);
@@ -136,7 +136,7 @@ namespace Trademarks
 
         private void tsmiRecipients_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TrademarksId"]).ToString());
                 int alarm_Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
@@ -160,7 +160,7 @@ namespace Trademarks
 
         private void tsmiAnalyticalView_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 string TMNo = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TMNo"]).ToString();
                 string TMName = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["TMName"]).ToString();
@@ -175,11 +175,11 @@ namespace Trademarks
 
                 if (frmAlertsView.gridView1.ActiveFilterString is null || frmAlertsView.gridView1.ActiveFilterString.Trim() == "")
                 {
-                    frmAlertsView.gridView1.ActiveFilterString += " [TMNo] = '" + TMNo + "' AND [TMName] = '" + TMNo + "' ";
+                    frmAlertsView.gridView1.ActiveFilterString += " [TMNo] = '" + TMNo + "' AND [TMName] = '" + TMName + "' ";
                 }
                 else
                 {
-                    frmAlertsView.gridView1.ActiveFilterString += " AND [TMNo] = '" + TMNo + "' AND [TMName] = '" + TMNo + "' ";
+                    frmAlertsView.gridView1.ActiveFilterString += " AND [TMNo] = '" + TMNo + "' AND [TMName] = '" + TMName + "' ";
                 }
 
                 frmAlertsView.ShowDialog();

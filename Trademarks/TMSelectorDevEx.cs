@@ -99,7 +99,7 @@ namespace Trademarks
 
         private void tsmiDecision_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -114,7 +114,7 @@ namespace Trademarks
 
         private void tsmiAppeal_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -129,7 +129,7 @@ namespace Trademarks
 
         private void tsmiTermination_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -144,7 +144,7 @@ namespace Trademarks
 
         private void tsmiFinalization_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -159,7 +159,7 @@ namespace Trademarks
 
         private void tsmiRenewal_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -174,7 +174,7 @@ namespace Trademarks
 
         private void tsmiStatusViewer_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
 
@@ -192,7 +192,7 @@ namespace Trademarks
 
         private void tsmiAlertsViewer_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
 
@@ -244,7 +244,7 @@ namespace Trademarks
         private void tsmiDelTM_Click(object sender, EventArgs e)
         {
             // Delete
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark tm = tempRecList.Where(i => i.Id == Id).First();
@@ -333,7 +333,7 @@ namespace Trademarks
 
         private void tsmiOpenUrl_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -367,7 +367,7 @@ namespace Trademarks
                      
         private void tsmiViewTM_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark thisTmpRec = tempRecList.Where(i => i.Id == Id).First();
@@ -386,7 +386,7 @@ namespace Trademarks
 
         private void tsmiTmLog_Click(object sender, EventArgs e)
         {
-            if (gridView1.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0 && gridView1.GetSelectedRows()[0] >= 0)
             {
                 int Id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], gridView1.Columns["Id"]).ToString());
                 Trademark tm = tempRecList.Where(i => i.Id == Id).First();
