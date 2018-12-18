@@ -605,11 +605,17 @@ namespace Trademarks
             foreach (Responsible recipient in responsibleList)
             {
                 bool IsChecked = false;
-                if (recipient.Id == TMRecord.ResponsibleLawyerId)
+                if (recipient.Id == TMRecord.ResponsibleLawyerId || recipient.ReceiveAllAlerts == true)
                 {
                     IsChecked = true;
                 }
                 frmAlarms.dgvRecipients.Rows.Add(new object[] { recipient.Id, IsChecked, recipient.FullName, recipient.Email });
+
+                if (recipient.ReceiveAllAlerts == true) //make read only
+                {
+                    frmAlarms.dgvRecipients.Rows[frmAlarms.dgvRecipients.Rows.Count - 1].ReadOnly = true;
+                    frmAlarms.dgvRecipients.Rows[frmAlarms.dgvRecipients.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGray;
+                }
             }
 
             foreach (Responsible recipient in secretariesList)

@@ -1292,6 +1292,7 @@ namespace Trademarks
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public bool ReceiveAllAlerts { get; set; }
         public Responsible()
         {
         }
@@ -1301,7 +1302,7 @@ namespace Trademarks
             List<Responsible> ret = new List<Responsible>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, FullName, Email FROM [dbo].[Responsible] ORDER BY Id";
+            string SelectSt = "SELECT Id, FullName, Email, isnull([ReceiveAllAlerts], 'FALSE') as ReceiveAllAlerts FROM [dbo].[Responsible] ORDER BY Id";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1313,6 +1314,7 @@ namespace Trademarks
                     resp.Id = Convert.ToInt32(reader["Id"].ToString());
                     resp.FullName = reader["FullName"].ToString();
                     resp.Email = reader["Email"].ToString();
+                    resp.ReceiveAllAlerts = Convert.ToBoolean(reader["ReceiveAllAlerts"].ToString());
                     ret.Add(resp); 
                 }
                 reader.Close();
