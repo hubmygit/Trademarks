@@ -40,6 +40,10 @@ namespace Trademarks
             UserInfo.UserLogIn();
             
             frmIntro.setLoginLabel("Starting...");
+            
+            //add forgotten attachments
+            //byte[] attFileBytes = System.IO.File.ReadAllBytes(@"C:\TrademarkApps\Trademarks\246883 - ΕΞ 1627.30.03.2018.pdf");
+            //(new SampleFiles()).InertIntoTable_SampleFiles(29, "246883 - ΕΞ 1627.30.03.2018.pdf", attFileBytes);
 
             frmIntro.closeForm();
 

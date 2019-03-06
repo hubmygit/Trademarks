@@ -424,7 +424,7 @@ namespace Trademarks
             return ret;
         }
 
-        private bool InertIntoTable_SampleFiles(int Id, string fileName, byte[] fileBytes) //INSERT [dbo].[SampleFiles]
+        public bool InertIntoTable_SampleFiles(int Id, string fileName, byte[] fileBytes) //INSERT [dbo].[SampleFiles]
         {
             bool ret = false;
 
